@@ -21,6 +21,7 @@ type SchemasServiceClient interface {
 	ListSchemas(ctx context.Context, in *ListSchemasRequest, opts ...grpc.CallOption) (*ListSchemasResponse, error)
 	GetSchema(ctx context.Context, in *GetSchemaRequest, opts ...grpc.CallOption) (*GetSchemaResponse, error)
 	CreateSchema(ctx context.Context, in *CreateSchemaRequest, opts ...grpc.CallOption) (*CreateSchemaResponse, error)
+	GetSchemaCode(ctx context.Context, in *GetSchemaCodeRequest, opts ...grpc.CallOption) (*GetSchemaCodeResponse, error)
 }
 
 type schemasServiceClient struct {
@@ -58,6 +59,15 @@ func (c *schemasServiceClient) CreateSchema(ctx context.Context, in *CreateSchem
 	return out, nil
 }
 
+func (c *schemasServiceClient) GetSchemaCode(ctx context.Context, in *GetSchemaCodeRequest, opts ...grpc.CallOption) (*GetSchemaCodeResponse, error) {
+	out := new(GetSchemaCodeResponse)
+	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/GetSchemaCode", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SchemasServiceServer is the server API for SchemasService service.
 // All implementations must embed UnimplementedSchemasServiceServer
 // for forward compatibility
@@ -65,6 +75,7 @@ type SchemasServiceServer interface {
 	ListSchemas(context.Context, *ListSchemasRequest) (*ListSchemasResponse, error)
 	GetSchema(context.Context, *GetSchemaRequest) (*GetSchemaResponse, error)
 	CreateSchema(context.Context, *CreateSchemaRequest) (*CreateSchemaResponse, error)
+	GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error)
 	mustEmbedUnimplementedSchemasServiceServer()
 }
 
@@ -80,6 +91,9 @@ func (UnimplementedSchemasServiceServer) GetSchema(context.Context, *GetSchemaRe
 }
 func (UnimplementedSchemasServiceServer) CreateSchema(context.Context, *CreateSchemaRequest) (*CreateSchemaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSchema not implemented")
+}
+func (UnimplementedSchemasServiceServer) GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSchemaCode not implemented")
 }
 func (UnimplementedSchemasServiceServer) mustEmbedUnimplementedSchemasServiceServer() {}
 
@@ -148,6 +162,24 @@ func _SchemasService_CreateSchema_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SchemasService_GetSchemaCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSchemaCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchemasServiceServer).GetSchemaCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/streammachine.api.schemas.v1.SchemasService/GetSchemaCode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchemasServiceServer).GetSchemaCode(ctx, req.(*GetSchemaCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SchemasService_ServiceDesc is the grpc.ServiceDesc for SchemasService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -166,6 +198,10 @@ var SchemasService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateSchema",
 			Handler:    _SchemasService_CreateSchema_Handler,
+		},
+		{
+			MethodName: "GetSchemaCode",
+			Handler:    _SchemasService_GetSchemaCode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
