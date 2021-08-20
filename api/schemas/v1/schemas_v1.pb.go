@@ -22,6 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// List Schemas, with optional filters. All filters behave as AND conditions. OR is not possible.
 type ListSchemasRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
