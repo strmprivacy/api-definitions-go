@@ -21,6 +21,7 @@ type EventContractsServiceClient interface {
 	ListEventContracts(ctx context.Context, in *ListEventContractsRequest, opts ...grpc.CallOption) (*ListEventContractsResponse, error)
 	GetEventContract(ctx context.Context, in *GetEventContractRequest, opts ...grpc.CallOption) (*GetEventContractResponse, error)
 	CreateEventContract(ctx context.Context, in *CreateEventContractRequest, opts ...grpc.CallOption) (*CreateEventContractResponse, error)
+	UpdateEventContract(ctx context.Context, in *UpdateEventContractRequest, opts ...grpc.CallOption) (*UpdateEventContractResponse, error)
 }
 
 type eventContractsServiceClient struct {
@@ -58,6 +59,15 @@ func (c *eventContractsServiceClient) CreateEventContract(ctx context.Context, i
 	return out, nil
 }
 
+func (c *eventContractsServiceClient) UpdateEventContract(ctx context.Context, in *UpdateEventContractRequest, opts ...grpc.CallOption) (*UpdateEventContractResponse, error) {
+	out := new(UpdateEventContractResponse)
+	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/UpdateEventContract", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EventContractsServiceServer is the server API for EventContractsService service.
 // All implementations must embed UnimplementedEventContractsServiceServer
 // for forward compatibility
@@ -65,6 +75,7 @@ type EventContractsServiceServer interface {
 	ListEventContracts(context.Context, *ListEventContractsRequest) (*ListEventContractsResponse, error)
 	GetEventContract(context.Context, *GetEventContractRequest) (*GetEventContractResponse, error)
 	CreateEventContract(context.Context, *CreateEventContractRequest) (*CreateEventContractResponse, error)
+	UpdateEventContract(context.Context, *UpdateEventContractRequest) (*UpdateEventContractResponse, error)
 	mustEmbedUnimplementedEventContractsServiceServer()
 }
 
@@ -80,6 +91,9 @@ func (UnimplementedEventContractsServiceServer) GetEventContract(context.Context
 }
 func (UnimplementedEventContractsServiceServer) CreateEventContract(context.Context, *CreateEventContractRequest) (*CreateEventContractResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateEventContract not implemented")
+}
+func (UnimplementedEventContractsServiceServer) UpdateEventContract(context.Context, *UpdateEventContractRequest) (*UpdateEventContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateEventContract not implemented")
 }
 func (UnimplementedEventContractsServiceServer) mustEmbedUnimplementedEventContractsServiceServer() {}
 
@@ -148,6 +162,24 @@ func _EventContractsService_CreateEventContract_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EventContractsService_UpdateEventContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateEventContractRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventContractsServiceServer).UpdateEventContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/UpdateEventContract",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventContractsServiceServer).UpdateEventContract(ctx, req.(*UpdateEventContractRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EventContractsService_ServiceDesc is the grpc.ServiceDesc for EventContractsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -166,6 +198,10 @@ var EventContractsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateEventContract",
 			Handler:    _EventContractsService_CreateEventContract_Handler,
+		},
+		{
+			MethodName: "UpdateEventContract",
+			Handler:    _EventContractsService_UpdateEventContract_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

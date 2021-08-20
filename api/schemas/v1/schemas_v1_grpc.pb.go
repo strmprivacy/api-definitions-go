@@ -21,6 +21,7 @@ type SchemasServiceClient interface {
 	ListSchemas(ctx context.Context, in *ListSchemasRequest, opts ...grpc.CallOption) (*ListSchemasResponse, error)
 	GetSchema(ctx context.Context, in *GetSchemaRequest, opts ...grpc.CallOption) (*GetSchemaResponse, error)
 	CreateSchema(ctx context.Context, in *CreateSchemaRequest, opts ...grpc.CallOption) (*CreateSchemaResponse, error)
+	UpdateSchema(ctx context.Context, in *UpdateSchemaRequest, opts ...grpc.CallOption) (*UpdateSchemaResponse, error)
 	GetSchemaCode(ctx context.Context, in *GetSchemaCodeRequest, opts ...grpc.CallOption) (*GetSchemaCodeResponse, error)
 }
 
@@ -59,6 +60,15 @@ func (c *schemasServiceClient) CreateSchema(ctx context.Context, in *CreateSchem
 	return out, nil
 }
 
+func (c *schemasServiceClient) UpdateSchema(ctx context.Context, in *UpdateSchemaRequest, opts ...grpc.CallOption) (*UpdateSchemaResponse, error) {
+	out := new(UpdateSchemaResponse)
+	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/UpdateSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *schemasServiceClient) GetSchemaCode(ctx context.Context, in *GetSchemaCodeRequest, opts ...grpc.CallOption) (*GetSchemaCodeResponse, error) {
 	out := new(GetSchemaCodeResponse)
 	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/GetSchemaCode", in, out, opts...)
@@ -75,6 +85,7 @@ type SchemasServiceServer interface {
 	ListSchemas(context.Context, *ListSchemasRequest) (*ListSchemasResponse, error)
 	GetSchema(context.Context, *GetSchemaRequest) (*GetSchemaResponse, error)
 	CreateSchema(context.Context, *CreateSchemaRequest) (*CreateSchemaResponse, error)
+	UpdateSchema(context.Context, *UpdateSchemaRequest) (*UpdateSchemaResponse, error)
 	GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error)
 	mustEmbedUnimplementedSchemasServiceServer()
 }
@@ -91,6 +102,9 @@ func (UnimplementedSchemasServiceServer) GetSchema(context.Context, *GetSchemaRe
 }
 func (UnimplementedSchemasServiceServer) CreateSchema(context.Context, *CreateSchemaRequest) (*CreateSchemaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSchema not implemented")
+}
+func (UnimplementedSchemasServiceServer) UpdateSchema(context.Context, *UpdateSchemaRequest) (*UpdateSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSchema not implemented")
 }
 func (UnimplementedSchemasServiceServer) GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchemaCode not implemented")
@@ -162,6 +176,24 @@ func _SchemasService_CreateSchema_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SchemasService_UpdateSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateSchemaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchemasServiceServer).UpdateSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/streammachine.api.schemas.v1.SchemasService/UpdateSchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchemasServiceServer).UpdateSchema(ctx, req.(*UpdateSchemaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SchemasService_GetSchemaCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetSchemaCodeRequest)
 	if err := dec(in); err != nil {
@@ -198,6 +230,10 @@ var SchemasService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateSchema",
 			Handler:    _SchemasService_CreateSchema_Handler,
+		},
+		{
+			MethodName: "UpdateSchema",
+			Handler:    _SchemasService_UpdateSchema_Handler,
 		},
 		{
 			MethodName: "GetSchemaCode",
