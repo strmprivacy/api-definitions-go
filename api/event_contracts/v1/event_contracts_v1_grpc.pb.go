@@ -22,11 +22,6 @@ type EventContractsServiceClient interface {
 	GetEventContract(ctx context.Context, in *GetEventContractRequest, opts ...grpc.CallOption) (*GetEventContractResponse, error)
 	CreateEventContract(ctx context.Context, in *CreateEventContractRequest, opts ...grpc.CallOption) (*CreateEventContractResponse, error)
 	UpdateEventContract(ctx context.Context, in *UpdateEventContractRequest, opts ...grpc.CallOption) (*UpdateEventContractResponse, error)
-	AddLabels(ctx context.Context, in *AddLabelsRequest, opts ...grpc.CallOption) (*AddLabelsResponse, error)
-	// (-- api-linter: core::0134::synonyms=disabled
-	//     aip.dev/not-precedent: We use Set to update only one part of the entity. --)
-	SetLabels(ctx context.Context, in *SetLabelsRequest, opts ...grpc.CallOption) (*SetLabelsResponse, error)
-	RemoveLabels(ctx context.Context, in *RemoveLabelsRequest, opts ...grpc.CallOption) (*RemoveLabelsResponse, error)
 }
 
 type eventContractsServiceClient struct {
@@ -73,33 +68,6 @@ func (c *eventContractsServiceClient) UpdateEventContract(ctx context.Context, i
 	return out, nil
 }
 
-func (c *eventContractsServiceClient) AddLabels(ctx context.Context, in *AddLabelsRequest, opts ...grpc.CallOption) (*AddLabelsResponse, error) {
-	out := new(AddLabelsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/AddLabels", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *eventContractsServiceClient) SetLabels(ctx context.Context, in *SetLabelsRequest, opts ...grpc.CallOption) (*SetLabelsResponse, error) {
-	out := new(SetLabelsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/SetLabels", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *eventContractsServiceClient) RemoveLabels(ctx context.Context, in *RemoveLabelsRequest, opts ...grpc.CallOption) (*RemoveLabelsResponse, error) {
-	out := new(RemoveLabelsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/RemoveLabels", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // EventContractsServiceServer is the server API for EventContractsService service.
 // All implementations must embed UnimplementedEventContractsServiceServer
 // for forward compatibility
@@ -108,11 +76,6 @@ type EventContractsServiceServer interface {
 	GetEventContract(context.Context, *GetEventContractRequest) (*GetEventContractResponse, error)
 	CreateEventContract(context.Context, *CreateEventContractRequest) (*CreateEventContractResponse, error)
 	UpdateEventContract(context.Context, *UpdateEventContractRequest) (*UpdateEventContractResponse, error)
-	AddLabels(context.Context, *AddLabelsRequest) (*AddLabelsResponse, error)
-	// (-- api-linter: core::0134::synonyms=disabled
-	//     aip.dev/not-precedent: We use Set to update only one part of the entity. --)
-	SetLabels(context.Context, *SetLabelsRequest) (*SetLabelsResponse, error)
-	RemoveLabels(context.Context, *RemoveLabelsRequest) (*RemoveLabelsResponse, error)
 	mustEmbedUnimplementedEventContractsServiceServer()
 }
 
@@ -131,15 +94,6 @@ func (UnimplementedEventContractsServiceServer) CreateEventContract(context.Cont
 }
 func (UnimplementedEventContractsServiceServer) UpdateEventContract(context.Context, *UpdateEventContractRequest) (*UpdateEventContractResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateEventContract not implemented")
-}
-func (UnimplementedEventContractsServiceServer) AddLabels(context.Context, *AddLabelsRequest) (*AddLabelsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddLabels not implemented")
-}
-func (UnimplementedEventContractsServiceServer) SetLabels(context.Context, *SetLabelsRequest) (*SetLabelsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetLabels not implemented")
-}
-func (UnimplementedEventContractsServiceServer) RemoveLabels(context.Context, *RemoveLabelsRequest) (*RemoveLabelsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveLabels not implemented")
 }
 func (UnimplementedEventContractsServiceServer) mustEmbedUnimplementedEventContractsServiceServer() {}
 
@@ -226,60 +180,6 @@ func _EventContractsService_UpdateEventContract_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EventContractsService_AddLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddLabelsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(EventContractsServiceServer).AddLabels(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/AddLabels",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EventContractsServiceServer).AddLabels(ctx, req.(*AddLabelsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _EventContractsService_SetLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetLabelsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(EventContractsServiceServer).SetLabels(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/SetLabels",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EventContractsServiceServer).SetLabels(ctx, req.(*SetLabelsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _EventContractsService_RemoveLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveLabelsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(EventContractsServiceServer).RemoveLabels(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/RemoveLabels",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EventContractsServiceServer).RemoveLabels(ctx, req.(*RemoveLabelsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // EventContractsService_ServiceDesc is the grpc.ServiceDesc for EventContractsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -302,18 +202,6 @@ var EventContractsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateEventContract",
 			Handler:    _EventContractsService_UpdateEventContract_Handler,
-		},
-		{
-			MethodName: "AddLabels",
-			Handler:    _EventContractsService_AddLabels_Handler,
-		},
-		{
-			MethodName: "SetLabels",
-			Handler:    _EventContractsService_SetLabels_Handler,
-		},
-		{
-			MethodName: "RemoveLabels",
-			Handler:    _EventContractsService_RemoveLabels_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

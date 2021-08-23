@@ -23,11 +23,6 @@ type SchemasServiceClient interface {
 	CreateSchema(ctx context.Context, in *CreateSchemaRequest, opts ...grpc.CallOption) (*CreateSchemaResponse, error)
 	UpdateSchema(ctx context.Context, in *UpdateSchemaRequest, opts ...grpc.CallOption) (*UpdateSchemaResponse, error)
 	GetSchemaCode(ctx context.Context, in *GetSchemaCodeRequest, opts ...grpc.CallOption) (*GetSchemaCodeResponse, error)
-	AddLabels(ctx context.Context, in *AddLabelsRequest, opts ...grpc.CallOption) (*AddLabelsResponse, error)
-	// (-- api-linter: core::0134::synonyms=disabled
-	//     aip.dev/not-precedent: We use Set to update only one part of the entity. --)
-	SetLabels(ctx context.Context, in *SetLabelsRequest, opts ...grpc.CallOption) (*SetLabelsResponse, error)
-	RemoveLabels(ctx context.Context, in *RemoveLabelsRequest, opts ...grpc.CallOption) (*RemoveLabelsResponse, error)
 }
 
 type schemasServiceClient struct {
@@ -83,33 +78,6 @@ func (c *schemasServiceClient) GetSchemaCode(ctx context.Context, in *GetSchemaC
 	return out, nil
 }
 
-func (c *schemasServiceClient) AddLabels(ctx context.Context, in *AddLabelsRequest, opts ...grpc.CallOption) (*AddLabelsResponse, error) {
-	out := new(AddLabelsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/AddLabels", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *schemasServiceClient) SetLabels(ctx context.Context, in *SetLabelsRequest, opts ...grpc.CallOption) (*SetLabelsResponse, error) {
-	out := new(SetLabelsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/SetLabels", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *schemasServiceClient) RemoveLabels(ctx context.Context, in *RemoveLabelsRequest, opts ...grpc.CallOption) (*RemoveLabelsResponse, error) {
-	out := new(RemoveLabelsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/RemoveLabels", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // SchemasServiceServer is the server API for SchemasService service.
 // All implementations must embed UnimplementedSchemasServiceServer
 // for forward compatibility
@@ -119,11 +87,6 @@ type SchemasServiceServer interface {
 	CreateSchema(context.Context, *CreateSchemaRequest) (*CreateSchemaResponse, error)
 	UpdateSchema(context.Context, *UpdateSchemaRequest) (*UpdateSchemaResponse, error)
 	GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error)
-	AddLabels(context.Context, *AddLabelsRequest) (*AddLabelsResponse, error)
-	// (-- api-linter: core::0134::synonyms=disabled
-	//     aip.dev/not-precedent: We use Set to update only one part of the entity. --)
-	SetLabels(context.Context, *SetLabelsRequest) (*SetLabelsResponse, error)
-	RemoveLabels(context.Context, *RemoveLabelsRequest) (*RemoveLabelsResponse, error)
 	mustEmbedUnimplementedSchemasServiceServer()
 }
 
@@ -145,15 +108,6 @@ func (UnimplementedSchemasServiceServer) UpdateSchema(context.Context, *UpdateSc
 }
 func (UnimplementedSchemasServiceServer) GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchemaCode not implemented")
-}
-func (UnimplementedSchemasServiceServer) AddLabels(context.Context, *AddLabelsRequest) (*AddLabelsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddLabels not implemented")
-}
-func (UnimplementedSchemasServiceServer) SetLabels(context.Context, *SetLabelsRequest) (*SetLabelsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetLabels not implemented")
-}
-func (UnimplementedSchemasServiceServer) RemoveLabels(context.Context, *RemoveLabelsRequest) (*RemoveLabelsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveLabels not implemented")
 }
 func (UnimplementedSchemasServiceServer) mustEmbedUnimplementedSchemasServiceServer() {}
 
@@ -258,60 +212,6 @@ func _SchemasService_GetSchemaCode_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SchemasService_AddLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddLabelsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SchemasServiceServer).AddLabels(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/streammachine.api.schemas.v1.SchemasService/AddLabels",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SchemasServiceServer).AddLabels(ctx, req.(*AddLabelsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _SchemasService_SetLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetLabelsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SchemasServiceServer).SetLabels(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/streammachine.api.schemas.v1.SchemasService/SetLabels",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SchemasServiceServer).SetLabels(ctx, req.(*SetLabelsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _SchemasService_RemoveLabels_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveLabelsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SchemasServiceServer).RemoveLabels(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/streammachine.api.schemas.v1.SchemasService/RemoveLabels",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SchemasServiceServer).RemoveLabels(ctx, req.(*RemoveLabelsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // SchemasService_ServiceDesc is the grpc.ServiceDesc for SchemasService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -338,18 +238,6 @@ var SchemasService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSchemaCode",
 			Handler:    _SchemasService_GetSchemaCode_Handler,
-		},
-		{
-			MethodName: "AddLabels",
-			Handler:    _SchemasService_AddLabels_Handler,
-		},
-		{
-			MethodName: "SetLabels",
-			Handler:    _SchemasService_SetLabels_Handler,
-		},
-		{
-			MethodName: "RemoveLabels",
-			Handler:    _SchemasService_RemoveLabels_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
