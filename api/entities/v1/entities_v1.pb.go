@@ -288,6 +288,55 @@ func (SchemaType) EnumDescriptor() ([]byte, []int) {
 	return file_streammachine_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{4}
 }
 
+type FilterPublicPrivate int32
+
+const (
+	FilterPublicPrivate_FILTER_PUBLIC_PRIVATE_UNSPECIFIED FilterPublicPrivate = 0
+	FilterPublicPrivate_ONLY_PUBLIC                       FilterPublicPrivate = 1
+	FilterPublicPrivate_ONLY_PRIVATE                      FilterPublicPrivate = 2
+)
+
+// Enum value maps for FilterPublicPrivate.
+var (
+	FilterPublicPrivate_name = map[int32]string{
+		0: "FILTER_PUBLIC_PRIVATE_UNSPECIFIED",
+		1: "ONLY_PUBLIC",
+		2: "ONLY_PRIVATE",
+	}
+	FilterPublicPrivate_value = map[string]int32{
+		"FILTER_PUBLIC_PRIVATE_UNSPECIFIED": 0,
+		"ONLY_PUBLIC":                       1,
+		"ONLY_PRIVATE":                      2,
+	}
+)
+
+func (x FilterPublicPrivate) Enum() *FilterPublicPrivate {
+	p := new(FilterPublicPrivate)
+	*p = x
+	return p
+}
+
+func (x FilterPublicPrivate) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (FilterPublicPrivate) Descriptor() protoreflect.EnumDescriptor {
+	return file_streammachine_api_entities_v1_entities_v1_proto_enumTypes[5].Descriptor()
+}
+
+func (FilterPublicPrivate) Type() protoreflect.EnumType {
+	return &file_streammachine_api_entities_v1_entities_v1_proto_enumTypes[5]
+}
+
+func (x FilterPublicPrivate) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use FilterPublicPrivate.Descriptor instead.
+func (FilterPublicPrivate) EnumDescriptor() ([]byte, []int) {
+	return file_streammachine_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{5}
+}
+
 //
 //Streams are source or derived streams depending on whether or not linked_stream is null.
 //Key streams are a separate entity in the api.
@@ -2936,15 +2985,21 @@ var file_streammachine_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x61, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1b, 0x0a, 0x17, 0x53, 0x43, 0x48, 0x45, 0x4d, 0x41, 0x5f,
 	0x54, 0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44,
 	0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x41, 0x56, 0x52, 0x4f, 0x10, 0x01, 0x12, 0x0e, 0x0a, 0x0a,
-	0x4a, 0x53, 0x4f, 0x4e, 0x53, 0x43, 0x48, 0x45, 0x4d, 0x41, 0x10, 0x02, 0x42, 0x6c, 0x0a, 0x20,
-	0x69, 0x6f, 0x2e, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x6d, 0x61, 0x63, 0x68, 0x69, 0x6e, 0x65,
-	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31,
-	0x50, 0x01, 0x5a, 0x46, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73,
-	0x74, 0x72, 0x65, 0x61, 0x6d, 0x6d, 0x61, 0x63, 0x68, 0x69, 0x6e, 0x65, 0x69, 0x6f, 0x2f, 0x61,
-	0x70, 0x69, 0x2d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2d, 0x67,
-	0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2f, 0x76,
-	0x31, 0x3b, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x33,
+	0x4a, 0x53, 0x4f, 0x4e, 0x53, 0x43, 0x48, 0x45, 0x4d, 0x41, 0x10, 0x02, 0x2a, 0x5f, 0x0a, 0x13,
+	0x46, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x50, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x50, 0x72, 0x69, 0x76,
+	0x61, 0x74, 0x65, 0x12, 0x25, 0x0a, 0x21, 0x46, 0x49, 0x4c, 0x54, 0x45, 0x52, 0x5f, 0x50, 0x55,
+	0x42, 0x4c, 0x49, 0x43, 0x5f, 0x50, 0x52, 0x49, 0x56, 0x41, 0x54, 0x45, 0x5f, 0x55, 0x4e, 0x53,
+	0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0f, 0x0a, 0x0b, 0x4f, 0x4e,
+	0x4c, 0x59, 0x5f, 0x50, 0x55, 0x42, 0x4c, 0x49, 0x43, 0x10, 0x01, 0x12, 0x10, 0x0a, 0x0c, 0x4f,
+	0x4e, 0x4c, 0x59, 0x5f, 0x50, 0x52, 0x49, 0x56, 0x41, 0x54, 0x45, 0x10, 0x02, 0x42, 0x6c, 0x0a,
+	0x20, 0x69, 0x6f, 0x2e, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x6d, 0x61, 0x63, 0x68, 0x69, 0x6e,
+	0x65, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76,
+	0x31, 0x50, 0x01, 0x5a, 0x46, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
+	0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x6d, 0x61, 0x63, 0x68, 0x69, 0x6e, 0x65, 0x69, 0x6f, 0x2f,
+	0x61, 0x70, 0x69, 0x2d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2d,
+	0x67, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2f,
+	0x76, 0x31, 0x3b, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2959,7 +3014,7 @@ func file_streammachine_api_entities_v1_entities_v1_proto_rawDescGZIP() []byte {
 	return file_streammachine_api_entities_v1_entities_v1_proto_rawDescData
 }
 
-var file_streammachine_api_entities_v1_entities_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
+var file_streammachine_api_entities_v1_entities_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 6)
 var file_streammachine_api_entities_v1_entities_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
 var file_streammachine_api_entities_v1_entities_v1_proto_goTypes = []interface{}{
 	(ConsentLevelType)(0),          // 0: streammachine.api.entities.v1.ConsentLevelType
@@ -2967,87 +3022,88 @@ var file_streammachine_api_entities_v1_entities_v1_proto_goTypes = []interface{}
 	(AuthMechanism)(0),             // 2: streammachine.api.entities.v1.AuthMechanism
 	(State)(0),                     // 3: streammachine.api.entities.v1.State
 	(SchemaType)(0),                // 4: streammachine.api.entities.v1.SchemaType
-	(*Stream)(nil),                 // 5: streammachine.api.entities.v1.Stream
-	(*Limits)(nil),                 // 6: streammachine.api.entities.v1.Limits
-	(*KeyStream)(nil),              // 7: streammachine.api.entities.v1.KeyStream
-	(*StreamRef)(nil),              // 8: streammachine.api.entities.v1.StreamRef
-	(*KeyStreamRef)(nil),           // 9: streammachine.api.entities.v1.KeyStreamRef
-	(*Credentials)(nil),            // 10: streammachine.api.entities.v1.Credentials
-	(*Sink)(nil),                   // 11: streammachine.api.entities.v1.Sink
-	(*SinkRef)(nil),                // 12: streammachine.api.entities.v1.SinkRef
-	(*BucketConfig)(nil),           // 13: streammachine.api.entities.v1.BucketConfig
-	(*BatchExporter)(nil),          // 14: streammachine.api.entities.v1.BatchExporter
-	(*BatchExporterRef)(nil),       // 15: streammachine.api.entities.v1.BatchExporterRef
-	(*KafkaCluster)(nil),           // 16: streammachine.api.entities.v1.KafkaCluster
-	(*KafkaClusterRef)(nil),        // 17: streammachine.api.entities.v1.KafkaClusterRef
-	(*KafkaExporter)(nil),          // 18: streammachine.api.entities.v1.KafkaExporter
-	(*KafkaExporterRef)(nil),       // 19: streammachine.api.entities.v1.KafkaExporterRef
-	(*KafkaExporterTarget)(nil),    // 20: streammachine.api.entities.v1.KafkaExporterTarget
-	(*KafkaUser)(nil),              // 21: streammachine.api.entities.v1.KafkaUser
-	(*KafkaUserRef)(nil),           // 22: streammachine.api.entities.v1.KafkaUserRef
-	(*ConsentLevelMapping)(nil),    // 23: streammachine.api.entities.v1.ConsentLevelMapping
-	(*ConsentLevelMappingRef)(nil), // 24: streammachine.api.entities.v1.ConsentLevelMappingRef
-	(*WindowedEventCount)(nil),     // 25: streammachine.api.entities.v1.WindowedEventCount
-	(*SchemaRef)(nil),              // 26: streammachine.api.entities.v1.SchemaRef
-	(*Schema)(nil),                 // 27: streammachine.api.entities.v1.Schema
-	(*SchemaMetadata)(nil),         // 28: streammachine.api.entities.v1.SchemaMetadata
-	(*EventContractRef)(nil),       // 29: streammachine.api.entities.v1.EventContractRef
-	(*EventContract)(nil),          // 30: streammachine.api.entities.v1.EventContract
-	(*EventContractMetadata)(nil),  // 31: streammachine.api.entities.v1.EventContractMetadata
-	(*Label)(nil),                  // 32: streammachine.api.entities.v1.Label
-	(*Validation)(nil),             // 33: streammachine.api.entities.v1.Validation
-	(*StreamTree)(nil),             // 34: streammachine.api.entities.v1.StreamTree
-	(*SinkTree)(nil),               // 35: streammachine.api.entities.v1.SinkTree
-	nil,                            // 36: streammachine.api.entities.v1.EventContract.PiiFieldsEntry
-	(*durationpb.Duration)(nil),    // 37: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),  // 38: google.protobuf.Timestamp
+	(FilterPublicPrivate)(0),       // 5: streammachine.api.entities.v1.FilterPublicPrivate
+	(*Stream)(nil),                 // 6: streammachine.api.entities.v1.Stream
+	(*Limits)(nil),                 // 7: streammachine.api.entities.v1.Limits
+	(*KeyStream)(nil),              // 8: streammachine.api.entities.v1.KeyStream
+	(*StreamRef)(nil),              // 9: streammachine.api.entities.v1.StreamRef
+	(*KeyStreamRef)(nil),           // 10: streammachine.api.entities.v1.KeyStreamRef
+	(*Credentials)(nil),            // 11: streammachine.api.entities.v1.Credentials
+	(*Sink)(nil),                   // 12: streammachine.api.entities.v1.Sink
+	(*SinkRef)(nil),                // 13: streammachine.api.entities.v1.SinkRef
+	(*BucketConfig)(nil),           // 14: streammachine.api.entities.v1.BucketConfig
+	(*BatchExporter)(nil),          // 15: streammachine.api.entities.v1.BatchExporter
+	(*BatchExporterRef)(nil),       // 16: streammachine.api.entities.v1.BatchExporterRef
+	(*KafkaCluster)(nil),           // 17: streammachine.api.entities.v1.KafkaCluster
+	(*KafkaClusterRef)(nil),        // 18: streammachine.api.entities.v1.KafkaClusterRef
+	(*KafkaExporter)(nil),          // 19: streammachine.api.entities.v1.KafkaExporter
+	(*KafkaExporterRef)(nil),       // 20: streammachine.api.entities.v1.KafkaExporterRef
+	(*KafkaExporterTarget)(nil),    // 21: streammachine.api.entities.v1.KafkaExporterTarget
+	(*KafkaUser)(nil),              // 22: streammachine.api.entities.v1.KafkaUser
+	(*KafkaUserRef)(nil),           // 23: streammachine.api.entities.v1.KafkaUserRef
+	(*ConsentLevelMapping)(nil),    // 24: streammachine.api.entities.v1.ConsentLevelMapping
+	(*ConsentLevelMappingRef)(nil), // 25: streammachine.api.entities.v1.ConsentLevelMappingRef
+	(*WindowedEventCount)(nil),     // 26: streammachine.api.entities.v1.WindowedEventCount
+	(*SchemaRef)(nil),              // 27: streammachine.api.entities.v1.SchemaRef
+	(*Schema)(nil),                 // 28: streammachine.api.entities.v1.Schema
+	(*SchemaMetadata)(nil),         // 29: streammachine.api.entities.v1.SchemaMetadata
+	(*EventContractRef)(nil),       // 30: streammachine.api.entities.v1.EventContractRef
+	(*EventContract)(nil),          // 31: streammachine.api.entities.v1.EventContract
+	(*EventContractMetadata)(nil),  // 32: streammachine.api.entities.v1.EventContractMetadata
+	(*Label)(nil),                  // 33: streammachine.api.entities.v1.Label
+	(*Validation)(nil),             // 34: streammachine.api.entities.v1.Validation
+	(*StreamTree)(nil),             // 35: streammachine.api.entities.v1.StreamTree
+	(*SinkTree)(nil),               // 36: streammachine.api.entities.v1.SinkTree
+	nil,                            // 37: streammachine.api.entities.v1.EventContract.PiiFieldsEntry
+	(*durationpb.Duration)(nil),    // 38: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),  // 39: google.protobuf.Timestamp
 }
 var file_streammachine_api_entities_v1_entities_v1_proto_depIdxs = []int32{
-	8,  // 0: streammachine.api.entities.v1.Stream.ref:type_name -> streammachine.api.entities.v1.StreamRef
+	9,  // 0: streammachine.api.entities.v1.Stream.ref:type_name -> streammachine.api.entities.v1.StreamRef
 	0,  // 1: streammachine.api.entities.v1.Stream.consent_level_type:type_name -> streammachine.api.entities.v1.ConsentLevelType
-	6,  // 2: streammachine.api.entities.v1.Stream.limits:type_name -> streammachine.api.entities.v1.Limits
-	10, // 3: streammachine.api.entities.v1.Stream.credentials:type_name -> streammachine.api.entities.v1.Credentials
-	9,  // 4: streammachine.api.entities.v1.KeyStream.ref:type_name -> streammachine.api.entities.v1.KeyStreamRef
-	12, // 5: streammachine.api.entities.v1.Sink.ref:type_name -> streammachine.api.entities.v1.SinkRef
+	7,  // 2: streammachine.api.entities.v1.Stream.limits:type_name -> streammachine.api.entities.v1.Limits
+	11, // 3: streammachine.api.entities.v1.Stream.credentials:type_name -> streammachine.api.entities.v1.Credentials
+	10, // 4: streammachine.api.entities.v1.KeyStream.ref:type_name -> streammachine.api.entities.v1.KeyStreamRef
+	13, // 5: streammachine.api.entities.v1.Sink.ref:type_name -> streammachine.api.entities.v1.SinkRef
 	1,  // 6: streammachine.api.entities.v1.Sink.sink_type:type_name -> streammachine.api.entities.v1.SinkType
-	13, // 7: streammachine.api.entities.v1.Sink.bucket:type_name -> streammachine.api.entities.v1.BucketConfig
-	15, // 8: streammachine.api.entities.v1.BatchExporter.ref:type_name -> streammachine.api.entities.v1.BatchExporterRef
-	8,  // 9: streammachine.api.entities.v1.BatchExporter.stream_ref:type_name -> streammachine.api.entities.v1.StreamRef
-	9,  // 10: streammachine.api.entities.v1.BatchExporter.key_stream_ref:type_name -> streammachine.api.entities.v1.KeyStreamRef
-	37, // 11: streammachine.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
-	17, // 12: streammachine.api.entities.v1.KafkaCluster.ref:type_name -> streammachine.api.entities.v1.KafkaClusterRef
+	14, // 7: streammachine.api.entities.v1.Sink.bucket:type_name -> streammachine.api.entities.v1.BucketConfig
+	16, // 8: streammachine.api.entities.v1.BatchExporter.ref:type_name -> streammachine.api.entities.v1.BatchExporterRef
+	9,  // 9: streammachine.api.entities.v1.BatchExporter.stream_ref:type_name -> streammachine.api.entities.v1.StreamRef
+	10, // 10: streammachine.api.entities.v1.BatchExporter.key_stream_ref:type_name -> streammachine.api.entities.v1.KeyStreamRef
+	38, // 11: streammachine.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
+	18, // 12: streammachine.api.entities.v1.KafkaCluster.ref:type_name -> streammachine.api.entities.v1.KafkaClusterRef
 	2,  // 13: streammachine.api.entities.v1.KafkaCluster.auth_mechanism:type_name -> streammachine.api.entities.v1.AuthMechanism
-	19, // 14: streammachine.api.entities.v1.KafkaExporter.ref:type_name -> streammachine.api.entities.v1.KafkaExporterRef
-	8,  // 15: streammachine.api.entities.v1.KafkaExporter.stream_ref:type_name -> streammachine.api.entities.v1.StreamRef
-	20, // 16: streammachine.api.entities.v1.KafkaExporter.target:type_name -> streammachine.api.entities.v1.KafkaExporterTarget
-	21, // 17: streammachine.api.entities.v1.KafkaExporter.users:type_name -> streammachine.api.entities.v1.KafkaUser
-	17, // 18: streammachine.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> streammachine.api.entities.v1.KafkaClusterRef
-	22, // 19: streammachine.api.entities.v1.KafkaUser.ref:type_name -> streammachine.api.entities.v1.KafkaUserRef
-	17, // 20: streammachine.api.entities.v1.KafkaUser.cluster_ref:type_name -> streammachine.api.entities.v1.KafkaClusterRef
-	24, // 21: streammachine.api.entities.v1.ConsentLevelMapping.ref:type_name -> streammachine.api.entities.v1.ConsentLevelMappingRef
-	38, // 22: streammachine.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
-	38, // 23: streammachine.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
+	20, // 14: streammachine.api.entities.v1.KafkaExporter.ref:type_name -> streammachine.api.entities.v1.KafkaExporterRef
+	9,  // 15: streammachine.api.entities.v1.KafkaExporter.stream_ref:type_name -> streammachine.api.entities.v1.StreamRef
+	21, // 16: streammachine.api.entities.v1.KafkaExporter.target:type_name -> streammachine.api.entities.v1.KafkaExporterTarget
+	22, // 17: streammachine.api.entities.v1.KafkaExporter.users:type_name -> streammachine.api.entities.v1.KafkaUser
+	18, // 18: streammachine.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> streammachine.api.entities.v1.KafkaClusterRef
+	23, // 19: streammachine.api.entities.v1.KafkaUser.ref:type_name -> streammachine.api.entities.v1.KafkaUserRef
+	18, // 20: streammachine.api.entities.v1.KafkaUser.cluster_ref:type_name -> streammachine.api.entities.v1.KafkaClusterRef
+	25, // 21: streammachine.api.entities.v1.ConsentLevelMapping.ref:type_name -> streammachine.api.entities.v1.ConsentLevelMappingRef
+	39, // 22: streammachine.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
+	39, // 23: streammachine.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
 	4,  // 24: streammachine.api.entities.v1.SchemaRef.schema_type:type_name -> streammachine.api.entities.v1.SchemaType
-	26, // 25: streammachine.api.entities.v1.Schema.ref:type_name -> streammachine.api.entities.v1.SchemaRef
+	27, // 25: streammachine.api.entities.v1.Schema.ref:type_name -> streammachine.api.entities.v1.SchemaRef
 	3,  // 26: streammachine.api.entities.v1.Schema.state:type_name -> streammachine.api.entities.v1.State
-	28, // 27: streammachine.api.entities.v1.Schema.metadata:type_name -> streammachine.api.entities.v1.SchemaMetadata
-	38, // 28: streammachine.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
-	32, // 29: streammachine.api.entities.v1.SchemaMetadata.labels:type_name -> streammachine.api.entities.v1.Label
-	29, // 30: streammachine.api.entities.v1.EventContract.ref:type_name -> streammachine.api.entities.v1.EventContractRef
+	29, // 27: streammachine.api.entities.v1.Schema.metadata:type_name -> streammachine.api.entities.v1.SchemaMetadata
+	39, // 28: streammachine.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
+	33, // 29: streammachine.api.entities.v1.SchemaMetadata.labels:type_name -> streammachine.api.entities.v1.Label
+	30, // 30: streammachine.api.entities.v1.EventContract.ref:type_name -> streammachine.api.entities.v1.EventContractRef
 	3,  // 31: streammachine.api.entities.v1.EventContract.state:type_name -> streammachine.api.entities.v1.State
-	26, // 32: streammachine.api.entities.v1.EventContract.schema_ref:type_name -> streammachine.api.entities.v1.SchemaRef
-	36, // 33: streammachine.api.entities.v1.EventContract.pii_fields:type_name -> streammachine.api.entities.v1.EventContract.PiiFieldsEntry
-	33, // 34: streammachine.api.entities.v1.EventContract.validations:type_name -> streammachine.api.entities.v1.Validation
-	31, // 35: streammachine.api.entities.v1.EventContract.metadata:type_name -> streammachine.api.entities.v1.EventContractMetadata
-	38, // 36: streammachine.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
-	32, // 37: streammachine.api.entities.v1.EventContractMetadata.labels:type_name -> streammachine.api.entities.v1.Label
-	5,  // 38: streammachine.api.entities.v1.StreamTree.stream:type_name -> streammachine.api.entities.v1.Stream
-	7,  // 39: streammachine.api.entities.v1.StreamTree.key_stream:type_name -> streammachine.api.entities.v1.KeyStream
-	5,  // 40: streammachine.api.entities.v1.StreamTree.derived:type_name -> streammachine.api.entities.v1.Stream
-	14, // 41: streammachine.api.entities.v1.StreamTree.batch_exporters:type_name -> streammachine.api.entities.v1.BatchExporter
-	18, // 42: streammachine.api.entities.v1.StreamTree.kafka_exporters:type_name -> streammachine.api.entities.v1.KafkaExporter
-	11, // 43: streammachine.api.entities.v1.SinkTree.sink:type_name -> streammachine.api.entities.v1.Sink
-	14, // 44: streammachine.api.entities.v1.SinkTree.batch_exporters:type_name -> streammachine.api.entities.v1.BatchExporter
+	27, // 32: streammachine.api.entities.v1.EventContract.schema_ref:type_name -> streammachine.api.entities.v1.SchemaRef
+	37, // 33: streammachine.api.entities.v1.EventContract.pii_fields:type_name -> streammachine.api.entities.v1.EventContract.PiiFieldsEntry
+	34, // 34: streammachine.api.entities.v1.EventContract.validations:type_name -> streammachine.api.entities.v1.Validation
+	32, // 35: streammachine.api.entities.v1.EventContract.metadata:type_name -> streammachine.api.entities.v1.EventContractMetadata
+	39, // 36: streammachine.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
+	33, // 37: streammachine.api.entities.v1.EventContractMetadata.labels:type_name -> streammachine.api.entities.v1.Label
+	6,  // 38: streammachine.api.entities.v1.StreamTree.stream:type_name -> streammachine.api.entities.v1.Stream
+	8,  // 39: streammachine.api.entities.v1.StreamTree.key_stream:type_name -> streammachine.api.entities.v1.KeyStream
+	6,  // 40: streammachine.api.entities.v1.StreamTree.derived:type_name -> streammachine.api.entities.v1.Stream
+	15, // 41: streammachine.api.entities.v1.StreamTree.batch_exporters:type_name -> streammachine.api.entities.v1.BatchExporter
+	19, // 42: streammachine.api.entities.v1.StreamTree.kafka_exporters:type_name -> streammachine.api.entities.v1.KafkaExporter
+	12, // 43: streammachine.api.entities.v1.SinkTree.sink:type_name -> streammachine.api.entities.v1.Sink
+	15, // 44: streammachine.api.entities.v1.SinkTree.batch_exporters:type_name -> streammachine.api.entities.v1.BatchExporter
 	45, // [45:45] is the sub-list for method output_type
 	45, // [45:45] is the sub-list for method input_type
 	45, // [45:45] is the sub-list for extension type_name
@@ -3446,7 +3502,7 @@ func file_streammachine_api_entities_v1_entities_v1_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_streammachine_api_entities_v1_entities_v1_proto_rawDesc,
-			NumEnums:      5,
+			NumEnums:      6,
 			NumMessages:   32,
 			NumExtensions: 0,
 			NumServices:   0,
