@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AccountServiceClient interface {
 	GetAccountDetails(ctx context.Context, in *GetAccountDetailsRequest, opts ...grpc.CallOption) (*GetAccountDetailsResponse, error)
+	GetLegacyBillingId(ctx context.Context, in *GetLegacyBillingIdRequest, opts ...grpc.CallOption) (*GetLegacyBillingIdResponse, error)
 	CreateAccountHandle(ctx context.Context, in *CreateAccountHandleRequest, opts ...grpc.CallOption) (*CreateAccountHandleResponse, error)
 }
 
@@ -39,6 +40,15 @@ func (c *accountServiceClient) GetAccountDetails(ctx context.Context, in *GetAcc
 	return out, nil
 }
 
+func (c *accountServiceClient) GetLegacyBillingId(ctx context.Context, in *GetLegacyBillingIdRequest, opts ...grpc.CallOption) (*GetLegacyBillingIdResponse, error) {
+	out := new(GetLegacyBillingIdResponse)
+	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/GetLegacyBillingId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *accountServiceClient) CreateAccountHandle(ctx context.Context, in *CreateAccountHandleRequest, opts ...grpc.CallOption) (*CreateAccountHandleResponse, error) {
 	out := new(CreateAccountHandleResponse)
 	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/CreateAccountHandle", in, out, opts...)
@@ -53,6 +63,7 @@ func (c *accountServiceClient) CreateAccountHandle(ctx context.Context, in *Crea
 // for forward compatibility
 type AccountServiceServer interface {
 	GetAccountDetails(context.Context, *GetAccountDetailsRequest) (*GetAccountDetailsResponse, error)
+	GetLegacyBillingId(context.Context, *GetLegacyBillingIdRequest) (*GetLegacyBillingIdResponse, error)
 	CreateAccountHandle(context.Context, *CreateAccountHandleRequest) (*CreateAccountHandleResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
@@ -63,6 +74,9 @@ type UnimplementedAccountServiceServer struct {
 
 func (UnimplementedAccountServiceServer) GetAccountDetails(context.Context, *GetAccountDetailsRequest) (*GetAccountDetailsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAccountDetails not implemented")
+}
+func (UnimplementedAccountServiceServer) GetLegacyBillingId(context.Context, *GetLegacyBillingIdRequest) (*GetLegacyBillingIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLegacyBillingId not implemented")
 }
 func (UnimplementedAccountServiceServer) CreateAccountHandle(context.Context, *CreateAccountHandleRequest) (*CreateAccountHandleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountHandle not implemented")
@@ -98,6 +112,24 @@ func _AccountService_GetAccountDetails_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_GetLegacyBillingId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLegacyBillingIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).GetLegacyBillingId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/streammachine.api.account.v1.AccountService/GetLegacyBillingId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).GetLegacyBillingId(ctx, req.(*GetLegacyBillingIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AccountService_CreateAccountHandle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateAccountHandleRequest)
 	if err := dec(in); err != nil {
@@ -126,6 +158,10 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAccountDetails",
 			Handler:    _AccountService_GetAccountDetails_Handler,
+		},
+		{
+			MethodName: "GetLegacyBillingId",
+			Handler:    _AccountService_GetLegacyBillingId_Handler,
 		},
 		{
 			MethodName: "CreateAccountHandle",
