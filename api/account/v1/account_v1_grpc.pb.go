@@ -21,6 +21,9 @@ type AccountServiceClient interface {
 	GetAccountDetails(ctx context.Context, in *GetAccountDetailsRequest, opts ...grpc.CallOption) (*GetAccountDetailsResponse, error)
 	GetLegacyBillingId(ctx context.Context, in *GetLegacyBillingIdRequest, opts ...grpc.CallOption) (*GetLegacyBillingIdResponse, error)
 	CreateAccountHandle(ctx context.Context, in *CreateAccountHandleRequest, opts ...grpc.CallOption) (*CreateAccountHandleResponse, error)
+	InitializeCheckout(ctx context.Context, in *InitializeCheckoutRequest, opts ...grpc.CallOption) (*InitializeCheckoutResponse, error)
+	SetCheckoutSuccessful(ctx context.Context, in *SetCheckoutSuccessfulRequest, opts ...grpc.CallOption) (*SetCheckoutSuccessfulResponse, error)
+	SetCheckoutCancelled(ctx context.Context, in *SetCheckoutCancelledRequest, opts ...grpc.CallOption) (*SetCheckoutCancelledResponse, error)
 }
 
 type accountServiceClient struct {
@@ -58,6 +61,33 @@ func (c *accountServiceClient) CreateAccountHandle(ctx context.Context, in *Crea
 	return out, nil
 }
 
+func (c *accountServiceClient) InitializeCheckout(ctx context.Context, in *InitializeCheckoutRequest, opts ...grpc.CallOption) (*InitializeCheckoutResponse, error) {
+	out := new(InitializeCheckoutResponse)
+	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/InitializeCheckout", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) SetCheckoutSuccessful(ctx context.Context, in *SetCheckoutSuccessfulRequest, opts ...grpc.CallOption) (*SetCheckoutSuccessfulResponse, error) {
+	out := new(SetCheckoutSuccessfulResponse)
+	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/SetCheckoutSuccessful", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *accountServiceClient) SetCheckoutCancelled(ctx context.Context, in *SetCheckoutCancelledRequest, opts ...grpc.CallOption) (*SetCheckoutCancelledResponse, error) {
+	out := new(SetCheckoutCancelledResponse)
+	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/SetCheckoutCancelled", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility
@@ -65,6 +95,9 @@ type AccountServiceServer interface {
 	GetAccountDetails(context.Context, *GetAccountDetailsRequest) (*GetAccountDetailsResponse, error)
 	GetLegacyBillingId(context.Context, *GetLegacyBillingIdRequest) (*GetLegacyBillingIdResponse, error)
 	CreateAccountHandle(context.Context, *CreateAccountHandleRequest) (*CreateAccountHandleResponse, error)
+	InitializeCheckout(context.Context, *InitializeCheckoutRequest) (*InitializeCheckoutResponse, error)
+	SetCheckoutSuccessful(context.Context, *SetCheckoutSuccessfulRequest) (*SetCheckoutSuccessfulResponse, error)
+	SetCheckoutCancelled(context.Context, *SetCheckoutCancelledRequest) (*SetCheckoutCancelledResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -80,6 +113,15 @@ func (UnimplementedAccountServiceServer) GetLegacyBillingId(context.Context, *Ge
 }
 func (UnimplementedAccountServiceServer) CreateAccountHandle(context.Context, *CreateAccountHandleRequest) (*CreateAccountHandleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountHandle not implemented")
+}
+func (UnimplementedAccountServiceServer) InitializeCheckout(context.Context, *InitializeCheckoutRequest) (*InitializeCheckoutResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InitializeCheckout not implemented")
+}
+func (UnimplementedAccountServiceServer) SetCheckoutSuccessful(context.Context, *SetCheckoutSuccessfulRequest) (*SetCheckoutSuccessfulResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetCheckoutSuccessful not implemented")
+}
+func (UnimplementedAccountServiceServer) SetCheckoutCancelled(context.Context, *SetCheckoutCancelledRequest) (*SetCheckoutCancelledResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetCheckoutCancelled not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 
@@ -148,6 +190,60 @@ func _AccountService_CreateAccountHandle_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_InitializeCheckout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InitializeCheckoutRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).InitializeCheckout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/streammachine.api.account.v1.AccountService/InitializeCheckout",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).InitializeCheckout(ctx, req.(*InitializeCheckoutRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_SetCheckoutSuccessful_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetCheckoutSuccessfulRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).SetCheckoutSuccessful(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/streammachine.api.account.v1.AccountService/SetCheckoutSuccessful",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).SetCheckoutSuccessful(ctx, req.(*SetCheckoutSuccessfulRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AccountService_SetCheckoutCancelled_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetCheckoutCancelledRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).SetCheckoutCancelled(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/streammachine.api.account.v1.AccountService/SetCheckoutCancelled",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).SetCheckoutCancelled(ctx, req.(*SetCheckoutCancelledRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -166,6 +262,18 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAccountHandle",
 			Handler:    _AccountService_CreateAccountHandle_Handler,
+		},
+		{
+			MethodName: "InitializeCheckout",
+			Handler:    _AccountService_InitializeCheckout_Handler,
+		},
+		{
+			MethodName: "SetCheckoutSuccessful",
+			Handler:    _AccountService_SetCheckoutSuccessful_Handler,
+		},
+		{
+			MethodName: "SetCheckoutCancelled",
+			Handler:    _AccountService_SetCheckoutCancelled_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
