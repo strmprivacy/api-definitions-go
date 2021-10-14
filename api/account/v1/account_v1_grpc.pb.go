@@ -21,11 +21,6 @@ type AccountServiceClient interface {
 	GetAccountDetails(ctx context.Context, in *GetAccountDetailsRequest, opts ...grpc.CallOption) (*GetAccountDetailsResponse, error)
 	GetLegacyBillingId(ctx context.Context, in *GetLegacyBillingIdRequest, opts ...grpc.CallOption) (*GetLegacyBillingIdResponse, error)
 	CreateAccountHandle(ctx context.Context, in *CreateAccountHandleRequest, opts ...grpc.CallOption) (*CreateAccountHandleResponse, error)
-	InitializeCheckout(ctx context.Context, in *InitializeCheckoutRequest, opts ...grpc.CallOption) (*InitializeCheckoutResponse, error)
-	PollCheckoutSuccess(ctx context.Context, in *PollCheckoutSuccessRequest, opts ...grpc.CallOption) (AccountService_PollCheckoutSuccessClient, error)
-	// (-- api-linter: core::0134::synonyms=disabled
-	//     aip.dev/not-precedent: We're not updating a Checkout here. --)
-	SetCheckoutCancelled(ctx context.Context, in *SetCheckoutCancelledRequest, opts ...grpc.CallOption) (*SetCheckoutCancelledResponse, error)
 }
 
 type accountServiceClient struct {
@@ -63,56 +58,6 @@ func (c *accountServiceClient) CreateAccountHandle(ctx context.Context, in *Crea
 	return out, nil
 }
 
-func (c *accountServiceClient) InitializeCheckout(ctx context.Context, in *InitializeCheckoutRequest, opts ...grpc.CallOption) (*InitializeCheckoutResponse, error) {
-	out := new(InitializeCheckoutResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/InitializeCheckout", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *accountServiceClient) PollCheckoutSuccess(ctx context.Context, in *PollCheckoutSuccessRequest, opts ...grpc.CallOption) (AccountService_PollCheckoutSuccessClient, error) {
-	stream, err := c.cc.NewStream(ctx, &AccountService_ServiceDesc.Streams[0], "/streammachine.api.account.v1.AccountService/PollCheckoutSuccess", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &accountServicePollCheckoutSuccessClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type AccountService_PollCheckoutSuccessClient interface {
-	Recv() (*PollCheckoutSuccessResponse, error)
-	grpc.ClientStream
-}
-
-type accountServicePollCheckoutSuccessClient struct {
-	grpc.ClientStream
-}
-
-func (x *accountServicePollCheckoutSuccessClient) Recv() (*PollCheckoutSuccessResponse, error) {
-	m := new(PollCheckoutSuccessResponse)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *accountServiceClient) SetCheckoutCancelled(ctx context.Context, in *SetCheckoutCancelledRequest, opts ...grpc.CallOption) (*SetCheckoutCancelledResponse, error) {
-	out := new(SetCheckoutCancelledResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/SetCheckoutCancelled", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AccountServiceServer is the server API for AccountService service.
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility
@@ -120,11 +65,6 @@ type AccountServiceServer interface {
 	GetAccountDetails(context.Context, *GetAccountDetailsRequest) (*GetAccountDetailsResponse, error)
 	GetLegacyBillingId(context.Context, *GetLegacyBillingIdRequest) (*GetLegacyBillingIdResponse, error)
 	CreateAccountHandle(context.Context, *CreateAccountHandleRequest) (*CreateAccountHandleResponse, error)
-	InitializeCheckout(context.Context, *InitializeCheckoutRequest) (*InitializeCheckoutResponse, error)
-	PollCheckoutSuccess(*PollCheckoutSuccessRequest, AccountService_PollCheckoutSuccessServer) error
-	// (-- api-linter: core::0134::synonyms=disabled
-	//     aip.dev/not-precedent: We're not updating a Checkout here. --)
-	SetCheckoutCancelled(context.Context, *SetCheckoutCancelledRequest) (*SetCheckoutCancelledResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -140,15 +80,6 @@ func (UnimplementedAccountServiceServer) GetLegacyBillingId(context.Context, *Ge
 }
 func (UnimplementedAccountServiceServer) CreateAccountHandle(context.Context, *CreateAccountHandleRequest) (*CreateAccountHandleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccountHandle not implemented")
-}
-func (UnimplementedAccountServiceServer) InitializeCheckout(context.Context, *InitializeCheckoutRequest) (*InitializeCheckoutResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method InitializeCheckout not implemented")
-}
-func (UnimplementedAccountServiceServer) PollCheckoutSuccess(*PollCheckoutSuccessRequest, AccountService_PollCheckoutSuccessServer) error {
-	return status.Errorf(codes.Unimplemented, "method PollCheckoutSuccess not implemented")
-}
-func (UnimplementedAccountServiceServer) SetCheckoutCancelled(context.Context, *SetCheckoutCancelledRequest) (*SetCheckoutCancelledResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetCheckoutCancelled not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 
@@ -217,63 +148,6 @@ func _AccountService_CreateAccountHandle_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountService_InitializeCheckout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InitializeCheckoutRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServiceServer).InitializeCheckout(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/InitializeCheckout",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).InitializeCheckout(ctx, req.(*InitializeCheckoutRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AccountService_PollCheckoutSuccess_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(PollCheckoutSuccessRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(AccountServiceServer).PollCheckoutSuccess(m, &accountServicePollCheckoutSuccessServer{stream})
-}
-
-type AccountService_PollCheckoutSuccessServer interface {
-	Send(*PollCheckoutSuccessResponse) error
-	grpc.ServerStream
-}
-
-type accountServicePollCheckoutSuccessServer struct {
-	grpc.ServerStream
-}
-
-func (x *accountServicePollCheckoutSuccessServer) Send(m *PollCheckoutSuccessResponse) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _AccountService_SetCheckoutCancelled_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetCheckoutCancelledRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServiceServer).SetCheckoutCancelled(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/SetCheckoutCancelled",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).SetCheckoutCancelled(ctx, req.(*SetCheckoutCancelledRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -293,21 +167,7 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 			MethodName: "CreateAccountHandle",
 			Handler:    _AccountService_CreateAccountHandle_Handler,
 		},
-		{
-			MethodName: "InitializeCheckout",
-			Handler:    _AccountService_InitializeCheckout_Handler,
-		},
-		{
-			MethodName: "SetCheckoutCancelled",
-			Handler:    _AccountService_SetCheckoutCancelled_Handler,
-		},
 	},
-	Streams: []grpc.StreamDesc{
-		{
-			StreamName:    "PollCheckoutSuccess",
-			Handler:       _AccountService_PollCheckoutSuccess_Handler,
-			ServerStreams: true,
-		},
-	},
+	Streams:  []grpc.StreamDesc{},
 	Metadata: "streammachine/api/account/v1/account_v1.proto",
 }
