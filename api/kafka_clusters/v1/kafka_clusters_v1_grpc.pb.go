@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/kafka_clusters/v1/kafka_clusters_v1.proto
+// source: strmprivacy/api/kafka_clusters/v1/kafka_clusters_v1.proto
 
 package kafka_clusters
 
@@ -38,7 +38,7 @@ func NewKafkaClustersServiceClient(cc grpc.ClientConnInterface) KafkaClustersSer
 
 func (c *kafkaClustersServiceClient) ListKafkaClusters(ctx context.Context, in *ListKafkaClustersRequest, opts ...grpc.CallOption) (*ListKafkaClustersResponse, error) {
 	out := new(ListKafkaClustersResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_clusters.v1.KafkaClustersService/ListKafkaClusters", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_clusters.v1.KafkaClustersService/ListKafkaClusters", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *kafkaClustersServiceClient) ListKafkaClusters(ctx context.Context, in *
 
 func (c *kafkaClustersServiceClient) GetKafkaCluster(ctx context.Context, in *GetKafkaClusterRequest, opts ...grpc.CallOption) (*GetKafkaClusterResponse, error) {
 	out := new(GetKafkaClusterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_clusters.v1.KafkaClustersService/GetKafkaCluster", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_clusters.v1.KafkaClustersService/GetKafkaCluster", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *kafkaClustersServiceClient) GetKafkaCluster(ctx context.Context, in *Ge
 
 func (c *kafkaClustersServiceClient) DeleteKafkaCluster(ctx context.Context, in *DeleteKafkaClusterRequest, opts ...grpc.CallOption) (*DeleteKafkaClusterResponse, error) {
 	out := new(DeleteKafkaClusterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_clusters.v1.KafkaClustersService/DeleteKafkaCluster", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_clusters.v1.KafkaClustersService/DeleteKafkaCluster", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *kafkaClustersServiceClient) DeleteKafkaCluster(ctx context.Context, in 
 
 func (c *kafkaClustersServiceClient) CreateKafkaCluster(ctx context.Context, in *CreateKafkaClusterRequest, opts ...grpc.CallOption) (*CreateKafkaClusterResponse, error) {
 	out := new(CreateKafkaClusterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_clusters.v1.KafkaClustersService/CreateKafkaCluster", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_clusters.v1.KafkaClustersService/CreateKafkaCluster", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _KafkaClustersService_ListKafkaClusters_Handler(srv interface{}, ctx contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_clusters.v1.KafkaClustersService/ListKafkaClusters",
+		FullMethod: "/strmprivacy.api.kafka_clusters.v1.KafkaClustersService/ListKafkaClusters",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaClustersServiceServer).ListKafkaClusters(ctx, req.(*ListKafkaClustersRequest))
@@ -140,7 +140,7 @@ func _KafkaClustersService_GetKafkaCluster_Handler(srv interface{}, ctx context.
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_clusters.v1.KafkaClustersService/GetKafkaCluster",
+		FullMethod: "/strmprivacy.api.kafka_clusters.v1.KafkaClustersService/GetKafkaCluster",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaClustersServiceServer).GetKafkaCluster(ctx, req.(*GetKafkaClusterRequest))
@@ -158,7 +158,7 @@ func _KafkaClustersService_DeleteKafkaCluster_Handler(srv interface{}, ctx conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_clusters.v1.KafkaClustersService/DeleteKafkaCluster",
+		FullMethod: "/strmprivacy.api.kafka_clusters.v1.KafkaClustersService/DeleteKafkaCluster",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaClustersServiceServer).DeleteKafkaCluster(ctx, req.(*DeleteKafkaClusterRequest))
@@ -176,7 +176,7 @@ func _KafkaClustersService_CreateKafkaCluster_Handler(srv interface{}, ctx conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_clusters.v1.KafkaClustersService/CreateKafkaCluster",
+		FullMethod: "/strmprivacy.api.kafka_clusters.v1.KafkaClustersService/CreateKafkaCluster",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaClustersServiceServer).CreateKafkaCluster(ctx, req.(*CreateKafkaClusterRequest))
@@ -188,7 +188,7 @@ func _KafkaClustersService_CreateKafkaCluster_Handler(srv interface{}, ctx conte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var KafkaClustersService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.kafka_clusters.v1.KafkaClustersService",
+	ServiceName: "strmprivacy.api.kafka_clusters.v1.KafkaClustersService",
 	HandlerType: (*KafkaClustersServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -209,5 +209,5 @@ var KafkaClustersService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/kafka_clusters/v1/kafka_clusters_v1.proto",
+	Metadata: "strmprivacy/api/kafka_clusters/v1/kafka_clusters_v1.proto",
 }

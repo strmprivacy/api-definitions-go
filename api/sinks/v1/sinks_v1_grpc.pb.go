@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/sinks/v1/sinks_v1.proto
+// source: strmprivacy/api/sinks/v1/sinks_v1.proto
 
 package sinks
 
@@ -38,7 +38,7 @@ func NewSinksServiceClient(cc grpc.ClientConnInterface) SinksServiceClient {
 
 func (c *sinksServiceClient) ListSinks(ctx context.Context, in *ListSinksRequest, opts ...grpc.CallOption) (*ListSinksResponse, error) {
 	out := new(ListSinksResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.sinks.v1.SinksService/ListSinks", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.sinks.v1.SinksService/ListSinks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *sinksServiceClient) ListSinks(ctx context.Context, in *ListSinksRequest
 
 func (c *sinksServiceClient) GetSink(ctx context.Context, in *GetSinkRequest, opts ...grpc.CallOption) (*GetSinkResponse, error) {
 	out := new(GetSinkResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.sinks.v1.SinksService/GetSink", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.sinks.v1.SinksService/GetSink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *sinksServiceClient) GetSink(ctx context.Context, in *GetSinkRequest, op
 
 func (c *sinksServiceClient) DeleteSink(ctx context.Context, in *DeleteSinkRequest, opts ...grpc.CallOption) (*DeleteSinkResponse, error) {
 	out := new(DeleteSinkResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.sinks.v1.SinksService/DeleteSink", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.sinks.v1.SinksService/DeleteSink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *sinksServiceClient) DeleteSink(ctx context.Context, in *DeleteSinkReque
 
 func (c *sinksServiceClient) CreateSink(ctx context.Context, in *CreateSinkRequest, opts ...grpc.CallOption) (*CreateSinkResponse, error) {
 	out := new(CreateSinkResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.sinks.v1.SinksService/CreateSink", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.sinks.v1.SinksService/CreateSink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _SinksService_ListSinks_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.sinks.v1.SinksService/ListSinks",
+		FullMethod: "/strmprivacy.api.sinks.v1.SinksService/ListSinks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SinksServiceServer).ListSinks(ctx, req.(*ListSinksRequest))
@@ -140,7 +140,7 @@ func _SinksService_GetSink_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.sinks.v1.SinksService/GetSink",
+		FullMethod: "/strmprivacy.api.sinks.v1.SinksService/GetSink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SinksServiceServer).GetSink(ctx, req.(*GetSinkRequest))
@@ -158,7 +158,7 @@ func _SinksService_DeleteSink_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.sinks.v1.SinksService/DeleteSink",
+		FullMethod: "/strmprivacy.api.sinks.v1.SinksService/DeleteSink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SinksServiceServer).DeleteSink(ctx, req.(*DeleteSinkRequest))
@@ -176,7 +176,7 @@ func _SinksService_CreateSink_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.sinks.v1.SinksService/CreateSink",
+		FullMethod: "/strmprivacy.api.sinks.v1.SinksService/CreateSink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SinksServiceServer).CreateSink(ctx, req.(*CreateSinkRequest))
@@ -188,7 +188,7 @@ func _SinksService_CreateSink_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var SinksService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.sinks.v1.SinksService",
+	ServiceName: "strmprivacy.api.sinks.v1.SinksService",
 	HandlerType: (*SinksServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -209,5 +209,5 @@ var SinksService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/sinks/v1/sinks_v1.proto",
+	Metadata: "strmprivacy/api/sinks/v1/sinks_v1.proto",
 }

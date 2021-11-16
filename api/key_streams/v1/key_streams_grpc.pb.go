@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/key_streams/v1/key_streams.proto
+// source: strmprivacy/api/key_streams/v1/key_streams.proto
 
 package key_streams
 
@@ -36,7 +36,7 @@ func NewKeyStreamsServiceClient(cc grpc.ClientConnInterface) KeyStreamsServiceCl
 
 func (c *keyStreamsServiceClient) ListKeyStreams(ctx context.Context, in *ListKeyStreamsRequest, opts ...grpc.CallOption) (*ListKeyStreamsResponse, error) {
 	out := new(ListKeyStreamsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.key_streams.v1.KeyStreamsService/ListKeyStreams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.key_streams.v1.KeyStreamsService/ListKeyStreams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (c *keyStreamsServiceClient) ListKeyStreams(ctx context.Context, in *ListKe
 
 func (c *keyStreamsServiceClient) GetKeyStream(ctx context.Context, in *GetKeyStreamRequest, opts ...grpc.CallOption) (*GetKeyStreamResponse, error) {
 	out := new(GetKeyStreamResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.key_streams.v1.KeyStreamsService/GetKeyStream", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.key_streams.v1.KeyStreamsService/GetKeyStream", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func _KeyStreamsService_ListKeyStreams_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.key_streams.v1.KeyStreamsService/ListKeyStreams",
+		FullMethod: "/strmprivacy.api.key_streams.v1.KeyStreamsService/ListKeyStreams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KeyStreamsServiceServer).ListKeyStreams(ctx, req.(*ListKeyStreamsRequest))
@@ -112,7 +112,7 @@ func _KeyStreamsService_GetKeyStream_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.key_streams.v1.KeyStreamsService/GetKeyStream",
+		FullMethod: "/strmprivacy.api.key_streams.v1.KeyStreamsService/GetKeyStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KeyStreamsServiceServer).GetKeyStream(ctx, req.(*GetKeyStreamRequest))
@@ -124,7 +124,7 @@ func _KeyStreamsService_GetKeyStream_Handler(srv interface{}, ctx context.Contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var KeyStreamsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.key_streams.v1.KeyStreamsService",
+	ServiceName: "strmprivacy.api.key_streams.v1.KeyStreamsService",
 	HandlerType: (*KeyStreamsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -137,5 +137,5 @@ var KeyStreamsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/key_streams/v1/key_streams.proto",
+	Metadata: "strmprivacy/api/key_streams/v1/key_streams.proto",
 }

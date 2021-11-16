@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/account/v1/account_v1.proto
+// source: strmprivacy/api/account/v1/account_v1.proto
 
 package account
 
@@ -43,7 +43,7 @@ func NewAccountServiceClient(cc grpc.ClientConnInterface) AccountServiceClient {
 
 func (c *accountServiceClient) GetAccountDetails(ctx context.Context, in *GetAccountDetailsRequest, opts ...grpc.CallOption) (*GetAccountDetailsResponse, error) {
 	out := new(GetAccountDetailsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/GetAccountDetails", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.account.v1.AccountService/GetAccountDetails", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func (c *accountServiceClient) GetAccountDetails(ctx context.Context, in *GetAcc
 
 func (c *accountServiceClient) GetLegacyBillingId(ctx context.Context, in *GetLegacyBillingIdRequest, opts ...grpc.CallOption) (*GetLegacyBillingIdResponse, error) {
 	out := new(GetLegacyBillingIdResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/GetLegacyBillingId", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.account.v1.AccountService/GetLegacyBillingId", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (c *accountServiceClient) GetLegacyBillingId(ctx context.Context, in *GetLe
 
 func (c *accountServiceClient) CreateAccountHandle(ctx context.Context, in *CreateAccountHandleRequest, opts ...grpc.CallOption) (*CreateAccountHandleResponse, error) {
 	out := new(CreateAccountHandleResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/CreateAccountHandle", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.account.v1.AccountService/CreateAccountHandle", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -70,7 +70,7 @@ func (c *accountServiceClient) CreateAccountHandle(ctx context.Context, in *Crea
 
 func (c *accountServiceClient) InitializeCheckout(ctx context.Context, in *InitializeCheckoutRequest, opts ...grpc.CallOption) (*InitializeCheckoutResponse, error) {
 	out := new(InitializeCheckoutResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/InitializeCheckout", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.account.v1.AccountService/InitializeCheckout", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *accountServiceClient) InitializeCheckout(ctx context.Context, in *Initi
 
 func (c *accountServiceClient) GetCheckoutStatus(ctx context.Context, in *GetCheckoutStatusRequest, opts ...grpc.CallOption) (*GetCheckoutStatusResponse, error) {
 	out := new(GetCheckoutStatusResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/GetCheckoutStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.account.v1.AccountService/GetCheckoutStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *accountServiceClient) GetCheckoutStatus(ctx context.Context, in *GetChe
 
 func (c *accountServiceClient) InitializeCustomerPortal(ctx context.Context, in *InitializeCustomerPortalRequest, opts ...grpc.CallOption) (*InitializeCustomerPortalResponse, error) {
 	out := new(InitializeCustomerPortalResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/InitializeCustomerPortal", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.account.v1.AccountService/InitializeCustomerPortal", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (c *accountServiceClient) InitializeCustomerPortal(ctx context.Context, in 
 
 func (c *accountServiceClient) SetCheckoutCancelled(ctx context.Context, in *SetCheckoutCancelledRequest, opts ...grpc.CallOption) (*SetCheckoutCancelledResponse, error) {
 	out := new(SetCheckoutCancelledResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.account.v1.AccountService/SetCheckoutCancelled", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.account.v1.AccountService/SetCheckoutCancelled", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ func _AccountService_GetAccountDetails_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/GetAccountDetails",
+		FullMethod: "/strmprivacy.api.account.v1.AccountService/GetAccountDetails",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).GetAccountDetails(ctx, req.(*GetAccountDetailsRequest))
@@ -186,7 +186,7 @@ func _AccountService_GetLegacyBillingId_Handler(srv interface{}, ctx context.Con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/GetLegacyBillingId",
+		FullMethod: "/strmprivacy.api.account.v1.AccountService/GetLegacyBillingId",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).GetLegacyBillingId(ctx, req.(*GetLegacyBillingIdRequest))
@@ -204,7 +204,7 @@ func _AccountService_CreateAccountHandle_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/CreateAccountHandle",
+		FullMethod: "/strmprivacy.api.account.v1.AccountService/CreateAccountHandle",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).CreateAccountHandle(ctx, req.(*CreateAccountHandleRequest))
@@ -222,7 +222,7 @@ func _AccountService_InitializeCheckout_Handler(srv interface{}, ctx context.Con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/InitializeCheckout",
+		FullMethod: "/strmprivacy.api.account.v1.AccountService/InitializeCheckout",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).InitializeCheckout(ctx, req.(*InitializeCheckoutRequest))
@@ -240,7 +240,7 @@ func _AccountService_GetCheckoutStatus_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/GetCheckoutStatus",
+		FullMethod: "/strmprivacy.api.account.v1.AccountService/GetCheckoutStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).GetCheckoutStatus(ctx, req.(*GetCheckoutStatusRequest))
@@ -258,7 +258,7 @@ func _AccountService_InitializeCustomerPortal_Handler(srv interface{}, ctx conte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/InitializeCustomerPortal",
+		FullMethod: "/strmprivacy.api.account.v1.AccountService/InitializeCustomerPortal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).InitializeCustomerPortal(ctx, req.(*InitializeCustomerPortalRequest))
@@ -276,7 +276,7 @@ func _AccountService_SetCheckoutCancelled_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.account.v1.AccountService/SetCheckoutCancelled",
+		FullMethod: "/strmprivacy.api.account.v1.AccountService/SetCheckoutCancelled",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AccountServiceServer).SetCheckoutCancelled(ctx, req.(*SetCheckoutCancelledRequest))
@@ -288,7 +288,7 @@ func _AccountService_SetCheckoutCancelled_Handler(srv interface{}, ctx context.C
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AccountService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.account.v1.AccountService",
+	ServiceName: "strmprivacy.api.account.v1.AccountService",
 	HandlerType: (*AccountServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -321,5 +321,5 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/account/v1/account_v1.proto",
+	Metadata: "strmprivacy/api/account/v1/account_v1.proto",
 }

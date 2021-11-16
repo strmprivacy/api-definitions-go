@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/consent_levels/v1/consent_levels_v1.proto
+// source: strmprivacy/api/consent_levels/v1/consent_levels_v1.proto
 
 package consent_levels
 
@@ -38,7 +38,7 @@ func NewConsentLevelMappingsServiceClient(cc grpc.ClientConnInterface) ConsentLe
 
 func (c *consentLevelMappingsServiceClient) ListConsentLevelMappings(ctx context.Context, in *ListConsentLevelMappingsRequest, opts ...grpc.CallOption) (*ListConsentLevelMappingsResponse, error) {
 	out := new(ListConsentLevelMappingsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.consent_levels.v1.ConsentLevelMappingsService/ListConsentLevelMappings", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService/ListConsentLevelMappings", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *consentLevelMappingsServiceClient) ListConsentLevelMappings(ctx context
 
 func (c *consentLevelMappingsServiceClient) GetConsentLevelMapping(ctx context.Context, in *GetConsentLevelMappingRequest, opts ...grpc.CallOption) (*GetConsentLevelMappingResponse, error) {
 	out := new(GetConsentLevelMappingResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.consent_levels.v1.ConsentLevelMappingsService/GetConsentLevelMapping", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService/GetConsentLevelMapping", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *consentLevelMappingsServiceClient) GetConsentLevelMapping(ctx context.C
 
 func (c *consentLevelMappingsServiceClient) DeleteConsentLevelMapping(ctx context.Context, in *DeleteConsentLevelMappingRequest, opts ...grpc.CallOption) (*DeleteConsentLevelMappingResponse, error) {
 	out := new(DeleteConsentLevelMappingResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.consent_levels.v1.ConsentLevelMappingsService/DeleteConsentLevelMapping", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService/DeleteConsentLevelMapping", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *consentLevelMappingsServiceClient) DeleteConsentLevelMapping(ctx contex
 
 func (c *consentLevelMappingsServiceClient) CreateConsentLevelMapping(ctx context.Context, in *CreateConsentLevelMappingRequest, opts ...grpc.CallOption) (*CreateConsentLevelMappingResponse, error) {
 	out := new(CreateConsentLevelMappingResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.consent_levels.v1.ConsentLevelMappingsService/CreateConsentLevelMapping", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService/CreateConsentLevelMapping", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ func _ConsentLevelMappingsService_ListConsentLevelMappings_Handler(srv interface
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.consent_levels.v1.ConsentLevelMappingsService/ListConsentLevelMappings",
+		FullMethod: "/strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService/ListConsentLevelMappings",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ConsentLevelMappingsServiceServer).ListConsentLevelMappings(ctx, req.(*ListConsentLevelMappingsRequest))
@@ -141,7 +141,7 @@ func _ConsentLevelMappingsService_GetConsentLevelMapping_Handler(srv interface{}
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.consent_levels.v1.ConsentLevelMappingsService/GetConsentLevelMapping",
+		FullMethod: "/strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService/GetConsentLevelMapping",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ConsentLevelMappingsServiceServer).GetConsentLevelMapping(ctx, req.(*GetConsentLevelMappingRequest))
@@ -159,7 +159,7 @@ func _ConsentLevelMappingsService_DeleteConsentLevelMapping_Handler(srv interfac
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.consent_levels.v1.ConsentLevelMappingsService/DeleteConsentLevelMapping",
+		FullMethod: "/strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService/DeleteConsentLevelMapping",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ConsentLevelMappingsServiceServer).DeleteConsentLevelMapping(ctx, req.(*DeleteConsentLevelMappingRequest))
@@ -177,7 +177,7 @@ func _ConsentLevelMappingsService_CreateConsentLevelMapping_Handler(srv interfac
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.consent_levels.v1.ConsentLevelMappingsService/CreateConsentLevelMapping",
+		FullMethod: "/strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService/CreateConsentLevelMapping",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ConsentLevelMappingsServiceServer).CreateConsentLevelMapping(ctx, req.(*CreateConsentLevelMappingRequest))
@@ -189,7 +189,7 @@ func _ConsentLevelMappingsService_CreateConsentLevelMapping_Handler(srv interfac
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ConsentLevelMappingsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.consent_levels.v1.ConsentLevelMappingsService",
+	ServiceName: "strmprivacy.api.consent_levels.v1.ConsentLevelMappingsService",
 	HandlerType: (*ConsentLevelMappingsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -210,5 +210,5 @@ var ConsentLevelMappingsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/consent_levels/v1/consent_levels_v1.proto",
+	Metadata: "strmprivacy/api/consent_levels/v1/consent_levels_v1.proto",
 }

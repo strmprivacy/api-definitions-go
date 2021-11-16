@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/schemas/v1/schemas_v1.proto
+// source: strmprivacy/api/schemas/v1/schemas_v1.proto
 
 package schemas
 
@@ -39,7 +39,7 @@ func NewSchemasServiceClient(cc grpc.ClientConnInterface) SchemasServiceClient {
 
 func (c *schemasServiceClient) ListSchemas(ctx context.Context, in *ListSchemasRequest, opts ...grpc.CallOption) (*ListSchemasResponse, error) {
 	out := new(ListSchemasResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/ListSchemas", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/ListSchemas", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *schemasServiceClient) ListSchemas(ctx context.Context, in *ListSchemasR
 
 func (c *schemasServiceClient) GetSchema(ctx context.Context, in *GetSchemaRequest, opts ...grpc.CallOption) (*GetSchemaResponse, error) {
 	out := new(GetSchemaResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/GetSchema", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/GetSchema", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *schemasServiceClient) GetSchema(ctx context.Context, in *GetSchemaReque
 
 func (c *schemasServiceClient) CreateSchema(ctx context.Context, in *CreateSchemaRequest, opts ...grpc.CallOption) (*CreateSchemaResponse, error) {
 	out := new(CreateSchemaResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/CreateSchema", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/CreateSchema", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *schemasServiceClient) CreateSchema(ctx context.Context, in *CreateSchem
 
 func (c *schemasServiceClient) UpdateSchema(ctx context.Context, in *UpdateSchemaRequest, opts ...grpc.CallOption) (*UpdateSchemaResponse, error) {
 	out := new(UpdateSchemaResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/UpdateSchema", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/UpdateSchema", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *schemasServiceClient) UpdateSchema(ctx context.Context, in *UpdateSchem
 
 func (c *schemasServiceClient) GetSchemaCode(ctx context.Context, in *GetSchemaCodeRequest, opts ...grpc.CallOption) (*GetSchemaCodeResponse, error) {
 	out := new(GetSchemaCodeResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.schemas.v1.SchemasService/GetSchemaCode", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/GetSchemaCode", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _SchemasService_ListSchemas_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.schemas.v1.SchemasService/ListSchemas",
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/ListSchemas",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SchemasServiceServer).ListSchemas(ctx, req.(*ListSchemasRequest))
@@ -154,7 +154,7 @@ func _SchemasService_GetSchema_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.schemas.v1.SchemasService/GetSchema",
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/GetSchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SchemasServiceServer).GetSchema(ctx, req.(*GetSchemaRequest))
@@ -172,7 +172,7 @@ func _SchemasService_CreateSchema_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.schemas.v1.SchemasService/CreateSchema",
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/CreateSchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SchemasServiceServer).CreateSchema(ctx, req.(*CreateSchemaRequest))
@@ -190,7 +190,7 @@ func _SchemasService_UpdateSchema_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.schemas.v1.SchemasService/UpdateSchema",
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/UpdateSchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SchemasServiceServer).UpdateSchema(ctx, req.(*UpdateSchemaRequest))
@@ -208,7 +208,7 @@ func _SchemasService_GetSchemaCode_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.schemas.v1.SchemasService/GetSchemaCode",
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/GetSchemaCode",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SchemasServiceServer).GetSchemaCode(ctx, req.(*GetSchemaCodeRequest))
@@ -220,7 +220,7 @@ func _SchemasService_GetSchemaCode_Handler(srv interface{}, ctx context.Context,
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var SchemasService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.schemas.v1.SchemasService",
+	ServiceName: "strmprivacy.api.schemas.v1.SchemasService",
 	HandlerType: (*SchemasServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -245,5 +245,5 @@ var SchemasService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/schemas/v1/schemas_v1.proto",
+	Metadata: "strmprivacy/api/schemas/v1/schemas_v1.proto",
 }

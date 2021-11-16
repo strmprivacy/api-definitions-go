@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/batch_exporters/v1/batch_exporters_v1.proto
+// source: strmprivacy/api/batch_exporters/v1/batch_exporters_v1.proto
 
 package batch_exporters
 
@@ -38,7 +38,7 @@ func NewBatchExportersServiceClient(cc grpc.ClientConnInterface) BatchExportersS
 
 func (c *batchExportersServiceClient) ListBatchExporters(ctx context.Context, in *ListBatchExportersRequest, opts ...grpc.CallOption) (*ListBatchExportersResponse, error) {
 	out := new(ListBatchExportersResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.batch_exporters.v1.BatchExportersService/ListBatchExporters", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.batch_exporters.v1.BatchExportersService/ListBatchExporters", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *batchExportersServiceClient) ListBatchExporters(ctx context.Context, in
 
 func (c *batchExportersServiceClient) GetBatchExporter(ctx context.Context, in *GetBatchExporterRequest, opts ...grpc.CallOption) (*GetBatchExporterResponse, error) {
 	out := new(GetBatchExporterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.batch_exporters.v1.BatchExportersService/GetBatchExporter", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.batch_exporters.v1.BatchExportersService/GetBatchExporter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *batchExportersServiceClient) GetBatchExporter(ctx context.Context, in *
 
 func (c *batchExportersServiceClient) DeleteBatchExporter(ctx context.Context, in *DeleteBatchExporterRequest, opts ...grpc.CallOption) (*DeleteBatchExporterResponse, error) {
 	out := new(DeleteBatchExporterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.batch_exporters.v1.BatchExportersService/DeleteBatchExporter", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.batch_exporters.v1.BatchExportersService/DeleteBatchExporter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *batchExportersServiceClient) DeleteBatchExporter(ctx context.Context, i
 
 func (c *batchExportersServiceClient) CreateBatchExporter(ctx context.Context, in *CreateBatchExporterRequest, opts ...grpc.CallOption) (*CreateBatchExporterResponse, error) {
 	out := new(CreateBatchExporterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.batch_exporters.v1.BatchExportersService/CreateBatchExporter", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.batch_exporters.v1.BatchExportersService/CreateBatchExporter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _BatchExportersService_ListBatchExporters_Handler(srv interface{}, ctx cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.batch_exporters.v1.BatchExportersService/ListBatchExporters",
+		FullMethod: "/strmprivacy.api.batch_exporters.v1.BatchExportersService/ListBatchExporters",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BatchExportersServiceServer).ListBatchExporters(ctx, req.(*ListBatchExportersRequest))
@@ -140,7 +140,7 @@ func _BatchExportersService_GetBatchExporter_Handler(srv interface{}, ctx contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.batch_exporters.v1.BatchExportersService/GetBatchExporter",
+		FullMethod: "/strmprivacy.api.batch_exporters.v1.BatchExportersService/GetBatchExporter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BatchExportersServiceServer).GetBatchExporter(ctx, req.(*GetBatchExporterRequest))
@@ -158,7 +158,7 @@ func _BatchExportersService_DeleteBatchExporter_Handler(srv interface{}, ctx con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.batch_exporters.v1.BatchExportersService/DeleteBatchExporter",
+		FullMethod: "/strmprivacy.api.batch_exporters.v1.BatchExportersService/DeleteBatchExporter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BatchExportersServiceServer).DeleteBatchExporter(ctx, req.(*DeleteBatchExporterRequest))
@@ -176,7 +176,7 @@ func _BatchExportersService_CreateBatchExporter_Handler(srv interface{}, ctx con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.batch_exporters.v1.BatchExportersService/CreateBatchExporter",
+		FullMethod: "/strmprivacy.api.batch_exporters.v1.BatchExportersService/CreateBatchExporter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BatchExportersServiceServer).CreateBatchExporter(ctx, req.(*CreateBatchExporterRequest))
@@ -188,7 +188,7 @@ func _BatchExportersService_CreateBatchExporter_Handler(srv interface{}, ctx con
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BatchExportersService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.batch_exporters.v1.BatchExportersService",
+	ServiceName: "strmprivacy.api.batch_exporters.v1.BatchExportersService",
 	HandlerType: (*BatchExportersServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -209,5 +209,5 @@ var BatchExportersService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/batch_exporters/v1/batch_exporters_v1.proto",
+	Metadata: "strmprivacy/api/batch_exporters/v1/batch_exporters_v1.proto",
 }

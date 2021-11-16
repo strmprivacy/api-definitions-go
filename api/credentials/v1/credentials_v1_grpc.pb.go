@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/credentials/v1/credentials_v1.proto
+// source: strmprivacy/api/credentials/v1/credentials_v1.proto
 
 package credentials
 
@@ -38,7 +38,7 @@ func NewCredentialsServiceClient(cc grpc.ClientConnInterface) CredentialsService
 
 func (c *credentialsServiceClient) ListCredentials(ctx context.Context, in *ListCredentialsRequest, opts ...grpc.CallOption) (*ListCredentialsResponse, error) {
 	out := new(ListCredentialsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.credentials.v1.CredentialsService/ListCredentials", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.credentials.v1.CredentialsService/ListCredentials", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *credentialsServiceClient) ListCredentials(ctx context.Context, in *List
 
 func (c *credentialsServiceClient) GetCredential(ctx context.Context, in *GetCredentialRequest, opts ...grpc.CallOption) (*GetCredentialResponse, error) {
 	out := new(GetCredentialResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.credentials.v1.CredentialsService/GetCredential", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.credentials.v1.CredentialsService/GetCredential", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *credentialsServiceClient) GetCredential(ctx context.Context, in *GetCre
 
 func (c *credentialsServiceClient) CreateCredential(ctx context.Context, in *CreateCredentialRequest, opts ...grpc.CallOption) (*CreateCredentialResponse, error) {
 	out := new(CreateCredentialResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.credentials.v1.CredentialsService/CreateCredential", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.credentials.v1.CredentialsService/CreateCredential", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *credentialsServiceClient) CreateCredential(ctx context.Context, in *Cre
 
 func (c *credentialsServiceClient) DeleteCredential(ctx context.Context, in *DeleteCredentialRequest, opts ...grpc.CallOption) (*DeleteCredentialResponse, error) {
 	out := new(DeleteCredentialResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.credentials.v1.CredentialsService/DeleteCredential", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.credentials.v1.CredentialsService/DeleteCredential", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _CredentialsService_ListCredentials_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.credentials.v1.CredentialsService/ListCredentials",
+		FullMethod: "/strmprivacy.api.credentials.v1.CredentialsService/ListCredentials",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CredentialsServiceServer).ListCredentials(ctx, req.(*ListCredentialsRequest))
@@ -140,7 +140,7 @@ func _CredentialsService_GetCredential_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.credentials.v1.CredentialsService/GetCredential",
+		FullMethod: "/strmprivacy.api.credentials.v1.CredentialsService/GetCredential",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CredentialsServiceServer).GetCredential(ctx, req.(*GetCredentialRequest))
@@ -158,7 +158,7 @@ func _CredentialsService_CreateCredential_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.credentials.v1.CredentialsService/CreateCredential",
+		FullMethod: "/strmprivacy.api.credentials.v1.CredentialsService/CreateCredential",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CredentialsServiceServer).CreateCredential(ctx, req.(*CreateCredentialRequest))
@@ -176,7 +176,7 @@ func _CredentialsService_DeleteCredential_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.credentials.v1.CredentialsService/DeleteCredential",
+		FullMethod: "/strmprivacy.api.credentials.v1.CredentialsService/DeleteCredential",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CredentialsServiceServer).DeleteCredential(ctx, req.(*DeleteCredentialRequest))
@@ -188,7 +188,7 @@ func _CredentialsService_DeleteCredential_Handler(srv interface{}, ctx context.C
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CredentialsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.credentials.v1.CredentialsService",
+	ServiceName: "strmprivacy.api.credentials.v1.CredentialsService",
 	HandlerType: (*CredentialsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -209,5 +209,5 @@ var CredentialsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/credentials/v1/credentials_v1.proto",
+	Metadata: "strmprivacy/api/credentials/v1/credentials_v1.proto",
 }

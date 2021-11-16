@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/streams/v1/streams_v1.proto
+// source: strmprivacy/api/streams/v1/streams_v1.proto
 
 package streams
 
@@ -38,7 +38,7 @@ func NewStreamsServiceClient(cc grpc.ClientConnInterface) StreamsServiceClient {
 
 func (c *streamsServiceClient) ListStreams(ctx context.Context, in *ListStreamsRequest, opts ...grpc.CallOption) (*ListStreamsResponse, error) {
 	out := new(ListStreamsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.streams.v1.StreamsService/ListStreams", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.streams.v1.StreamsService/ListStreams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *streamsServiceClient) ListStreams(ctx context.Context, in *ListStreamsR
 
 func (c *streamsServiceClient) GetStream(ctx context.Context, in *GetStreamRequest, opts ...grpc.CallOption) (*GetStreamResponse, error) {
 	out := new(GetStreamResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.streams.v1.StreamsService/GetStream", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.streams.v1.StreamsService/GetStream", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *streamsServiceClient) GetStream(ctx context.Context, in *GetStreamReque
 
 func (c *streamsServiceClient) DeleteStream(ctx context.Context, in *DeleteStreamRequest, opts ...grpc.CallOption) (*DeleteStreamResponse, error) {
 	out := new(DeleteStreamResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.streams.v1.StreamsService/DeleteStream", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.streams.v1.StreamsService/DeleteStream", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *streamsServiceClient) DeleteStream(ctx context.Context, in *DeleteStrea
 
 func (c *streamsServiceClient) CreateStream(ctx context.Context, in *CreateStreamRequest, opts ...grpc.CallOption) (*CreateStreamResponse, error) {
 	out := new(CreateStreamResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.streams.v1.StreamsService/CreateStream", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.streams.v1.StreamsService/CreateStream", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _StreamsService_ListStreams_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.streams.v1.StreamsService/ListStreams",
+		FullMethod: "/strmprivacy.api.streams.v1.StreamsService/ListStreams",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(StreamsServiceServer).ListStreams(ctx, req.(*ListStreamsRequest))
@@ -140,7 +140,7 @@ func _StreamsService_GetStream_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.streams.v1.StreamsService/GetStream",
+		FullMethod: "/strmprivacy.api.streams.v1.StreamsService/GetStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(StreamsServiceServer).GetStream(ctx, req.(*GetStreamRequest))
@@ -158,7 +158,7 @@ func _StreamsService_DeleteStream_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.streams.v1.StreamsService/DeleteStream",
+		FullMethod: "/strmprivacy.api.streams.v1.StreamsService/DeleteStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(StreamsServiceServer).DeleteStream(ctx, req.(*DeleteStreamRequest))
@@ -176,7 +176,7 @@ func _StreamsService_CreateStream_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.streams.v1.StreamsService/CreateStream",
+		FullMethod: "/strmprivacy.api.streams.v1.StreamsService/CreateStream",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(StreamsServiceServer).CreateStream(ctx, req.(*CreateStreamRequest))
@@ -188,7 +188,7 @@ func _StreamsService_CreateStream_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var StreamsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.streams.v1.StreamsService",
+	ServiceName: "strmprivacy.api.streams.v1.StreamsService",
 	HandlerType: (*StreamsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -209,5 +209,5 @@ var StreamsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/streams/v1/streams_v1.proto",
+	Metadata: "strmprivacy/api/streams/v1/streams_v1.proto",
 }

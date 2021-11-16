@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/metrics/v1/metrics.proto
+// source: strmprivacy/api/metrics/v1/metrics.proto
 
 package metrics
 
@@ -35,7 +35,7 @@ func NewMetricsServiceClient(cc grpc.ClientConnInterface) MetricsServiceClient {
 
 func (c *metricsServiceClient) GetSystemState(ctx context.Context, in *GetSystemStateRequest, opts ...grpc.CallOption) (*GetSystemStateResponse, error) {
 	out := new(GetSystemStateResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.metrics.v1.MetricsService/GetSystemState", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.metrics.v1.MetricsService/GetSystemState", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func _MetricsService_GetSystemState_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.metrics.v1.MetricsService/GetSystemState",
+		FullMethod: "/strmprivacy.api.metrics.v1.MetricsService/GetSystemState",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MetricsServiceServer).GetSystemState(ctx, req.(*GetSystemStateRequest))
@@ -92,7 +92,7 @@ func _MetricsService_GetSystemState_Handler(srv interface{}, ctx context.Context
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var MetricsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.metrics.v1.MetricsService",
+	ServiceName: "strmprivacy.api.metrics.v1.MetricsService",
 	HandlerType: (*MetricsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -101,5 +101,5 @@ var MetricsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/metrics/v1/metrics.proto",
+	Metadata: "strmprivacy/api/metrics/v1/metrics.proto",
 }

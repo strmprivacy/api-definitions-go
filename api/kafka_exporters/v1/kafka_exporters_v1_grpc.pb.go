@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/kafka_exporters/v1/kafka_exporters_v1.proto
+// source: strmprivacy/api/kafka_exporters/v1/kafka_exporters_v1.proto
 
 package kafka_exporters
 
@@ -38,7 +38,7 @@ func NewKafkaExportersServiceClient(cc grpc.ClientConnInterface) KafkaExportersS
 
 func (c *kafkaExportersServiceClient) ListKafkaExporters(ctx context.Context, in *ListKafkaExportersRequest, opts ...grpc.CallOption) (*ListKafkaExportersResponse, error) {
 	out := new(ListKafkaExportersResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_exporters.v1.KafkaExportersService/ListKafkaExporters", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_exporters.v1.KafkaExportersService/ListKafkaExporters", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *kafkaExportersServiceClient) ListKafkaExporters(ctx context.Context, in
 
 func (c *kafkaExportersServiceClient) GetKafkaExporter(ctx context.Context, in *GetKafkaExporterRequest, opts ...grpc.CallOption) (*GetKafkaExporterResponse, error) {
 	out := new(GetKafkaExporterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_exporters.v1.KafkaExportersService/GetKafkaExporter", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_exporters.v1.KafkaExportersService/GetKafkaExporter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *kafkaExportersServiceClient) GetKafkaExporter(ctx context.Context, in *
 
 func (c *kafkaExportersServiceClient) DeleteKafkaExporter(ctx context.Context, in *DeleteKafkaExporterRequest, opts ...grpc.CallOption) (*DeleteKafkaExporterResponse, error) {
 	out := new(DeleteKafkaExporterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_exporters.v1.KafkaExportersService/DeleteKafkaExporter", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_exporters.v1.KafkaExportersService/DeleteKafkaExporter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *kafkaExportersServiceClient) DeleteKafkaExporter(ctx context.Context, i
 
 func (c *kafkaExportersServiceClient) CreateKafkaExporter(ctx context.Context, in *CreateKafkaExporterRequest, opts ...grpc.CallOption) (*CreateKafkaExporterResponse, error) {
 	out := new(CreateKafkaExporterResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_exporters.v1.KafkaExportersService/CreateKafkaExporter", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_exporters.v1.KafkaExportersService/CreateKafkaExporter", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _KafkaExportersService_ListKafkaExporters_Handler(srv interface{}, ctx cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_exporters.v1.KafkaExportersService/ListKafkaExporters",
+		FullMethod: "/strmprivacy.api.kafka_exporters.v1.KafkaExportersService/ListKafkaExporters",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaExportersServiceServer).ListKafkaExporters(ctx, req.(*ListKafkaExportersRequest))
@@ -140,7 +140,7 @@ func _KafkaExportersService_GetKafkaExporter_Handler(srv interface{}, ctx contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_exporters.v1.KafkaExportersService/GetKafkaExporter",
+		FullMethod: "/strmprivacy.api.kafka_exporters.v1.KafkaExportersService/GetKafkaExporter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaExportersServiceServer).GetKafkaExporter(ctx, req.(*GetKafkaExporterRequest))
@@ -158,7 +158,7 @@ func _KafkaExportersService_DeleteKafkaExporter_Handler(srv interface{}, ctx con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_exporters.v1.KafkaExportersService/DeleteKafkaExporter",
+		FullMethod: "/strmprivacy.api.kafka_exporters.v1.KafkaExportersService/DeleteKafkaExporter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaExportersServiceServer).DeleteKafkaExporter(ctx, req.(*DeleteKafkaExporterRequest))
@@ -176,7 +176,7 @@ func _KafkaExportersService_CreateKafkaExporter_Handler(srv interface{}, ctx con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_exporters.v1.KafkaExportersService/CreateKafkaExporter",
+		FullMethod: "/strmprivacy.api.kafka_exporters.v1.KafkaExportersService/CreateKafkaExporter",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaExportersServiceServer).CreateKafkaExporter(ctx, req.(*CreateKafkaExporterRequest))
@@ -188,7 +188,7 @@ func _KafkaExportersService_CreateKafkaExporter_Handler(srv interface{}, ctx con
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var KafkaExportersService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.kafka_exporters.v1.KafkaExportersService",
+	ServiceName: "strmprivacy.api.kafka_exporters.v1.KafkaExportersService",
 	HandlerType: (*KafkaExportersServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -209,5 +209,5 @@ var KafkaExportersService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/kafka_exporters/v1/kafka_exporters_v1.proto",
+	Metadata: "strmprivacy/api/kafka_exporters/v1/kafka_exporters_v1.proto",
 }

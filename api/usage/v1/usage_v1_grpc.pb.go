@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/usage/v1/usage_v1.proto
+// source: strmprivacy/api/usage/v1/usage_v1.proto
 
 package usage
 
@@ -35,7 +35,7 @@ func NewUsageServiceClient(cc grpc.ClientConnInterface) UsageServiceClient {
 
 func (c *usageServiceClient) GetStreamEventUsage(ctx context.Context, in *GetStreamEventUsageRequest, opts ...grpc.CallOption) (*GetStreamEventUsageResponse, error) {
 	out := new(GetStreamEventUsageResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.usage.v1.UsageService/GetStreamEventUsage", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.usage.v1.UsageService/GetStreamEventUsage", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func _UsageService_GetStreamEventUsage_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.usage.v1.UsageService/GetStreamEventUsage",
+		FullMethod: "/strmprivacy.api.usage.v1.UsageService/GetStreamEventUsage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UsageServiceServer).GetStreamEventUsage(ctx, req.(*GetStreamEventUsageRequest))
@@ -92,7 +92,7 @@ func _UsageService_GetStreamEventUsage_Handler(srv interface{}, ctx context.Cont
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var UsageService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.usage.v1.UsageService",
+	ServiceName: "strmprivacy.api.usage.v1.UsageService",
 	HandlerType: (*UsageServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -101,5 +101,5 @@ var UsageService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/usage/v1/usage_v1.proto",
+	Metadata: "strmprivacy/api/usage/v1/usage_v1.proto",
 }

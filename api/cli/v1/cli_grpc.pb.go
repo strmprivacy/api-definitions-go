@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/cli/v1/cli.proto
+// source: strmprivacy/api/cli/v1/cli.proto
 
 package cli
 
@@ -35,7 +35,7 @@ func NewCliServiceClient(cc grpc.ClientConnInterface) CliServiceClient {
 
 func (c *cliServiceClient) GetRelease(ctx context.Context, in *GetReleaseRequest, opts ...grpc.CallOption) (*GetReleaseResponse, error) {
 	out := new(GetReleaseResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.cli.v1.CliService/GetRelease", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.cli.v1.CliService/GetRelease", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +80,7 @@ func _CliService_GetRelease_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.cli.v1.CliService/GetRelease",
+		FullMethod: "/strmprivacy.api.cli.v1.CliService/GetRelease",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CliServiceServer).GetRelease(ctx, req.(*GetReleaseRequest))
@@ -92,7 +92,7 @@ func _CliService_GetRelease_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var CliService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.cli.v1.CliService",
+	ServiceName: "strmprivacy.api.cli.v1.CliService",
 	HandlerType: (*CliServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -101,5 +101,5 @@ var CliService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/cli/v1/cli.proto",
+	Metadata: "strmprivacy/api/cli/v1/cli.proto",
 }

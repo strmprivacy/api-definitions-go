@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/kafka_users/v1/kafka_users_v1.proto
+// source: strmprivacy/api/kafka_users/v1/kafka_users_v1.proto
 
 package kafka_users
 
@@ -38,7 +38,7 @@ func NewKafkaUsersServiceClient(cc grpc.ClientConnInterface) KafkaUsersServiceCl
 
 func (c *kafkaUsersServiceClient) ListKafkaUsers(ctx context.Context, in *ListKafkaUsersRequest, opts ...grpc.CallOption) (*ListKafkaUsersResponse, error) {
 	out := new(ListKafkaUsersResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_users.v1.KafkaUsersService/ListKafkaUsers", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_users.v1.KafkaUsersService/ListKafkaUsers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +47,7 @@ func (c *kafkaUsersServiceClient) ListKafkaUsers(ctx context.Context, in *ListKa
 
 func (c *kafkaUsersServiceClient) GetKafkaUser(ctx context.Context, in *GetKafkaUserRequest, opts ...grpc.CallOption) (*GetKafkaUserResponse, error) {
 	out := new(GetKafkaUserResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_users.v1.KafkaUsersService/GetKafkaUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_users.v1.KafkaUsersService/GetKafkaUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +56,7 @@ func (c *kafkaUsersServiceClient) GetKafkaUser(ctx context.Context, in *GetKafka
 
 func (c *kafkaUsersServiceClient) DeleteKafkaUser(ctx context.Context, in *DeleteKafkaUserRequest, opts ...grpc.CallOption) (*DeleteKafkaUserResponse, error) {
 	out := new(DeleteKafkaUserResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_users.v1.KafkaUsersService/DeleteKafkaUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_users.v1.KafkaUsersService/DeleteKafkaUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +65,7 @@ func (c *kafkaUsersServiceClient) DeleteKafkaUser(ctx context.Context, in *Delet
 
 func (c *kafkaUsersServiceClient) CreateKafkaUser(ctx context.Context, in *CreateKafkaUserRequest, opts ...grpc.CallOption) (*CreateKafkaUserResponse, error) {
 	out := new(CreateKafkaUserResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.kafka_users.v1.KafkaUsersService/CreateKafkaUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.kafka_users.v1.KafkaUsersService/CreateKafkaUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +122,7 @@ func _KafkaUsersService_ListKafkaUsers_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_users.v1.KafkaUsersService/ListKafkaUsers",
+		FullMethod: "/strmprivacy.api.kafka_users.v1.KafkaUsersService/ListKafkaUsers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaUsersServiceServer).ListKafkaUsers(ctx, req.(*ListKafkaUsersRequest))
@@ -140,7 +140,7 @@ func _KafkaUsersService_GetKafkaUser_Handler(srv interface{}, ctx context.Contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_users.v1.KafkaUsersService/GetKafkaUser",
+		FullMethod: "/strmprivacy.api.kafka_users.v1.KafkaUsersService/GetKafkaUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaUsersServiceServer).GetKafkaUser(ctx, req.(*GetKafkaUserRequest))
@@ -158,7 +158,7 @@ func _KafkaUsersService_DeleteKafkaUser_Handler(srv interface{}, ctx context.Con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_users.v1.KafkaUsersService/DeleteKafkaUser",
+		FullMethod: "/strmprivacy.api.kafka_users.v1.KafkaUsersService/DeleteKafkaUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaUsersServiceServer).DeleteKafkaUser(ctx, req.(*DeleteKafkaUserRequest))
@@ -176,7 +176,7 @@ func _KafkaUsersService_CreateKafkaUser_Handler(srv interface{}, ctx context.Con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.kafka_users.v1.KafkaUsersService/CreateKafkaUser",
+		FullMethod: "/strmprivacy.api.kafka_users.v1.KafkaUsersService/CreateKafkaUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(KafkaUsersServiceServer).CreateKafkaUser(ctx, req.(*CreateKafkaUserRequest))
@@ -188,7 +188,7 @@ func _KafkaUsersService_CreateKafkaUser_Handler(srv interface{}, ctx context.Con
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var KafkaUsersService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.kafka_users.v1.KafkaUsersService",
+	ServiceName: "strmprivacy.api.kafka_users.v1.KafkaUsersService",
 	HandlerType: (*KafkaUsersServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -209,5 +209,5 @@ var KafkaUsersService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/kafka_users/v1/kafka_users_v1.proto",
+	Metadata: "strmprivacy/api/kafka_users/v1/kafka_users_v1.proto",
 }

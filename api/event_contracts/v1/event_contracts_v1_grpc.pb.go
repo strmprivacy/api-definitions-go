@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.1.0
 // - protoc             v3.15.8
-// source: streammachine/api/event_contracts/v1/event_contracts_v1.proto
+// source: strmprivacy/api/event_contracts/v1/event_contracts_v1.proto
 
 package event_contracts
 
@@ -39,7 +39,7 @@ func NewEventContractsServiceClient(cc grpc.ClientConnInterface) EventContractsS
 
 func (c *eventContractsServiceClient) ListEventContracts(ctx context.Context, in *ListEventContractsRequest, opts ...grpc.CallOption) (*ListEventContractsResponse, error) {
 	out := new(ListEventContractsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/ListEventContracts", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/ListEventContracts", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *eventContractsServiceClient) ListEventContracts(ctx context.Context, in
 
 func (c *eventContractsServiceClient) GetEventContract(ctx context.Context, in *GetEventContractRequest, opts ...grpc.CallOption) (*GetEventContractResponse, error) {
 	out := new(GetEventContractResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/GetEventContract", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/GetEventContract", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *eventContractsServiceClient) GetEventContract(ctx context.Context, in *
 
 func (c *eventContractsServiceClient) CreateEventContract(ctx context.Context, in *CreateEventContractRequest, opts ...grpc.CallOption) (*CreateEventContractResponse, error) {
 	out := new(CreateEventContractResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/CreateEventContract", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/CreateEventContract", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *eventContractsServiceClient) CreateEventContract(ctx context.Context, i
 
 func (c *eventContractsServiceClient) UpdateEventContract(ctx context.Context, in *UpdateEventContractRequest, opts ...grpc.CallOption) (*UpdateEventContractResponse, error) {
 	out := new(UpdateEventContractResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/UpdateEventContract", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/UpdateEventContract", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *eventContractsServiceClient) UpdateEventContract(ctx context.Context, i
 
 func (c *eventContractsServiceClient) ValidateMaskedFields(ctx context.Context, in *ValidateMaskedFieldsRequest, opts ...grpc.CallOption) (*ValidateMaskedFieldsResponse, error) {
 	out := new(ValidateMaskedFieldsResponse)
-	err := c.cc.Invoke(ctx, "/streammachine.api.event_contracts.v1.EventContractsService/ValidateMaskedFields", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/ValidateMaskedFields", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _EventContractsService_ListEventContracts_Handler(srv interface{}, ctx cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/ListEventContracts",
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/ListEventContracts",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EventContractsServiceServer).ListEventContracts(ctx, req.(*ListEventContractsRequest))
@@ -154,7 +154,7 @@ func _EventContractsService_GetEventContract_Handler(srv interface{}, ctx contex
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/GetEventContract",
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/GetEventContract",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EventContractsServiceServer).GetEventContract(ctx, req.(*GetEventContractRequest))
@@ -172,7 +172,7 @@ func _EventContractsService_CreateEventContract_Handler(srv interface{}, ctx con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/CreateEventContract",
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/CreateEventContract",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EventContractsServiceServer).CreateEventContract(ctx, req.(*CreateEventContractRequest))
@@ -190,7 +190,7 @@ func _EventContractsService_UpdateEventContract_Handler(srv interface{}, ctx con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/UpdateEventContract",
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/UpdateEventContract",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EventContractsServiceServer).UpdateEventContract(ctx, req.(*UpdateEventContractRequest))
@@ -208,7 +208,7 @@ func _EventContractsService_ValidateMaskedFields_Handler(srv interface{}, ctx co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/streammachine.api.event_contracts.v1.EventContractsService/ValidateMaskedFields",
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/ValidateMaskedFields",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EventContractsServiceServer).ValidateMaskedFields(ctx, req.(*ValidateMaskedFieldsRequest))
@@ -220,7 +220,7 @@ func _EventContractsService_ValidateMaskedFields_Handler(srv interface{}, ctx co
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var EventContractsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "streammachine.api.event_contracts.v1.EventContractsService",
+	ServiceName: "strmprivacy.api.event_contracts.v1.EventContractsService",
 	HandlerType: (*EventContractsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -245,5 +245,5 @@ var EventContractsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "streammachine/api/event_contracts/v1/event_contracts_v1.proto",
+	Metadata: "strmprivacy/api/event_contracts/v1/event_contracts_v1.proto",
 }
