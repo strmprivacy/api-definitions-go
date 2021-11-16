@@ -1,4 +1,4 @@
-module github.com/streammachineio/api-definitions-go
+module github.com/strmprivacy/api-definitions-go
 
 go 1.16
 
