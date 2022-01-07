@@ -26,6 +26,7 @@ type BatchJobsServiceClient interface {
 	ListBatchJobs(ctx context.Context, in *ListBatchJobsRequest, opts ...grpc.CallOption) (*ListBatchJobsResponse, error)
 	CreateBatchJob(ctx context.Context, in *CreateBatchJobRequest, opts ...grpc.CallOption) (*CreateBatchJobResponse, error)
 	DeleteBatchJob(ctx context.Context, in *DeleteBatchJobRequest, opts ...grpc.CallOption) (*DeleteBatchJobResponse, error)
+	UpdateBatchJobState(ctx context.Context, in *UpdateBatchJobStateRequest, opts ...grpc.CallOption) (*UpdateBatchJobStateResponse, error)
 }
 
 type batchJobsServiceClient struct {
@@ -72,6 +73,15 @@ func (c *batchJobsServiceClient) DeleteBatchJob(ctx context.Context, in *DeleteB
 	return out, nil
 }
 
+func (c *batchJobsServiceClient) UpdateBatchJobState(ctx context.Context, in *UpdateBatchJobStateRequest, opts ...grpc.CallOption) (*UpdateBatchJobStateResponse, error) {
+	out := new(UpdateBatchJobStateResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.batch_jobs.v1.BatchJobsService/UpdateBatchJobState", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BatchJobsServiceServer is the server API for BatchJobsService service.
 // All implementations must embed UnimplementedBatchJobsServiceServer
 // for forward compatibility
@@ -80,6 +90,7 @@ type BatchJobsServiceServer interface {
 	ListBatchJobs(context.Context, *ListBatchJobsRequest) (*ListBatchJobsResponse, error)
 	CreateBatchJob(context.Context, *CreateBatchJobRequest) (*CreateBatchJobResponse, error)
 	DeleteBatchJob(context.Context, *DeleteBatchJobRequest) (*DeleteBatchJobResponse, error)
+	UpdateBatchJobState(context.Context, *UpdateBatchJobStateRequest) (*UpdateBatchJobStateResponse, error)
 	mustEmbedUnimplementedBatchJobsServiceServer()
 }
 
@@ -98,6 +109,9 @@ func (UnimplementedBatchJobsServiceServer) CreateBatchJob(context.Context, *Crea
 }
 func (UnimplementedBatchJobsServiceServer) DeleteBatchJob(context.Context, *DeleteBatchJobRequest) (*DeleteBatchJobResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteBatchJob not implemented")
+}
+func (UnimplementedBatchJobsServiceServer) UpdateBatchJobState(context.Context, *UpdateBatchJobStateRequest) (*UpdateBatchJobStateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBatchJobState not implemented")
 }
 func (UnimplementedBatchJobsServiceServer) mustEmbedUnimplementedBatchJobsServiceServer() {}
 
@@ -184,6 +198,24 @@ func _BatchJobsService_DeleteBatchJob_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BatchJobsService_UpdateBatchJobState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBatchJobStateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BatchJobsServiceServer).UpdateBatchJobState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.batch_jobs.v1.BatchJobsService/UpdateBatchJobState",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BatchJobsServiceServer).UpdateBatchJobState(ctx, req.(*UpdateBatchJobStateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // BatchJobsService_ServiceDesc is the grpc.ServiceDesc for BatchJobsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +238,10 @@ var BatchJobsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteBatchJob",
 			Handler:    _BatchJobsService_DeleteBatchJob_Handler,
+		},
+		{
+			MethodName: "UpdateBatchJobState",
+			Handler:    _BatchJobsService_UpdateBatchJobState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
