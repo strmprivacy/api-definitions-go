@@ -1112,6 +1112,7 @@ type DataConnector struct {
 	Ref *DataConnectorRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	// Types that are assignable to Location:
 	//	*DataConnector_S3Bucket
+	//	*DataConnector_GoogleCloudStorageBucket
 	Location isDataConnector_Location `protobuf_oneof:"location"`
 }
 
@@ -1168,6 +1169,13 @@ func (x *DataConnector) GetS3Bucket() *AwsS3BucketLocation {
 	return nil
 }
 
+func (x *DataConnector) GetGoogleCloudStorageBucket() *GoogleCloudStorageBucketLocation {
+	if x, ok := x.GetLocation().(*DataConnector_GoogleCloudStorageBucket); ok {
+		return x.GoogleCloudStorageBucket
+	}
+	return nil
+}
+
 type isDataConnector_Location interface {
 	isDataConnector_Location()
 }
@@ -1176,7 +1184,13 @@ type DataConnector_S3Bucket struct {
 	S3Bucket *AwsS3BucketLocation `protobuf:"bytes,2,opt,name=s3_bucket,json=s3Bucket,proto3,oneof"`
 }
 
+type DataConnector_GoogleCloudStorageBucket struct {
+	GoogleCloudStorageBucket *GoogleCloudStorageBucketLocation `protobuf:"bytes,3,opt,name=google_cloud_storage_bucket,json=googleCloudStorageBucket,proto3,oneof"`
+}
+
 func (*DataConnector_S3Bucket) isDataConnector_Location() {}
+
+func (*DataConnector_GoogleCloudStorageBucket) isDataConnector_Location() {}
 
 type DataConnectorRef struct {
 	state         protoimpl.MessageState
@@ -3500,7 +3514,7 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x12, 0x26, 0x0a, 0x0f, 0x61, 0x73, 0x73,
 	0x75, 0x6d, 0x65, 0x5f, 0x72, 0x6f, 0x6c, 0x65, 0x5f, 0x61, 0x72, 0x6e, 0x18, 0x06, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x0d, 0x61, 0x73, 0x73, 0x75, 0x6d, 0x65, 0x52, 0x6f, 0x6c, 0x65, 0x41, 0x72,
-	0x6e, 0x22, 0xad, 0x01, 0x0a, 0x0d, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63,
+	0x6e, 0x22, 0xad, 0x02, 0x0a, 0x0d, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63,
 	0x74, 0x6f, 0x72, 0x12, 0x3f, 0x0a, 0x03, 0x72, 0x65, 0x66, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x2d, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61,
 	0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44,
@@ -3510,6 +3524,14 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69,
 	0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x77, 0x73, 0x53, 0x33, 0x42, 0x75, 0x63, 0x6b, 0x65,
 	0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x08, 0x73, 0x33, 0x42,
+	0x75, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x7e, 0x0a, 0x1b, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x5f,
+	0x63, 0x6c, 0x6f, 0x75, 0x64, 0x5f, 0x73, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x5f, 0x62, 0x75,
+	0x63, 0x6b, 0x65, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x3d, 0x2e, 0x73, 0x74, 0x72,
+	0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74,
+	0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x43,
+	0x6c, 0x6f, 0x75, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x42, 0x75, 0x63, 0x6b, 0x65,
+	0x74, 0x4c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x18, 0x67, 0x6f, 0x6f,
+	0x67, 0x6c, 0x65, 0x43, 0x6c, 0x6f, 0x75, 0x64, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x42,
 	0x75, 0x63, 0x6b, 0x65, 0x74, 0x42, 0x0a, 0x0a, 0x08, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f,
 	0x6e, 0x22, 0x45, 0x0a, 0x10, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74,
 	0x6f, 0x72, 0x52, 0x65, 0x66, 0x12, 0x1d, 0x0a, 0x0a, 0x62, 0x69, 0x6c, 0x6c, 0x69, 0x6e, 0x67,
@@ -4009,54 +4031,55 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
 	16, // 9: strmprivacy.api.entities.v1.Sink.bucket:type_name -> strmprivacy.api.entities.v1.BucketConfig
 	18, // 10: strmprivacy.api.entities.v1.DataConnector.ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
 	19, // 11: strmprivacy.api.entities.v1.DataConnector.s3_bucket:type_name -> strmprivacy.api.entities.v1.AwsS3BucketLocation
-	22, // 12: strmprivacy.api.entities.v1.DataType.csv:type_name -> strmprivacy.api.entities.v1.CsvConfig
-	24, // 13: strmprivacy.api.entities.v1.BatchExporter.ref:type_name -> strmprivacy.api.entities.v1.BatchExporterRef
-	11, // 14: strmprivacy.api.entities.v1.BatchExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
-	12, // 15: strmprivacy.api.entities.v1.BatchExporter.key_stream_ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
-	51, // 16: strmprivacy.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
-	26, // 17: strmprivacy.api.entities.v1.KafkaCluster.ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	2,  // 18: strmprivacy.api.entities.v1.KafkaCluster.auth_mechanism:type_name -> strmprivacy.api.entities.v1.AuthMechanism
-	28, // 19: strmprivacy.api.entities.v1.KafkaExporter.ref:type_name -> strmprivacy.api.entities.v1.KafkaExporterRef
-	11, // 20: strmprivacy.api.entities.v1.KafkaExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
-	29, // 21: strmprivacy.api.entities.v1.KafkaExporter.target:type_name -> strmprivacy.api.entities.v1.KafkaExporterTarget
-	30, // 22: strmprivacy.api.entities.v1.KafkaExporter.users:type_name -> strmprivacy.api.entities.v1.KafkaUser
-	26, // 23: strmprivacy.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	31, // 24: strmprivacy.api.entities.v1.KafkaUser.ref:type_name -> strmprivacy.api.entities.v1.KafkaUserRef
-	26, // 25: strmprivacy.api.entities.v1.KafkaUser.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	34, // 26: strmprivacy.api.entities.v1.ConsentLevelMapping.ref:type_name -> strmprivacy.api.entities.v1.ConsentLevelMappingRef
-	52, // 27: strmprivacy.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
-	52, // 28: strmprivacy.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
-	4,  // 29: strmprivacy.api.entities.v1.SchemaRef.schema_type:type_name -> strmprivacy.api.entities.v1.SchemaType
-	36, // 30: strmprivacy.api.entities.v1.Schema.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	3,  // 31: strmprivacy.api.entities.v1.Schema.state:type_name -> strmprivacy.api.entities.v1.State
-	39, // 32: strmprivacy.api.entities.v1.Schema.metadata:type_name -> strmprivacy.api.entities.v1.SchemaMetadata
-	49, // 33: strmprivacy.api.entities.v1.Schema.simple_schema:type_name -> strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
-	5,  // 34: strmprivacy.api.entities.v1.SimpleSchemaNode.type:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNodeType
-	38, // 35: strmprivacy.api.entities.v1.SimpleSchemaNode.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	52, // 36: strmprivacy.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
-	43, // 37: strmprivacy.api.entities.v1.SchemaMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
-	40, // 38: strmprivacy.api.entities.v1.EventContract.ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
-	3,  // 39: strmprivacy.api.entities.v1.EventContract.state:type_name -> strmprivacy.api.entities.v1.State
-	36, // 40: strmprivacy.api.entities.v1.EventContract.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	50, // 41: strmprivacy.api.entities.v1.EventContract.pii_fields:type_name -> strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
-	44, // 42: strmprivacy.api.entities.v1.EventContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
-	42, // 43: strmprivacy.api.entities.v1.EventContract.metadata:type_name -> strmprivacy.api.entities.v1.EventContractMetadata
-	52, // 44: strmprivacy.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
-	43, // 45: strmprivacy.api.entities.v1.EventContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
-	7,  // 46: strmprivacy.api.entities.v1.StreamTree.stream:type_name -> strmprivacy.api.entities.v1.Stream
-	10, // 47: strmprivacy.api.entities.v1.StreamTree.key_stream:type_name -> strmprivacy.api.entities.v1.KeyStream
-	7,  // 48: strmprivacy.api.entities.v1.StreamTree.derived:type_name -> strmprivacy.api.entities.v1.Stream
-	23, // 49: strmprivacy.api.entities.v1.StreamTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	27, // 50: strmprivacy.api.entities.v1.StreamTree.kafka_exporters:type_name -> strmprivacy.api.entities.v1.KafkaExporter
-	14, // 51: strmprivacy.api.entities.v1.SinkTree.sink:type_name -> strmprivacy.api.entities.v1.Sink
-	23, // 52: strmprivacy.api.entities.v1.SinkTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	48, // 53: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
-	38, // 54: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	55, // [55:55] is the sub-list for method output_type
-	55, // [55:55] is the sub-list for method input_type
-	55, // [55:55] is the sub-list for extension type_name
-	55, // [55:55] is the sub-list for extension extendee
-	0,  // [0:55] is the sub-list for field type_name
+	20, // 12: strmprivacy.api.entities.v1.DataConnector.google_cloud_storage_bucket:type_name -> strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
+	22, // 13: strmprivacy.api.entities.v1.DataType.csv:type_name -> strmprivacy.api.entities.v1.CsvConfig
+	24, // 14: strmprivacy.api.entities.v1.BatchExporter.ref:type_name -> strmprivacy.api.entities.v1.BatchExporterRef
+	11, // 15: strmprivacy.api.entities.v1.BatchExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	12, // 16: strmprivacy.api.entities.v1.BatchExporter.key_stream_ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
+	51, // 17: strmprivacy.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
+	26, // 18: strmprivacy.api.entities.v1.KafkaCluster.ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	2,  // 19: strmprivacy.api.entities.v1.KafkaCluster.auth_mechanism:type_name -> strmprivacy.api.entities.v1.AuthMechanism
+	28, // 20: strmprivacy.api.entities.v1.KafkaExporter.ref:type_name -> strmprivacy.api.entities.v1.KafkaExporterRef
+	11, // 21: strmprivacy.api.entities.v1.KafkaExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	29, // 22: strmprivacy.api.entities.v1.KafkaExporter.target:type_name -> strmprivacy.api.entities.v1.KafkaExporterTarget
+	30, // 23: strmprivacy.api.entities.v1.KafkaExporter.users:type_name -> strmprivacy.api.entities.v1.KafkaUser
+	26, // 24: strmprivacy.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	31, // 25: strmprivacy.api.entities.v1.KafkaUser.ref:type_name -> strmprivacy.api.entities.v1.KafkaUserRef
+	26, // 26: strmprivacy.api.entities.v1.KafkaUser.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	34, // 27: strmprivacy.api.entities.v1.ConsentLevelMapping.ref:type_name -> strmprivacy.api.entities.v1.ConsentLevelMappingRef
+	52, // 28: strmprivacy.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
+	52, // 29: strmprivacy.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
+	4,  // 30: strmprivacy.api.entities.v1.SchemaRef.schema_type:type_name -> strmprivacy.api.entities.v1.SchemaType
+	36, // 31: strmprivacy.api.entities.v1.Schema.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	3,  // 32: strmprivacy.api.entities.v1.Schema.state:type_name -> strmprivacy.api.entities.v1.State
+	39, // 33: strmprivacy.api.entities.v1.Schema.metadata:type_name -> strmprivacy.api.entities.v1.SchemaMetadata
+	49, // 34: strmprivacy.api.entities.v1.Schema.simple_schema:type_name -> strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
+	5,  // 35: strmprivacy.api.entities.v1.SimpleSchemaNode.type:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNodeType
+	38, // 36: strmprivacy.api.entities.v1.SimpleSchemaNode.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	52, // 37: strmprivacy.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
+	43, // 38: strmprivacy.api.entities.v1.SchemaMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	40, // 39: strmprivacy.api.entities.v1.EventContract.ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
+	3,  // 40: strmprivacy.api.entities.v1.EventContract.state:type_name -> strmprivacy.api.entities.v1.State
+	36, // 41: strmprivacy.api.entities.v1.EventContract.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	50, // 42: strmprivacy.api.entities.v1.EventContract.pii_fields:type_name -> strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
+	44, // 43: strmprivacy.api.entities.v1.EventContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
+	42, // 44: strmprivacy.api.entities.v1.EventContract.metadata:type_name -> strmprivacy.api.entities.v1.EventContractMetadata
+	52, // 45: strmprivacy.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
+	43, // 46: strmprivacy.api.entities.v1.EventContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	7,  // 47: strmprivacy.api.entities.v1.StreamTree.stream:type_name -> strmprivacy.api.entities.v1.Stream
+	10, // 48: strmprivacy.api.entities.v1.StreamTree.key_stream:type_name -> strmprivacy.api.entities.v1.KeyStream
+	7,  // 49: strmprivacy.api.entities.v1.StreamTree.derived:type_name -> strmprivacy.api.entities.v1.Stream
+	23, // 50: strmprivacy.api.entities.v1.StreamTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	27, // 51: strmprivacy.api.entities.v1.StreamTree.kafka_exporters:type_name -> strmprivacy.api.entities.v1.KafkaExporter
+	14, // 52: strmprivacy.api.entities.v1.SinkTree.sink:type_name -> strmprivacy.api.entities.v1.Sink
+	23, // 53: strmprivacy.api.entities.v1.SinkTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	48, // 54: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
+	38, // 55: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	56, // [56:56] is the sub-list for method output_type
+	56, // [56:56] is the sub-list for method input_type
+	56, // [56:56] is the sub-list for extension type_name
+	56, // [56:56] is the sub-list for extension extendee
+	0,  // [0:56] is the sub-list for field type_name
 }
 
 func init() { file_strmprivacy_api_entities_v1_entities_v1_proto_init() }
@@ -4575,6 +4598,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 	}
 	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[10].OneofWrappers = []interface{}{
 		(*DataConnector_S3Bucket)(nil),
+		(*DataConnector_GoogleCloudStorageBucket)(nil),
 	}
 	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[14].OneofWrappers = []interface{}{
 		(*DataType_Csv)(nil),
