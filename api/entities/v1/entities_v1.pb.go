@@ -1255,7 +1255,9 @@ type AwsS3BucketLocation struct {
 	// (-- api-linter: core::0122::name-suffix=disabled
 	//     aip.dev/not-precedent: We refer to a bucket name. --)
 	BucketName string `protobuf:"bytes,1,opt,name=bucket_name,json=bucketName,proto3" json:"bucket_name,omitempty"`
-	// The credentials that are to be used to access the bucket.
+	// The AWS IAM credentials that give access to this bucket, in JSON format as returned by the AWS CLI. This means a
+	// JSON with at least one property: "AccessKey", which contains at least the two properties: "AccessKeyId" and
+	// "SecretAccessKey".
 	Credentials string `protobuf:"bytes,2,opt,name=credentials,proto3" json:"credentials,omitempty"`
 	// The ARN of the role to assume.
 	//If present, start an AssumeRole flow to get temporary credentials in another AWS account.
@@ -1325,7 +1327,8 @@ type GoogleCloudStorageBucketLocation struct {
 	// (-- api-linter: core::0122::name-suffix=disabled
 	//     aip.dev/not-precedent: We refer to a bucket name. --)
 	BucketName string `protobuf:"bytes,1,opt,name=bucket_name,json=bucketName,proto3" json:"bucket_name,omitempty"`
-	// The credentials that are to be used to access the bucket.
+	// The Google Cloud Service Account credentials JSON that is used to access the Google Cloud Storage bucket.
+	// We do not support credentials in P12 format.
 	Credentials string `protobuf:"bytes,2,opt,name=credentials,proto3" json:"credentials,omitempty"`
 }
 
