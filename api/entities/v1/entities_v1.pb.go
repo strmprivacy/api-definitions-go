@@ -409,7 +409,14 @@ type Stream struct {
 	Ref *StreamRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	// customer's description for this Stream.
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	// consent levels for derived streams
+	//
+	//consent levels for derived streams
+	//
+	//constraints:
+	//size < 50
+	//if consent_level_type ==  CUMULATIVE then
+	//size = 1
+	//endif
 	ConsentLevels []int32 `protobuf:"varint,3,rep,packed,name=consent_levels,json=consentLevels,proto3" json:"consent_levels,omitempty"`
 	// how event consent-levels are interpreted by decrypters.
 	ConsentLevelType ConsentLevelType `protobuf:"varint,4,opt,name=consent_level_type,json=consentLevelType,proto3,enum=strmprivacy.api.entities.v1.ConsentLevelType" json:"consent_level_type,omitempty"`
@@ -417,9 +424,11 @@ type Stream struct {
 	Enabled bool `protobuf:"varint,5,opt,name=enabled,proto3" json:"enabled,omitempty"`
 	// stream limits
 	Limits *Limits `protobuf:"bytes,6,opt,name=limits,proto3" json:"limits,omitempty"`
-	// null for source streams
+	//
+	//null for source streams
+	//constraints: general name constraint
 	LinkedStream string `protobuf:"bytes,7,opt,name=linked_stream,json=linkedStream,proto3" json:"linked_stream,omitempty"`
-	// customer purposes.
+	// tags are meant for customers to tag their streams
 	Tags        []string       `protobuf:"bytes,8,rep,name=tags,proto3" json:"tags,omitempty"`
 	Credentials []*Credentials `protobuf:"bytes,9,rep,name=credentials,proto3" json:"credentials,omitempty"`
 	// field masking is defined per OUTPUT stream and event-contract ref. combination
@@ -541,9 +550,17 @@ type MaskedFields struct {
 
 	// default Murmurhash3 for empty string
 	HashType string `protobuf:"bytes,1,opt,name=hash_type,json=hashType,proto3" json:"hash_type,omitempty"`
-	// hashing seed
+	//
+	//hashing seed
+	//constraints: size < 1000, unicode
 	Seed string `protobuf:"bytes,2,opt,name=seed,proto3" json:"seed,omitempty"`
-	// map of event-contract-ref vs field patterns
+	//
+	//map of event-contract-ref vs field patterns
+	//
+	//constraints:
+	// event-contract-refs should be existing event contracts
+	// field_patterns should be valid values (checked by event-core)
+	// the field_patterns list should have no duplicates.
 	FieldPatterns map[string]*MaskedFields_PatternList `protobuf:"bytes,3,rep,name=field_patterns,json=fieldPatterns,proto3" json:"field_patterns,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
@@ -723,7 +740,9 @@ type StreamRef struct {
 	unknownFields protoimpl.UnknownFields
 
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	// the name of the stream
+	//
+	//the name of the stream
+	//constraints: generic name
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
 
@@ -985,7 +1004,8 @@ type SinkRef struct {
 	unknownFields protoimpl.UnknownFields
 
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// constraints: generic name
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
 
 func (x *SinkRef) Reset() {
@@ -1039,8 +1059,7 @@ type BucketConfig struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: We refer to a bucket name. --)
+	// constraints: validated via access check
 	BucketName string `protobuf:"bytes,4,opt,name=bucket_name,json=bucketName,proto3" json:"bucket_name,omitempty"`
 	// The credentials that are to be used to access the sink target (e.g. S3 or Google Cloud Storage)
 	Credentials string `protobuf:"bytes,5,opt,name=credentials,proto3" json:"credentials,omitempty"`
@@ -1503,11 +1522,17 @@ type BatchExporter struct {
 	//	*BatchExporter_StreamRef
 	//	*BatchExporter_KeyStreamRef
 	StreamOrKeyStreamRef isBatchExporter_StreamOrKeyStreamRef `protobuf_oneof:"stream_or_key_stream_ref"`
-	// granularity of seconds, nanos is unused
+	//
+	//constraints:
+	//interval > 30s
+	//interval < TBD
 	Interval *durationpb.Duration `protobuf:"bytes,4,opt,name=interval,proto3" json:"interval,omitempty"`
-	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: We refer to the sink by name. --)
-	SinkName              string `protobuf:"bytes,5,opt,name=sink_name,json=sinkName,proto3" json:"sink_name,omitempty"`
+	// constraints: generic name constraints
+	SinkName string `protobuf:"bytes,5,opt,name=sink_name,json=sinkName,proto3" json:"sink_name,omitempty"`
+	// constraints:
+	//Total key size on S3 is 1024 unicode characters max. The export filenames are
+	//created from the stream name suffixed with partition numbers and a timestamp.
+	//Suggestion: generic name constraint
 	PathPrefix            string `protobuf:"bytes,6,opt,name=path_prefix,json=pathPrefix,proto3" json:"path_prefix,omitempty"`
 	IncludeExistingEvents bool   `protobuf:"varint,7,opt,name=include_existing_events,json=includeExistingEvents,proto3" json:"include_existing_events,omitempty"`
 }
@@ -1622,7 +1647,8 @@ type BatchExporterRef struct {
 	unknownFields protoimpl.UnknownFields
 
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// constraints: generic name constraint
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
 
 func (x *BatchExporterRef) Reset() {
@@ -1753,7 +1779,8 @@ type KafkaClusterRef struct {
 
 	// (-- streammachine for the default export cluster --)
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	// (-- shared export --)
+	//
+	//constraints: generic name constraint
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
 
@@ -1880,7 +1907,10 @@ type KafkaExporterRef struct {
 	unknownFields protoimpl.UnknownFields
 
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	// default value  <cluster-name>-<stream-name>
+	//
+	//default value  <cluster-name>-<stream-name>
+	//
+	//constraints: generic name constraint
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
 
@@ -1937,7 +1967,9 @@ type KafkaExporterTarget struct {
 
 	// what cluster to produce to
 	ClusterRef *KafkaClusterRef `protobuf:"bytes,1,opt,name=cluster_ref,json=clusterRef,proto3" json:"cluster_ref,omitempty"`
-	// the topic this exporter produces to
+	//
+	//the topic this exporter produces to
+	//constraints: access checked on creation of kafka exporter
 	Topic string `protobuf:"bytes,2,opt,name=topic,proto3" json:"topic,omitempty"`
 	// used to access the target Kafka Cluster in case of OAuth based authentication
 	ClientId string `protobuf:"bytes,3,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
@@ -2105,7 +2137,8 @@ type KafkaUserRef struct {
 	unknownFields protoimpl.UnknownFields
 
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// constraints: generic name constraint
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
 
 func (x *KafkaUserRef) Reset() {
@@ -2209,7 +2242,9 @@ type ConsentLevelMapping struct {
 	unknownFields protoimpl.UnknownFields
 
 	Ref *ConsentLevelMappingRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
-	// some text like 'analytics'
+	//
+	//some text like 'analytics'
+	//constraints: generic name constraint
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
 
@@ -2383,8 +2418,11 @@ type SchemaRef struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Handle     string     `protobuf:"bytes,1,opt,name=handle,proto3" json:"handle,omitempty"`
-	Name       string     `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// constraints: generic name constraint
+	Handle string `protobuf:"bytes,1,opt,name=handle,proto3" json:"handle,omitempty"`
+	// constraints: generic name constraint
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// constraints: `\d+\.\d+\.\d+
 	Version    string     `protobuf:"bytes,3,opt,name=version,proto3" json:"version,omitempty"`
 	SchemaType SchemaType `protobuf:"varint,4,opt,name=schema_type,json=schemaType,proto3,enum=strmprivacy.api.entities.v1.SchemaType" json:"schema_type,omitempty"`
 }
@@ -2457,7 +2495,9 @@ type Schema struct {
 	Ref   *SchemaRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	State State      `protobuf:"varint,2,opt,name=state,proto3,enum=strmprivacy.api.entities.v1.State" json:"state,omitempty"`
 	// (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
-	IsPublic     bool                           `protobuf:"varint,3,opt,name=is_public,json=isPublic,proto3" json:"is_public,omitempty"`
+	IsPublic bool `protobuf:"varint,3,opt,name=is_public,json=isPublic,proto3" json:"is_public,omitempty"`
+	//
+	//constraints: is no longer required provided simple_schema is not empty.
 	Definition   string                         `protobuf:"bytes,4,opt,name=definition,proto3" json:"definition,omitempty"`
 	Fingerprint  string                         `protobuf:"bytes,5,opt,name=fingerprint,proto3" json:"fingerprint,omitempty"`
 	Metadata     *SchemaMetadata                `protobuf:"bytes,6,opt,name=metadata,proto3" json:"metadata,omitempty"`
@@ -2551,13 +2591,17 @@ type SimpleSchemaNode struct {
 	unknownFields protoimpl.UnknownFields
 
 	Type SimpleSchemaNodeType `protobuf:"varint,1,opt,name=type,proto3,enum=strmprivacy.api.entities.v1.SimpleSchemaNodeType" json:"type,omitempty"`
-	Name string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	//
+	//constraints: same as SimpleSchemaDefinition
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	// avro compatible name set by creator OR derived from name
 	AvroName string              `protobuf:"bytes,7,opt,name=avro_name,json=avroName,proto3" json:"avro_name,omitempty"`
 	Repeated bool                `protobuf:"varint,3,opt,name=repeated,proto3" json:"repeated,omitempty"`
 	Required bool                `protobuf:"varint,4,opt,name=required,proto3" json:"required,omitempty"`
 	Nodes    []*SimpleSchemaNode `protobuf:"bytes,5,rep,name=nodes,proto3" json:"nodes,omitempty"`
-	Doc      string              `protobuf:"bytes,6,opt,name=doc,proto3" json:"doc,omitempty"`
+	// constraints:
+	//size < 5000
+	Doc string `protobuf:"bytes,6,opt,name=doc,proto3" json:"doc,omitempty"`
 }
 
 func (x *SimpleSchemaNode) Reset() {
@@ -2646,9 +2690,14 @@ type SchemaMetadata struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
+	//
+	//The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
+	//
+	//constraints: size < 500
 	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	// The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
+	//
+	//The (optional) description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
+	//constraints: size < 5000
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 	// The timestamp when this Schema was created.
 	CreateTime *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
@@ -2746,8 +2795,11 @@ type EventContractRef struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Handle  string `protobuf:"bytes,1,opt,name=handle,proto3" json:"handle,omitempty"`
-	Name    string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// constraints: generic name constraint, globally unique
+	Handle string `protobuf:"bytes,1,opt,name=handle,proto3" json:"handle,omitempty"`
+	// constraints: generic name constraint
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// constraints: semantic version
 	Version string `protobuf:"bytes,3,opt,name=version,proto3" json:"version,omitempty"`
 }
 
@@ -3071,8 +3123,11 @@ type Validation struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// constraint: valid field path, follows avro constraints + slashes
 	Field string `protobuf:"bytes,1,opt,name=field,proto3" json:"field,omitempty"`
-	Type  string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// constraint: one of the validator types. handled by code
+	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	// constraint: a type specific definition
 	Value string `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
 }
 
@@ -3310,18 +3365,29 @@ func (x *MaskedFields_PatternList) GetFieldPatterns() []string {
 	return nil
 }
 
+//
+//constraints: overall size < 100000 TBD
 type Schema_SimpleSchemaDefinition struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// constraints:
+	//https://avro.apache.org/docs/current/spec.html#names
+	//start with [A-Za-z_]
+	//subsequently contain only [A-Za-z0-9_]
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	//
+	//constraints:
+	//dot separated sequence of name constraints
+	//must be Avro compatible. When absent becomes <handle>.<name>.v<version>
+	Namespace string `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	// constraints:
+	//size < 5000
+	Doc   string              `protobuf:"bytes,3,opt,name=doc,proto3" json:"doc,omitempty"`
+	Nodes []*SimpleSchemaNode `protobuf:"bytes,4,rep,name=nodes,proto3" json:"nodes,omitempty"`
 	// avro compatible name set by creator OR derived from name
 	AvroName string `protobuf:"bytes,5,opt,name=avro_name,json=avroName,proto3" json:"avro_name,omitempty"`
-	// must be Avro compatible. When absent becomes <handle>.<name>.v<version>
-	Namespace string              `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
-	Doc       string              `protobuf:"bytes,3,opt,name=doc,proto3" json:"doc,omitempty"`
-	Nodes     []*SimpleSchemaNode `protobuf:"bytes,4,rep,name=nodes,proto3" json:"nodes,omitempty"`
 }
 
 func (x *Schema_SimpleSchemaDefinition) Reset() {
@@ -3363,13 +3429,6 @@ func (x *Schema_SimpleSchemaDefinition) GetName() string {
 	return ""
 }
 
-func (x *Schema_SimpleSchemaDefinition) GetAvroName() string {
-	if x != nil {
-		return x.AvroName
-	}
-	return ""
-}
-
 func (x *Schema_SimpleSchemaDefinition) GetNamespace() string {
 	if x != nil {
 		return x.Namespace
@@ -3389,6 +3448,13 @@ func (x *Schema_SimpleSchemaDefinition) GetNodes() []*SimpleSchemaNode {
 		return x.Nodes
 	}
 	return nil
+}
+
+func (x *Schema_SimpleSchemaDefinition) GetAvroName() string {
+	if x != nil {
+		return x.AvroName
+	}
+	return ""
 }
 
 var File_strmprivacy_api_entities_v1_entities_v1_proto protoreflect.FileDescriptor
@@ -3749,16 +3815,16 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x6d, 0x61, 0x1a, 0xbe, 0x01, 0x0a, 0x16, 0x53, 0x69, 0x6d, 0x70, 0x6c, 0x65, 0x53, 0x63, 0x68,
 	0x65, 0x6d, 0x61, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x12, 0x0a,
 	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d,
-	0x65, 0x12, 0x1b, 0x0a, 0x09, 0x61, 0x76, 0x72, 0x6f, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x05,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x61, 0x76, 0x72, 0x6f, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1c,
-	0x0a, 0x09, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x09, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x12, 0x10, 0x0a, 0x03,
-	0x64, 0x6f, 0x63, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x64, 0x6f, 0x63, 0x12, 0x43,
-	0x0a, 0x05, 0x6e, 0x6f, 0x64, 0x65, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x2d, 0x2e,
-	0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x69, 0x6d, 0x70,
-	0x6c, 0x65, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x4e, 0x6f, 0x64, 0x65, 0x52, 0x05, 0x6e, 0x6f,
-	0x64, 0x65, 0x73, 0x22, 0x99, 0x02, 0x0a, 0x10, 0x53, 0x69, 0x6d, 0x70, 0x6c, 0x65, 0x53, 0x63,
+	0x65, 0x12, 0x1c, 0x0a, 0x09, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x6e, 0x61, 0x6d, 0x65, 0x73, 0x70, 0x61, 0x63, 0x65, 0x12,
+	0x10, 0x0a, 0x03, 0x64, 0x6f, 0x63, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x64, 0x6f,
+	0x63, 0x12, 0x43, 0x0a, 0x05, 0x6e, 0x6f, 0x64, 0x65, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x2d, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53,
+	0x69, 0x6d, 0x70, 0x6c, 0x65, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x4e, 0x6f, 0x64, 0x65, 0x52,
+	0x05, 0x6e, 0x6f, 0x64, 0x65, 0x73, 0x12, 0x1b, 0x0a, 0x09, 0x61, 0x76, 0x72, 0x6f, 0x5f, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x61, 0x76, 0x72, 0x6f, 0x4e,
+	0x61, 0x6d, 0x65, 0x22, 0x99, 0x02, 0x0a, 0x10, 0x53, 0x69, 0x6d, 0x70, 0x6c, 0x65, 0x53, 0x63,
 	0x68, 0x65, 0x6d, 0x61, 0x4e, 0x6f, 0x64, 0x65, 0x12, 0x45, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x31, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
 	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
