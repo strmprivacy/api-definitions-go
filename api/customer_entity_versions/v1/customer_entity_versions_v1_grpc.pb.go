@@ -25,6 +25,7 @@ type CustomerEntityVersionsServiceClient interface {
 	GetBatchExporterImage(ctx context.Context, in *GetBatchExporterImageRequest, opts ...grpc.CallOption) (*GetBatchExporterImageResponse, error)
 	GetKafkaExporterImage(ctx context.Context, in *GetKafkaExporterImageRequest, opts ...grpc.CallOption) (*GetKafkaExporterImageResponse, error)
 	GetDecrypterImage(ctx context.Context, in *GetDecrypterImageRequest, opts ...grpc.CallOption) (*GetDecrypterImageResponse, error)
+	GetBatchJobRunnerImage(ctx context.Context, in *GetBatchJobRunnerImageRequest, opts ...grpc.CallOption) (*GetBatchJobRunnerImageResponse, error)
 }
 
 type customerEntityVersionsServiceClient struct {
@@ -62,6 +63,15 @@ func (c *customerEntityVersionsServiceClient) GetDecrypterImage(ctx context.Cont
 	return out, nil
 }
 
+func (c *customerEntityVersionsServiceClient) GetBatchJobRunnerImage(ctx context.Context, in *GetBatchJobRunnerImageRequest, opts ...grpc.CallOption) (*GetBatchJobRunnerImageResponse, error) {
+	out := new(GetBatchJobRunnerImageResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.customer_entity_versions.v1.CustomerEntityVersionsService/GetBatchJobRunnerImage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerEntityVersionsServiceServer is the server API for CustomerEntityVersionsService service.
 // All implementations must embed UnimplementedCustomerEntityVersionsServiceServer
 // for forward compatibility
@@ -69,6 +79,7 @@ type CustomerEntityVersionsServiceServer interface {
 	GetBatchExporterImage(context.Context, *GetBatchExporterImageRequest) (*GetBatchExporterImageResponse, error)
 	GetKafkaExporterImage(context.Context, *GetKafkaExporterImageRequest) (*GetKafkaExporterImageResponse, error)
 	GetDecrypterImage(context.Context, *GetDecrypterImageRequest) (*GetDecrypterImageResponse, error)
+	GetBatchJobRunnerImage(context.Context, *GetBatchJobRunnerImageRequest) (*GetBatchJobRunnerImageResponse, error)
 	mustEmbedUnimplementedCustomerEntityVersionsServiceServer()
 }
 
@@ -84,6 +95,9 @@ func (UnimplementedCustomerEntityVersionsServiceServer) GetKafkaExporterImage(co
 }
 func (UnimplementedCustomerEntityVersionsServiceServer) GetDecrypterImage(context.Context, *GetDecrypterImageRequest) (*GetDecrypterImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDecrypterImage not implemented")
+}
+func (UnimplementedCustomerEntityVersionsServiceServer) GetBatchJobRunnerImage(context.Context, *GetBatchJobRunnerImageRequest) (*GetBatchJobRunnerImageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBatchJobRunnerImage not implemented")
 }
 func (UnimplementedCustomerEntityVersionsServiceServer) mustEmbedUnimplementedCustomerEntityVersionsServiceServer() {
 }
@@ -153,6 +167,24 @@ func _CustomerEntityVersionsService_GetDecrypterImage_Handler(srv interface{}, c
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerEntityVersionsService_GetBatchJobRunnerImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBatchJobRunnerImageRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerEntityVersionsServiceServer).GetBatchJobRunnerImage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.customer_entity_versions.v1.CustomerEntityVersionsService/GetBatchJobRunnerImage",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerEntityVersionsServiceServer).GetBatchJobRunnerImage(ctx, req.(*GetBatchJobRunnerImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CustomerEntityVersionsService_ServiceDesc is the grpc.ServiceDesc for CustomerEntityVersionsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -171,6 +203,10 @@ var CustomerEntityVersionsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDecrypterImage",
 			Handler:    _CustomerEntityVersionsService_GetDecrypterImage_Handler,
+		},
+		{
+			MethodName: "GetBatchJobRunnerImage",
+			Handler:    _CustomerEntityVersionsService_GetBatchJobRunnerImage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
