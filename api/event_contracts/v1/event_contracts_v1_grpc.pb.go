@@ -26,6 +26,10 @@ type EventContractsServiceClient interface {
 	GetEventContract(ctx context.Context, in *GetEventContractRequest, opts ...grpc.CallOption) (*GetEventContractResponse, error)
 	CreateEventContract(ctx context.Context, in *CreateEventContractRequest, opts ...grpc.CallOption) (*CreateEventContractResponse, error)
 	UpdateEventContract(ctx context.Context, in *UpdateEventContractRequest, opts ...grpc.CallOption) (*UpdateEventContractResponse, error)
+	ApproveEventContract(ctx context.Context, in *ApproveEventContractRequest, opts ...grpc.CallOption) (*ApproveEventContractResponse, error)
+	RejectEventContract(ctx context.Context, in *RejectEventContractRequest, opts ...grpc.CallOption) (*RejectEventContractResponse, error)
+	DeleteEventContract(ctx context.Context, in *DeleteEventContractRequest, opts ...grpc.CallOption) (*DeleteEventContractResponse, error)
+	ArchiveEventContract(ctx context.Context, in *ArchiveEventContractRequest, opts ...grpc.CallOption) (*ArchiveEventContractResponse, error)
 	ValidateMaskedFields(ctx context.Context, in *ValidateMaskedFieldsRequest, opts ...grpc.CallOption) (*ValidateMaskedFieldsResponse, error)
 }
 
@@ -73,6 +77,42 @@ func (c *eventContractsServiceClient) UpdateEventContract(ctx context.Context, i
 	return out, nil
 }
 
+func (c *eventContractsServiceClient) ApproveEventContract(ctx context.Context, in *ApproveEventContractRequest, opts ...grpc.CallOption) (*ApproveEventContractResponse, error) {
+	out := new(ApproveEventContractResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/ApproveEventContract", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *eventContractsServiceClient) RejectEventContract(ctx context.Context, in *RejectEventContractRequest, opts ...grpc.CallOption) (*RejectEventContractResponse, error) {
+	out := new(RejectEventContractResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/RejectEventContract", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *eventContractsServiceClient) DeleteEventContract(ctx context.Context, in *DeleteEventContractRequest, opts ...grpc.CallOption) (*DeleteEventContractResponse, error) {
+	out := new(DeleteEventContractResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/DeleteEventContract", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *eventContractsServiceClient) ArchiveEventContract(ctx context.Context, in *ArchiveEventContractRequest, opts ...grpc.CallOption) (*ArchiveEventContractResponse, error) {
+	out := new(ArchiveEventContractResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/ArchiveEventContract", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *eventContractsServiceClient) ValidateMaskedFields(ctx context.Context, in *ValidateMaskedFieldsRequest, opts ...grpc.CallOption) (*ValidateMaskedFieldsResponse, error) {
 	out := new(ValidateMaskedFieldsResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/ValidateMaskedFields", in, out, opts...)
@@ -90,6 +130,10 @@ type EventContractsServiceServer interface {
 	GetEventContract(context.Context, *GetEventContractRequest) (*GetEventContractResponse, error)
 	CreateEventContract(context.Context, *CreateEventContractRequest) (*CreateEventContractResponse, error)
 	UpdateEventContract(context.Context, *UpdateEventContractRequest) (*UpdateEventContractResponse, error)
+	ApproveEventContract(context.Context, *ApproveEventContractRequest) (*ApproveEventContractResponse, error)
+	RejectEventContract(context.Context, *RejectEventContractRequest) (*RejectEventContractResponse, error)
+	DeleteEventContract(context.Context, *DeleteEventContractRequest) (*DeleteEventContractResponse, error)
+	ArchiveEventContract(context.Context, *ArchiveEventContractRequest) (*ArchiveEventContractResponse, error)
 	ValidateMaskedFields(context.Context, *ValidateMaskedFieldsRequest) (*ValidateMaskedFieldsResponse, error)
 	mustEmbedUnimplementedEventContractsServiceServer()
 }
@@ -109,6 +153,18 @@ func (UnimplementedEventContractsServiceServer) CreateEventContract(context.Cont
 }
 func (UnimplementedEventContractsServiceServer) UpdateEventContract(context.Context, *UpdateEventContractRequest) (*UpdateEventContractResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateEventContract not implemented")
+}
+func (UnimplementedEventContractsServiceServer) ApproveEventContract(context.Context, *ApproveEventContractRequest) (*ApproveEventContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApproveEventContract not implemented")
+}
+func (UnimplementedEventContractsServiceServer) RejectEventContract(context.Context, *RejectEventContractRequest) (*RejectEventContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RejectEventContract not implemented")
+}
+func (UnimplementedEventContractsServiceServer) DeleteEventContract(context.Context, *DeleteEventContractRequest) (*DeleteEventContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteEventContract not implemented")
+}
+func (UnimplementedEventContractsServiceServer) ArchiveEventContract(context.Context, *ArchiveEventContractRequest) (*ArchiveEventContractResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ArchiveEventContract not implemented")
 }
 func (UnimplementedEventContractsServiceServer) ValidateMaskedFields(context.Context, *ValidateMaskedFieldsRequest) (*ValidateMaskedFieldsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateMaskedFields not implemented")
@@ -198,6 +254,78 @@ func _EventContractsService_UpdateEventContract_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EventContractsService_ApproveEventContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApproveEventContractRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventContractsServiceServer).ApproveEventContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/ApproveEventContract",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventContractsServiceServer).ApproveEventContract(ctx, req.(*ApproveEventContractRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EventContractsService_RejectEventContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RejectEventContractRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventContractsServiceServer).RejectEventContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/RejectEventContract",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventContractsServiceServer).RejectEventContract(ctx, req.(*RejectEventContractRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EventContractsService_DeleteEventContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteEventContractRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventContractsServiceServer).DeleteEventContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/DeleteEventContract",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventContractsServiceServer).DeleteEventContract(ctx, req.(*DeleteEventContractRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _EventContractsService_ArchiveEventContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ArchiveEventContractRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventContractsServiceServer).ArchiveEventContract(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/ArchiveEventContract",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventContractsServiceServer).ArchiveEventContract(ctx, req.(*ArchiveEventContractRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _EventContractsService_ValidateMaskedFields_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ValidateMaskedFieldsRequest)
 	if err := dec(in); err != nil {
@@ -238,6 +366,22 @@ var EventContractsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateEventContract",
 			Handler:    _EventContractsService_UpdateEventContract_Handler,
+		},
+		{
+			MethodName: "ApproveEventContract",
+			Handler:    _EventContractsService_ApproveEventContract_Handler,
+		},
+		{
+			MethodName: "RejectEventContract",
+			Handler:    _EventContractsService_RejectEventContract_Handler,
+		},
+		{
+			MethodName: "DeleteEventContract",
+			Handler:    _EventContractsService_DeleteEventContract_Handler,
+		},
+		{
+			MethodName: "ArchiveEventContract",
+			Handler:    _EventContractsService_ArchiveEventContract_Handler,
 		},
 		{
 			MethodName: "ValidateMaskedFields",

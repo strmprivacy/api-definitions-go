@@ -27,6 +27,10 @@ type SchemasServiceClient interface {
 	CreateSchema(ctx context.Context, in *CreateSchemaRequest, opts ...grpc.CallOption) (*CreateSchemaResponse, error)
 	UpdateSchema(ctx context.Context, in *UpdateSchemaRequest, opts ...grpc.CallOption) (*UpdateSchemaResponse, error)
 	GetSchemaCode(ctx context.Context, in *GetSchemaCodeRequest, opts ...grpc.CallOption) (*GetSchemaCodeResponse, error)
+	ApproveSchema(ctx context.Context, in *ApproveSchemaRequest, opts ...grpc.CallOption) (*ApproveSchemaResponse, error)
+	RejectSchema(ctx context.Context, in *RejectSchemaRequest, opts ...grpc.CallOption) (*RejectSchemaResponse, error)
+	DeleteSchema(ctx context.Context, in *DeleteSchemaRequest, opts ...grpc.CallOption) (*DeleteSchemaResponse, error)
+	ArchiveSchema(ctx context.Context, in *ArchiveSchemaRequest, opts ...grpc.CallOption) (*ArchiveSchemaResponse, error)
 }
 
 type schemasServiceClient struct {
@@ -82,6 +86,42 @@ func (c *schemasServiceClient) GetSchemaCode(ctx context.Context, in *GetSchemaC
 	return out, nil
 }
 
+func (c *schemasServiceClient) ApproveSchema(ctx context.Context, in *ApproveSchemaRequest, opts ...grpc.CallOption) (*ApproveSchemaResponse, error) {
+	out := new(ApproveSchemaResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/ApproveSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *schemasServiceClient) RejectSchema(ctx context.Context, in *RejectSchemaRequest, opts ...grpc.CallOption) (*RejectSchemaResponse, error) {
+	out := new(RejectSchemaResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/RejectSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *schemasServiceClient) DeleteSchema(ctx context.Context, in *DeleteSchemaRequest, opts ...grpc.CallOption) (*DeleteSchemaResponse, error) {
+	out := new(DeleteSchemaResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/DeleteSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *schemasServiceClient) ArchiveSchema(ctx context.Context, in *ArchiveSchemaRequest, opts ...grpc.CallOption) (*ArchiveSchemaResponse, error) {
+	out := new(ArchiveSchemaResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/ArchiveSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SchemasServiceServer is the server API for SchemasService service.
 // All implementations must embed UnimplementedSchemasServiceServer
 // for forward compatibility
@@ -91,6 +131,10 @@ type SchemasServiceServer interface {
 	CreateSchema(context.Context, *CreateSchemaRequest) (*CreateSchemaResponse, error)
 	UpdateSchema(context.Context, *UpdateSchemaRequest) (*UpdateSchemaResponse, error)
 	GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error)
+	ApproveSchema(context.Context, *ApproveSchemaRequest) (*ApproveSchemaResponse, error)
+	RejectSchema(context.Context, *RejectSchemaRequest) (*RejectSchemaResponse, error)
+	DeleteSchema(context.Context, *DeleteSchemaRequest) (*DeleteSchemaResponse, error)
+	ArchiveSchema(context.Context, *ArchiveSchemaRequest) (*ArchiveSchemaResponse, error)
 	mustEmbedUnimplementedSchemasServiceServer()
 }
 
@@ -112,6 +156,18 @@ func (UnimplementedSchemasServiceServer) UpdateSchema(context.Context, *UpdateSc
 }
 func (UnimplementedSchemasServiceServer) GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchemaCode not implemented")
+}
+func (UnimplementedSchemasServiceServer) ApproveSchema(context.Context, *ApproveSchemaRequest) (*ApproveSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApproveSchema not implemented")
+}
+func (UnimplementedSchemasServiceServer) RejectSchema(context.Context, *RejectSchemaRequest) (*RejectSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RejectSchema not implemented")
+}
+func (UnimplementedSchemasServiceServer) DeleteSchema(context.Context, *DeleteSchemaRequest) (*DeleteSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSchema not implemented")
+}
+func (UnimplementedSchemasServiceServer) ArchiveSchema(context.Context, *ArchiveSchemaRequest) (*ArchiveSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ArchiveSchema not implemented")
 }
 func (UnimplementedSchemasServiceServer) mustEmbedUnimplementedSchemasServiceServer() {}
 
@@ -216,6 +272,78 @@ func _SchemasService_GetSchemaCode_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SchemasService_ApproveSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApproveSchemaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchemasServiceServer).ApproveSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/ApproveSchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchemasServiceServer).ApproveSchema(ctx, req.(*ApproveSchemaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SchemasService_RejectSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RejectSchemaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchemasServiceServer).RejectSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/RejectSchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchemasServiceServer).RejectSchema(ctx, req.(*RejectSchemaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SchemasService_DeleteSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteSchemaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchemasServiceServer).DeleteSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/DeleteSchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchemasServiceServer).DeleteSchema(ctx, req.(*DeleteSchemaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _SchemasService_ArchiveSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ArchiveSchemaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchemasServiceServer).ArchiveSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/ArchiveSchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchemasServiceServer).ArchiveSchema(ctx, req.(*ArchiveSchemaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SchemasService_ServiceDesc is the grpc.ServiceDesc for SchemasService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +370,22 @@ var SchemasService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSchemaCode",
 			Handler:    _SchemasService_GetSchemaCode_Handler,
+		},
+		{
+			MethodName: "ApproveSchema",
+			Handler:    _SchemasService_ApproveSchema_Handler,
+		},
+		{
+			MethodName: "RejectSchema",
+			Handler:    _SchemasService_RejectSchema_Handler,
+		},
+		{
+			MethodName: "DeleteSchema",
+			Handler:    _SchemasService_DeleteSchema_Handler,
+		},
+		{
+			MethodName: "ArchiveSchema",
+			Handler:    _SchemasService_ArchiveSchema_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
