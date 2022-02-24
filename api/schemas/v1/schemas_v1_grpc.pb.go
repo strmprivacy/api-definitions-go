@@ -27,8 +27,7 @@ type SchemasServiceClient interface {
 	CreateSchema(ctx context.Context, in *CreateSchemaRequest, opts ...grpc.CallOption) (*CreateSchemaResponse, error)
 	UpdateSchema(ctx context.Context, in *UpdateSchemaRequest, opts ...grpc.CallOption) (*UpdateSchemaResponse, error)
 	GetSchemaCode(ctx context.Context, in *GetSchemaCodeRequest, opts ...grpc.CallOption) (*GetSchemaCodeResponse, error)
-	ApproveSchema(ctx context.Context, in *ApproveSchemaRequest, opts ...grpc.CallOption) (*ApproveSchemaResponse, error)
-	RejectSchema(ctx context.Context, in *RejectSchemaRequest, opts ...grpc.CallOption) (*RejectSchemaResponse, error)
+	ActivateSchema(ctx context.Context, in *ActivateSchemaRequest, opts ...grpc.CallOption) (*ActivateSchemaResponse, error)
 	DeleteSchema(ctx context.Context, in *DeleteSchemaRequest, opts ...grpc.CallOption) (*DeleteSchemaResponse, error)
 	ArchiveSchema(ctx context.Context, in *ArchiveSchemaRequest, opts ...grpc.CallOption) (*ArchiveSchemaResponse, error)
 }
@@ -86,18 +85,9 @@ func (c *schemasServiceClient) GetSchemaCode(ctx context.Context, in *GetSchemaC
 	return out, nil
 }
 
-func (c *schemasServiceClient) ApproveSchema(ctx context.Context, in *ApproveSchemaRequest, opts ...grpc.CallOption) (*ApproveSchemaResponse, error) {
-	out := new(ApproveSchemaResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/ApproveSchema", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *schemasServiceClient) RejectSchema(ctx context.Context, in *RejectSchemaRequest, opts ...grpc.CallOption) (*RejectSchemaResponse, error) {
-	out := new(RejectSchemaResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/RejectSchema", in, out, opts...)
+func (c *schemasServiceClient) ActivateSchema(ctx context.Context, in *ActivateSchemaRequest, opts ...grpc.CallOption) (*ActivateSchemaResponse, error) {
+	out := new(ActivateSchemaResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/ActivateSchema", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -131,8 +121,7 @@ type SchemasServiceServer interface {
 	CreateSchema(context.Context, *CreateSchemaRequest) (*CreateSchemaResponse, error)
 	UpdateSchema(context.Context, *UpdateSchemaRequest) (*UpdateSchemaResponse, error)
 	GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error)
-	ApproveSchema(context.Context, *ApproveSchemaRequest) (*ApproveSchemaResponse, error)
-	RejectSchema(context.Context, *RejectSchemaRequest) (*RejectSchemaResponse, error)
+	ActivateSchema(context.Context, *ActivateSchemaRequest) (*ActivateSchemaResponse, error)
 	DeleteSchema(context.Context, *DeleteSchemaRequest) (*DeleteSchemaResponse, error)
 	ArchiveSchema(context.Context, *ArchiveSchemaRequest) (*ArchiveSchemaResponse, error)
 	mustEmbedUnimplementedSchemasServiceServer()
@@ -157,11 +146,8 @@ func (UnimplementedSchemasServiceServer) UpdateSchema(context.Context, *UpdateSc
 func (UnimplementedSchemasServiceServer) GetSchemaCode(context.Context, *GetSchemaCodeRequest) (*GetSchemaCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchemaCode not implemented")
 }
-func (UnimplementedSchemasServiceServer) ApproveSchema(context.Context, *ApproveSchemaRequest) (*ApproveSchemaResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ApproveSchema not implemented")
-}
-func (UnimplementedSchemasServiceServer) RejectSchema(context.Context, *RejectSchemaRequest) (*RejectSchemaResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RejectSchema not implemented")
+func (UnimplementedSchemasServiceServer) ActivateSchema(context.Context, *ActivateSchemaRequest) (*ActivateSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateSchema not implemented")
 }
 func (UnimplementedSchemasServiceServer) DeleteSchema(context.Context, *DeleteSchemaRequest) (*DeleteSchemaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSchema not implemented")
@@ -272,38 +258,20 @@ func _SchemasService_GetSchemaCode_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
-func _SchemasService_ApproveSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ApproveSchemaRequest)
+func _SchemasService_ActivateSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ActivateSchemaRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SchemasServiceServer).ApproveSchema(ctx, in)
+		return srv.(SchemasServiceServer).ActivateSchema(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/ApproveSchema",
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/ActivateSchema",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SchemasServiceServer).ApproveSchema(ctx, req.(*ApproveSchemaRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _SchemasService_RejectSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RejectSchemaRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SchemasServiceServer).RejectSchema(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/RejectSchema",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SchemasServiceServer).RejectSchema(ctx, req.(*RejectSchemaRequest))
+		return srv.(SchemasServiceServer).ActivateSchema(ctx, req.(*ActivateSchemaRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -372,12 +340,8 @@ var SchemasService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _SchemasService_GetSchemaCode_Handler,
 		},
 		{
-			MethodName: "ApproveSchema",
-			Handler:    _SchemasService_ApproveSchema_Handler,
-		},
-		{
-			MethodName: "RejectSchema",
-			Handler:    _SchemasService_RejectSchema_Handler,
+			MethodName: "ActivateSchema",
+			Handler:    _SchemasService_ActivateSchema_Handler,
 		},
 		{
 			MethodName: "DeleteSchema",
