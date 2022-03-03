@@ -398,7 +398,7 @@ func (x Schema_State) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use Schema_State.Descriptor instead.
 func (Schema_State) EnumDescriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{31, 0}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{32, 0}
 }
 
 type EventContract_State int32
@@ -456,7 +456,7 @@ func (x EventContract_State) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use EventContract_State.Descriptor instead.
 func (EventContract_State) EnumDescriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{35, 0}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{36, 0}
 }
 
 //
@@ -1478,16 +1478,15 @@ type AzureBlobStorageContainerLocation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// The base URI of the Azure Storage Account. Typically this is 'https://<your-account-name>.blob.core.windows.net',
-	// but organizations can map this to their own domain or subdomain.
+	// but Azure users can map this to their own domain or subdomain.
 	StorageAccountUri string `protobuf:"bytes,1,opt,name=storage_account_uri,json=storageAccountUri,proto3" json:"storage_account_uri,omitempty"`
 	// (-- api-linter: core::0122::name-suffix=disabled
 	//     aip.dev/not-precedent: We refer to a container name. --)
 	// Name of the Storage Container
 	ContainerName string `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
-	// An Azure AD Application Service Principal's client secret credentials, in JSON format, containing the fields
-	// "TenantId", "ClientId" and "ClientSecret". The ClientId is the application ID of the Azure AD Application, and the
-	// ClientSecret the password of the Application Service Principal.
-	Credentials string `protobuf:"bytes,3,opt,name=credentials,proto3" json:"credentials,omitempty"`
+	// The AAD client secret credential used to acquire a token for the AAD application that has the required
+	// permissions on this Blob Storage Container.
+	ClientSecretCredential *AzureClientSecretCredential `protobuf:"bytes,3,opt,name=client_secret_credential,json=clientSecretCredential,proto3" json:"client_secret_credential,omitempty"`
 }
 
 func (x *AzureBlobStorageContainerLocation) Reset() {
@@ -1536,9 +1535,75 @@ func (x *AzureBlobStorageContainerLocation) GetContainerName() string {
 	return ""
 }
 
-func (x *AzureBlobStorageContainerLocation) GetCredentials() string {
+func (x *AzureBlobStorageContainerLocation) GetClientSecretCredential() *AzureClientSecretCredential {
 	if x != nil {
-		return x.Credentials
+		return x.ClientSecretCredential
+	}
+	return nil
+}
+
+type AzureClientSecretCredential struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Tenant ID of the Azure AD Application.
+	TenantId string `protobuf:"bytes,1,opt,name=tenant_id,json=tenantId,proto3" json:"tenant_id,omitempty"`
+	// Client ID of the Azure AD Application.
+	ClientId string `protobuf:"bytes,2,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
+	// Client secret to use for authentication.
+	ClientSecret string `protobuf:"bytes,3,opt,name=client_secret,json=clientSecret,proto3" json:"client_secret,omitempty"`
+}
+
+func (x *AzureClientSecretCredential) Reset() {
+	*x = AzureClientSecretCredential{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AzureClientSecretCredential) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AzureClientSecretCredential) ProtoMessage() {}
+
+func (x *AzureClientSecretCredential) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AzureClientSecretCredential.ProtoReflect.Descriptor instead.
+func (*AzureClientSecretCredential) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *AzureClientSecretCredential) GetTenantId() string {
+	if x != nil {
+		return x.TenantId
+	}
+	return ""
+}
+
+func (x *AzureClientSecretCredential) GetClientId() string {
+	if x != nil {
+		return x.ClientId
+	}
+	return ""
+}
+
+func (x *AzureClientSecretCredential) GetClientSecret() string {
+	if x != nil {
+		return x.ClientSecret
 	}
 	return ""
 }
@@ -1556,7 +1621,7 @@ type DataType struct {
 func (x *DataType) Reset() {
 	*x = DataType{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[15]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1569,7 +1634,7 @@ func (x *DataType) String() string {
 func (*DataType) ProtoMessage() {}
 
 func (x *DataType) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[15]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1582,7 +1647,7 @@ func (x *DataType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DataType.ProtoReflect.Descriptor instead.
 func (*DataType) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{15}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{16}
 }
 
 func (m *DataType) GetDataType() isDataType_DataType {
@@ -1620,7 +1685,7 @@ type CsvConfig struct {
 func (x *CsvConfig) Reset() {
 	*x = CsvConfig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[16]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1633,7 +1698,7 @@ func (x *CsvConfig) String() string {
 func (*CsvConfig) ProtoMessage() {}
 
 func (x *CsvConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[16]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1646,7 +1711,7 @@ func (x *CsvConfig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CsvConfig.ProtoReflect.Descriptor instead.
 func (*CsvConfig) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{16}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *CsvConfig) GetCharset() string {
@@ -1686,7 +1751,7 @@ type BatchExporter struct {
 func (x *BatchExporter) Reset() {
 	*x = BatchExporter{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[17]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1699,7 +1764,7 @@ func (x *BatchExporter) String() string {
 func (*BatchExporter) ProtoMessage() {}
 
 func (x *BatchExporter) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[17]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1712,7 +1777,7 @@ func (x *BatchExporter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BatchExporter.ProtoReflect.Descriptor instead.
 func (*BatchExporter) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{17}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *BatchExporter) GetRef() *BatchExporterRef {
@@ -1800,7 +1865,7 @@ type BatchExporterRef struct {
 func (x *BatchExporterRef) Reset() {
 	*x = BatchExporterRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[18]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1813,7 +1878,7 @@ func (x *BatchExporterRef) String() string {
 func (*BatchExporterRef) ProtoMessage() {}
 
 func (x *BatchExporterRef) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[18]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1826,7 +1891,7 @@ func (x *BatchExporterRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BatchExporterRef.ProtoReflect.Descriptor instead.
 func (*BatchExporterRef) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{18}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *BatchExporterRef) GetBillingId() string {
@@ -1859,7 +1924,7 @@ type KafkaCluster struct {
 func (x *KafkaCluster) Reset() {
 	*x = KafkaCluster{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[19]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1872,7 +1937,7 @@ func (x *KafkaCluster) String() string {
 func (*KafkaCluster) ProtoMessage() {}
 
 func (x *KafkaCluster) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[19]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1885,7 +1950,7 @@ func (x *KafkaCluster) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KafkaCluster.ProtoReflect.Descriptor instead.
 func (*KafkaCluster) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{19}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *KafkaCluster) GetRef() *KafkaClusterRef {
@@ -1933,7 +1998,7 @@ type KafkaClusterRef struct {
 func (x *KafkaClusterRef) Reset() {
 	*x = KafkaClusterRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[20]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1946,7 +2011,7 @@ func (x *KafkaClusterRef) String() string {
 func (*KafkaClusterRef) ProtoMessage() {}
 
 func (x *KafkaClusterRef) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[20]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1959,7 +2024,7 @@ func (x *KafkaClusterRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KafkaClusterRef.ProtoReflect.Descriptor instead.
 func (*KafkaClusterRef) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{20}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *KafkaClusterRef) GetBillingId() string {
@@ -1990,7 +2055,7 @@ type KafkaExporter struct {
 func (x *KafkaExporter) Reset() {
 	*x = KafkaExporter{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[21]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2003,7 +2068,7 @@ func (x *KafkaExporter) String() string {
 func (*KafkaExporter) ProtoMessage() {}
 
 func (x *KafkaExporter) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[21]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2016,7 +2081,7 @@ func (x *KafkaExporter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KafkaExporter.ProtoReflect.Descriptor instead.
 func (*KafkaExporter) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{21}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *KafkaExporter) GetRef() *KafkaExporterRef {
@@ -2063,7 +2128,7 @@ type KafkaExporterRef struct {
 func (x *KafkaExporterRef) Reset() {
 	*x = KafkaExporterRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[22]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2076,7 +2141,7 @@ func (x *KafkaExporterRef) String() string {
 func (*KafkaExporterRef) ProtoMessage() {}
 
 func (x *KafkaExporterRef) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[22]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2089,7 +2154,7 @@ func (x *KafkaExporterRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KafkaExporterRef.ProtoReflect.Descriptor instead.
 func (*KafkaExporterRef) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{22}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *KafkaExporterRef) GetBillingId() string {
@@ -2126,7 +2191,7 @@ type KafkaExporterTarget struct {
 func (x *KafkaExporterTarget) Reset() {
 	*x = KafkaExporterTarget{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[23]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2139,7 +2204,7 @@ func (x *KafkaExporterTarget) String() string {
 func (*KafkaExporterTarget) ProtoMessage() {}
 
 func (x *KafkaExporterTarget) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[23]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2152,7 +2217,7 @@ func (x *KafkaExporterTarget) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KafkaExporterTarget.ProtoReflect.Descriptor instead.
 func (*KafkaExporterTarget) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{23}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *KafkaExporterTarget) GetClusterRef() *KafkaClusterRef {
@@ -2206,7 +2271,7 @@ type KafkaUser struct {
 func (x *KafkaUser) Reset() {
 	*x = KafkaUser{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[24]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2219,7 +2284,7 @@ func (x *KafkaUser) String() string {
 func (*KafkaUser) ProtoMessage() {}
 
 func (x *KafkaUser) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[24]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2232,7 +2297,7 @@ func (x *KafkaUser) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KafkaUser.ProtoReflect.Descriptor instead.
 func (*KafkaUser) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{24}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *KafkaUser) GetRef() *KafkaUserRef {
@@ -2290,7 +2355,7 @@ type KafkaUserRef struct {
 func (x *KafkaUserRef) Reset() {
 	*x = KafkaUserRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[25]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2303,7 +2368,7 @@ func (x *KafkaUserRef) String() string {
 func (*KafkaUserRef) ProtoMessage() {}
 
 func (x *KafkaUserRef) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[25]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2316,7 +2381,7 @@ func (x *KafkaUserRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use KafkaUserRef.ProtoReflect.Descriptor instead.
 func (*KafkaUserRef) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{25}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *KafkaUserRef) GetBillingId() string {
@@ -2344,7 +2409,7 @@ type ConsentLevels struct {
 func (x *ConsentLevels) Reset() {
 	*x = ConsentLevels{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[26]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2357,7 +2422,7 @@ func (x *ConsentLevels) String() string {
 func (*ConsentLevels) ProtoMessage() {}
 
 func (x *ConsentLevels) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[26]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2370,7 +2435,7 @@ func (x *ConsentLevels) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConsentLevels.ProtoReflect.Descriptor instead.
 func (*ConsentLevels) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{26}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *ConsentLevels) GetConsentLevels() []int32 {
@@ -2397,7 +2462,7 @@ type ConsentLevelMapping struct {
 func (x *ConsentLevelMapping) Reset() {
 	*x = ConsentLevelMapping{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[27]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2410,7 +2475,7 @@ func (x *ConsentLevelMapping) String() string {
 func (*ConsentLevelMapping) ProtoMessage() {}
 
 func (x *ConsentLevelMapping) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[27]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2423,7 +2488,7 @@ func (x *ConsentLevelMapping) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConsentLevelMapping.ProtoReflect.Descriptor instead.
 func (*ConsentLevelMapping) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{27}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *ConsentLevelMapping) GetRef() *ConsentLevelMappingRef {
@@ -2453,7 +2518,7 @@ type ConsentLevelMappingRef struct {
 func (x *ConsentLevelMappingRef) Reset() {
 	*x = ConsentLevelMappingRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[28]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2466,7 +2531,7 @@ func (x *ConsentLevelMappingRef) String() string {
 func (*ConsentLevelMappingRef) ProtoMessage() {}
 
 func (x *ConsentLevelMappingRef) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[28]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2479,7 +2544,7 @@ func (x *ConsentLevelMappingRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ConsentLevelMappingRef.ProtoReflect.Descriptor instead.
 func (*ConsentLevelMappingRef) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{28}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *ConsentLevelMappingRef) GetBillingId() string {
@@ -2509,7 +2574,7 @@ type WindowedEventCount struct {
 func (x *WindowedEventCount) Reset() {
 	*x = WindowedEventCount{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[29]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2522,7 +2587,7 @@ func (x *WindowedEventCount) String() string {
 func (*WindowedEventCount) ProtoMessage() {}
 
 func (x *WindowedEventCount) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[29]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2535,7 +2600,7 @@ func (x *WindowedEventCount) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use WindowedEventCount.ProtoReflect.Descriptor instead.
 func (*WindowedEventCount) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{29}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *WindowedEventCount) GetStartTime() *timestamppb.Timestamp {
@@ -2576,7 +2641,7 @@ type SchemaRef struct {
 func (x *SchemaRef) Reset() {
 	*x = SchemaRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[30]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2589,7 +2654,7 @@ func (x *SchemaRef) String() string {
 func (*SchemaRef) ProtoMessage() {}
 
 func (x *SchemaRef) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[30]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2602,7 +2667,7 @@ func (x *SchemaRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SchemaRef.ProtoReflect.Descriptor instead.
 func (*SchemaRef) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{30}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *SchemaRef) GetHandle() string {
@@ -2653,7 +2718,7 @@ type Schema struct {
 func (x *Schema) Reset() {
 	*x = Schema{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[31]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2666,7 +2731,7 @@ func (x *Schema) String() string {
 func (*Schema) ProtoMessage() {}
 
 func (x *Schema) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[31]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2679,7 +2744,7 @@ func (x *Schema) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Schema.ProtoReflect.Descriptor instead.
 func (*Schema) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{31}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *Schema) GetRef() *SchemaRef {
@@ -2753,7 +2818,7 @@ type SimpleSchemaNode struct {
 func (x *SimpleSchemaNode) Reset() {
 	*x = SimpleSchemaNode{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[32]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2766,7 +2831,7 @@ func (x *SimpleSchemaNode) String() string {
 func (*SimpleSchemaNode) ProtoMessage() {}
 
 func (x *SimpleSchemaNode) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[32]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2779,7 +2844,7 @@ func (x *SimpleSchemaNode) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SimpleSchemaNode.ProtoReflect.Descriptor instead.
 func (*SimpleSchemaNode) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{32}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *SimpleSchemaNode) GetType() SimpleSchemaNodeType {
@@ -2858,7 +2923,7 @@ type SchemaMetadata struct {
 func (x *SchemaMetadata) Reset() {
 	*x = SchemaMetadata{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[33]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2871,7 +2936,7 @@ func (x *SchemaMetadata) String() string {
 func (*SchemaMetadata) ProtoMessage() {}
 
 func (x *SchemaMetadata) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[33]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2884,7 +2949,7 @@ func (x *SchemaMetadata) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SchemaMetadata.ProtoReflect.Descriptor instead.
 func (*SchemaMetadata) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{33}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *SchemaMetadata) GetTitle() string {
@@ -2952,7 +3017,7 @@ type EventContractRef struct {
 func (x *EventContractRef) Reset() {
 	*x = EventContractRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[34]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2965,7 +3030,7 @@ func (x *EventContractRef) String() string {
 func (*EventContractRef) ProtoMessage() {}
 
 func (x *EventContractRef) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[34]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2978,7 +3043,7 @@ func (x *EventContractRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventContractRef.ProtoReflect.Descriptor instead.
 func (*EventContractRef) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{34}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *EventContractRef) GetHandle() string {
@@ -3022,7 +3087,7 @@ type EventContract struct {
 func (x *EventContract) Reset() {
 	*x = EventContract{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[35]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3035,7 +3100,7 @@ func (x *EventContract) String() string {
 func (*EventContract) ProtoMessage() {}
 
 func (x *EventContract) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[35]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3048,7 +3113,7 @@ func (x *EventContract) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventContract.ProtoReflect.Descriptor instead.
 func (*EventContract) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{35}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *EventContract) GetRef() *EventContractRef {
@@ -3129,7 +3194,7 @@ type EventContractMetadata struct {
 func (x *EventContractMetadata) Reset() {
 	*x = EventContractMetadata{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[36]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3142,7 +3207,7 @@ func (x *EventContractMetadata) String() string {
 func (*EventContractMetadata) ProtoMessage() {}
 
 func (x *EventContractMetadata) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[36]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3155,7 +3220,7 @@ func (x *EventContractMetadata) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventContractMetadata.ProtoReflect.Descriptor instead.
 func (*EventContractMetadata) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{36}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *EventContractMetadata) GetTitle() string {
@@ -3221,7 +3286,7 @@ type Label struct {
 func (x *Label) Reset() {
 	*x = Label{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[37]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3234,7 +3299,7 @@ func (x *Label) String() string {
 func (*Label) ProtoMessage() {}
 
 func (x *Label) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[37]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3247,7 +3312,7 @@ func (x *Label) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Label.ProtoReflect.Descriptor instead.
 func (*Label) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{37}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *Label) GetKey() string {
@@ -3280,7 +3345,7 @@ type Validation struct {
 func (x *Validation) Reset() {
 	*x = Validation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[38]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3293,7 +3358,7 @@ func (x *Validation) String() string {
 func (*Validation) ProtoMessage() {}
 
 func (x *Validation) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[38]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3306,7 +3371,7 @@ func (x *Validation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Validation.ProtoReflect.Descriptor instead.
 func (*Validation) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{38}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *Validation) GetField() string {
@@ -3345,7 +3410,7 @@ type StreamTree struct {
 func (x *StreamTree) Reset() {
 	*x = StreamTree{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[39]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3358,7 +3423,7 @@ func (x *StreamTree) String() string {
 func (*StreamTree) ProtoMessage() {}
 
 func (x *StreamTree) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[39]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3371,7 +3436,7 @@ func (x *StreamTree) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StreamTree.ProtoReflect.Descriptor instead.
 func (*StreamTree) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{39}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *StreamTree) GetStream() *Stream {
@@ -3421,7 +3486,7 @@ type SinkTree struct {
 func (x *SinkTree) Reset() {
 	*x = SinkTree{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[40]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3434,7 +3499,7 @@ func (x *SinkTree) String() string {
 func (*SinkTree) ProtoMessage() {}
 
 func (x *SinkTree) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[40]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3447,7 +3512,7 @@ func (x *SinkTree) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SinkTree.ProtoReflect.Descriptor instead.
 func (*SinkTree) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{40}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *SinkTree) GetSink() *Sink {
@@ -3475,7 +3540,7 @@ type MaskedFields_PatternList struct {
 func (x *MaskedFields_PatternList) Reset() {
 	*x = MaskedFields_PatternList{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[42]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3488,7 +3553,7 @@ func (x *MaskedFields_PatternList) String() string {
 func (*MaskedFields_PatternList) ProtoMessage() {}
 
 func (x *MaskedFields_PatternList) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[42]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3539,7 +3604,7 @@ type Schema_SimpleSchemaDefinition struct {
 func (x *Schema_SimpleSchemaDefinition) Reset() {
 	*x = Schema_SimpleSchemaDefinition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[43]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3552,7 +3617,7 @@ func (x *Schema_SimpleSchemaDefinition) String() string {
 func (*Schema_SimpleSchemaDefinition) ProtoMessage() {}
 
 func (x *Schema_SimpleSchemaDefinition) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[43]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3565,7 +3630,7 @@ func (x *Schema_SimpleSchemaDefinition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Schema_SimpleSchemaDefinition.ProtoReflect.Descriptor instead.
 func (*Schema_SimpleSchemaDefinition) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{31, 0}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{32, 0}
 }
 
 func (x *Schema_SimpleSchemaDefinition) GetName() string {
@@ -3777,7 +3842,7 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x63, 0x6b, 0x65, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x25, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x64,
 	0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x03, 0xe0,
 	0x41, 0x02, 0x52, 0x0b, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x22,
-	0xab, 0x01, 0x0a, 0x21, 0x41, 0x7a, 0x75, 0x72, 0x65, 0x42, 0x6c, 0x6f, 0x62, 0x53, 0x74, 0x6f,
+	0xfd, 0x01, 0x0a, 0x21, 0x41, 0x7a, 0x75, 0x72, 0x65, 0x42, 0x6c, 0x6f, 0x62, 0x53, 0x74, 0x6f,
 	0x72, 0x61, 0x67, 0x65, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x4c, 0x6f, 0x63,
 	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x33, 0x0a, 0x13, 0x73, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65,
 	0x5f, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f, 0x75, 0x72, 0x69, 0x18, 0x01, 0x20, 0x01,
@@ -3785,9 +3850,23 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x41, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x55, 0x72, 0x69, 0x12, 0x2a, 0x0a, 0x0e, 0x63, 0x6f,
 	0x6e, 0x74, 0x61, 0x69, 0x6e, 0x65, 0x72, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01,
 	0x28, 0x09, 0x42, 0x03, 0xe0, 0x41, 0x02, 0x52, 0x0d, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x69, 0x6e,
-	0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x25, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e,
-	0x74, 0x69, 0x61, 0x6c, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x03, 0xe0, 0x41, 0x02,
-	0x52, 0x0b, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x73, 0x22, 0x53, 0x0a,
+	0x65, 0x72, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x77, 0x0a, 0x18, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74,
+	0x5f, 0x73, 0x65, 0x63, 0x72, 0x65, 0x74, 0x5f, 0x63, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69,
+	0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x38, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
+	0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74,
+	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x7a, 0x75, 0x72, 0x65, 0x43, 0x6c, 0x69, 0x65,
+	0x6e, 0x74, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69,
+	0x61, 0x6c, 0x42, 0x03, 0xe0, 0x41, 0x02, 0x52, 0x16, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x53,
+	0x65, 0x63, 0x72, 0x65, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x22,
+	0x8b, 0x01, 0x0a, 0x1b, 0x41, 0x7a, 0x75, 0x72, 0x65, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x53,
+	0x65, 0x63, 0x72, 0x65, 0x74, 0x43, 0x72, 0x65, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x61, 0x6c, 0x12,
+	0x20, 0x0a, 0x09, 0x74, 0x65, 0x6e, 0x61, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x42, 0x03, 0xe0, 0x41, 0x02, 0x52, 0x08, 0x74, 0x65, 0x6e, 0x61, 0x6e, 0x74, 0x49,
+	0x64, 0x12, 0x20, 0x0a, 0x09, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x42, 0x03, 0xe0, 0x41, 0x02, 0x52, 0x08, 0x63, 0x6c, 0x69, 0x65, 0x6e,
+	0x74, 0x49, 0x64, 0x12, 0x28, 0x0a, 0x0d, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x5f, 0x73, 0x65,
+	0x63, 0x72, 0x65, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x03, 0xe0, 0x41, 0x02, 0x52,
+	0x0c, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x22, 0x53, 0x0a,
 	0x08, 0x44, 0x61, 0x74, 0x61, 0x54, 0x79, 0x70, 0x65, 0x12, 0x3a, 0x0a, 0x03, 0x63, 0x73, 0x76,
 	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
 	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
@@ -4201,7 +4280,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP() []byte {
 }
 
 var file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 8)
-var file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 45)
+var file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
 var file_strmprivacy_api_entities_v1_entities_v1_proto_goTypes = []interface{}{
 	(ConsentLevelType)(0),                     // 0: strmprivacy.api.entities.v1.ConsentLevelType
 	(SinkType)(0),                             // 1: strmprivacy.api.entities.v1.SinkType
@@ -4226,38 +4305,39 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_goTypes = []interface{}{
 	(*AwsS3BucketLocation)(nil),               // 20: strmprivacy.api.entities.v1.AwsS3BucketLocation
 	(*GoogleCloudStorageBucketLocation)(nil),  // 21: strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
 	(*AzureBlobStorageContainerLocation)(nil), // 22: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
-	(*DataType)(nil),                          // 23: strmprivacy.api.entities.v1.DataType
-	(*CsvConfig)(nil),                         // 24: strmprivacy.api.entities.v1.CsvConfig
-	(*BatchExporter)(nil),                     // 25: strmprivacy.api.entities.v1.BatchExporter
-	(*BatchExporterRef)(nil),                  // 26: strmprivacy.api.entities.v1.BatchExporterRef
-	(*KafkaCluster)(nil),                      // 27: strmprivacy.api.entities.v1.KafkaCluster
-	(*KafkaClusterRef)(nil),                   // 28: strmprivacy.api.entities.v1.KafkaClusterRef
-	(*KafkaExporter)(nil),                     // 29: strmprivacy.api.entities.v1.KafkaExporter
-	(*KafkaExporterRef)(nil),                  // 30: strmprivacy.api.entities.v1.KafkaExporterRef
-	(*KafkaExporterTarget)(nil),               // 31: strmprivacy.api.entities.v1.KafkaExporterTarget
-	(*KafkaUser)(nil),                         // 32: strmprivacy.api.entities.v1.KafkaUser
-	(*KafkaUserRef)(nil),                      // 33: strmprivacy.api.entities.v1.KafkaUserRef
-	(*ConsentLevels)(nil),                     // 34: strmprivacy.api.entities.v1.ConsentLevels
-	(*ConsentLevelMapping)(nil),               // 35: strmprivacy.api.entities.v1.ConsentLevelMapping
-	(*ConsentLevelMappingRef)(nil),            // 36: strmprivacy.api.entities.v1.ConsentLevelMappingRef
-	(*WindowedEventCount)(nil),                // 37: strmprivacy.api.entities.v1.WindowedEventCount
-	(*SchemaRef)(nil),                         // 38: strmprivacy.api.entities.v1.SchemaRef
-	(*Schema)(nil),                            // 39: strmprivacy.api.entities.v1.Schema
-	(*SimpleSchemaNode)(nil),                  // 40: strmprivacy.api.entities.v1.SimpleSchemaNode
-	(*SchemaMetadata)(nil),                    // 41: strmprivacy.api.entities.v1.SchemaMetadata
-	(*EventContractRef)(nil),                  // 42: strmprivacy.api.entities.v1.EventContractRef
-	(*EventContract)(nil),                     // 43: strmprivacy.api.entities.v1.EventContract
-	(*EventContractMetadata)(nil),             // 44: strmprivacy.api.entities.v1.EventContractMetadata
-	(*Label)(nil),                             // 45: strmprivacy.api.entities.v1.Label
-	(*Validation)(nil),                        // 46: strmprivacy.api.entities.v1.Validation
-	(*StreamTree)(nil),                        // 47: strmprivacy.api.entities.v1.StreamTree
-	(*SinkTree)(nil),                          // 48: strmprivacy.api.entities.v1.SinkTree
-	nil,                                       // 49: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
-	(*MaskedFields_PatternList)(nil),          // 50: strmprivacy.api.entities.v1.MaskedFields.PatternList
-	(*Schema_SimpleSchemaDefinition)(nil),     // 51: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
-	nil,                                       // 52: strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
-	(*durationpb.Duration)(nil),               // 53: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),             // 54: google.protobuf.Timestamp
+	(*AzureClientSecretCredential)(nil),       // 23: strmprivacy.api.entities.v1.AzureClientSecretCredential
+	(*DataType)(nil),                          // 24: strmprivacy.api.entities.v1.DataType
+	(*CsvConfig)(nil),                         // 25: strmprivacy.api.entities.v1.CsvConfig
+	(*BatchExporter)(nil),                     // 26: strmprivacy.api.entities.v1.BatchExporter
+	(*BatchExporterRef)(nil),                  // 27: strmprivacy.api.entities.v1.BatchExporterRef
+	(*KafkaCluster)(nil),                      // 28: strmprivacy.api.entities.v1.KafkaCluster
+	(*KafkaClusterRef)(nil),                   // 29: strmprivacy.api.entities.v1.KafkaClusterRef
+	(*KafkaExporter)(nil),                     // 30: strmprivacy.api.entities.v1.KafkaExporter
+	(*KafkaExporterRef)(nil),                  // 31: strmprivacy.api.entities.v1.KafkaExporterRef
+	(*KafkaExporterTarget)(nil),               // 32: strmprivacy.api.entities.v1.KafkaExporterTarget
+	(*KafkaUser)(nil),                         // 33: strmprivacy.api.entities.v1.KafkaUser
+	(*KafkaUserRef)(nil),                      // 34: strmprivacy.api.entities.v1.KafkaUserRef
+	(*ConsentLevels)(nil),                     // 35: strmprivacy.api.entities.v1.ConsentLevels
+	(*ConsentLevelMapping)(nil),               // 36: strmprivacy.api.entities.v1.ConsentLevelMapping
+	(*ConsentLevelMappingRef)(nil),            // 37: strmprivacy.api.entities.v1.ConsentLevelMappingRef
+	(*WindowedEventCount)(nil),                // 38: strmprivacy.api.entities.v1.WindowedEventCount
+	(*SchemaRef)(nil),                         // 39: strmprivacy.api.entities.v1.SchemaRef
+	(*Schema)(nil),                            // 40: strmprivacy.api.entities.v1.Schema
+	(*SimpleSchemaNode)(nil),                  // 41: strmprivacy.api.entities.v1.SimpleSchemaNode
+	(*SchemaMetadata)(nil),                    // 42: strmprivacy.api.entities.v1.SchemaMetadata
+	(*EventContractRef)(nil),                  // 43: strmprivacy.api.entities.v1.EventContractRef
+	(*EventContract)(nil),                     // 44: strmprivacy.api.entities.v1.EventContract
+	(*EventContractMetadata)(nil),             // 45: strmprivacy.api.entities.v1.EventContractMetadata
+	(*Label)(nil),                             // 46: strmprivacy.api.entities.v1.Label
+	(*Validation)(nil),                        // 47: strmprivacy.api.entities.v1.Validation
+	(*StreamTree)(nil),                        // 48: strmprivacy.api.entities.v1.StreamTree
+	(*SinkTree)(nil),                          // 49: strmprivacy.api.entities.v1.SinkTree
+	nil,                                       // 50: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
+	(*MaskedFields_PatternList)(nil),          // 51: strmprivacy.api.entities.v1.MaskedFields.PatternList
+	(*Schema_SimpleSchemaDefinition)(nil),     // 52: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
+	nil,                                       // 53: strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
+	(*durationpb.Duration)(nil),               // 54: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),             // 55: google.protobuf.Timestamp
 }
 var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
 	12, // 0: strmprivacy.api.entities.v1.Stream.ref:type_name -> strmprivacy.api.entities.v1.StreamRef
@@ -4265,7 +4345,7 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
 	10, // 2: strmprivacy.api.entities.v1.Stream.limits:type_name -> strmprivacy.api.entities.v1.Limits
 	14, // 3: strmprivacy.api.entities.v1.Stream.credentials:type_name -> strmprivacy.api.entities.v1.Credentials
 	9,  // 4: strmprivacy.api.entities.v1.Stream.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
-	49, // 5: strmprivacy.api.entities.v1.MaskedFields.field_patterns:type_name -> strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
+	50, // 5: strmprivacy.api.entities.v1.MaskedFields.field_patterns:type_name -> strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
 	13, // 6: strmprivacy.api.entities.v1.KeyStream.ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
 	16, // 7: strmprivacy.api.entities.v1.Sink.ref:type_name -> strmprivacy.api.entities.v1.SinkRef
 	1,  // 8: strmprivacy.api.entities.v1.Sink.sink_type:type_name -> strmprivacy.api.entities.v1.SinkType
@@ -4274,54 +4354,55 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
 	20, // 11: strmprivacy.api.entities.v1.DataConnector.s3_bucket:type_name -> strmprivacy.api.entities.v1.AwsS3BucketLocation
 	21, // 12: strmprivacy.api.entities.v1.DataConnector.google_cloud_storage_bucket:type_name -> strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
 	22, // 13: strmprivacy.api.entities.v1.DataConnector.azure_blob_storage_container:type_name -> strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
-	24, // 14: strmprivacy.api.entities.v1.DataType.csv:type_name -> strmprivacy.api.entities.v1.CsvConfig
-	26, // 15: strmprivacy.api.entities.v1.BatchExporter.ref:type_name -> strmprivacy.api.entities.v1.BatchExporterRef
-	12, // 16: strmprivacy.api.entities.v1.BatchExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
-	13, // 17: strmprivacy.api.entities.v1.BatchExporter.key_stream_ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
-	53, // 18: strmprivacy.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
-	28, // 19: strmprivacy.api.entities.v1.KafkaCluster.ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	2,  // 20: strmprivacy.api.entities.v1.KafkaCluster.auth_mechanism:type_name -> strmprivacy.api.entities.v1.AuthMechanism
-	30, // 21: strmprivacy.api.entities.v1.KafkaExporter.ref:type_name -> strmprivacy.api.entities.v1.KafkaExporterRef
-	12, // 22: strmprivacy.api.entities.v1.KafkaExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
-	31, // 23: strmprivacy.api.entities.v1.KafkaExporter.target:type_name -> strmprivacy.api.entities.v1.KafkaExporterTarget
-	32, // 24: strmprivacy.api.entities.v1.KafkaExporter.users:type_name -> strmprivacy.api.entities.v1.KafkaUser
-	28, // 25: strmprivacy.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	33, // 26: strmprivacy.api.entities.v1.KafkaUser.ref:type_name -> strmprivacy.api.entities.v1.KafkaUserRef
-	28, // 27: strmprivacy.api.entities.v1.KafkaUser.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	36, // 28: strmprivacy.api.entities.v1.ConsentLevelMapping.ref:type_name -> strmprivacy.api.entities.v1.ConsentLevelMappingRef
-	54, // 29: strmprivacy.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
-	54, // 30: strmprivacy.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
-	3,  // 31: strmprivacy.api.entities.v1.SchemaRef.schema_type:type_name -> strmprivacy.api.entities.v1.SchemaType
-	38, // 32: strmprivacy.api.entities.v1.Schema.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	6,  // 33: strmprivacy.api.entities.v1.Schema.state:type_name -> strmprivacy.api.entities.v1.Schema.State
-	41, // 34: strmprivacy.api.entities.v1.Schema.metadata:type_name -> strmprivacy.api.entities.v1.SchemaMetadata
-	51, // 35: strmprivacy.api.entities.v1.Schema.simple_schema:type_name -> strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
-	4,  // 36: strmprivacy.api.entities.v1.SimpleSchemaNode.type:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNodeType
-	40, // 37: strmprivacy.api.entities.v1.SimpleSchemaNode.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	54, // 38: strmprivacy.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
-	45, // 39: strmprivacy.api.entities.v1.SchemaMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
-	42, // 40: strmprivacy.api.entities.v1.EventContract.ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
-	7,  // 41: strmprivacy.api.entities.v1.EventContract.state:type_name -> strmprivacy.api.entities.v1.EventContract.State
-	38, // 42: strmprivacy.api.entities.v1.EventContract.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	52, // 43: strmprivacy.api.entities.v1.EventContract.pii_fields:type_name -> strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
-	46, // 44: strmprivacy.api.entities.v1.EventContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
-	44, // 45: strmprivacy.api.entities.v1.EventContract.metadata:type_name -> strmprivacy.api.entities.v1.EventContractMetadata
-	54, // 46: strmprivacy.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
-	45, // 47: strmprivacy.api.entities.v1.EventContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
-	8,  // 48: strmprivacy.api.entities.v1.StreamTree.stream:type_name -> strmprivacy.api.entities.v1.Stream
-	11, // 49: strmprivacy.api.entities.v1.StreamTree.key_stream:type_name -> strmprivacy.api.entities.v1.KeyStream
-	8,  // 50: strmprivacy.api.entities.v1.StreamTree.derived:type_name -> strmprivacy.api.entities.v1.Stream
-	25, // 51: strmprivacy.api.entities.v1.StreamTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	29, // 52: strmprivacy.api.entities.v1.StreamTree.kafka_exporters:type_name -> strmprivacy.api.entities.v1.KafkaExporter
-	15, // 53: strmprivacy.api.entities.v1.SinkTree.sink:type_name -> strmprivacy.api.entities.v1.Sink
-	25, // 54: strmprivacy.api.entities.v1.SinkTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	50, // 55: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
-	40, // 56: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	57, // [57:57] is the sub-list for method output_type
-	57, // [57:57] is the sub-list for method input_type
-	57, // [57:57] is the sub-list for extension type_name
-	57, // [57:57] is the sub-list for extension extendee
-	0,  // [0:57] is the sub-list for field type_name
+	23, // 14: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation.client_secret_credential:type_name -> strmprivacy.api.entities.v1.AzureClientSecretCredential
+	25, // 15: strmprivacy.api.entities.v1.DataType.csv:type_name -> strmprivacy.api.entities.v1.CsvConfig
+	27, // 16: strmprivacy.api.entities.v1.BatchExporter.ref:type_name -> strmprivacy.api.entities.v1.BatchExporterRef
+	12, // 17: strmprivacy.api.entities.v1.BatchExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	13, // 18: strmprivacy.api.entities.v1.BatchExporter.key_stream_ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
+	54, // 19: strmprivacy.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
+	29, // 20: strmprivacy.api.entities.v1.KafkaCluster.ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	2,  // 21: strmprivacy.api.entities.v1.KafkaCluster.auth_mechanism:type_name -> strmprivacy.api.entities.v1.AuthMechanism
+	31, // 22: strmprivacy.api.entities.v1.KafkaExporter.ref:type_name -> strmprivacy.api.entities.v1.KafkaExporterRef
+	12, // 23: strmprivacy.api.entities.v1.KafkaExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	32, // 24: strmprivacy.api.entities.v1.KafkaExporter.target:type_name -> strmprivacy.api.entities.v1.KafkaExporterTarget
+	33, // 25: strmprivacy.api.entities.v1.KafkaExporter.users:type_name -> strmprivacy.api.entities.v1.KafkaUser
+	29, // 26: strmprivacy.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	34, // 27: strmprivacy.api.entities.v1.KafkaUser.ref:type_name -> strmprivacy.api.entities.v1.KafkaUserRef
+	29, // 28: strmprivacy.api.entities.v1.KafkaUser.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	37, // 29: strmprivacy.api.entities.v1.ConsentLevelMapping.ref:type_name -> strmprivacy.api.entities.v1.ConsentLevelMappingRef
+	55, // 30: strmprivacy.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
+	55, // 31: strmprivacy.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
+	3,  // 32: strmprivacy.api.entities.v1.SchemaRef.schema_type:type_name -> strmprivacy.api.entities.v1.SchemaType
+	39, // 33: strmprivacy.api.entities.v1.Schema.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	6,  // 34: strmprivacy.api.entities.v1.Schema.state:type_name -> strmprivacy.api.entities.v1.Schema.State
+	42, // 35: strmprivacy.api.entities.v1.Schema.metadata:type_name -> strmprivacy.api.entities.v1.SchemaMetadata
+	52, // 36: strmprivacy.api.entities.v1.Schema.simple_schema:type_name -> strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
+	4,  // 37: strmprivacy.api.entities.v1.SimpleSchemaNode.type:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNodeType
+	41, // 38: strmprivacy.api.entities.v1.SimpleSchemaNode.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	55, // 39: strmprivacy.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
+	46, // 40: strmprivacy.api.entities.v1.SchemaMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	43, // 41: strmprivacy.api.entities.v1.EventContract.ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
+	7,  // 42: strmprivacy.api.entities.v1.EventContract.state:type_name -> strmprivacy.api.entities.v1.EventContract.State
+	39, // 43: strmprivacy.api.entities.v1.EventContract.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	53, // 44: strmprivacy.api.entities.v1.EventContract.pii_fields:type_name -> strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
+	47, // 45: strmprivacy.api.entities.v1.EventContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
+	45, // 46: strmprivacy.api.entities.v1.EventContract.metadata:type_name -> strmprivacy.api.entities.v1.EventContractMetadata
+	55, // 47: strmprivacy.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
+	46, // 48: strmprivacy.api.entities.v1.EventContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	8,  // 49: strmprivacy.api.entities.v1.StreamTree.stream:type_name -> strmprivacy.api.entities.v1.Stream
+	11, // 50: strmprivacy.api.entities.v1.StreamTree.key_stream:type_name -> strmprivacy.api.entities.v1.KeyStream
+	8,  // 51: strmprivacy.api.entities.v1.StreamTree.derived:type_name -> strmprivacy.api.entities.v1.Stream
+	26, // 52: strmprivacy.api.entities.v1.StreamTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	30, // 53: strmprivacy.api.entities.v1.StreamTree.kafka_exporters:type_name -> strmprivacy.api.entities.v1.KafkaExporter
+	15, // 54: strmprivacy.api.entities.v1.SinkTree.sink:type_name -> strmprivacy.api.entities.v1.Sink
+	26, // 55: strmprivacy.api.entities.v1.SinkTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	51, // 56: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
+	41, // 57: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	58, // [58:58] is the sub-list for method output_type
+	58, // [58:58] is the sub-list for method input_type
+	58, // [58:58] is the sub-list for extension type_name
+	58, // [58:58] is the sub-list for extension extendee
+	0,  // [0:58] is the sub-list for field type_name
 }
 
 func init() { file_strmprivacy_api_entities_v1_entities_v1_proto_init() }
@@ -4511,7 +4592,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DataType); i {
+			switch v := v.(*AzureClientSecretCredential); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4523,7 +4604,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CsvConfig); i {
+			switch v := v.(*DataType); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4535,7 +4616,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BatchExporter); i {
+			switch v := v.(*CsvConfig); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4547,7 +4628,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BatchExporterRef); i {
+			switch v := v.(*BatchExporter); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4559,7 +4640,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*KafkaCluster); i {
+			switch v := v.(*BatchExporterRef); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4571,7 +4652,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*KafkaClusterRef); i {
+			switch v := v.(*KafkaCluster); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4583,7 +4664,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*KafkaExporter); i {
+			switch v := v.(*KafkaClusterRef); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4595,7 +4676,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*KafkaExporterRef); i {
+			switch v := v.(*KafkaExporter); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4607,7 +4688,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*KafkaExporterTarget); i {
+			switch v := v.(*KafkaExporterRef); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4619,7 +4700,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*KafkaUser); i {
+			switch v := v.(*KafkaExporterTarget); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4631,7 +4712,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*KafkaUserRef); i {
+			switch v := v.(*KafkaUser); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4643,7 +4724,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ConsentLevels); i {
+			switch v := v.(*KafkaUserRef); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4655,7 +4736,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ConsentLevelMapping); i {
+			switch v := v.(*ConsentLevels); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4667,7 +4748,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ConsentLevelMappingRef); i {
+			switch v := v.(*ConsentLevelMapping); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4679,7 +4760,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*WindowedEventCount); i {
+			switch v := v.(*ConsentLevelMappingRef); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4691,7 +4772,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SchemaRef); i {
+			switch v := v.(*WindowedEventCount); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4703,7 +4784,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Schema); i {
+			switch v := v.(*SchemaRef); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4715,7 +4796,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SimpleSchemaNode); i {
+			switch v := v.(*Schema); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4727,7 +4808,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SchemaMetadata); i {
+			switch v := v.(*SimpleSchemaNode); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4739,7 +4820,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventContractRef); i {
+			switch v := v.(*SchemaMetadata); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4751,7 +4832,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventContract); i {
+			switch v := v.(*EventContractRef); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4763,7 +4844,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EventContractMetadata); i {
+			switch v := v.(*EventContract); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4775,7 +4856,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Label); i {
+			switch v := v.(*EventContractMetadata); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4787,7 +4868,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Validation); i {
+			switch v := v.(*Label); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4799,7 +4880,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StreamTree); i {
+			switch v := v.(*Validation); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4811,6 +4892,18 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StreamTree); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SinkTree); i {
 			case 0:
 				return &v.state
@@ -4822,7 +4915,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 				return nil
 			}
 		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MaskedFields_PatternList); i {
 			case 0:
 				return &v.state
@@ -4834,7 +4927,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 				return nil
 			}
 		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Schema_SimpleSchemaDefinition); i {
 			case 0:
 				return &v.state
@@ -4855,10 +4948,10 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 		(*DataConnector_GoogleCloudStorageBucket)(nil),
 		(*DataConnector_AzureBlobStorageContainer)(nil),
 	}
-	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[15].OneofWrappers = []interface{}{
+	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[16].OneofWrappers = []interface{}{
 		(*DataType_Csv)(nil),
 	}
-	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[17].OneofWrappers = []interface{}{
+	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[18].OneofWrappers = []interface{}{
 		(*BatchExporter_StreamRef)(nil),
 		(*BatchExporter_KeyStreamRef)(nil),
 	}
@@ -4868,7 +4961,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc,
 			NumEnums:      8,
-			NumMessages:   45,
+			NumMessages:   46,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
