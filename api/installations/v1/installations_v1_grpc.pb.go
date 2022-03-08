@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ComponentStatusServiceClient interface {
-	GetComponentStatus(ctx context.Context, in *GetComponentStatusRequest, opts ...grpc.CallOption) (*GetComponentStatusResponse, error)
+	UpdateComponentStatus(ctx context.Context, in *UpdateComponentStatusRequest, opts ...grpc.CallOption) (*UpdateComponentStatusResponse, error)
 }
 
 type componentStatusServiceClient struct {
@@ -33,9 +33,9 @@ func NewComponentStatusServiceClient(cc grpc.ClientConnInterface) ComponentStatu
 	return &componentStatusServiceClient{cc}
 }
 
-func (c *componentStatusServiceClient) GetComponentStatus(ctx context.Context, in *GetComponentStatusRequest, opts ...grpc.CallOption) (*GetComponentStatusResponse, error) {
-	out := new(GetComponentStatusResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.ComponentStatusService/GetComponentStatus", in, out, opts...)
+func (c *componentStatusServiceClient) UpdateComponentStatus(ctx context.Context, in *UpdateComponentStatusRequest, opts ...grpc.CallOption) (*UpdateComponentStatusResponse, error) {
+	out := new(UpdateComponentStatusResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.ComponentStatusService/UpdateComponentStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *componentStatusServiceClient) GetComponentStatus(ctx context.Context, i
 // All implementations must embed UnimplementedComponentStatusServiceServer
 // for forward compatibility
 type ComponentStatusServiceServer interface {
-	GetComponentStatus(context.Context, *GetComponentStatusRequest) (*GetComponentStatusResponse, error)
+	UpdateComponentStatus(context.Context, *UpdateComponentStatusRequest) (*UpdateComponentStatusResponse, error)
 	mustEmbedUnimplementedComponentStatusServiceServer()
 }
 
@@ -54,8 +54,8 @@ type ComponentStatusServiceServer interface {
 type UnimplementedComponentStatusServiceServer struct {
 }
 
-func (UnimplementedComponentStatusServiceServer) GetComponentStatus(context.Context, *GetComponentStatusRequest) (*GetComponentStatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetComponentStatus not implemented")
+func (UnimplementedComponentStatusServiceServer) UpdateComponentStatus(context.Context, *UpdateComponentStatusRequest) (*UpdateComponentStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateComponentStatus not implemented")
 }
 func (UnimplementedComponentStatusServiceServer) mustEmbedUnimplementedComponentStatusServiceServer() {
 }
@@ -71,20 +71,20 @@ func RegisterComponentStatusServiceServer(s grpc.ServiceRegistrar, srv Component
 	s.RegisterService(&ComponentStatusService_ServiceDesc, srv)
 }
 
-func _ComponentStatusService_GetComponentStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetComponentStatusRequest)
+func _ComponentStatusService_UpdateComponentStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateComponentStatusRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ComponentStatusServiceServer).GetComponentStatus(ctx, in)
+		return srv.(ComponentStatusServiceServer).UpdateComponentStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.installations.v1.ComponentStatusService/GetComponentStatus",
+		FullMethod: "/strmprivacy.api.installations.v1.ComponentStatusService/UpdateComponentStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ComponentStatusServiceServer).GetComponentStatus(ctx, req.(*GetComponentStatusRequest))
+		return srv.(ComponentStatusServiceServer).UpdateComponentStatus(ctx, req.(*UpdateComponentStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -97,8 +97,8 @@ var ComponentStatusService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ComponentStatusServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetComponentStatus",
-			Handler:    _ComponentStatusService_GetComponentStatus_Handler,
+			MethodName: "UpdateComponentStatus",
+			Handler:    _ComponentStatusService_UpdateComponentStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
