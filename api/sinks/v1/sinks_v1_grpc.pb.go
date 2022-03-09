@@ -21,6 +21,8 @@ const _ = grpc.SupportPackageIsVersion7
 // SinksServiceClient is the client API for SinksService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// Deprecated: Do not use.
 type SinksServiceClient interface {
 	ListSinks(ctx context.Context, in *ListSinksRequest, opts ...grpc.CallOption) (*ListSinksResponse, error)
 	GetSink(ctx context.Context, in *GetSinkRequest, opts ...grpc.CallOption) (*GetSinkResponse, error)
@@ -32,6 +34,7 @@ type sinksServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
+// Deprecated: Do not use.
 func NewSinksServiceClient(cc grpc.ClientConnInterface) SinksServiceClient {
 	return &sinksServiceClient{cc}
 }
@@ -75,6 +78,8 @@ func (c *sinksServiceClient) CreateSink(ctx context.Context, in *CreateSinkReque
 // SinksServiceServer is the server API for SinksService service.
 // All implementations must embed UnimplementedSinksServiceServer
 // for forward compatibility
+//
+// Deprecated: Do not use.
 type SinksServiceServer interface {
 	ListSinks(context.Context, *ListSinksRequest) (*ListSinksResponse, error)
 	GetSink(context.Context, *GetSinkRequest) (*GetSinkResponse, error)
@@ -108,6 +113,7 @@ type UnsafeSinksServiceServer interface {
 	mustEmbedUnimplementedSinksServiceServer()
 }
 
+// Deprecated: Do not use.
 func RegisterSinksServiceServer(s grpc.ServiceRegistrar, srv SinksServiceServer) {
 	s.RegisterService(&SinksService_ServiceDesc, srv)
 }
