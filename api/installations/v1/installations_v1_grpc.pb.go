@@ -18,87 +18,158 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// ComponentStatusServiceClient is the client API for ComponentStatusService service.
+// InstallationsServiceClient is the client API for InstallationsService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ComponentStatusServiceClient interface {
-	UpdateComponentStatus(ctx context.Context, in *UpdateComponentStatusRequest, opts ...grpc.CallOption) (*UpdateComponentStatusResponse, error)
+type InstallationsServiceClient interface {
+	CreateInstallation(ctx context.Context, in *CreateInstallationRequest, opts ...grpc.CallOption) (*CreateInstallationResponse, error)
+	DeleteInstallation(ctx context.Context, in *DeleteInstallationRequest, opts ...grpc.CallOption) (*DeleteInstallationResponse, error)
+	GetInstallation(ctx context.Context, in *GetInstallationRequest, opts ...grpc.CallOption) (*GetInstallationResponse, error)
 }
 
-type componentStatusServiceClient struct {
+type installationsServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewComponentStatusServiceClient(cc grpc.ClientConnInterface) ComponentStatusServiceClient {
-	return &componentStatusServiceClient{cc}
+func NewInstallationsServiceClient(cc grpc.ClientConnInterface) InstallationsServiceClient {
+	return &installationsServiceClient{cc}
 }
 
-func (c *componentStatusServiceClient) UpdateComponentStatus(ctx context.Context, in *UpdateComponentStatusRequest, opts ...grpc.CallOption) (*UpdateComponentStatusResponse, error) {
-	out := new(UpdateComponentStatusResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.ComponentStatusService/UpdateComponentStatus", in, out, opts...)
+func (c *installationsServiceClient) CreateInstallation(ctx context.Context, in *CreateInstallationRequest, opts ...grpc.CallOption) (*CreateInstallationResponse, error) {
+	out := new(CreateInstallationResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/CreateInstallation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ComponentStatusServiceServer is the server API for ComponentStatusService service.
-// All implementations must embed UnimplementedComponentStatusServiceServer
+func (c *installationsServiceClient) DeleteInstallation(ctx context.Context, in *DeleteInstallationRequest, opts ...grpc.CallOption) (*DeleteInstallationResponse, error) {
+	out := new(DeleteInstallationResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/DeleteInstallation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *installationsServiceClient) GetInstallation(ctx context.Context, in *GetInstallationRequest, opts ...grpc.CallOption) (*GetInstallationResponse, error) {
+	out := new(GetInstallationResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/GetInstallation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// InstallationsServiceServer is the server API for InstallationsService service.
+// All implementations must embed UnimplementedInstallationsServiceServer
 // for forward compatibility
-type ComponentStatusServiceServer interface {
-	UpdateComponentStatus(context.Context, *UpdateComponentStatusRequest) (*UpdateComponentStatusResponse, error)
-	mustEmbedUnimplementedComponentStatusServiceServer()
+type InstallationsServiceServer interface {
+	CreateInstallation(context.Context, *CreateInstallationRequest) (*CreateInstallationResponse, error)
+	DeleteInstallation(context.Context, *DeleteInstallationRequest) (*DeleteInstallationResponse, error)
+	GetInstallation(context.Context, *GetInstallationRequest) (*GetInstallationResponse, error)
+	mustEmbedUnimplementedInstallationsServiceServer()
 }
 
-// UnimplementedComponentStatusServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedComponentStatusServiceServer struct {
+// UnimplementedInstallationsServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedInstallationsServiceServer struct {
 }
 
-func (UnimplementedComponentStatusServiceServer) UpdateComponentStatus(context.Context, *UpdateComponentStatusRequest) (*UpdateComponentStatusResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateComponentStatus not implemented")
+func (UnimplementedInstallationsServiceServer) CreateInstallation(context.Context, *CreateInstallationRequest) (*CreateInstallationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateInstallation not implemented")
 }
-func (UnimplementedComponentStatusServiceServer) mustEmbedUnimplementedComponentStatusServiceServer() {
+func (UnimplementedInstallationsServiceServer) DeleteInstallation(context.Context, *DeleteInstallationRequest) (*DeleteInstallationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteInstallation not implemented")
 }
+func (UnimplementedInstallationsServiceServer) GetInstallation(context.Context, *GetInstallationRequest) (*GetInstallationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInstallation not implemented")
+}
+func (UnimplementedInstallationsServiceServer) mustEmbedUnimplementedInstallationsServiceServer() {}
 
-// UnsafeComponentStatusServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ComponentStatusServiceServer will
+// UnsafeInstallationsServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to InstallationsServiceServer will
 // result in compilation errors.
-type UnsafeComponentStatusServiceServer interface {
-	mustEmbedUnimplementedComponentStatusServiceServer()
+type UnsafeInstallationsServiceServer interface {
+	mustEmbedUnimplementedInstallationsServiceServer()
 }
 
-func RegisterComponentStatusServiceServer(s grpc.ServiceRegistrar, srv ComponentStatusServiceServer) {
-	s.RegisterService(&ComponentStatusService_ServiceDesc, srv)
+func RegisterInstallationsServiceServer(s grpc.ServiceRegistrar, srv InstallationsServiceServer) {
+	s.RegisterService(&InstallationsService_ServiceDesc, srv)
 }
 
-func _ComponentStatusService_UpdateComponentStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateComponentStatusRequest)
+func _InstallationsService_CreateInstallation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateInstallationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ComponentStatusServiceServer).UpdateComponentStatus(ctx, in)
+		return srv.(InstallationsServiceServer).CreateInstallation(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.installations.v1.ComponentStatusService/UpdateComponentStatus",
+		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/CreateInstallation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ComponentStatusServiceServer).UpdateComponentStatus(ctx, req.(*UpdateComponentStatusRequest))
+		return srv.(InstallationsServiceServer).CreateInstallation(ctx, req.(*CreateInstallationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// ComponentStatusService_ServiceDesc is the grpc.ServiceDesc for ComponentStatusService service.
+func _InstallationsService_DeleteInstallation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteInstallationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InstallationsServiceServer).DeleteInstallation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/DeleteInstallation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InstallationsServiceServer).DeleteInstallation(ctx, req.(*DeleteInstallationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _InstallationsService_GetInstallation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetInstallationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InstallationsServiceServer).GetInstallation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/GetInstallation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InstallationsServiceServer).GetInstallation(ctx, req.(*GetInstallationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// InstallationsService_ServiceDesc is the grpc.ServiceDesc for InstallationsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ComponentStatusService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "strmprivacy.api.installations.v1.ComponentStatusService",
-	HandlerType: (*ComponentStatusServiceServer)(nil),
+var InstallationsService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "strmprivacy.api.installations.v1.InstallationsService",
+	HandlerType: (*InstallationsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "UpdateComponentStatus",
-			Handler:    _ComponentStatusService_UpdateComponentStatus_Handler,
+			MethodName: "CreateInstallation",
+			Handler:    _InstallationsService_CreateInstallation_Handler,
+		},
+		{
+			MethodName: "DeleteInstallation",
+			Handler:    _InstallationsService_DeleteInstallation_Handler,
+		},
+		{
+			MethodName: "GetInstallation",
+			Handler:    _InstallationsService_GetInstallation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
