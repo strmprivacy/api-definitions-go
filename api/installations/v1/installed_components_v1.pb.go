@@ -226,8 +226,6 @@ func (x *GetInstalledComponentResponse) GetInstalledComponent() *InstalledCompon
 	return nil
 }
 
-// The installation_id from the metadata is used to filter the result to only contain owned InstalledComponents, hence
-// no explicit parameters are needed here.
 type ListInstalledComponentsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
