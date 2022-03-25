@@ -144,7 +144,7 @@ const (
 	InstalledComponentStateType_PROVISIONED InstalledComponentStateType = 1
 	// The application is running correctly
 	InstalledComponentStateType_RUNNING InstalledComponentStateType = 2
-	// An error occurred preventing the application to run correctly
+	// An error occurred, preventing the application to run correctly
 	InstalledComponentStateType_ERROR InstalledComponentStateType = 3
 	// App is shutting down
 	InstalledComponentStateType_SHUTTING_DOWN InstalledComponentStateType = 4
