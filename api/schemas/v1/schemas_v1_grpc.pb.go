@@ -30,6 +30,7 @@ type SchemasServiceClient interface {
 	ActivateSchema(ctx context.Context, in *ActivateSchemaRequest, opts ...grpc.CallOption) (*ActivateSchemaResponse, error)
 	DeleteSchema(ctx context.Context, in *DeleteSchemaRequest, opts ...grpc.CallOption) (*DeleteSchemaResponse, error)
 	ArchiveSchema(ctx context.Context, in *ArchiveSchemaRequest, opts ...grpc.CallOption) (*ArchiveSchemaResponse, error)
+	GetSchemaDefinition(ctx context.Context, in *GetSchemaDefinitionRequest, opts ...grpc.CallOption) (*GetSchemaDefinitionResponse, error)
 }
 
 type schemasServiceClient struct {
@@ -112,6 +113,15 @@ func (c *schemasServiceClient) ArchiveSchema(ctx context.Context, in *ArchiveSch
 	return out, nil
 }
 
+func (c *schemasServiceClient) GetSchemaDefinition(ctx context.Context, in *GetSchemaDefinitionRequest, opts ...grpc.CallOption) (*GetSchemaDefinitionResponse, error) {
+	out := new(GetSchemaDefinitionResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.schemas.v1.SchemasService/GetSchemaDefinition", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SchemasServiceServer is the server API for SchemasService service.
 // All implementations must embed UnimplementedSchemasServiceServer
 // for forward compatibility
@@ -124,6 +134,7 @@ type SchemasServiceServer interface {
 	ActivateSchema(context.Context, *ActivateSchemaRequest) (*ActivateSchemaResponse, error)
 	DeleteSchema(context.Context, *DeleteSchemaRequest) (*DeleteSchemaResponse, error)
 	ArchiveSchema(context.Context, *ArchiveSchemaRequest) (*ArchiveSchemaResponse, error)
+	GetSchemaDefinition(context.Context, *GetSchemaDefinitionRequest) (*GetSchemaDefinitionResponse, error)
 	mustEmbedUnimplementedSchemasServiceServer()
 }
 
@@ -154,6 +165,9 @@ func (UnimplementedSchemasServiceServer) DeleteSchema(context.Context, *DeleteSc
 }
 func (UnimplementedSchemasServiceServer) ArchiveSchema(context.Context, *ArchiveSchemaRequest) (*ArchiveSchemaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ArchiveSchema not implemented")
+}
+func (UnimplementedSchemasServiceServer) GetSchemaDefinition(context.Context, *GetSchemaDefinitionRequest) (*GetSchemaDefinitionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSchemaDefinition not implemented")
 }
 func (UnimplementedSchemasServiceServer) mustEmbedUnimplementedSchemasServiceServer() {}
 
@@ -312,6 +326,24 @@ func _SchemasService_ArchiveSchema_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SchemasService_GetSchemaDefinition_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSchemaDefinitionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SchemasServiceServer).GetSchemaDefinition(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.schemas.v1.SchemasService/GetSchemaDefinition",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SchemasServiceServer).GetSchemaDefinition(ctx, req.(*GetSchemaDefinitionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SchemasService_ServiceDesc is the grpc.ServiceDesc for SchemasService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -350,6 +382,10 @@ var SchemasService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ArchiveSchema",
 			Handler:    _SchemasService_ArchiveSchema_Handler,
+		},
+		{
+			MethodName: "GetSchemaDefinition",
+			Handler:    _SchemasService_GetSchemaDefinition_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
