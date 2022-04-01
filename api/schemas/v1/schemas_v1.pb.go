@@ -965,6 +965,108 @@ func (x *GetSchemaCodeResponse) GetData() []byte {
 	return nil
 }
 
+type GetSchemaDefinitionRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ConfluentId int32               `protobuf:"varint,1,opt,name=confluent_id,json=confluentId,proto3" json:"confluent_id,omitempty"`
+	ClusterRef  *v1.KafkaClusterRef `protobuf:"bytes,2,opt,name=cluster_ref,json=clusterRef,proto3" json:"cluster_ref,omitempty"`
+}
+
+func (x *GetSchemaDefinitionRequest) Reset() {
+	*x = GetSchemaDefinitionRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_schemas_v1_schemas_v1_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetSchemaDefinitionRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSchemaDefinitionRequest) ProtoMessage() {}
+
+func (x *GetSchemaDefinitionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_schemas_v1_schemas_v1_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSchemaDefinitionRequest.ProtoReflect.Descriptor instead.
+func (*GetSchemaDefinitionRequest) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_schemas_v1_schemas_v1_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *GetSchemaDefinitionRequest) GetConfluentId() int32 {
+	if x != nil {
+		return x.ConfluentId
+	}
+	return 0
+}
+
+func (x *GetSchemaDefinitionRequest) GetClusterRef() *v1.KafkaClusterRef {
+	if x != nil {
+		return x.ClusterRef
+	}
+	return nil
+}
+
+type GetSchemaDefinitionResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Definition string `protobuf:"bytes,1,opt,name=definition,proto3" json:"definition,omitempty"`
+}
+
+func (x *GetSchemaDefinitionResponse) Reset() {
+	*x = GetSchemaDefinitionResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_schemas_v1_schemas_v1_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetSchemaDefinitionResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSchemaDefinitionResponse) ProtoMessage() {}
+
+func (x *GetSchemaDefinitionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_schemas_v1_schemas_v1_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSchemaDefinitionResponse.ProtoReflect.Descriptor instead.
+func (*GetSchemaDefinitionResponse) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_schemas_v1_schemas_v1_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *GetSchemaDefinitionResponse) GetDefinition() string {
+	if x != nil {
+		return x.Definition
+	}
+	return ""
+}
+
 var File_strmprivacy_api_schemas_v1_schemas_v1_proto protoreflect.FileDescriptor
 
 var file_strmprivacy_api_schemas_v1_schemas_v1_proto_rawDesc = []byte{
@@ -1115,8 +1217,21 @@ var file_strmprivacy_api_schemas_v1_schemas_v1_proto_rawDesc = []byte{
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x1b,
 	0x0a, 0x09, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
 	0x03, 0x52, 0x08, 0x64, 0x61, 0x74, 0x61, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x64,
-	0x61, 0x74, 0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x32,
-	0xa8, 0x07, 0x0a, 0x0e, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69,
+	0x61, 0x74, 0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22,
+	0x8e, 0x01, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x44, 0x65, 0x66,
+	0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x21,
+	0x0a, 0x0c, 0x63, 0x6f, 0x6e, 0x66, 0x6c, 0x75, 0x65, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x05, 0x52, 0x0b, 0x63, 0x6f, 0x6e, 0x66, 0x6c, 0x75, 0x65, 0x6e, 0x74, 0x49,
+	0x64, 0x12, 0x4d, 0x0a, 0x0b, 0x63, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x5f, 0x72, 0x65, 0x66,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
+	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
+	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4b, 0x61, 0x66, 0x6b, 0x61, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65,
+	0x72, 0x52, 0x65, 0x66, 0x52, 0x0a, 0x63, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x66,
+	0x22, 0x3d, 0x0a, 0x1b, 0x47, 0x65, 0x74, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x44, 0x65, 0x66,
+	0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x1e, 0x0a, 0x0a, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x0a, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x32,
+	0xb1, 0x08, 0x0a, 0x0e, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x73, 0x53, 0x65, 0x72, 0x76, 0x69,
 	0x63, 0x65, 0x12, 0x6e, 0x0a, 0x0b, 0x4c, 0x69, 0x73, 0x74, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61,
 	0x73, 0x12, 0x2e, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e,
 	0x61, 0x70, 0x69, 0x2e, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4c,
@@ -1174,14 +1289,23 @@ var file_strmprivacy_api_schemas_v1_schemas_v1_proto_rawDesc = []byte{
 	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x31, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
 	0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61,
 	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x72, 0x63, 0x68, 0x69, 0x76, 0x65, 0x53, 0x63, 0x68, 0x65,
-	0x6d, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x66, 0x0a, 0x1d, 0x69, 0x6f,
-	0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69,
-	0x2e, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x73, 0x2e, 0x76, 0x31, 0x50, 0x01, 0x5a, 0x43, 0x67,
-	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
-	0x69, 0x76, 0x61, 0x63, 0x79, 0x2f, 0x61, 0x70, 0x69, 0x2d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69,
-	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2d, 0x67, 0x6f, 0x2f, 0x76, 0x32, 0x2f, 0x61, 0x70, 0x69, 0x2f,
-	0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x73, 0x63, 0x68, 0x65, 0x6d,
-	0x61, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6d, 0x61, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x86, 0x01, 0x0a, 0x13, 0x47,
+	0x65, 0x74, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x36, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x73, 0x2e, 0x76, 0x31, 0x2e,
+	0x47, 0x65, 0x74, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x37, 0x2e, 0x73, 0x74, 0x72,
+	0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x63, 0x68,
+	0x65, 0x6d, 0x61, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x53, 0x63, 0x68, 0x65, 0x6d,
+	0x61, 0x44, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x42, 0x66, 0x0a, 0x1d, 0x69, 0x6f, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
+	0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61,
+	0x73, 0x2e, 0x76, 0x31, 0x50, 0x01, 0x5a, 0x43, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2f, 0x61,
+	0x70, 0x69, 0x2d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2d, 0x67,
+	0x6f, 0x2f, 0x76, 0x32, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x73,
+	0x2f, 0x76, 0x31, 0x3b, 0x73, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1196,70 +1320,75 @@ func file_strmprivacy_api_schemas_v1_schemas_v1_proto_rawDescGZIP() []byte {
 	return file_strmprivacy_api_schemas_v1_schemas_v1_proto_rawDescData
 }
 
-var file_strmprivacy_api_schemas_v1_schemas_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_strmprivacy_api_schemas_v1_schemas_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_strmprivacy_api_schemas_v1_schemas_v1_proto_goTypes = []interface{}{
-	(*ListSchemasRequest)(nil),     // 0: strmprivacy.api.schemas.v1.ListSchemasRequest
-	(*ListSchemasResponse)(nil),    // 1: strmprivacy.api.schemas.v1.ListSchemasResponse
-	(*GetSchemaRequest)(nil),       // 2: strmprivacy.api.schemas.v1.GetSchemaRequest
-	(*GetSchemaResponse)(nil),      // 3: strmprivacy.api.schemas.v1.GetSchemaResponse
-	(*CreateSchemaRequest)(nil),    // 4: strmprivacy.api.schemas.v1.CreateSchemaRequest
-	(*CreateSchemaResponse)(nil),   // 5: strmprivacy.api.schemas.v1.CreateSchemaResponse
-	(*UpdateSchemaRequest)(nil),    // 6: strmprivacy.api.schemas.v1.UpdateSchemaRequest
-	(*UpdateSchemaResponse)(nil),   // 7: strmprivacy.api.schemas.v1.UpdateSchemaResponse
-	(*ActivateSchemaRequest)(nil),  // 8: strmprivacy.api.schemas.v1.ActivateSchemaRequest
-	(*ActivateSchemaResponse)(nil), // 9: strmprivacy.api.schemas.v1.ActivateSchemaResponse
-	(*DeleteSchemaRequest)(nil),    // 10: strmprivacy.api.schemas.v1.DeleteSchemaRequest
-	(*DeleteSchemaResponse)(nil),   // 11: strmprivacy.api.schemas.v1.DeleteSchemaResponse
-	(*ArchiveSchemaRequest)(nil),   // 12: strmprivacy.api.schemas.v1.ArchiveSchemaRequest
-	(*ArchiveSchemaResponse)(nil),  // 13: strmprivacy.api.schemas.v1.ArchiveSchemaResponse
-	(*GetSchemaCodeRequest)(nil),   // 14: strmprivacy.api.schemas.v1.GetSchemaCodeRequest
-	(*GetSchemaCodeResponse)(nil),  // 15: strmprivacy.api.schemas.v1.GetSchemaCodeResponse
-	(v1.FilterPublicPrivate)(0),    // 16: strmprivacy.api.entities.v1.FilterPublicPrivate
-	(v1.SchemaType)(0),             // 17: strmprivacy.api.entities.v1.SchemaType
-	(*v1.Label)(nil),               // 18: strmprivacy.api.entities.v1.Label
-	(*v1.Schema)(nil),              // 19: strmprivacy.api.entities.v1.Schema
-	(*v1.SchemaRef)(nil),           // 20: strmprivacy.api.entities.v1.SchemaRef
-	(*v1.KafkaClusterRef)(nil),     // 21: strmprivacy.api.entities.v1.KafkaClusterRef
-	(*fieldmaskpb.FieldMask)(nil),  // 22: google.protobuf.FieldMask
+	(*ListSchemasRequest)(nil),          // 0: strmprivacy.api.schemas.v1.ListSchemasRequest
+	(*ListSchemasResponse)(nil),         // 1: strmprivacy.api.schemas.v1.ListSchemasResponse
+	(*GetSchemaRequest)(nil),            // 2: strmprivacy.api.schemas.v1.GetSchemaRequest
+	(*GetSchemaResponse)(nil),           // 3: strmprivacy.api.schemas.v1.GetSchemaResponse
+	(*CreateSchemaRequest)(nil),         // 4: strmprivacy.api.schemas.v1.CreateSchemaRequest
+	(*CreateSchemaResponse)(nil),        // 5: strmprivacy.api.schemas.v1.CreateSchemaResponse
+	(*UpdateSchemaRequest)(nil),         // 6: strmprivacy.api.schemas.v1.UpdateSchemaRequest
+	(*UpdateSchemaResponse)(nil),        // 7: strmprivacy.api.schemas.v1.UpdateSchemaResponse
+	(*ActivateSchemaRequest)(nil),       // 8: strmprivacy.api.schemas.v1.ActivateSchemaRequest
+	(*ActivateSchemaResponse)(nil),      // 9: strmprivacy.api.schemas.v1.ActivateSchemaResponse
+	(*DeleteSchemaRequest)(nil),         // 10: strmprivacy.api.schemas.v1.DeleteSchemaRequest
+	(*DeleteSchemaResponse)(nil),        // 11: strmprivacy.api.schemas.v1.DeleteSchemaResponse
+	(*ArchiveSchemaRequest)(nil),        // 12: strmprivacy.api.schemas.v1.ArchiveSchemaRequest
+	(*ArchiveSchemaResponse)(nil),       // 13: strmprivacy.api.schemas.v1.ArchiveSchemaResponse
+	(*GetSchemaCodeRequest)(nil),        // 14: strmprivacy.api.schemas.v1.GetSchemaCodeRequest
+	(*GetSchemaCodeResponse)(nil),       // 15: strmprivacy.api.schemas.v1.GetSchemaCodeResponse
+	(*GetSchemaDefinitionRequest)(nil),  // 16: strmprivacy.api.schemas.v1.GetSchemaDefinitionRequest
+	(*GetSchemaDefinitionResponse)(nil), // 17: strmprivacy.api.schemas.v1.GetSchemaDefinitionResponse
+	(v1.FilterPublicPrivate)(0),         // 18: strmprivacy.api.entities.v1.FilterPublicPrivate
+	(v1.SchemaType)(0),                  // 19: strmprivacy.api.entities.v1.SchemaType
+	(*v1.Label)(nil),                    // 20: strmprivacy.api.entities.v1.Label
+	(*v1.Schema)(nil),                   // 21: strmprivacy.api.entities.v1.Schema
+	(*v1.SchemaRef)(nil),                // 22: strmprivacy.api.entities.v1.SchemaRef
+	(*v1.KafkaClusterRef)(nil),          // 23: strmprivacy.api.entities.v1.KafkaClusterRef
+	(*fieldmaskpb.FieldMask)(nil),       // 24: google.protobuf.FieldMask
 }
 var file_strmprivacy_api_schemas_v1_schemas_v1_proto_depIdxs = []int32{
-	16, // 0: strmprivacy.api.schemas.v1.ListSchemasRequest.public_private:type_name -> strmprivacy.api.entities.v1.FilterPublicPrivate
-	17, // 1: strmprivacy.api.schemas.v1.ListSchemasRequest.schema_type:type_name -> strmprivacy.api.entities.v1.SchemaType
-	18, // 2: strmprivacy.api.schemas.v1.ListSchemasRequest.labels:type_name -> strmprivacy.api.entities.v1.Label
-	19, // 3: strmprivacy.api.schemas.v1.ListSchemasResponse.schemas:type_name -> strmprivacy.api.entities.v1.Schema
-	20, // 4: strmprivacy.api.schemas.v1.GetSchemaRequest.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	21, // 5: strmprivacy.api.schemas.v1.GetSchemaRequest.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	19, // 6: strmprivacy.api.schemas.v1.GetSchemaResponse.schema:type_name -> strmprivacy.api.entities.v1.Schema
-	19, // 7: strmprivacy.api.schemas.v1.CreateSchemaRequest.schema:type_name -> strmprivacy.api.entities.v1.Schema
-	19, // 8: strmprivacy.api.schemas.v1.CreateSchemaResponse.schema:type_name -> strmprivacy.api.entities.v1.Schema
-	19, // 9: strmprivacy.api.schemas.v1.UpdateSchemaRequest.schema:type_name -> strmprivacy.api.entities.v1.Schema
-	22, // 10: strmprivacy.api.schemas.v1.UpdateSchemaRequest.update_mask:type_name -> google.protobuf.FieldMask
-	19, // 11: strmprivacy.api.schemas.v1.UpdateSchemaResponse.schema:type_name -> strmprivacy.api.entities.v1.Schema
-	20, // 12: strmprivacy.api.schemas.v1.ActivateSchemaRequest.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	20, // 13: strmprivacy.api.schemas.v1.DeleteSchemaRequest.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	20, // 14: strmprivacy.api.schemas.v1.ArchiveSchemaRequest.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	20, // 15: strmprivacy.api.schemas.v1.GetSchemaCodeRequest.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	0,  // 16: strmprivacy.api.schemas.v1.SchemasService.ListSchemas:input_type -> strmprivacy.api.schemas.v1.ListSchemasRequest
-	2,  // 17: strmprivacy.api.schemas.v1.SchemasService.GetSchema:input_type -> strmprivacy.api.schemas.v1.GetSchemaRequest
-	4,  // 18: strmprivacy.api.schemas.v1.SchemasService.CreateSchema:input_type -> strmprivacy.api.schemas.v1.CreateSchemaRequest
-	6,  // 19: strmprivacy.api.schemas.v1.SchemasService.UpdateSchema:input_type -> strmprivacy.api.schemas.v1.UpdateSchemaRequest
-	14, // 20: strmprivacy.api.schemas.v1.SchemasService.GetSchemaCode:input_type -> strmprivacy.api.schemas.v1.GetSchemaCodeRequest
-	8,  // 21: strmprivacy.api.schemas.v1.SchemasService.ActivateSchema:input_type -> strmprivacy.api.schemas.v1.ActivateSchemaRequest
-	10, // 22: strmprivacy.api.schemas.v1.SchemasService.DeleteSchema:input_type -> strmprivacy.api.schemas.v1.DeleteSchemaRequest
-	12, // 23: strmprivacy.api.schemas.v1.SchemasService.ArchiveSchema:input_type -> strmprivacy.api.schemas.v1.ArchiveSchemaRequest
-	1,  // 24: strmprivacy.api.schemas.v1.SchemasService.ListSchemas:output_type -> strmprivacy.api.schemas.v1.ListSchemasResponse
-	3,  // 25: strmprivacy.api.schemas.v1.SchemasService.GetSchema:output_type -> strmprivacy.api.schemas.v1.GetSchemaResponse
-	5,  // 26: strmprivacy.api.schemas.v1.SchemasService.CreateSchema:output_type -> strmprivacy.api.schemas.v1.CreateSchemaResponse
-	7,  // 27: strmprivacy.api.schemas.v1.SchemasService.UpdateSchema:output_type -> strmprivacy.api.schemas.v1.UpdateSchemaResponse
-	15, // 28: strmprivacy.api.schemas.v1.SchemasService.GetSchemaCode:output_type -> strmprivacy.api.schemas.v1.GetSchemaCodeResponse
-	9,  // 29: strmprivacy.api.schemas.v1.SchemasService.ActivateSchema:output_type -> strmprivacy.api.schemas.v1.ActivateSchemaResponse
-	11, // 30: strmprivacy.api.schemas.v1.SchemasService.DeleteSchema:output_type -> strmprivacy.api.schemas.v1.DeleteSchemaResponse
-	13, // 31: strmprivacy.api.schemas.v1.SchemasService.ArchiveSchema:output_type -> strmprivacy.api.schemas.v1.ArchiveSchemaResponse
-	24, // [24:32] is the sub-list for method output_type
-	16, // [16:24] is the sub-list for method input_type
-	16, // [16:16] is the sub-list for extension type_name
-	16, // [16:16] is the sub-list for extension extendee
-	0,  // [0:16] is the sub-list for field type_name
+	18, // 0: strmprivacy.api.schemas.v1.ListSchemasRequest.public_private:type_name -> strmprivacy.api.entities.v1.FilterPublicPrivate
+	19, // 1: strmprivacy.api.schemas.v1.ListSchemasRequest.schema_type:type_name -> strmprivacy.api.entities.v1.SchemaType
+	20, // 2: strmprivacy.api.schemas.v1.ListSchemasRequest.labels:type_name -> strmprivacy.api.entities.v1.Label
+	21, // 3: strmprivacy.api.schemas.v1.ListSchemasResponse.schemas:type_name -> strmprivacy.api.entities.v1.Schema
+	22, // 4: strmprivacy.api.schemas.v1.GetSchemaRequest.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	23, // 5: strmprivacy.api.schemas.v1.GetSchemaRequest.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	21, // 6: strmprivacy.api.schemas.v1.GetSchemaResponse.schema:type_name -> strmprivacy.api.entities.v1.Schema
+	21, // 7: strmprivacy.api.schemas.v1.CreateSchemaRequest.schema:type_name -> strmprivacy.api.entities.v1.Schema
+	21, // 8: strmprivacy.api.schemas.v1.CreateSchemaResponse.schema:type_name -> strmprivacy.api.entities.v1.Schema
+	21, // 9: strmprivacy.api.schemas.v1.UpdateSchemaRequest.schema:type_name -> strmprivacy.api.entities.v1.Schema
+	24, // 10: strmprivacy.api.schemas.v1.UpdateSchemaRequest.update_mask:type_name -> google.protobuf.FieldMask
+	21, // 11: strmprivacy.api.schemas.v1.UpdateSchemaResponse.schema:type_name -> strmprivacy.api.entities.v1.Schema
+	22, // 12: strmprivacy.api.schemas.v1.ActivateSchemaRequest.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	22, // 13: strmprivacy.api.schemas.v1.DeleteSchemaRequest.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	22, // 14: strmprivacy.api.schemas.v1.ArchiveSchemaRequest.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	22, // 15: strmprivacy.api.schemas.v1.GetSchemaCodeRequest.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	23, // 16: strmprivacy.api.schemas.v1.GetSchemaDefinitionRequest.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	0,  // 17: strmprivacy.api.schemas.v1.SchemasService.ListSchemas:input_type -> strmprivacy.api.schemas.v1.ListSchemasRequest
+	2,  // 18: strmprivacy.api.schemas.v1.SchemasService.GetSchema:input_type -> strmprivacy.api.schemas.v1.GetSchemaRequest
+	4,  // 19: strmprivacy.api.schemas.v1.SchemasService.CreateSchema:input_type -> strmprivacy.api.schemas.v1.CreateSchemaRequest
+	6,  // 20: strmprivacy.api.schemas.v1.SchemasService.UpdateSchema:input_type -> strmprivacy.api.schemas.v1.UpdateSchemaRequest
+	14, // 21: strmprivacy.api.schemas.v1.SchemasService.GetSchemaCode:input_type -> strmprivacy.api.schemas.v1.GetSchemaCodeRequest
+	8,  // 22: strmprivacy.api.schemas.v1.SchemasService.ActivateSchema:input_type -> strmprivacy.api.schemas.v1.ActivateSchemaRequest
+	10, // 23: strmprivacy.api.schemas.v1.SchemasService.DeleteSchema:input_type -> strmprivacy.api.schemas.v1.DeleteSchemaRequest
+	12, // 24: strmprivacy.api.schemas.v1.SchemasService.ArchiveSchema:input_type -> strmprivacy.api.schemas.v1.ArchiveSchemaRequest
+	16, // 25: strmprivacy.api.schemas.v1.SchemasService.GetSchemaDefinition:input_type -> strmprivacy.api.schemas.v1.GetSchemaDefinitionRequest
+	1,  // 26: strmprivacy.api.schemas.v1.SchemasService.ListSchemas:output_type -> strmprivacy.api.schemas.v1.ListSchemasResponse
+	3,  // 27: strmprivacy.api.schemas.v1.SchemasService.GetSchema:output_type -> strmprivacy.api.schemas.v1.GetSchemaResponse
+	5,  // 28: strmprivacy.api.schemas.v1.SchemasService.CreateSchema:output_type -> strmprivacy.api.schemas.v1.CreateSchemaResponse
+	7,  // 29: strmprivacy.api.schemas.v1.SchemasService.UpdateSchema:output_type -> strmprivacy.api.schemas.v1.UpdateSchemaResponse
+	15, // 30: strmprivacy.api.schemas.v1.SchemasService.GetSchemaCode:output_type -> strmprivacy.api.schemas.v1.GetSchemaCodeResponse
+	9,  // 31: strmprivacy.api.schemas.v1.SchemasService.ActivateSchema:output_type -> strmprivacy.api.schemas.v1.ActivateSchemaResponse
+	11, // 32: strmprivacy.api.schemas.v1.SchemasService.DeleteSchema:output_type -> strmprivacy.api.schemas.v1.DeleteSchemaResponse
+	13, // 33: strmprivacy.api.schemas.v1.SchemasService.ArchiveSchema:output_type -> strmprivacy.api.schemas.v1.ArchiveSchemaResponse
+	17, // 34: strmprivacy.api.schemas.v1.SchemasService.GetSchemaDefinition:output_type -> strmprivacy.api.schemas.v1.GetSchemaDefinitionResponse
+	26, // [26:35] is the sub-list for method output_type
+	17, // [17:26] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_strmprivacy_api_schemas_v1_schemas_v1_proto_init() }
@@ -1460,6 +1589,30 @@ func file_strmprivacy_api_schemas_v1_schemas_v1_proto_init() {
 				return nil
 			}
 		}
+		file_strmprivacy_api_schemas_v1_schemas_v1_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetSchemaDefinitionRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_schemas_v1_schemas_v1_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetSchemaDefinitionResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1467,7 +1620,7 @@ func file_strmprivacy_api_schemas_v1_schemas_v1_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_strmprivacy_api_schemas_v1_schemas_v1_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   16,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

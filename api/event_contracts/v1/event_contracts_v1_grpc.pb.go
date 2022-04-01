@@ -30,6 +30,7 @@ type EventContractsServiceClient interface {
 	DeleteEventContract(ctx context.Context, in *DeleteEventContractRequest, opts ...grpc.CallOption) (*DeleteEventContractResponse, error)
 	ArchiveEventContract(ctx context.Context, in *ArchiveEventContractRequest, opts ...grpc.CallOption) (*ArchiveEventContractResponse, error)
 	ValidateMaskedFields(ctx context.Context, in *ValidateMaskedFieldsRequest, opts ...grpc.CallOption) (*ValidateMaskedFieldsResponse, error)
+	GetEventContractAndSchema(ctx context.Context, in *GetEventContractAndSchemaRequest, opts ...grpc.CallOption) (*GetEventContractAndSchemaResponse, error)
 }
 
 type eventContractsServiceClient struct {
@@ -112,6 +113,15 @@ func (c *eventContractsServiceClient) ValidateMaskedFields(ctx context.Context, 
 	return out, nil
 }
 
+func (c *eventContractsServiceClient) GetEventContractAndSchema(ctx context.Context, in *GetEventContractAndSchemaRequest, opts ...grpc.CallOption) (*GetEventContractAndSchemaResponse, error) {
+	out := new(GetEventContractAndSchemaResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.event_contracts.v1.EventContractsService/GetEventContractAndSchema", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // EventContractsServiceServer is the server API for EventContractsService service.
 // All implementations must embed UnimplementedEventContractsServiceServer
 // for forward compatibility
@@ -124,6 +134,7 @@ type EventContractsServiceServer interface {
 	DeleteEventContract(context.Context, *DeleteEventContractRequest) (*DeleteEventContractResponse, error)
 	ArchiveEventContract(context.Context, *ArchiveEventContractRequest) (*ArchiveEventContractResponse, error)
 	ValidateMaskedFields(context.Context, *ValidateMaskedFieldsRequest) (*ValidateMaskedFieldsResponse, error)
+	GetEventContractAndSchema(context.Context, *GetEventContractAndSchemaRequest) (*GetEventContractAndSchemaResponse, error)
 	mustEmbedUnimplementedEventContractsServiceServer()
 }
 
@@ -154,6 +165,9 @@ func (UnimplementedEventContractsServiceServer) ArchiveEventContract(context.Con
 }
 func (UnimplementedEventContractsServiceServer) ValidateMaskedFields(context.Context, *ValidateMaskedFieldsRequest) (*ValidateMaskedFieldsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateMaskedFields not implemented")
+}
+func (UnimplementedEventContractsServiceServer) GetEventContractAndSchema(context.Context, *GetEventContractAndSchemaRequest) (*GetEventContractAndSchemaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetEventContractAndSchema not implemented")
 }
 func (UnimplementedEventContractsServiceServer) mustEmbedUnimplementedEventContractsServiceServer() {}
 
@@ -312,6 +326,24 @@ func _EventContractsService_ValidateMaskedFields_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _EventContractsService_GetEventContractAndSchema_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetEventContractAndSchemaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EventContractsServiceServer).GetEventContractAndSchema(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.event_contracts.v1.EventContractsService/GetEventContractAndSchema",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EventContractsServiceServer).GetEventContractAndSchema(ctx, req.(*GetEventContractAndSchemaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // EventContractsService_ServiceDesc is the grpc.ServiceDesc for EventContractsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -350,6 +382,10 @@ var EventContractsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ValidateMaskedFields",
 			Handler:    _EventContractsService_ValidateMaskedFields_Handler,
+		},
+		{
+			MethodName: "GetEventContractAndSchema",
+			Handler:    _EventContractsService_GetEventContractAndSchema_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
