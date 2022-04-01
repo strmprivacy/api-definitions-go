@@ -22,10 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type InstallationsServiceClient interface {
-	CreateInstallation(ctx context.Context, in *CreateInstallationRequest, opts ...grpc.CallOption) (*CreateInstallationResponse, error)
-	DeleteInstallation(ctx context.Context, in *DeleteInstallationRequest, opts ...grpc.CallOption) (*DeleteInstallationResponse, error)
 	GetInstallation(ctx context.Context, in *GetInstallationRequest, opts ...grpc.CallOption) (*GetInstallationResponse, error)
-	ListInstallations(ctx context.Context, in *ListInstallationsRequest, opts ...grpc.CallOption) (*ListInstallationsResponse, error)
 }
 
 type installationsServiceClient struct {
@@ -34,24 +31,6 @@ type installationsServiceClient struct {
 
 func NewInstallationsServiceClient(cc grpc.ClientConnInterface) InstallationsServiceClient {
 	return &installationsServiceClient{cc}
-}
-
-func (c *installationsServiceClient) CreateInstallation(ctx context.Context, in *CreateInstallationRequest, opts ...grpc.CallOption) (*CreateInstallationResponse, error) {
-	out := new(CreateInstallationResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/CreateInstallation", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *installationsServiceClient) DeleteInstallation(ctx context.Context, in *DeleteInstallationRequest, opts ...grpc.CallOption) (*DeleteInstallationResponse, error) {
-	out := new(DeleteInstallationResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/DeleteInstallation", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *installationsServiceClient) GetInstallation(ctx context.Context, in *GetInstallationRequest, opts ...grpc.CallOption) (*GetInstallationResponse, error) {
@@ -63,23 +42,11 @@ func (c *installationsServiceClient) GetInstallation(ctx context.Context, in *Ge
 	return out, nil
 }
 
-func (c *installationsServiceClient) ListInstallations(ctx context.Context, in *ListInstallationsRequest, opts ...grpc.CallOption) (*ListInstallationsResponse, error) {
-	out := new(ListInstallationsResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/ListInstallations", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // InstallationsServiceServer is the server API for InstallationsService service.
 // All implementations must embed UnimplementedInstallationsServiceServer
 // for forward compatibility
 type InstallationsServiceServer interface {
-	CreateInstallation(context.Context, *CreateInstallationRequest) (*CreateInstallationResponse, error)
-	DeleteInstallation(context.Context, *DeleteInstallationRequest) (*DeleteInstallationResponse, error)
 	GetInstallation(context.Context, *GetInstallationRequest) (*GetInstallationResponse, error)
-	ListInstallations(context.Context, *ListInstallationsRequest) (*ListInstallationsResponse, error)
 	mustEmbedUnimplementedInstallationsServiceServer()
 }
 
@@ -87,17 +54,8 @@ type InstallationsServiceServer interface {
 type UnimplementedInstallationsServiceServer struct {
 }
 
-func (UnimplementedInstallationsServiceServer) CreateInstallation(context.Context, *CreateInstallationRequest) (*CreateInstallationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateInstallation not implemented")
-}
-func (UnimplementedInstallationsServiceServer) DeleteInstallation(context.Context, *DeleteInstallationRequest) (*DeleteInstallationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteInstallation not implemented")
-}
 func (UnimplementedInstallationsServiceServer) GetInstallation(context.Context, *GetInstallationRequest) (*GetInstallationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetInstallation not implemented")
-}
-func (UnimplementedInstallationsServiceServer) ListInstallations(context.Context, *ListInstallationsRequest) (*ListInstallationsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListInstallations not implemented")
 }
 func (UnimplementedInstallationsServiceServer) mustEmbedUnimplementedInstallationsServiceServer() {}
 
@@ -110,42 +68,6 @@ type UnsafeInstallationsServiceServer interface {
 
 func RegisterInstallationsServiceServer(s grpc.ServiceRegistrar, srv InstallationsServiceServer) {
 	s.RegisterService(&InstallationsService_ServiceDesc, srv)
-}
-
-func _InstallationsService_CreateInstallation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateInstallationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(InstallationsServiceServer).CreateInstallation(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/CreateInstallation",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InstallationsServiceServer).CreateInstallation(ctx, req.(*CreateInstallationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _InstallationsService_DeleteInstallation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteInstallationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(InstallationsServiceServer).DeleteInstallation(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/DeleteInstallation",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InstallationsServiceServer).DeleteInstallation(ctx, req.(*DeleteInstallationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _InstallationsService_GetInstallation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -166,24 +88,6 @@ func _InstallationsService_GetInstallation_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _InstallationsService_ListInstallations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListInstallationsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(InstallationsServiceServer).ListInstallations(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/ListInstallations",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InstallationsServiceServer).ListInstallations(ctx, req.(*ListInstallationsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // InstallationsService_ServiceDesc is the grpc.ServiceDesc for InstallationsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -192,20 +96,8 @@ var InstallationsService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*InstallationsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateInstallation",
-			Handler:    _InstallationsService_CreateInstallation_Handler,
-		},
-		{
-			MethodName: "DeleteInstallation",
-			Handler:    _InstallationsService_DeleteInstallation_Handler,
-		},
-		{
 			MethodName: "GetInstallation",
 			Handler:    _InstallationsService_GetInstallation_Handler,
-		},
-		{
-			MethodName: "ListInstallations",
-			Handler:    _InstallationsService_ListInstallations_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

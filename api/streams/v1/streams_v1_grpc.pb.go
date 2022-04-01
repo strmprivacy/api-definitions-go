@@ -23,7 +23,6 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type StreamsServiceClient interface {
 	ListStreams(ctx context.Context, in *ListStreamsRequest, opts ...grpc.CallOption) (*ListStreamsResponse, error)
-	ListExtendedStreams(ctx context.Context, in *ListExtendedStreamsRequest, opts ...grpc.CallOption) (*ListExtendedStreamsResponse, error)
 	GetStream(ctx context.Context, in *GetStreamRequest, opts ...grpc.CallOption) (*GetStreamResponse, error)
 	DeleteStream(ctx context.Context, in *DeleteStreamRequest, opts ...grpc.CallOption) (*DeleteStreamResponse, error)
 	CreateStream(ctx context.Context, in *CreateStreamRequest, opts ...grpc.CallOption) (*CreateStreamResponse, error)
@@ -40,15 +39,6 @@ func NewStreamsServiceClient(cc grpc.ClientConnInterface) StreamsServiceClient {
 func (c *streamsServiceClient) ListStreams(ctx context.Context, in *ListStreamsRequest, opts ...grpc.CallOption) (*ListStreamsResponse, error) {
 	out := new(ListStreamsResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.streams.v1.StreamsService/ListStreams", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *streamsServiceClient) ListExtendedStreams(ctx context.Context, in *ListExtendedStreamsRequest, opts ...grpc.CallOption) (*ListExtendedStreamsResponse, error) {
-	out := new(ListExtendedStreamsResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.streams.v1.StreamsService/ListExtendedStreams", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +77,6 @@ func (c *streamsServiceClient) CreateStream(ctx context.Context, in *CreateStrea
 // for forward compatibility
 type StreamsServiceServer interface {
 	ListStreams(context.Context, *ListStreamsRequest) (*ListStreamsResponse, error)
-	ListExtendedStreams(context.Context, *ListExtendedStreamsRequest) (*ListExtendedStreamsResponse, error)
 	GetStream(context.Context, *GetStreamRequest) (*GetStreamResponse, error)
 	DeleteStream(context.Context, *DeleteStreamRequest) (*DeleteStreamResponse, error)
 	CreateStream(context.Context, *CreateStreamRequest) (*CreateStreamResponse, error)
@@ -100,9 +89,6 @@ type UnimplementedStreamsServiceServer struct {
 
 func (UnimplementedStreamsServiceServer) ListStreams(context.Context, *ListStreamsRequest) (*ListStreamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListStreams not implemented")
-}
-func (UnimplementedStreamsServiceServer) ListExtendedStreams(context.Context, *ListExtendedStreamsRequest) (*ListExtendedStreamsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListExtendedStreams not implemented")
 }
 func (UnimplementedStreamsServiceServer) GetStream(context.Context, *GetStreamRequest) (*GetStreamResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStream not implemented")
@@ -140,24 +126,6 @@ func _StreamsService_ListStreams_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(StreamsServiceServer).ListStreams(ctx, req.(*ListStreamsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _StreamsService_ListExtendedStreams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListExtendedStreamsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(StreamsServiceServer).ListExtendedStreams(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.streams.v1.StreamsService/ListExtendedStreams",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StreamsServiceServer).ListExtendedStreams(ctx, req.(*ListExtendedStreamsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -226,10 +194,6 @@ var StreamsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListStreams",
 			Handler:    _StreamsService_ListStreams_Handler,
-		},
-		{
-			MethodName: "ListExtendedStreams",
-			Handler:    _StreamsService_ListExtendedStreams_Handler,
 		},
 		{
 			MethodName: "GetStream",
