@@ -28,6 +28,9 @@ type InstalledComponentsServiceClient interface {
 	GetInstalledComponent(ctx context.Context, in *GetInstalledComponentRequest, opts ...grpc.CallOption) (*GetInstalledComponentResponse, error)
 	// Authentication goes through the users realm; a strm-external-user-id is required in the metadata.
 	ListInstalledComponents(ctx context.Context, in *ListInstalledComponentsRequest, opts ...grpc.CallOption) (*ListInstalledComponentsResponse, error)
+	// Authentication goes through the users realm; a strm-external-user-id is required in the metadata. Similar to list,
+	// but only lists the state of the instances in the last x minutes
+	ListInstalledComponentsLatestStates(ctx context.Context, in *ListInstalledComponentsLatestStatesRequest, opts ...grpc.CallOption) (*ListInstalledComponentsLatestStatesResponse, error)
 }
 
 type installedComponentsServiceClient struct {
@@ -65,6 +68,15 @@ func (c *installedComponentsServiceClient) ListInstalledComponents(ctx context.C
 	return out, nil
 }
 
+func (c *installedComponentsServiceClient) ListInstalledComponentsLatestStates(ctx context.Context, in *ListInstalledComponentsLatestStatesRequest, opts ...grpc.CallOption) (*ListInstalledComponentsLatestStatesResponse, error) {
+	out := new(ListInstalledComponentsLatestStatesResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstalledComponentsService/ListInstalledComponentsLatestStates", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InstalledComponentsServiceServer is the server API for InstalledComponentsService service.
 // All implementations must embed UnimplementedInstalledComponentsServiceServer
 // for forward compatibility
@@ -75,6 +87,9 @@ type InstalledComponentsServiceServer interface {
 	GetInstalledComponent(context.Context, *GetInstalledComponentRequest) (*GetInstalledComponentResponse, error)
 	// Authentication goes through the users realm; a strm-external-user-id is required in the metadata.
 	ListInstalledComponents(context.Context, *ListInstalledComponentsRequest) (*ListInstalledComponentsResponse, error)
+	// Authentication goes through the users realm; a strm-external-user-id is required in the metadata. Similar to list,
+	// but only lists the state of the instances in the last x minutes
+	ListInstalledComponentsLatestStates(context.Context, *ListInstalledComponentsLatestStatesRequest) (*ListInstalledComponentsLatestStatesResponse, error)
 	mustEmbedUnimplementedInstalledComponentsServiceServer()
 }
 
@@ -90,6 +105,9 @@ func (UnimplementedInstalledComponentsServiceServer) GetInstalledComponent(conte
 }
 func (UnimplementedInstalledComponentsServiceServer) ListInstalledComponents(context.Context, *ListInstalledComponentsRequest) (*ListInstalledComponentsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListInstalledComponents not implemented")
+}
+func (UnimplementedInstalledComponentsServiceServer) ListInstalledComponentsLatestStates(context.Context, *ListInstalledComponentsLatestStatesRequest) (*ListInstalledComponentsLatestStatesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListInstalledComponentsLatestStates not implemented")
 }
 func (UnimplementedInstalledComponentsServiceServer) mustEmbedUnimplementedInstalledComponentsServiceServer() {
 }
@@ -159,6 +177,24 @@ func _InstalledComponentsService_ListInstalledComponents_Handler(srv interface{}
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InstalledComponentsService_ListInstalledComponentsLatestStates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListInstalledComponentsLatestStatesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InstalledComponentsServiceServer).ListInstalledComponentsLatestStates(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.installations.v1.InstalledComponentsService/ListInstalledComponentsLatestStates",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InstalledComponentsServiceServer).ListInstalledComponentsLatestStates(ctx, req.(*ListInstalledComponentsLatestStatesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InstalledComponentsService_ServiceDesc is the grpc.ServiceDesc for InstalledComponentsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -177,6 +213,10 @@ var InstalledComponentsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListInstalledComponents",
 			Handler:    _InstalledComponentsService_ListInstalledComponents_Handler,
+		},
+		{
+			MethodName: "ListInstalledComponentsLatestStates",
+			Handler:    _InstalledComponentsService_ListInstalledComponentsLatestStates_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
