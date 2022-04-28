@@ -461,7 +461,7 @@ type InstalledComponentsActualState struct {
 	unknownFields protoimpl.UnknownFields
 
 	ComponentType InstalledComponentType                   `protobuf:"varint,1,opt,name=component_type,json=componentType,proto3,enum=strmprivacy.api.installations.v1.InstalledComponentType" json:"component_type,omitempty"`
-	Instances     []*InstalledComponentInstanceLatestState `protobuf:"bytes,2,rep,name=instances,proto3" json:"instances,omitempty"`
+	Instances     []*InstalledComponentInstanceActualState `protobuf:"bytes,2,rep,name=instances,proto3" json:"instances,omitempty"`
 }
 
 func (x *InstalledComponentsActualState) Reset() {
@@ -503,14 +503,14 @@ func (x *InstalledComponentsActualState) GetComponentType() InstalledComponentTy
 	return InstalledComponentType_INSTALLED_COMPONENT_TYPE_UNSPECIFIED
 }
 
-func (x *InstalledComponentsActualState) GetInstances() []*InstalledComponentInstanceLatestState {
+func (x *InstalledComponentsActualState) GetInstances() []*InstalledComponentInstanceActualState {
 	if x != nil {
 		return x.Instances
 	}
 	return nil
 }
 
-type InstalledComponentInstanceLatestState struct {
+type InstalledComponentInstanceActualState struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -519,8 +519,8 @@ type InstalledComponentInstanceLatestState struct {
 	State *InstalledComponentState `protobuf:"bytes,2,opt,name=state,proto3" json:"state,omitempty"`
 }
 
-func (x *InstalledComponentInstanceLatestState) Reset() {
-	*x = InstalledComponentInstanceLatestState{}
+func (x *InstalledComponentInstanceActualState) Reset() {
+	*x = InstalledComponentInstanceActualState{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_strmprivacy_api_installations_v1_entities_v1_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -528,13 +528,13 @@ func (x *InstalledComponentInstanceLatestState) Reset() {
 	}
 }
 
-func (x *InstalledComponentInstanceLatestState) String() string {
+func (x *InstalledComponentInstanceActualState) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*InstalledComponentInstanceLatestState) ProtoMessage() {}
+func (*InstalledComponentInstanceActualState) ProtoMessage() {}
 
-func (x *InstalledComponentInstanceLatestState) ProtoReflect() protoreflect.Message {
+func (x *InstalledComponentInstanceActualState) ProtoReflect() protoreflect.Message {
 	mi := &file_strmprivacy_api_installations_v1_entities_v1_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -546,19 +546,19 @@ func (x *InstalledComponentInstanceLatestState) ProtoReflect() protoreflect.Mess
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use InstalledComponentInstanceLatestState.ProtoReflect.Descriptor instead.
-func (*InstalledComponentInstanceLatestState) Descriptor() ([]byte, []int) {
+// Deprecated: Use InstalledComponentInstanceActualState.ProtoReflect.Descriptor instead.
+func (*InstalledComponentInstanceActualState) Descriptor() ([]byte, []int) {
 	return file_strmprivacy_api_installations_v1_entities_v1_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *InstalledComponentInstanceLatestState) GetId() string {
+func (x *InstalledComponentInstanceActualState) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *InstalledComponentInstanceLatestState) GetState() *InstalledComponentState {
+func (x *InstalledComponentInstanceActualState) GetState() *InstalledComponentState {
 	if x != nil {
 		return x.State
 	}
@@ -704,11 +704,11 @@ var file_strmprivacy_api_installations_v1_entities_v1_proto_rawDesc = []byte{
 	0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e,
 	0x69, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2e, 0x76, 0x31,
 	0x2e, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x64, 0x43, 0x6f, 0x6d, 0x70, 0x6f, 0x6e,
-	0x65, 0x6e, 0x74, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x4c, 0x61, 0x74, 0x65, 0x73,
-	0x74, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x09, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65,
+	0x65, 0x6e, 0x74, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65, 0x41, 0x63, 0x74, 0x75, 0x61,
+	0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x09, 0x69, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65,
 	0x73, 0x22, 0x8d, 0x01, 0x0a, 0x25, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6c, 0x6c, 0x65, 0x64, 0x43,
 	0x6f, 0x6d, 0x70, 0x6f, 0x6e, 0x65, 0x6e, 0x74, 0x49, 0x6e, 0x73, 0x74, 0x61, 0x6e, 0x63, 0x65,
-	0x4c, 0x61, 0x74, 0x65, 0x73, 0x74, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x13, 0x0a, 0x02, 0x69,
+	0x41, 0x63, 0x74, 0x75, 0x61, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x13, 0x0a, 0x02, 0x69,
 	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x03, 0xe0, 0x41, 0x02, 0x52, 0x02, 0x69, 0x64,
 	0x12, 0x4f, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
 	0x39, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70,
@@ -791,7 +791,7 @@ var file_strmprivacy_api_installations_v1_entities_v1_proto_goTypes = []interfac
 	(*InstalledComponent)(nil),                    // 5: strmprivacy.api.installations.v1.InstalledComponent
 	(*InstalledComponentInstance)(nil),            // 6: strmprivacy.api.installations.v1.InstalledComponentInstance
 	(*InstalledComponentsActualState)(nil),        // 7: strmprivacy.api.installations.v1.InstalledComponentsActualState
-	(*InstalledComponentInstanceLatestState)(nil), // 8: strmprivacy.api.installations.v1.InstalledComponentInstanceLatestState
+	(*InstalledComponentInstanceActualState)(nil), // 8: strmprivacy.api.installations.v1.InstalledComponentInstanceActualState
 	(*InstalledComponentState)(nil),               // 9: strmprivacy.api.installations.v1.InstalledComponentState
 	(*timestamppb.Timestamp)(nil),                 // 10: google.protobuf.Timestamp
 }
@@ -802,8 +802,8 @@ var file_strmprivacy_api_installations_v1_entities_v1_proto_depIdxs = []int32{
 	6,  // 3: strmprivacy.api.installations.v1.InstalledComponent.instances:type_name -> strmprivacy.api.installations.v1.InstalledComponentInstance
 	9,  // 4: strmprivacy.api.installations.v1.InstalledComponentInstance.states:type_name -> strmprivacy.api.installations.v1.InstalledComponentState
 	1,  // 5: strmprivacy.api.installations.v1.InstalledComponentsActualState.component_type:type_name -> strmprivacy.api.installations.v1.InstalledComponentType
-	8,  // 6: strmprivacy.api.installations.v1.InstalledComponentsActualState.instances:type_name -> strmprivacy.api.installations.v1.InstalledComponentInstanceLatestState
-	9,  // 7: strmprivacy.api.installations.v1.InstalledComponentInstanceLatestState.state:type_name -> strmprivacy.api.installations.v1.InstalledComponentState
+	8,  // 6: strmprivacy.api.installations.v1.InstalledComponentsActualState.instances:type_name -> strmprivacy.api.installations.v1.InstalledComponentInstanceActualState
+	9,  // 7: strmprivacy.api.installations.v1.InstalledComponentInstanceActualState.state:type_name -> strmprivacy.api.installations.v1.InstalledComponentState
 	10, // 8: strmprivacy.api.installations.v1.InstalledComponentState.state_time:type_name -> google.protobuf.Timestamp
 	2,  // 9: strmprivacy.api.installations.v1.InstalledComponentState.state_type:type_name -> strmprivacy.api.installations.v1.InstalledComponentStateType
 	10, // [10:10] is the sub-list for method output_type
@@ -880,7 +880,7 @@ func file_strmprivacy_api_installations_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_installations_v1_entities_v1_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InstalledComponentInstanceLatestState); i {
+			switch v := v.(*InstalledComponentInstanceActualState); i {
 			case 0:
 				return &v.state
 			case 1:
