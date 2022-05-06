@@ -32,6 +32,7 @@ type DataContractsServiceClient interface {
 	ArchiveDataContract(ctx context.Context, in *ArchiveDataContractRequest, opts ...grpc.CallOption) (*ArchiveDataContractResponse, error)
 	GetDataContractSchemaCode(ctx context.Context, in *GetDataContractSchemaCodeRequest, opts ...grpc.CallOption) (*GetDataContractSchemaCodeResponse, error)
 	GetDataContractSchemaDefinition(ctx context.Context, in *GetDataContractSchemaDefinitionRequest, opts ...grpc.CallOption) (*GetDataContractSchemaDefinitionResponse, error)
+	ValidateDataContractsMaskedFields(ctx context.Context, in *ValidateDataContractsMaskedFieldsRequest, opts ...grpc.CallOption) (*ValidateDataContractsMaskedFieldsResponse, error)
 }
 
 type dataContractsServiceClient struct {
@@ -132,6 +133,15 @@ func (c *dataContractsServiceClient) GetDataContractSchemaDefinition(ctx context
 	return out, nil
 }
 
+func (c *dataContractsServiceClient) ValidateDataContractsMaskedFields(ctx context.Context, in *ValidateDataContractsMaskedFieldsRequest, opts ...grpc.CallOption) (*ValidateDataContractsMaskedFieldsResponse, error) {
+	out := new(ValidateDataContractsMaskedFieldsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_contracts.v1.DataContractsService/ValidateDataContractsMaskedFields", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DataContractsServiceServer is the server API for DataContractsService service.
 // All implementations must embed UnimplementedDataContractsServiceServer
 // for forward compatibility
@@ -146,6 +156,7 @@ type DataContractsServiceServer interface {
 	ArchiveDataContract(context.Context, *ArchiveDataContractRequest) (*ArchiveDataContractResponse, error)
 	GetDataContractSchemaCode(context.Context, *GetDataContractSchemaCodeRequest) (*GetDataContractSchemaCodeResponse, error)
 	GetDataContractSchemaDefinition(context.Context, *GetDataContractSchemaDefinitionRequest) (*GetDataContractSchemaDefinitionResponse, error)
+	ValidateDataContractsMaskedFields(context.Context, *ValidateDataContractsMaskedFieldsRequest) (*ValidateDataContractsMaskedFieldsResponse, error)
 	mustEmbedUnimplementedDataContractsServiceServer()
 }
 
@@ -182,6 +193,9 @@ func (UnimplementedDataContractsServiceServer) GetDataContractSchemaCode(context
 }
 func (UnimplementedDataContractsServiceServer) GetDataContractSchemaDefinition(context.Context, *GetDataContractSchemaDefinitionRequest) (*GetDataContractSchemaDefinitionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataContractSchemaDefinition not implemented")
+}
+func (UnimplementedDataContractsServiceServer) ValidateDataContractsMaskedFields(context.Context, *ValidateDataContractsMaskedFieldsRequest) (*ValidateDataContractsMaskedFieldsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidateDataContractsMaskedFields not implemented")
 }
 func (UnimplementedDataContractsServiceServer) mustEmbedUnimplementedDataContractsServiceServer() {}
 
@@ -376,6 +390,24 @@ func _DataContractsService_GetDataContractSchemaDefinition_Handler(srv interface
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DataContractsService_ValidateDataContractsMaskedFields_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ValidateDataContractsMaskedFieldsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataContractsServiceServer).ValidateDataContractsMaskedFields(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_contracts.v1.DataContractsService/ValidateDataContractsMaskedFields",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataContractsServiceServer).ValidateDataContractsMaskedFields(ctx, req.(*ValidateDataContractsMaskedFieldsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DataContractsService_ServiceDesc is the grpc.ServiceDesc for DataContractsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -422,6 +454,10 @@ var DataContractsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDataContractSchemaDefinition",
 			Handler:    _DataContractsService_GetDataContractSchemaDefinition_Handler,
+		},
+		{
+			MethodName: "ValidateDataContractsMaskedFields",
+			Handler:    _DataContractsService_ValidateDataContractsMaskedFields_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
