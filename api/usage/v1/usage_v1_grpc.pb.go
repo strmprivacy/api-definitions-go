@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsageServiceClient interface {
 	GetStreamEventUsage(ctx context.Context, in *GetStreamEventUsageRequest, opts ...grpc.CallOption) (*GetStreamEventUsageResponse, error)
+	StoreUsageEvent(ctx context.Context, in *StoreUsageEventRequest, opts ...grpc.CallOption) (*StoreUsageEventResponse, error)
 }
 
 type usageServiceClient struct {
@@ -42,11 +43,21 @@ func (c *usageServiceClient) GetStreamEventUsage(ctx context.Context, in *GetStr
 	return out, nil
 }
 
+func (c *usageServiceClient) StoreUsageEvent(ctx context.Context, in *StoreUsageEventRequest, opts ...grpc.CallOption) (*StoreUsageEventResponse, error) {
+	out := new(StoreUsageEventResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.usage.v1.UsageService/StoreUsageEvent", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UsageServiceServer is the server API for UsageService service.
 // All implementations must embed UnimplementedUsageServiceServer
 // for forward compatibility
 type UsageServiceServer interface {
 	GetStreamEventUsage(context.Context, *GetStreamEventUsageRequest) (*GetStreamEventUsageResponse, error)
+	StoreUsageEvent(context.Context, *StoreUsageEventRequest) (*StoreUsageEventResponse, error)
 	mustEmbedUnimplementedUsageServiceServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedUsageServiceServer struct {
 
 func (UnimplementedUsageServiceServer) GetStreamEventUsage(context.Context, *GetStreamEventUsageRequest) (*GetStreamEventUsageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStreamEventUsage not implemented")
+}
+func (UnimplementedUsageServiceServer) StoreUsageEvent(context.Context, *StoreUsageEventRequest) (*StoreUsageEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method StoreUsageEvent not implemented")
 }
 func (UnimplementedUsageServiceServer) mustEmbedUnimplementedUsageServiceServer() {}
 
@@ -88,6 +102,24 @@ func _UsageService_GetStreamEventUsage_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UsageService_StoreUsageEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StoreUsageEventRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsageServiceServer).StoreUsageEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.usage.v1.UsageService/StoreUsageEvent",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsageServiceServer).StoreUsageEvent(ctx, req.(*StoreUsageEventRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UsageService_ServiceDesc is the grpc.ServiceDesc for UsageService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var UsageService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetStreamEventUsage",
 			Handler:    _UsageService_GetStreamEventUsage_Handler,
+		},
+		{
+			MethodName: "StoreUsageEvent",
+			Handler:    _UsageService_StoreUsageEvent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
