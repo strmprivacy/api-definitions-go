@@ -154,10 +154,7 @@ type StoreUsageEventRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	// TODO this billingId needs to be validated against the installation id.
-	// probably in the management api
-	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	// TODO the ESR will validate the stream name against the billing id
+	BillingId        string                 `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
 	Stream           string                 `protobuf:"bytes,2,opt,name=stream,proto3" json:"stream,omitempty"`
 	EventCount       int32                  `protobuf:"varint,3,opt,name=event_count,json=eventCount,proto3" json:"event_count,omitempty"`
 	EventArrivalTime *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=event_arrival_time,json=eventArrivalTime,proto3" json:"event_arrival_time,omitempty"`
