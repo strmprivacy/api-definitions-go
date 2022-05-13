@@ -27,6 +27,7 @@ type StreamsServiceClient interface {
 	GetStream(ctx context.Context, in *GetStreamRequest, opts ...grpc.CallOption) (*GetStreamResponse, error)
 	DeleteStream(ctx context.Context, in *DeleteStreamRequest, opts ...grpc.CallOption) (*DeleteStreamResponse, error)
 	CreateStream(ctx context.Context, in *CreateStreamRequest, opts ...grpc.CallOption) (*CreateStreamResponse, error)
+	GetKafkaTopic(ctx context.Context, in *GetKafkaTopicRequest, opts ...grpc.CallOption) (*GetKafkaTopicResponse, error)
 }
 
 type streamsServiceClient struct {
@@ -82,6 +83,15 @@ func (c *streamsServiceClient) CreateStream(ctx context.Context, in *CreateStrea
 	return out, nil
 }
 
+func (c *streamsServiceClient) GetKafkaTopic(ctx context.Context, in *GetKafkaTopicRequest, opts ...grpc.CallOption) (*GetKafkaTopicResponse, error) {
+	out := new(GetKafkaTopicResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.streams.v1.StreamsService/GetKafkaTopic", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StreamsServiceServer is the server API for StreamsService service.
 // All implementations must embed UnimplementedStreamsServiceServer
 // for forward compatibility
@@ -91,6 +101,7 @@ type StreamsServiceServer interface {
 	GetStream(context.Context, *GetStreamRequest) (*GetStreamResponse, error)
 	DeleteStream(context.Context, *DeleteStreamRequest) (*DeleteStreamResponse, error)
 	CreateStream(context.Context, *CreateStreamRequest) (*CreateStreamResponse, error)
+	GetKafkaTopic(context.Context, *GetKafkaTopicRequest) (*GetKafkaTopicResponse, error)
 	mustEmbedUnimplementedStreamsServiceServer()
 }
 
@@ -112,6 +123,9 @@ func (UnimplementedStreamsServiceServer) DeleteStream(context.Context, *DeleteSt
 }
 func (UnimplementedStreamsServiceServer) CreateStream(context.Context, *CreateStreamRequest) (*CreateStreamResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateStream not implemented")
+}
+func (UnimplementedStreamsServiceServer) GetKafkaTopic(context.Context, *GetKafkaTopicRequest) (*GetKafkaTopicResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetKafkaTopic not implemented")
 }
 func (UnimplementedStreamsServiceServer) mustEmbedUnimplementedStreamsServiceServer() {}
 
@@ -216,6 +230,24 @@ func _StreamsService_CreateStream_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StreamsService_GetKafkaTopic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetKafkaTopicRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StreamsServiceServer).GetKafkaTopic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.streams.v1.StreamsService/GetKafkaTopic",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StreamsServiceServer).GetKafkaTopic(ctx, req.(*GetKafkaTopicRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // StreamsService_ServiceDesc is the grpc.ServiceDesc for StreamsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -242,6 +274,10 @@ var StreamsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateStream",
 			Handler:    _StreamsService_CreateStream_Handler,
+		},
+		{
+			MethodName: "GetKafkaTopic",
+			Handler:    _StreamsService_GetKafkaTopic_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
