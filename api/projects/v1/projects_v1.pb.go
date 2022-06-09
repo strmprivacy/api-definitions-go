@@ -113,6 +113,8 @@ type CreateProjectRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Project *v1.Project `protobuf:"bytes,1,opt,name=project,proto3" json:"project,omitempty"`
 }
 
 func (x *CreateProjectRequest) Reset() {
@@ -145,6 +147,13 @@ func (x *CreateProjectRequest) ProtoReflect() protoreflect.Message {
 // Deprecated: Use CreateProjectRequest.ProtoReflect.Descriptor instead.
 func (*CreateProjectRequest) Descriptor() ([]byte, []int) {
 	return file_strmprivacy_api_projects_v1_projects_v1_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CreateProjectRequest) GetProject() *v1.Project {
+	if x != nil {
+		return x.Project
+	}
+	return nil
 }
 
 type CreateProjectResponse struct {
@@ -298,9 +307,13 @@ var file_strmprivacy_api_projects_v1_projects_v1_proto_rawDesc = []byte{
 	0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x24, 0x2e,
 	0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e,
 	0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x72, 0x6f, 0x6a,
-	0x65, 0x63, 0x74, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x22, 0x16, 0x0a,
+	0x65, 0x63, 0x74, 0x52, 0x08, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x22, 0x56, 0x0a,
 	0x14, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x57, 0x0a, 0x15, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3e, 0x0a, 0x07, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
+	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
+	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x07, 0x70, 0x72,
+	0x6f, 0x6a, 0x65, 0x63, 0x74, 0x22, 0x57, 0x0a, 0x15, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50,
 	0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e,
 	0x0a, 0x07, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
 	0x24, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70,
@@ -368,18 +381,19 @@ var file_strmprivacy_api_projects_v1_projects_v1_proto_goTypes = []interface{}{
 }
 var file_strmprivacy_api_projects_v1_projects_v1_proto_depIdxs = []int32{
 	6, // 0: strmprivacy.api.projects.v1.ListProjectsResponse.projects:type_name -> strmprivacy.api.entities.v1.Project
-	6, // 1: strmprivacy.api.projects.v1.CreateProjectResponse.project:type_name -> strmprivacy.api.entities.v1.Project
-	0, // 2: strmprivacy.api.projects.v1.ProjectsService.ListProjects:input_type -> strmprivacy.api.projects.v1.ListProjectsRequest
-	2, // 3: strmprivacy.api.projects.v1.ProjectsService.CreateProject:input_type -> strmprivacy.api.projects.v1.CreateProjectRequest
-	4, // 4: strmprivacy.api.projects.v1.ProjectsService.DeleteProject:input_type -> strmprivacy.api.projects.v1.DeleteProjectRequest
-	1, // 5: strmprivacy.api.projects.v1.ProjectsService.ListProjects:output_type -> strmprivacy.api.projects.v1.ListProjectsResponse
-	3, // 6: strmprivacy.api.projects.v1.ProjectsService.CreateProject:output_type -> strmprivacy.api.projects.v1.CreateProjectResponse
-	5, // 7: strmprivacy.api.projects.v1.ProjectsService.DeleteProject:output_type -> strmprivacy.api.projects.v1.DeleteProjectResponse
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	6, // 1: strmprivacy.api.projects.v1.CreateProjectRequest.project:type_name -> strmprivacy.api.entities.v1.Project
+	6, // 2: strmprivacy.api.projects.v1.CreateProjectResponse.project:type_name -> strmprivacy.api.entities.v1.Project
+	0, // 3: strmprivacy.api.projects.v1.ProjectsService.ListProjects:input_type -> strmprivacy.api.projects.v1.ListProjectsRequest
+	2, // 4: strmprivacy.api.projects.v1.ProjectsService.CreateProject:input_type -> strmprivacy.api.projects.v1.CreateProjectRequest
+	4, // 5: strmprivacy.api.projects.v1.ProjectsService.DeleteProject:input_type -> strmprivacy.api.projects.v1.DeleteProjectRequest
+	1, // 6: strmprivacy.api.projects.v1.ProjectsService.ListProjects:output_type -> strmprivacy.api.projects.v1.ListProjectsResponse
+	3, // 7: strmprivacy.api.projects.v1.ProjectsService.CreateProject:output_type -> strmprivacy.api.projects.v1.CreateProjectResponse
+	5, // 8: strmprivacy.api.projects.v1.ProjectsService.DeleteProject:output_type -> strmprivacy.api.projects.v1.DeleteProjectResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_strmprivacy_api_projects_v1_projects_v1_proto_init() }
