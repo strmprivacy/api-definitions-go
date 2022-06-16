@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type InstallationsServiceClient interface {
 	GetInstallation(ctx context.Context, in *GetInstallationRequest, opts ...grpc.CallOption) (*GetInstallationResponse, error)
 	ListInstallations(ctx context.Context, in *ListInstallationsRequest, opts ...grpc.CallOption) (*ListInstallationsResponse, error)
+	ListInstallationProjects(ctx context.Context, in *ListInstallationProjectsRequest, opts ...grpc.CallOption) (*ListInstallationProjectsResponse, error)
 }
 
 type installationsServiceClient struct {
@@ -52,12 +53,22 @@ func (c *installationsServiceClient) ListInstallations(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *installationsServiceClient) ListInstallationProjects(ctx context.Context, in *ListInstallationProjectsRequest, opts ...grpc.CallOption) (*ListInstallationProjectsResponse, error) {
+	out := new(ListInstallationProjectsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/ListInstallationProjects", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InstallationsServiceServer is the server API for InstallationsService service.
 // All implementations must embed UnimplementedInstallationsServiceServer
 // for forward compatibility
 type InstallationsServiceServer interface {
 	GetInstallation(context.Context, *GetInstallationRequest) (*GetInstallationResponse, error)
 	ListInstallations(context.Context, *ListInstallationsRequest) (*ListInstallationsResponse, error)
+	ListInstallationProjects(context.Context, *ListInstallationProjectsRequest) (*ListInstallationProjectsResponse, error)
 	mustEmbedUnimplementedInstallationsServiceServer()
 }
 
@@ -70,6 +81,9 @@ func (UnimplementedInstallationsServiceServer) GetInstallation(context.Context, 
 }
 func (UnimplementedInstallationsServiceServer) ListInstallations(context.Context, *ListInstallationsRequest) (*ListInstallationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListInstallations not implemented")
+}
+func (UnimplementedInstallationsServiceServer) ListInstallationProjects(context.Context, *ListInstallationProjectsRequest) (*ListInstallationProjectsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListInstallationProjects not implemented")
 }
 func (UnimplementedInstallationsServiceServer) mustEmbedUnimplementedInstallationsServiceServer() {}
 
@@ -120,6 +134,24 @@ func _InstallationsService_ListInstallations_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InstallationsService_ListInstallationProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListInstallationProjectsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InstallationsServiceServer).ListInstallationProjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/ListInstallationProjects",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InstallationsServiceServer).ListInstallationProjects(ctx, req.(*ListInstallationProjectsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InstallationsService_ServiceDesc is the grpc.ServiceDesc for InstallationsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +166,10 @@ var InstallationsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListInstallations",
 			Handler:    _InstallationsService_ListInstallations_Handler,
+		},
+		{
+			MethodName: "ListInstallationProjects",
+			Handler:    _InstallationsService_ListInstallationProjects_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
