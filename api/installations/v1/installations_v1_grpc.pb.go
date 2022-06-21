@@ -25,7 +25,7 @@ type InstallationsServiceClient interface {
 	GetInstallation(ctx context.Context, in *GetInstallationRequest, opts ...grpc.CallOption) (*GetInstallationResponse, error)
 	ListInstallations(ctx context.Context, in *ListInstallationsRequest, opts ...grpc.CallOption) (*ListInstallationsResponse, error)
 	GetProjectInstallation(ctx context.Context, in *GetProjectInstallationRequest, opts ...grpc.CallOption) (*GetProjectInstallationResponse, error)
-	ListInstallationProjects(ctx context.Context, in *ListInstallationProjectsRequest, opts ...grpc.CallOption) (*ListInstallationProjectsResponse, error)
+	ListProjects(ctx context.Context, in *ListProjectsRequest, opts ...grpc.CallOption) (*ListProjectsResponse, error)
 }
 
 type installationsServiceClient struct {
@@ -63,9 +63,9 @@ func (c *installationsServiceClient) GetProjectInstallation(ctx context.Context,
 	return out, nil
 }
 
-func (c *installationsServiceClient) ListInstallationProjects(ctx context.Context, in *ListInstallationProjectsRequest, opts ...grpc.CallOption) (*ListInstallationProjectsResponse, error) {
-	out := new(ListInstallationProjectsResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/ListInstallationProjects", in, out, opts...)
+func (c *installationsServiceClient) ListProjects(ctx context.Context, in *ListProjectsRequest, opts ...grpc.CallOption) (*ListProjectsResponse, error) {
+	out := new(ListProjectsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/ListProjects", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ type InstallationsServiceServer interface {
 	GetInstallation(context.Context, *GetInstallationRequest) (*GetInstallationResponse, error)
 	ListInstallations(context.Context, *ListInstallationsRequest) (*ListInstallationsResponse, error)
 	GetProjectInstallation(context.Context, *GetProjectInstallationRequest) (*GetProjectInstallationResponse, error)
-	ListInstallationProjects(context.Context, *ListInstallationProjectsRequest) (*ListInstallationProjectsResponse, error)
+	ListProjects(context.Context, *ListProjectsRequest) (*ListProjectsResponse, error)
 	mustEmbedUnimplementedInstallationsServiceServer()
 }
 
@@ -96,8 +96,8 @@ func (UnimplementedInstallationsServiceServer) ListInstallations(context.Context
 func (UnimplementedInstallationsServiceServer) GetProjectInstallation(context.Context, *GetProjectInstallationRequest) (*GetProjectInstallationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProjectInstallation not implemented")
 }
-func (UnimplementedInstallationsServiceServer) ListInstallationProjects(context.Context, *ListInstallationProjectsRequest) (*ListInstallationProjectsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListInstallationProjects not implemented")
+func (UnimplementedInstallationsServiceServer) ListProjects(context.Context, *ListProjectsRequest) (*ListProjectsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProjects not implemented")
 }
 func (UnimplementedInstallationsServiceServer) mustEmbedUnimplementedInstallationsServiceServer() {}
 
@@ -166,20 +166,20 @@ func _InstallationsService_GetProjectInstallation_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
-func _InstallationsService_ListInstallationProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListInstallationProjectsRequest)
+func _InstallationsService_ListProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProjectsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InstallationsServiceServer).ListInstallationProjects(ctx, in)
+		return srv.(InstallationsServiceServer).ListProjects(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/ListInstallationProjects",
+		FullMethod: "/strmprivacy.api.installations.v1.InstallationsService/ListProjects",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InstallationsServiceServer).ListInstallationProjects(ctx, req.(*ListInstallationProjectsRequest))
+		return srv.(InstallationsServiceServer).ListProjects(ctx, req.(*ListProjectsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -204,8 +204,8 @@ var InstallationsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _InstallationsService_GetProjectInstallation_Handler,
 		},
 		{
-			MethodName: "ListInstallationProjects",
-			Handler:    _InstallationsService_ListInstallationProjects_Handler,
+			MethodName: "ListProjects",
+			Handler:    _InstallationsService_ListProjects_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
