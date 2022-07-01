@@ -23,8 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RtbfServiceClient interface {
 	GetKeyLinks(ctx context.Context, in *GetKeyLinksRequest, opts ...grpc.CallOption) (*GetKeyLinksResponse, error)
-	GetRtbfs(ctx context.Context, in *GetRtbfsRequest, opts ...grpc.CallOption) (*GetRtbfsResponse, error)
-	AddKey(ctx context.Context, in *AddKeyRequest, opts ...grpc.CallOption) (*AddKeyResponse, error)
+	AddKeyLink(ctx context.Context, in *AddKeyLinkRequest, opts ...grpc.CallOption) (*AddKeyLinkResponse, error)
 }
 
 type rtbfServiceClient struct {
@@ -44,18 +43,9 @@ func (c *rtbfServiceClient) GetKeyLinks(ctx context.Context, in *GetKeyLinksRequ
 	return out, nil
 }
 
-func (c *rtbfServiceClient) GetRtbfs(ctx context.Context, in *GetRtbfsRequest, opts ...grpc.CallOption) (*GetRtbfsResponse, error) {
-	out := new(GetRtbfsResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.rtbf.v1.RtbfService/GetRtbfs", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *rtbfServiceClient) AddKey(ctx context.Context, in *AddKeyRequest, opts ...grpc.CallOption) (*AddKeyResponse, error) {
-	out := new(AddKeyResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.rtbf.v1.RtbfService/AddKey", in, out, opts...)
+func (c *rtbfServiceClient) AddKeyLink(ctx context.Context, in *AddKeyLinkRequest, opts ...grpc.CallOption) (*AddKeyLinkResponse, error) {
+	out := new(AddKeyLinkResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.rtbf.v1.RtbfService/AddKeyLink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,8 +57,7 @@ func (c *rtbfServiceClient) AddKey(ctx context.Context, in *AddKeyRequest, opts 
 // for forward compatibility
 type RtbfServiceServer interface {
 	GetKeyLinks(context.Context, *GetKeyLinksRequest) (*GetKeyLinksResponse, error)
-	GetRtbfs(context.Context, *GetRtbfsRequest) (*GetRtbfsResponse, error)
-	AddKey(context.Context, *AddKeyRequest) (*AddKeyResponse, error)
+	AddKeyLink(context.Context, *AddKeyLinkRequest) (*AddKeyLinkResponse, error)
 	mustEmbedUnimplementedRtbfServiceServer()
 }
 
@@ -79,11 +68,8 @@ type UnimplementedRtbfServiceServer struct {
 func (UnimplementedRtbfServiceServer) GetKeyLinks(context.Context, *GetKeyLinksRequest) (*GetKeyLinksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKeyLinks not implemented")
 }
-func (UnimplementedRtbfServiceServer) GetRtbfs(context.Context, *GetRtbfsRequest) (*GetRtbfsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRtbfs not implemented")
-}
-func (UnimplementedRtbfServiceServer) AddKey(context.Context, *AddKeyRequest) (*AddKeyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddKey not implemented")
+func (UnimplementedRtbfServiceServer) AddKeyLink(context.Context, *AddKeyLinkRequest) (*AddKeyLinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddKeyLink not implemented")
 }
 func (UnimplementedRtbfServiceServer) mustEmbedUnimplementedRtbfServiceServer() {}
 
@@ -116,38 +102,20 @@ func _RtbfService_GetKeyLinks_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RtbfService_GetRtbfs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRtbfsRequest)
+func _RtbfService_AddKeyLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddKeyLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RtbfServiceServer).GetRtbfs(ctx, in)
+		return srv.(RtbfServiceServer).AddKeyLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.rtbf.v1.RtbfService/GetRtbfs",
+		FullMethod: "/strmprivacy.api.rtbf.v1.RtbfService/AddKeyLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RtbfServiceServer).GetRtbfs(ctx, req.(*GetRtbfsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _RtbfService_AddKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddKeyRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RtbfServiceServer).AddKey(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.rtbf.v1.RtbfService/AddKey",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RtbfServiceServer).AddKey(ctx, req.(*AddKeyRequest))
+		return srv.(RtbfServiceServer).AddKeyLink(ctx, req.(*AddKeyLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -164,12 +132,8 @@ var RtbfService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _RtbfService_GetKeyLinks_Handler,
 		},
 		{
-			MethodName: "GetRtbfs",
-			Handler:    _RtbfService_GetRtbfs_Handler,
-		},
-		{
-			MethodName: "AddKey",
-			Handler:    _RtbfService_AddKey_Handler,
+			MethodName: "AddKeyLink",
+			Handler:    _RtbfService_AddKeyLink_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
