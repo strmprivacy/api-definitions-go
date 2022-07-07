@@ -22,8 +22,24 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DataSubjectsServiceClient interface {
-	ListDatasubjectKeylinks(ctx context.Context, in *ListDatasubjectKeylinksRequest, opts ...grpc.CallOption) (*ListDatasubjectKeylinksResponse, error)
-	AddKeyLinks(ctx context.Context, in *AddKeyLinksRequest, opts ...grpc.CallOption) (*AddKeyLinksResponse, error)
+	//*
+	//Retrieve all key links associated with certain data subject(s)
+	//
+	//The scope of the data subject ids is the organization of the principal
+	//making the call.
+	//
+	//returns: a list of data subject with their associated key links and their
+	//expiry.
+	ListDataSubjectKeylinks(ctx context.Context, in *ListDataSubjectKeylinksRequest, opts ...grpc.CallOption) (*ListDataSubjectKeylinksResponse, error)
+	//* called by an entity that can create key link(s) like the event-gateway or a batch-job
+	//
+	//typically (but not necessarily) only one key link is added at the same time.
+	//
+	//The list of DatasubjectKeylinks combined with a project_id; the DSS uses this to find the linked
+	//organization_id
+	AddDataSubjectsKeyLinks(ctx context.Context, in *AddDataSubjectsKeyLinksRequest, opts ...grpc.CallOption) (*AddDataSubjectsKeyLinksResponse, error)
+	//*
+	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
 	DeleteDataSubjects(ctx context.Context, in *DeleteDataSubjectsRequest, opts ...grpc.CallOption) (*DeleteDataSubjectsResponse, error)
 }
 
@@ -35,18 +51,18 @@ func NewDataSubjectsServiceClient(cc grpc.ClientConnInterface) DataSubjectsServi
 	return &dataSubjectsServiceClient{cc}
 }
 
-func (c *dataSubjectsServiceClient) ListDatasubjectKeylinks(ctx context.Context, in *ListDatasubjectKeylinksRequest, opts ...grpc.CallOption) (*ListDatasubjectKeylinksResponse, error) {
-	out := new(ListDatasubjectKeylinksResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_subjects.v1.DataSubjectsService/ListDatasubjectKeylinks", in, out, opts...)
+func (c *dataSubjectsServiceClient) ListDataSubjectKeylinks(ctx context.Context, in *ListDataSubjectKeylinksRequest, opts ...grpc.CallOption) (*ListDataSubjectKeylinksResponse, error) {
+	out := new(ListDataSubjectKeylinksResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_subjects.v1.DataSubjectsService/ListDataSubjectKeylinks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *dataSubjectsServiceClient) AddKeyLinks(ctx context.Context, in *AddKeyLinksRequest, opts ...grpc.CallOption) (*AddKeyLinksResponse, error) {
-	out := new(AddKeyLinksResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_subjects.v1.DataSubjectsService/AddKeyLinks", in, out, opts...)
+func (c *dataSubjectsServiceClient) AddDataSubjectsKeyLinks(ctx context.Context, in *AddDataSubjectsKeyLinksRequest, opts ...grpc.CallOption) (*AddDataSubjectsKeyLinksResponse, error) {
+	out := new(AddDataSubjectsKeyLinksResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_subjects.v1.DataSubjectsService/AddDataSubjectsKeyLinks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,8 +82,24 @@ func (c *dataSubjectsServiceClient) DeleteDataSubjects(ctx context.Context, in *
 // All implementations must embed UnimplementedDataSubjectsServiceServer
 // for forward compatibility
 type DataSubjectsServiceServer interface {
-	ListDatasubjectKeylinks(context.Context, *ListDatasubjectKeylinksRequest) (*ListDatasubjectKeylinksResponse, error)
-	AddKeyLinks(context.Context, *AddKeyLinksRequest) (*AddKeyLinksResponse, error)
+	//*
+	//Retrieve all key links associated with certain data subject(s)
+	//
+	//The scope of the data subject ids is the organization of the principal
+	//making the call.
+	//
+	//returns: a list of data subject with their associated key links and their
+	//expiry.
+	ListDataSubjectKeylinks(context.Context, *ListDataSubjectKeylinksRequest) (*ListDataSubjectKeylinksResponse, error)
+	//* called by an entity that can create key link(s) like the event-gateway or a batch-job
+	//
+	//typically (but not necessarily) only one key link is added at the same time.
+	//
+	//The list of DatasubjectKeylinks combined with a project_id; the DSS uses this to find the linked
+	//organization_id
+	AddDataSubjectsKeyLinks(context.Context, *AddDataSubjectsKeyLinksRequest) (*AddDataSubjectsKeyLinksResponse, error)
+	//*
+	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
 	DeleteDataSubjects(context.Context, *DeleteDataSubjectsRequest) (*DeleteDataSubjectsResponse, error)
 	mustEmbedUnimplementedDataSubjectsServiceServer()
 }
@@ -76,11 +108,11 @@ type DataSubjectsServiceServer interface {
 type UnimplementedDataSubjectsServiceServer struct {
 }
 
-func (UnimplementedDataSubjectsServiceServer) ListDatasubjectKeylinks(context.Context, *ListDatasubjectKeylinksRequest) (*ListDatasubjectKeylinksResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListDatasubjectKeylinks not implemented")
+func (UnimplementedDataSubjectsServiceServer) ListDataSubjectKeylinks(context.Context, *ListDataSubjectKeylinksRequest) (*ListDataSubjectKeylinksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDataSubjectKeylinks not implemented")
 }
-func (UnimplementedDataSubjectsServiceServer) AddKeyLinks(context.Context, *AddKeyLinksRequest) (*AddKeyLinksResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddKeyLinks not implemented")
+func (UnimplementedDataSubjectsServiceServer) AddDataSubjectsKeyLinks(context.Context, *AddDataSubjectsKeyLinksRequest) (*AddDataSubjectsKeyLinksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddDataSubjectsKeyLinks not implemented")
 }
 func (UnimplementedDataSubjectsServiceServer) DeleteDataSubjects(context.Context, *DeleteDataSubjectsRequest) (*DeleteDataSubjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDataSubjects not implemented")
@@ -98,38 +130,38 @@ func RegisterDataSubjectsServiceServer(s grpc.ServiceRegistrar, srv DataSubjects
 	s.RegisterService(&DataSubjectsService_ServiceDesc, srv)
 }
 
-func _DataSubjectsService_ListDatasubjectKeylinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListDatasubjectKeylinksRequest)
+func _DataSubjectsService_ListDataSubjectKeylinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDataSubjectKeylinksRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DataSubjectsServiceServer).ListDatasubjectKeylinks(ctx, in)
+		return srv.(DataSubjectsServiceServer).ListDataSubjectKeylinks(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.data_subjects.v1.DataSubjectsService/ListDatasubjectKeylinks",
+		FullMethod: "/strmprivacy.api.data_subjects.v1.DataSubjectsService/ListDataSubjectKeylinks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DataSubjectsServiceServer).ListDatasubjectKeylinks(ctx, req.(*ListDatasubjectKeylinksRequest))
+		return srv.(DataSubjectsServiceServer).ListDataSubjectKeylinks(ctx, req.(*ListDataSubjectKeylinksRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DataSubjectsService_AddKeyLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddKeyLinksRequest)
+func _DataSubjectsService_AddDataSubjectsKeyLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddDataSubjectsKeyLinksRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DataSubjectsServiceServer).AddKeyLinks(ctx, in)
+		return srv.(DataSubjectsServiceServer).AddDataSubjectsKeyLinks(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.data_subjects.v1.DataSubjectsService/AddKeyLinks",
+		FullMethod: "/strmprivacy.api.data_subjects.v1.DataSubjectsService/AddDataSubjectsKeyLinks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DataSubjectsServiceServer).AddKeyLinks(ctx, req.(*AddKeyLinksRequest))
+		return srv.(DataSubjectsServiceServer).AddDataSubjectsKeyLinks(ctx, req.(*AddDataSubjectsKeyLinksRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -160,12 +192,12 @@ var DataSubjectsService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*DataSubjectsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "ListDatasubjectKeylinks",
-			Handler:    _DataSubjectsService_ListDatasubjectKeylinks_Handler,
+			MethodName: "ListDataSubjectKeylinks",
+			Handler:    _DataSubjectsService_ListDataSubjectKeylinks_Handler,
 		},
 		{
-			MethodName: "AddKeyLinks",
-			Handler:    _DataSubjectsService_AddKeyLinks_Handler,
+			MethodName: "AddDataSubjectsKeyLinks",
+			Handler:    _DataSubjectsService_AddDataSubjectsKeyLinks_Handler,
 		},
 		{
 			MethodName: "DeleteDataSubjects",
