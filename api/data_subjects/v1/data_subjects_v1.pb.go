@@ -401,6 +401,12 @@ func (x *DeleteDataSubjectsResponse) GetDeletedKeylinksCount() int64 {
 	return 0
 }
 
+//*
+//this list is empty when nothing has gone wrong.
+//issue_type are currently:
+//
+//DuplicateKey: (when you have the same project/data_subject/keylink tuple). Harmless
+//InvalidArgument: when you have a project_id or key_link that is not a uuid
 type AddDataSubjectsKeyLinksResponse_AddDataSubjectsIssues struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

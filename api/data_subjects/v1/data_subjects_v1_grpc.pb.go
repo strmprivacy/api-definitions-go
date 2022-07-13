@@ -25,9 +25,6 @@ type DataSubjectsServiceClient interface {
 	//*
 	//Retrieve all key links associated with certain data subject(s)
 	//
-	//The scope of the data subject ids is the organization of the principal
-	//making the call.
-	//
 	//returns: a list of data subject with their associated key links and their
 	//expiry.
 	ListDataSubjectKeylinks(ctx context.Context, in *ListDataSubjectKeylinksRequest, opts ...grpc.CallOption) (*ListDataSubjectKeylinksResponse, error)
@@ -35,7 +32,7 @@ type DataSubjectsServiceClient interface {
 	//
 	//typically (but not necessarily) only one key link is added at the same time.
 	//
-	//The list of DatasubjectKeylinks combined with a project_id; the DSS uses this to find the linked
+	//The list of DatasubjectKeylinks is combined with a project_id; the DSS uses this to find the linked
 	//organization_id
 	AddDataSubjectsKeyLinks(ctx context.Context, in *AddDataSubjectsKeyLinksRequest, opts ...grpc.CallOption) (*AddDataSubjectsKeyLinksResponse, error)
 	//*
@@ -85,9 +82,6 @@ type DataSubjectsServiceServer interface {
 	//*
 	//Retrieve all key links associated with certain data subject(s)
 	//
-	//The scope of the data subject ids is the organization of the principal
-	//making the call.
-	//
 	//returns: a list of data subject with their associated key links and their
 	//expiry.
 	ListDataSubjectKeylinks(context.Context, *ListDataSubjectKeylinksRequest) (*ListDataSubjectKeylinksResponse, error)
@@ -95,7 +89,7 @@ type DataSubjectsServiceServer interface {
 	//
 	//typically (but not necessarily) only one key link is added at the same time.
 	//
-	//The list of DatasubjectKeylinks combined with a project_id; the DSS uses this to find the linked
+	//The list of DatasubjectKeylinks is combined with a project_id; the DSS uses this to find the linked
 	//organization_id
 	AddDataSubjectsKeyLinks(context.Context, *AddDataSubjectsKeyLinksRequest) (*AddDataSubjectsKeyLinksResponse, error)
 	//*
