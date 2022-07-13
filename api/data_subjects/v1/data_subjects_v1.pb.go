@@ -29,8 +29,10 @@ type ListDataSubjectKeylinksRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	DataSubjectId  []string `protobuf:"bytes,1,rep,name=data_subject_id,json=dataSubjectId,proto3" json:"data_subject_id,omitempty"`
-	OrganizationId string   `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	DataSubjectId []string `protobuf:"bytes,1,rep,name=data_subject_id,json=dataSubjectId,proto3" json:"data_subject_id,omitempty"`
+	// this parameter is filled in in the management-api from the identity of the caller
+	// it must be empty when a call is made to the management-api.
+	OrganizationId string `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
 }
 
 func (x *ListDataSubjectKeylinksRequest) Reset() {
@@ -131,6 +133,8 @@ type AddDataSubjectsKeyLinksRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// this parameter is filled in in the management-api from the identity of the caller
+	// it must be empty when a call is made to the management-api.
 	ProjectId           string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	DataSubjectKeylinks []*DatasubjectKeylinks `protobuf:"bytes,2,rep,name=data_subject_keylinks,json=dataSubjectKeylinks,proto3" json:"data_subject_keylinks,omitempty"`
 }
@@ -299,7 +303,8 @@ type DeleteDataSubjectsRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	DataSubjects []string `protobuf:"bytes,1,rep,name=data_subjects,json=dataSubjects,proto3" json:"data_subjects,omitempty"`
-	// TODO to be filled in at management api...
+	// this parameter is filled in in the management-api from the identity of the caller
+	// it must be empty when a call is made to the management-api.
 	OrganizationId string `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
 }
 
