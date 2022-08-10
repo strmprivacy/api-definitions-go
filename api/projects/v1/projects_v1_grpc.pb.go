@@ -26,6 +26,9 @@ type ProjectsServiceClient interface {
 	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*CreateProjectResponse, error)
 	DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*DeleteProjectResponse, error)
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
+	AddProjectMembers(ctx context.Context, in *AddProjectMembersRequest, opts ...grpc.CallOption) (*AddProjectMembersResponse, error)
+	RemoveProjectMembers(ctx context.Context, in *RemoveProjectMembersRequest, opts ...grpc.CallOption) (*RemoveProjectMembersResponse, error)
+	ListProjectMembers(ctx context.Context, in *ListProjectMembersRequest, opts ...grpc.CallOption) (*ListProjectMembersResponse, error)
 }
 
 type projectsServiceClient struct {
@@ -72,6 +75,33 @@ func (c *projectsServiceClient) GetProject(ctx context.Context, in *GetProjectRe
 	return out, nil
 }
 
+func (c *projectsServiceClient) AddProjectMembers(ctx context.Context, in *AddProjectMembersRequest, opts ...grpc.CallOption) (*AddProjectMembersResponse, error) {
+	out := new(AddProjectMembersResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.projects.v1.ProjectsService/AddProjectMembers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectsServiceClient) RemoveProjectMembers(ctx context.Context, in *RemoveProjectMembersRequest, opts ...grpc.CallOption) (*RemoveProjectMembersResponse, error) {
+	out := new(RemoveProjectMembersResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.projects.v1.ProjectsService/RemoveProjectMembers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectsServiceClient) ListProjectMembers(ctx context.Context, in *ListProjectMembersRequest, opts ...grpc.CallOption) (*ListProjectMembersResponse, error) {
+	out := new(ListProjectMembersResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.projects.v1.ProjectsService/ListProjectMembers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProjectsServiceServer is the server API for ProjectsService service.
 // All implementations must embed UnimplementedProjectsServiceServer
 // for forward compatibility
@@ -80,6 +110,9 @@ type ProjectsServiceServer interface {
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectResponse, error)
 	DeleteProject(context.Context, *DeleteProjectRequest) (*DeleteProjectResponse, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
+	AddProjectMembers(context.Context, *AddProjectMembersRequest) (*AddProjectMembersResponse, error)
+	RemoveProjectMembers(context.Context, *RemoveProjectMembersRequest) (*RemoveProjectMembersResponse, error)
+	ListProjectMembers(context.Context, *ListProjectMembersRequest) (*ListProjectMembersResponse, error)
 	mustEmbedUnimplementedProjectsServiceServer()
 }
 
@@ -98,6 +131,15 @@ func (UnimplementedProjectsServiceServer) DeleteProject(context.Context, *Delete
 }
 func (UnimplementedProjectsServiceServer) GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProject not implemented")
+}
+func (UnimplementedProjectsServiceServer) AddProjectMembers(context.Context, *AddProjectMembersRequest) (*AddProjectMembersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddProjectMembers not implemented")
+}
+func (UnimplementedProjectsServiceServer) RemoveProjectMembers(context.Context, *RemoveProjectMembersRequest) (*RemoveProjectMembersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveProjectMembers not implemented")
+}
+func (UnimplementedProjectsServiceServer) ListProjectMembers(context.Context, *ListProjectMembersRequest) (*ListProjectMembersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProjectMembers not implemented")
 }
 func (UnimplementedProjectsServiceServer) mustEmbedUnimplementedProjectsServiceServer() {}
 
@@ -184,6 +226,60 @@ func _ProjectsService_GetProject_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProjectsService_AddProjectMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddProjectMembersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectsServiceServer).AddProjectMembers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.projects.v1.ProjectsService/AddProjectMembers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectsServiceServer).AddProjectMembers(ctx, req.(*AddProjectMembersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProjectsService_RemoveProjectMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveProjectMembersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectsServiceServer).RemoveProjectMembers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.projects.v1.ProjectsService/RemoveProjectMembers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectsServiceServer).RemoveProjectMembers(ctx, req.(*RemoveProjectMembersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProjectsService_ListProjectMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProjectMembersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectsServiceServer).ListProjectMembers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.projects.v1.ProjectsService/ListProjectMembers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectsServiceServer).ListProjectMembers(ctx, req.(*ListProjectMembersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProjectsService_ServiceDesc is the grpc.ServiceDesc for ProjectsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -206,6 +302,18 @@ var ProjectsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProject",
 			Handler:    _ProjectsService_GetProject_Handler,
+		},
+		{
+			MethodName: "AddProjectMembers",
+			Handler:    _ProjectsService_AddProjectMembers_Handler,
+		},
+		{
+			MethodName: "RemoveProjectMembers",
+			Handler:    _ProjectsService_RemoveProjectMembers_Handler,
+		},
+		{
+			MethodName: "ListProjectMembers",
+			Handler:    _ProjectsService_ListProjectMembers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

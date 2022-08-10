@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrganizationsServiceClient interface {
 	InviteUsers(ctx context.Context, in *InviteUsersRequest, opts ...grpc.CallOption) (*InviteUsersResponse, error)
+	UpdateUserRoles(ctx context.Context, in *UpdateUserRolesRequest, opts ...grpc.CallOption) (*UpdateUserRolesResponse, error)
 }
 
 type organizationsServiceClient struct {
@@ -42,11 +43,21 @@ func (c *organizationsServiceClient) InviteUsers(ctx context.Context, in *Invite
 	return out, nil
 }
 
+func (c *organizationsServiceClient) UpdateUserRoles(ctx context.Context, in *UpdateUserRolesRequest, opts ...grpc.CallOption) (*UpdateUserRolesResponse, error) {
+	out := new(UpdateUserRolesResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.organizations.v1.OrganizationsService/UpdateUserRoles", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // OrganizationsServiceServer is the server API for OrganizationsService service.
 // All implementations must embed UnimplementedOrganizationsServiceServer
 // for forward compatibility
 type OrganizationsServiceServer interface {
 	InviteUsers(context.Context, *InviteUsersRequest) (*InviteUsersResponse, error)
+	UpdateUserRoles(context.Context, *UpdateUserRolesRequest) (*UpdateUserRolesResponse, error)
 	mustEmbedUnimplementedOrganizationsServiceServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedOrganizationsServiceServer struct {
 
 func (UnimplementedOrganizationsServiceServer) InviteUsers(context.Context, *InviteUsersRequest) (*InviteUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InviteUsers not implemented")
+}
+func (UnimplementedOrganizationsServiceServer) UpdateUserRoles(context.Context, *UpdateUserRolesRequest) (*UpdateUserRolesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserRoles not implemented")
 }
 func (UnimplementedOrganizationsServiceServer) mustEmbedUnimplementedOrganizationsServiceServer() {}
 
@@ -88,6 +102,24 @@ func _OrganizationsService_InviteUsers_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationsService_UpdateUserRoles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserRolesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationsServiceServer).UpdateUserRoles(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.organizations.v1.OrganizationsService/UpdateUserRoles",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationsServiceServer).UpdateUserRoles(ctx, req.(*UpdateUserRolesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // OrganizationsService_ServiceDesc is the grpc.ServiceDesc for OrganizationsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var OrganizationsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InviteUsers",
 			Handler:    _OrganizationsService_InviteUsers_Handler,
+		},
+		{
+			MethodName: "UpdateUserRoles",
+			Handler:    _OrganizationsService_UpdateUserRoles_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
