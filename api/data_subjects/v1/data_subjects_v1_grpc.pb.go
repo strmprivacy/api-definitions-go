@@ -39,7 +39,7 @@ type DataSubjectsServiceClient interface {
 	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
 	DeleteDataSubjects(ctx context.Context, in *DeleteDataSubjectsRequest, opts ...grpc.CallOption) (*DeleteDataSubjectsResponse, error)
 	//*
-	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
+	//list data subjects from the DSS database
 	ListDataSubjects(ctx context.Context, in *ListDataSubjectsRequest, opts ...grpc.CallOption) (*ListDataSubjectsResponse, error)
 }
 
@@ -108,7 +108,7 @@ type DataSubjectsServiceServer interface {
 	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
 	DeleteDataSubjects(context.Context, *DeleteDataSubjectsRequest) (*DeleteDataSubjectsResponse, error)
 	//*
-	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
+	//list data subjects from the DSS database
 	ListDataSubjects(context.Context, *ListDataSubjectsRequest) (*ListDataSubjectsResponse, error)
 	mustEmbedUnimplementedDataSubjectsServiceServer()
 }
