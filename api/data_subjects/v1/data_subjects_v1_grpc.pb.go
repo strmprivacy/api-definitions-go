@@ -38,6 +38,9 @@ type DataSubjectsServiceClient interface {
 	//*
 	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
 	DeleteDataSubjects(ctx context.Context, in *DeleteDataSubjectsRequest, opts ...grpc.CallOption) (*DeleteDataSubjectsResponse, error)
+	//*
+	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
+	ListDataSubjects(ctx context.Context, in *ListDataSubjectsRequest, opts ...grpc.CallOption) (*ListDataSubjectsResponse, error)
 }
 
 type dataSubjectsServiceClient struct {
@@ -75,6 +78,15 @@ func (c *dataSubjectsServiceClient) DeleteDataSubjects(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *dataSubjectsServiceClient) ListDataSubjects(ctx context.Context, in *ListDataSubjectsRequest, opts ...grpc.CallOption) (*ListDataSubjectsResponse, error) {
+	out := new(ListDataSubjectsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_subjects.v1.DataSubjectsService/ListDataSubjects", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DataSubjectsServiceServer is the server API for DataSubjectsService service.
 // All implementations must embed UnimplementedDataSubjectsServiceServer
 // for forward compatibility
@@ -95,6 +107,9 @@ type DataSubjectsServiceServer interface {
 	//*
 	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
 	DeleteDataSubjects(context.Context, *DeleteDataSubjectsRequest) (*DeleteDataSubjectsResponse, error)
+	//*
+	//delete data subjects from the DSS database, and returns the deleted key links and timestamps
+	ListDataSubjects(context.Context, *ListDataSubjectsRequest) (*ListDataSubjectsResponse, error)
 	mustEmbedUnimplementedDataSubjectsServiceServer()
 }
 
@@ -110,6 +125,9 @@ func (UnimplementedDataSubjectsServiceServer) AddDataSubjectsKeyLinks(context.Co
 }
 func (UnimplementedDataSubjectsServiceServer) DeleteDataSubjects(context.Context, *DeleteDataSubjectsRequest) (*DeleteDataSubjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteDataSubjects not implemented")
+}
+func (UnimplementedDataSubjectsServiceServer) ListDataSubjects(context.Context, *ListDataSubjectsRequest) (*ListDataSubjectsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListDataSubjects not implemented")
 }
 func (UnimplementedDataSubjectsServiceServer) mustEmbedUnimplementedDataSubjectsServiceServer() {}
 
@@ -178,6 +196,24 @@ func _DataSubjectsService_DeleteDataSubjects_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DataSubjectsService_ListDataSubjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListDataSubjectsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataSubjectsServiceServer).ListDataSubjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_subjects.v1.DataSubjectsService/ListDataSubjects",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataSubjectsServiceServer).ListDataSubjects(ctx, req.(*ListDataSubjectsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DataSubjectsService_ServiceDesc is the grpc.ServiceDesc for DataSubjectsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -196,6 +232,10 @@ var DataSubjectsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteDataSubjects",
 			Handler:    _DataSubjectsService_DeleteDataSubjects_Handler,
+		},
+		{
+			MethodName: "ListDataSubjects",
+			Handler:    _DataSubjectsService_ListDataSubjects_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
