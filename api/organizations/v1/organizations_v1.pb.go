@@ -189,6 +189,7 @@ type UpdateUserRolesRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// All users get all defined roles
 	Emails    []string      `protobuf:"bytes,1,rep,name=emails,proto3" json:"emails,omitempty"`
 	UserRoles []v1.UserRole `protobuf:"varint,2,rep,packed,name=user_roles,json=userRoles,proto3,enum=strmprivacy.api.entities.v1.UserRole" json:"user_roles,omitempty"`
 }
