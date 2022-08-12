@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type OrganizationsServiceClient interface {
 	InviteUsers(ctx context.Context, in *InviteUsersRequest, opts ...grpc.CallOption) (*InviteUsersResponse, error)
 	UpdateUserRoles(ctx context.Context, in *UpdateUserRolesRequest, opts ...grpc.CallOption) (*UpdateUserRolesResponse, error)
+	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	ListOrganizationMembers(ctx context.Context, in *ListOrganizationMembersRequest, opts ...grpc.CallOption) (*ListOrganizationMembersResponse, error)
 }
 
@@ -53,6 +54,15 @@ func (c *organizationsServiceClient) UpdateUserRoles(ctx context.Context, in *Up
 	return out, nil
 }
 
+func (c *organizationsServiceClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
+	out := new(GetUserResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.organizations.v1.OrganizationsService/GetUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *organizationsServiceClient) ListOrganizationMembers(ctx context.Context, in *ListOrganizationMembersRequest, opts ...grpc.CallOption) (*ListOrganizationMembersResponse, error) {
 	out := new(ListOrganizationMembersResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.organizations.v1.OrganizationsService/ListOrganizationMembers", in, out, opts...)
@@ -68,6 +78,7 @@ func (c *organizationsServiceClient) ListOrganizationMembers(ctx context.Context
 type OrganizationsServiceServer interface {
 	InviteUsers(context.Context, *InviteUsersRequest) (*InviteUsersResponse, error)
 	UpdateUserRoles(context.Context, *UpdateUserRolesRequest) (*UpdateUserRolesResponse, error)
+	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	ListOrganizationMembers(context.Context, *ListOrganizationMembersRequest) (*ListOrganizationMembersResponse, error)
 	mustEmbedUnimplementedOrganizationsServiceServer()
 }
@@ -81,6 +92,9 @@ func (UnimplementedOrganizationsServiceServer) InviteUsers(context.Context, *Inv
 }
 func (UnimplementedOrganizationsServiceServer) UpdateUserRoles(context.Context, *UpdateUserRolesRequest) (*UpdateUserRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserRoles not implemented")
+}
+func (UnimplementedOrganizationsServiceServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
 }
 func (UnimplementedOrganizationsServiceServer) ListOrganizationMembers(context.Context, *ListOrganizationMembersRequest) (*ListOrganizationMembersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListOrganizationMembers not implemented")
@@ -134,6 +148,24 @@ func _OrganizationsService_UpdateUserRoles_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _OrganizationsService_GetUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(OrganizationsServiceServer).GetUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.organizations.v1.OrganizationsService/GetUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(OrganizationsServiceServer).GetUser(ctx, req.(*GetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _OrganizationsService_ListOrganizationMembers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListOrganizationMembersRequest)
 	if err := dec(in); err != nil {
@@ -166,6 +198,10 @@ var OrganizationsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateUserRoles",
 			Handler:    _OrganizationsService_UpdateUserRoles_Handler,
+		},
+		{
+			MethodName: "GetUser",
+			Handler:    _OrganizationsService_GetUser_Handler,
 		},
 		{
 			MethodName: "ListOrganizationMembers",
