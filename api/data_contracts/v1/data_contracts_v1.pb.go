@@ -212,7 +212,7 @@ type ListDataContractsResponse struct {
 	// (-- api-linter: core::0132::response-unknown-fields=disabled
 	//     aip.dev/not-precedent: We really need this field because a data-contract is mutable
 	// as long as the state is not active --)
-	DataContractsAndChecksums []*ListDataContractsResponse_DatacontractAndChecksum `protobuf:"bytes,2,rep,name=data_contracts_and_checksums,json=dataContractsAndChecksums,proto3" json:"data_contracts_and_checksums,omitempty"`
+	DataContractsAndChecksums []*ListDataContractsResponse_DataContractAndChecksum `protobuf:"bytes,2,rep,name=data_contracts_and_checksums,json=dataContractsAndChecksums,proto3" json:"data_contracts_and_checksums,omitempty"`
 }
 
 func (x *ListDataContractsResponse) Reset() {
@@ -255,7 +255,7 @@ func (x *ListDataContractsResponse) GetDataContracts() []*v1.DataContract {
 	return nil
 }
 
-func (x *ListDataContractsResponse) GetDataContractsAndChecksums() []*ListDataContractsResponse_DatacontractAndChecksum {
+func (x *ListDataContractsResponse) GetDataContractsAndChecksums() []*ListDataContractsResponse_DataContractAndChecksum {
 	if x != nil {
 		return x.DataContractsAndChecksums
 	}
@@ -1409,7 +1409,7 @@ func (x *GetDataContractSchemaDefinitionResponse) GetDefinition() string {
 	return ""
 }
 
-type ListDataContractsResponse_DatacontractAndChecksum struct {
+type ListDataContractsResponse_DataContractAndChecksum struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -1418,8 +1418,8 @@ type ListDataContractsResponse_DatacontractAndChecksum struct {
 	Checksum     string           `protobuf:"bytes,2,opt,name=checksum,proto3" json:"checksum,omitempty"`
 }
 
-func (x *ListDataContractsResponse_DatacontractAndChecksum) Reset() {
-	*x = ListDataContractsResponse_DatacontractAndChecksum{}
+func (x *ListDataContractsResponse_DataContractAndChecksum) Reset() {
+	*x = ListDataContractsResponse_DataContractAndChecksum{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1427,13 +1427,13 @@ func (x *ListDataContractsResponse_DatacontractAndChecksum) Reset() {
 	}
 }
 
-func (x *ListDataContractsResponse_DatacontractAndChecksum) String() string {
+func (x *ListDataContractsResponse_DataContractAndChecksum) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListDataContractsResponse_DatacontractAndChecksum) ProtoMessage() {}
+func (*ListDataContractsResponse_DataContractAndChecksum) ProtoMessage() {}
 
-func (x *ListDataContractsResponse_DatacontractAndChecksum) ProtoReflect() protoreflect.Message {
+func (x *ListDataContractsResponse_DataContractAndChecksum) ProtoReflect() protoreflect.Message {
 	mi := &file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1445,19 +1445,19 @@ func (x *ListDataContractsResponse_DatacontractAndChecksum) ProtoReflect() proto
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListDataContractsResponse_DatacontractAndChecksum.ProtoReflect.Descriptor instead.
-func (*ListDataContractsResponse_DatacontractAndChecksum) Descriptor() ([]byte, []int) {
+// Deprecated: Use ListDataContractsResponse_DataContractAndChecksum.ProtoReflect.Descriptor instead.
+func (*ListDataContractsResponse_DataContractAndChecksum) Descriptor() ([]byte, []int) {
 	return file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_rawDescGZIP(), []int{1, 0}
 }
 
-func (x *ListDataContractsResponse_DatacontractAndChecksum) GetDataContract() *v1.DataContract {
+func (x *ListDataContractsResponse_DataContractAndChecksum) GetDataContract() *v1.DataContract {
 	if x != nil {
 		return x.DataContract
 	}
 	return nil
 }
 
-func (x *ListDataContractsResponse_DatacontractAndChecksum) GetChecksum() string {
+func (x *ListDataContractsResponse_DataContractAndChecksum) GetChecksum() string {
 	if x != nil {
 		return x.Checksum
 	}
@@ -1657,10 +1657,10 @@ var file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_rawDesc = []b
 	0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x63, 0x6f, 0x6e,
 	0x74, 0x72, 0x61, 0x63, 0x74, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x69, 0x73, 0x74, 0x44, 0x61,
 	0x74, 0x61, 0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74,
+	0x6e, 0x73, 0x65, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74,
 	0x41, 0x6e, 0x64, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x73, 0x75, 0x6d, 0x52, 0x19, 0x64, 0x61, 0x74,
 	0x61, 0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x73, 0x41, 0x6e, 0x64, 0x43, 0x68, 0x65,
-	0x63, 0x6b, 0x73, 0x75, 0x6d, 0x73, 0x1a, 0x85, 0x01, 0x0a, 0x17, 0x44, 0x61, 0x74, 0x61, 0x63,
+	0x63, 0x6b, 0x73, 0x75, 0x6d, 0x73, 0x1a, 0x85, 0x01, 0x0a, 0x17, 0x44, 0x61, 0x74, 0x61, 0x43,
 	0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x41, 0x6e, 0x64, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x73,
 	0x75, 0x6d, 0x12, 0x4e, 0x0a, 0x0d, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72,
 	0x61, 0x63, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x73, 0x74, 0x72, 0x6d,
@@ -2035,7 +2035,7 @@ var file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_goTypes = []i
 	(*GetDataContractSchemaCodeResponse)(nil),                          // 20: strmprivacy.api.data_contracts.v1.GetDataContractSchemaCodeResponse
 	(*GetDataContractSchemaDefinitionRequest)(nil),                     // 21: strmprivacy.api.data_contracts.v1.GetDataContractSchemaDefinitionRequest
 	(*GetDataContractSchemaDefinitionResponse)(nil),                    // 22: strmprivacy.api.data_contracts.v1.GetDataContractSchemaDefinitionResponse
-	(*ListDataContractsResponse_DatacontractAndChecksum)(nil),          // 23: strmprivacy.api.data_contracts.v1.ListDataContractsResponse.DatacontractAndChecksum
+	(*ListDataContractsResponse_DataContractAndChecksum)(nil),          // 23: strmprivacy.api.data_contracts.v1.ListDataContractsResponse.DataContractAndChecksum
 	(*ValidateDataContractsMaskedFieldsResponse_Error)(nil),            // 24: strmprivacy.api.data_contracts.v1.ValidateDataContractsMaskedFieldsResponse.Error
 	(*ValidateDataContractsMaskedFieldsResponse_Error_FieldError)(nil), // 25: strmprivacy.api.data_contracts.v1.ValidateDataContractsMaskedFieldsResponse.Error.FieldError
 	(v1.FilterPublicPrivate)(0),                                        // 26: strmprivacy.api.entities.v1.FilterPublicPrivate
@@ -2050,7 +2050,7 @@ var file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_depIdxs = []i
 	26, // 0: strmprivacy.api.data_contracts.v1.ListDataContractsRequest.public_private:type_name -> strmprivacy.api.entities.v1.FilterPublicPrivate
 	27, // 1: strmprivacy.api.data_contracts.v1.ListDataContractsRequest.labels:type_name -> strmprivacy.api.entities.v1.Label
 	28, // 2: strmprivacy.api.data_contracts.v1.ListDataContractsResponse.data_contracts:type_name -> strmprivacy.api.entities.v1.DataContract
-	23, // 3: strmprivacy.api.data_contracts.v1.ListDataContractsResponse.data_contracts_and_checksums:type_name -> strmprivacy.api.data_contracts.v1.ListDataContractsResponse.DatacontractAndChecksum
+	23, // 3: strmprivacy.api.data_contracts.v1.ListDataContractsResponse.data_contracts_and_checksums:type_name -> strmprivacy.api.data_contracts.v1.ListDataContractsResponse.DataContractAndChecksum
 	29, // 4: strmprivacy.api.data_contracts.v1.GetDataContractRequest.ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
 	28, // 5: strmprivacy.api.data_contracts.v1.GetDataContractResponse.data_contract:type_name -> strmprivacy.api.entities.v1.DataContract
 	28, // 6: strmprivacy.api.data_contracts.v1.CreateDataContractRequest.data_contract:type_name -> strmprivacy.api.entities.v1.DataContract
@@ -2067,7 +2067,7 @@ var file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_depIdxs = []i
 	24, // 17: strmprivacy.api.data_contracts.v1.ValidateDataContractsMaskedFieldsResponse.errors:type_name -> strmprivacy.api.data_contracts.v1.ValidateDataContractsMaskedFieldsResponse.Error
 	29, // 18: strmprivacy.api.data_contracts.v1.GetDataContractSchemaCodeRequest.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
 	32, // 19: strmprivacy.api.data_contracts.v1.GetDataContractSchemaDefinitionRequest.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	28, // 20: strmprivacy.api.data_contracts.v1.ListDataContractsResponse.DatacontractAndChecksum.data_contract:type_name -> strmprivacy.api.entities.v1.DataContract
+	28, // 20: strmprivacy.api.data_contracts.v1.ListDataContractsResponse.DataContractAndChecksum.data_contract:type_name -> strmprivacy.api.entities.v1.DataContract
 	29, // 21: strmprivacy.api.data_contracts.v1.ValidateDataContractsMaskedFieldsResponse.Error.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
 	25, // 22: strmprivacy.api.data_contracts.v1.ValidateDataContractsMaskedFieldsResponse.Error.errors:type_name -> strmprivacy.api.data_contracts.v1.ValidateDataContractsMaskedFieldsResponse.Error.FieldError
 	1,  // 23: strmprivacy.api.data_contracts.v1.DataContractsService.ListDataContracts:input_type -> strmprivacy.api.data_contracts.v1.ListDataContractsRequest
@@ -2370,7 +2370,7 @@ func file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_data_contracts_v1_data_contracts_v1_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListDataContractsResponse_DatacontractAndChecksum); i {
+			switch v := v.(*ListDataContractsResponse_DataContractAndChecksum); i {
 			case 0:
 				return &v.state
 			case 1:
