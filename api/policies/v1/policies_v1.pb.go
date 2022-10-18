@@ -108,8 +108,6 @@ func (x *ListPoliciesResponse) GetPolicies() []*v1.Policy {
 	return nil
 }
 
-// (-- api-linter: core::0135::request-name-required=disabled
-//     aip.dev/not-precedent: A consent-level has no name, but a level. --)
 type DeletePolicyRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
