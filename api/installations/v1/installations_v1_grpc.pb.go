@@ -24,7 +24,9 @@ const _ = grpc.SupportPackageIsVersion7
 type InstallationsServiceClient interface {
 	GetInstallation(ctx context.Context, in *GetInstallationRequest, opts ...grpc.CallOption) (*GetInstallationResponse, error)
 	ListInstallations(ctx context.Context, in *ListInstallationsRequest, opts ...grpc.CallOption) (*ListInstallationsResponse, error)
+	// Deprecated: Do not use.
 	GetProjectInstallation(ctx context.Context, in *GetProjectInstallationRequest, opts ...grpc.CallOption) (*GetProjectInstallationResponse, error)
+	// Deprecated: Do not use.
 	ListInstallationProjects(ctx context.Context, in *ListInstallationProjectsRequest, opts ...grpc.CallOption) (*ListInstallationProjectsResponse, error)
 }
 
@@ -54,6 +56,7 @@ func (c *installationsServiceClient) ListInstallations(ctx context.Context, in *
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *installationsServiceClient) GetProjectInstallation(ctx context.Context, in *GetProjectInstallationRequest, opts ...grpc.CallOption) (*GetProjectInstallationResponse, error) {
 	out := new(GetProjectInstallationResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/GetProjectInstallation", in, out, opts...)
@@ -63,6 +66,7 @@ func (c *installationsServiceClient) GetProjectInstallation(ctx context.Context,
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *installationsServiceClient) ListInstallationProjects(ctx context.Context, in *ListInstallationProjectsRequest, opts ...grpc.CallOption) (*ListInstallationProjectsResponse, error) {
 	out := new(ListInstallationProjectsResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.installations.v1.InstallationsService/ListInstallationProjects", in, out, opts...)
@@ -78,7 +82,9 @@ func (c *installationsServiceClient) ListInstallationProjects(ctx context.Contex
 type InstallationsServiceServer interface {
 	GetInstallation(context.Context, *GetInstallationRequest) (*GetInstallationResponse, error)
 	ListInstallations(context.Context, *ListInstallationsRequest) (*ListInstallationsResponse, error)
+	// Deprecated: Do not use.
 	GetProjectInstallation(context.Context, *GetProjectInstallationRequest) (*GetProjectInstallationResponse, error)
+	// Deprecated: Do not use.
 	ListInstallationProjects(context.Context, *ListInstallationProjectsRequest) (*ListInstallationProjectsResponse, error)
 	mustEmbedUnimplementedInstallationsServiceServer()
 }
