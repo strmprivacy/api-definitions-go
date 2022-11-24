@@ -22,7 +22,14 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MonitoringServiceClient interface {
+	//
+	// will be called from clients such as cli or console, to retrieve entity states
+	// and indicate them to users.
 	GetEntityStates(ctx context.Context, in *GetEntityStatesRequest, opts ...grpc.CallOption) (MonitoringService_GetEntityStatesClient, error)
+	//
+	// will be called from entity agents so that they can send the entity states
+	// of items they're responsible for to the monitoring service.
+	UpdateEntityStates(ctx context.Context, opts ...grpc.CallOption) (MonitoringService_UpdateEntityStatesClient, error)
 }
 
 type monitoringServiceClient struct {
@@ -65,11 +72,52 @@ func (x *monitoringServiceGetEntityStatesClient) Recv() (*GetEntityStatesRespons
 	return m, nil
 }
 
+func (c *monitoringServiceClient) UpdateEntityStates(ctx context.Context, opts ...grpc.CallOption) (MonitoringService_UpdateEntityStatesClient, error) {
+	stream, err := c.cc.NewStream(ctx, &MonitoringService_ServiceDesc.Streams[1], "/strmprivacy.api.monitoring.v1.MonitoringService/UpdateEntityStates", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &monitoringServiceUpdateEntityStatesClient{stream}
+	return x, nil
+}
+
+type MonitoringService_UpdateEntityStatesClient interface {
+	Send(*UpdateEntityStatesRequest) error
+	CloseAndRecv() (*UpdateEntityStatesResponse, error)
+	grpc.ClientStream
+}
+
+type monitoringServiceUpdateEntityStatesClient struct {
+	grpc.ClientStream
+}
+
+func (x *monitoringServiceUpdateEntityStatesClient) Send(m *UpdateEntityStatesRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *monitoringServiceUpdateEntityStatesClient) CloseAndRecv() (*UpdateEntityStatesResponse, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(UpdateEntityStatesResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // MonitoringServiceServer is the server API for MonitoringService service.
 // All implementations must embed UnimplementedMonitoringServiceServer
 // for forward compatibility
 type MonitoringServiceServer interface {
+	//
+	// will be called from clients such as cli or console, to retrieve entity states
+	// and indicate them to users.
 	GetEntityStates(*GetEntityStatesRequest, MonitoringService_GetEntityStatesServer) error
+	//
+	// will be called from entity agents so that they can send the entity states
+	// of items they're responsible for to the monitoring service.
+	UpdateEntityStates(MonitoringService_UpdateEntityStatesServer) error
 	mustEmbedUnimplementedMonitoringServiceServer()
 }
 
@@ -79,6 +127,9 @@ type UnimplementedMonitoringServiceServer struct {
 
 func (UnimplementedMonitoringServiceServer) GetEntityStates(*GetEntityStatesRequest, MonitoringService_GetEntityStatesServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetEntityStates not implemented")
+}
+func (UnimplementedMonitoringServiceServer) UpdateEntityStates(MonitoringService_UpdateEntityStatesServer) error {
+	return status.Errorf(codes.Unimplemented, "method UpdateEntityStates not implemented")
 }
 func (UnimplementedMonitoringServiceServer) mustEmbedUnimplementedMonitoringServiceServer() {}
 
@@ -114,6 +165,32 @@ func (x *monitoringServiceGetEntityStatesServer) Send(m *GetEntityStatesResponse
 	return x.ServerStream.SendMsg(m)
 }
 
+func _MonitoringService_UpdateEntityStates_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(MonitoringServiceServer).UpdateEntityStates(&monitoringServiceUpdateEntityStatesServer{stream})
+}
+
+type MonitoringService_UpdateEntityStatesServer interface {
+	SendAndClose(*UpdateEntityStatesResponse) error
+	Recv() (*UpdateEntityStatesRequest, error)
+	grpc.ServerStream
+}
+
+type monitoringServiceUpdateEntityStatesServer struct {
+	grpc.ServerStream
+}
+
+func (x *monitoringServiceUpdateEntityStatesServer) SendAndClose(m *UpdateEntityStatesResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *monitoringServiceUpdateEntityStatesServer) Recv() (*UpdateEntityStatesRequest, error) {
+	m := new(UpdateEntityStatesRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // MonitoringService_ServiceDesc is the grpc.ServiceDesc for MonitoringService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -126,6 +203,11 @@ var MonitoringService_ServiceDesc = grpc.ServiceDesc{
 			StreamName:    "GetEntityStates",
 			Handler:       _MonitoringService_GetEntityStates_Handler,
 			ServerStreams: true,
+		},
+		{
+			StreamName:    "UpdateEntityStates",
+			Handler:       _MonitoringService_UpdateEntityStates_Handler,
+			ClientStreams: true,
 		},
 	},
 	Metadata: "strmprivacy/api/monitoring/v1/monitoring.proto",
