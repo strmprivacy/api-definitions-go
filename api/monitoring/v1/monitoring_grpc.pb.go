@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MonitoringServiceClient interface {
 	//
-	// will be called from clients such as cli or console, to retrieve entity states
+	// will be called by end users from the cli or console, to retrieve entity states
 	// and indicate them to users.
 	GetEntityStates(ctx context.Context, in *GetEntityStatesRequest, opts ...grpc.CallOption) (MonitoringService_GetEntityStatesClient, error)
 	//
@@ -111,7 +111,7 @@ func (x *monitoringServiceUpdateEntityStatesClient) CloseAndRecv() (*UpdateEntit
 // for forward compatibility
 type MonitoringServiceServer interface {
 	//
-	// will be called from clients such as cli or console, to retrieve entity states
+	// will be called by end users from the cli or console, to retrieve entity states
 	// and indicate them to users.
 	GetEntityStates(*GetEntityStatesRequest, MonitoringService_GetEntityStatesServer) error
 	//
