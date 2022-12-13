@@ -24,7 +24,6 @@ const _ = grpc.SupportPackageIsVersion7
 type PurposeMappingServiceClient interface {
 	ListPurposeMappings(ctx context.Context, in *ListPurposeMappingsRequest, opts ...grpc.CallOption) (*ListPurposeMappingsResponse, error)
 	GetPurposeMapping(ctx context.Context, in *GetPurposeMappingRequest, opts ...grpc.CallOption) (*GetPurposeMappingResponse, error)
-	DeletePurposeMapping(ctx context.Context, in *DeletePurposeMappingRequest, opts ...grpc.CallOption) (*DeletePurposeMappingResponse, error)
 	CreatePurposeMapping(ctx context.Context, in *CreatePurposeMappingRequest, opts ...grpc.CallOption) (*CreatePurposeMappingResponse, error)
 }
 
@@ -54,15 +53,6 @@ func (c *purposeMappingServiceClient) GetPurposeMapping(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *purposeMappingServiceClient) DeletePurposeMapping(ctx context.Context, in *DeletePurposeMappingRequest, opts ...grpc.CallOption) (*DeletePurposeMappingResponse, error) {
-	out := new(DeletePurposeMappingResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.purpose_mapping.v1.PurposeMappingService/DeletePurposeMapping", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *purposeMappingServiceClient) CreatePurposeMapping(ctx context.Context, in *CreatePurposeMappingRequest, opts ...grpc.CallOption) (*CreatePurposeMappingResponse, error) {
 	out := new(CreatePurposeMappingResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.purpose_mapping.v1.PurposeMappingService/CreatePurposeMapping", in, out, opts...)
@@ -78,7 +68,6 @@ func (c *purposeMappingServiceClient) CreatePurposeMapping(ctx context.Context, 
 type PurposeMappingServiceServer interface {
 	ListPurposeMappings(context.Context, *ListPurposeMappingsRequest) (*ListPurposeMappingsResponse, error)
 	GetPurposeMapping(context.Context, *GetPurposeMappingRequest) (*GetPurposeMappingResponse, error)
-	DeletePurposeMapping(context.Context, *DeletePurposeMappingRequest) (*DeletePurposeMappingResponse, error)
 	CreatePurposeMapping(context.Context, *CreatePurposeMappingRequest) (*CreatePurposeMappingResponse, error)
 	mustEmbedUnimplementedPurposeMappingServiceServer()
 }
@@ -92,9 +81,6 @@ func (UnimplementedPurposeMappingServiceServer) ListPurposeMappings(context.Cont
 }
 func (UnimplementedPurposeMappingServiceServer) GetPurposeMapping(context.Context, *GetPurposeMappingRequest) (*GetPurposeMappingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPurposeMapping not implemented")
-}
-func (UnimplementedPurposeMappingServiceServer) DeletePurposeMapping(context.Context, *DeletePurposeMappingRequest) (*DeletePurposeMappingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeletePurposeMapping not implemented")
 }
 func (UnimplementedPurposeMappingServiceServer) CreatePurposeMapping(context.Context, *CreatePurposeMappingRequest) (*CreatePurposeMappingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePurposeMapping not implemented")
@@ -148,24 +134,6 @@ func _PurposeMappingService_GetPurposeMapping_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PurposeMappingService_DeletePurposeMapping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeletePurposeMappingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PurposeMappingServiceServer).DeletePurposeMapping(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.purpose_mapping.v1.PurposeMappingService/DeletePurposeMapping",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PurposeMappingServiceServer).DeletePurposeMapping(ctx, req.(*DeletePurposeMappingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _PurposeMappingService_CreatePurposeMapping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreatePurposeMappingRequest)
 	if err := dec(in); err != nil {
@@ -198,10 +166,6 @@ var PurposeMappingService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPurposeMapping",
 			Handler:    _PurposeMappingService_GetPurposeMapping_Handler,
-		},
-		{
-			MethodName: "DeletePurposeMapping",
-			Handler:    _PurposeMappingService_DeletePurposeMapping_Handler,
 		},
 		{
 			MethodName: "CreatePurposeMapping",
