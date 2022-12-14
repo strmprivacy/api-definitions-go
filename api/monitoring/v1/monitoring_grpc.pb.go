@@ -25,7 +25,7 @@ type MonitoringServiceClient interface {
 	//
 	// will be called by end users from the cli or console, to retrieve entity states
 	// and indicate them to users.
-	GetEntityStates(ctx context.Context, in *GetEntityStatesRequest, opts ...grpc.CallOption) (MonitoringService_GetEntityStatesClient, error)
+	GetEntityState(ctx context.Context, in *GetEntityStateRequest, opts ...grpc.CallOption) (MonitoringService_GetEntityStateClient, error)
 	//
 	// will be called from entity agents so that they can send the entity states
 	// of items they're responsible for to the monitoring service.
@@ -40,12 +40,12 @@ func NewMonitoringServiceClient(cc grpc.ClientConnInterface) MonitoringServiceCl
 	return &monitoringServiceClient{cc}
 }
 
-func (c *monitoringServiceClient) GetEntityStates(ctx context.Context, in *GetEntityStatesRequest, opts ...grpc.CallOption) (MonitoringService_GetEntityStatesClient, error) {
-	stream, err := c.cc.NewStream(ctx, &MonitoringService_ServiceDesc.Streams[0], "/strmprivacy.api.monitoring.v1.MonitoringService/GetEntityStates", opts...)
+func (c *monitoringServiceClient) GetEntityState(ctx context.Context, in *GetEntityStateRequest, opts ...grpc.CallOption) (MonitoringService_GetEntityStateClient, error) {
+	stream, err := c.cc.NewStream(ctx, &MonitoringService_ServiceDesc.Streams[0], "/strmprivacy.api.monitoring.v1.MonitoringService/GetEntityState", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &monitoringServiceGetEntityStatesClient{stream}
+	x := &monitoringServiceGetEntityStateClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -55,17 +55,17 @@ func (c *monitoringServiceClient) GetEntityStates(ctx context.Context, in *GetEn
 	return x, nil
 }
 
-type MonitoringService_GetEntityStatesClient interface {
-	Recv() (*GetEntityStatesResponse, error)
+type MonitoringService_GetEntityStateClient interface {
+	Recv() (*GetEntityStateResponse, error)
 	grpc.ClientStream
 }
 
-type monitoringServiceGetEntityStatesClient struct {
+type monitoringServiceGetEntityStateClient struct {
 	grpc.ClientStream
 }
 
-func (x *monitoringServiceGetEntityStatesClient) Recv() (*GetEntityStatesResponse, error) {
-	m := new(GetEntityStatesResponse)
+func (x *monitoringServiceGetEntityStateClient) Recv() (*GetEntityStateResponse, error) {
+	m := new(GetEntityStateResponse)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -113,7 +113,7 @@ type MonitoringServiceServer interface {
 	//
 	// will be called by end users from the cli or console, to retrieve entity states
 	// and indicate them to users.
-	GetEntityStates(*GetEntityStatesRequest, MonitoringService_GetEntityStatesServer) error
+	GetEntityState(*GetEntityStateRequest, MonitoringService_GetEntityStateServer) error
 	//
 	// will be called from entity agents so that they can send the entity states
 	// of items they're responsible for to the monitoring service.
@@ -125,8 +125,8 @@ type MonitoringServiceServer interface {
 type UnimplementedMonitoringServiceServer struct {
 }
 
-func (UnimplementedMonitoringServiceServer) GetEntityStates(*GetEntityStatesRequest, MonitoringService_GetEntityStatesServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetEntityStates not implemented")
+func (UnimplementedMonitoringServiceServer) GetEntityState(*GetEntityStateRequest, MonitoringService_GetEntityStateServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetEntityState not implemented")
 }
 func (UnimplementedMonitoringServiceServer) UpdateEntityStates(MonitoringService_UpdateEntityStatesServer) error {
 	return status.Errorf(codes.Unimplemented, "method UpdateEntityStates not implemented")
@@ -144,24 +144,24 @@ func RegisterMonitoringServiceServer(s grpc.ServiceRegistrar, srv MonitoringServ
 	s.RegisterService(&MonitoringService_ServiceDesc, srv)
 }
 
-func _MonitoringService_GetEntityStates_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GetEntityStatesRequest)
+func _MonitoringService_GetEntityState_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(GetEntityStateRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(MonitoringServiceServer).GetEntityStates(m, &monitoringServiceGetEntityStatesServer{stream})
+	return srv.(MonitoringServiceServer).GetEntityState(m, &monitoringServiceGetEntityStateServer{stream})
 }
 
-type MonitoringService_GetEntityStatesServer interface {
-	Send(*GetEntityStatesResponse) error
+type MonitoringService_GetEntityStateServer interface {
+	Send(*GetEntityStateResponse) error
 	grpc.ServerStream
 }
 
-type monitoringServiceGetEntityStatesServer struct {
+type monitoringServiceGetEntityStateServer struct {
 	grpc.ServerStream
 }
 
-func (x *monitoringServiceGetEntityStatesServer) Send(m *GetEntityStatesResponse) error {
+func (x *monitoringServiceGetEntityStateServer) Send(m *GetEntityStateResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -200,8 +200,8 @@ var MonitoringService_ServiceDesc = grpc.ServiceDesc{
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "GetEntityStates",
-			Handler:       _MonitoringService_GetEntityStates_Handler,
+			StreamName:    "GetEntityState",
+			Handler:       _MonitoringService_GetEntityState_Handler,
 			ServerStreams: true,
 		},
 		{
