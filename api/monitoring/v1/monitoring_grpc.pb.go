@@ -29,7 +29,7 @@ type MonitoringServiceClient interface {
 	//
 	// can be called via the CLI and the Console, to get the latest entity state for all entities included
 	// in this request
-	GetLatestEntityState(ctx context.Context, in *GetLatestEntityStateRequest, opts ...grpc.CallOption) (*GetLatestEntityStateResponse, error)
+	GetLatestEntityStates(ctx context.Context, in *GetLatestEntityStatesRequest, opts ...grpc.CallOption) (*GetLatestEntityStatesResponse, error)
 	//
 	// will be called from entity agents so that they can send the entity states
 	// of items they're responsible for to the monitoring service.
@@ -76,9 +76,9 @@ func (x *monitoringServiceGetEntityStateClient) Recv() (*GetEntityStateResponse,
 	return m, nil
 }
 
-func (c *monitoringServiceClient) GetLatestEntityState(ctx context.Context, in *GetLatestEntityStateRequest, opts ...grpc.CallOption) (*GetLatestEntityStateResponse, error) {
-	out := new(GetLatestEntityStateResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.monitoring.v1.MonitoringService/GetLatestEntityState", in, out, opts...)
+func (c *monitoringServiceClient) GetLatestEntityStates(ctx context.Context, in *GetLatestEntityStatesRequest, opts ...grpc.CallOption) (*GetLatestEntityStatesResponse, error) {
+	out := new(GetLatestEntityStatesResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.monitoring.v1.MonitoringService/GetLatestEntityStates", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +130,7 @@ type MonitoringServiceServer interface {
 	//
 	// can be called via the CLI and the Console, to get the latest entity state for all entities included
 	// in this request
-	GetLatestEntityState(context.Context, *GetLatestEntityStateRequest) (*GetLatestEntityStateResponse, error)
+	GetLatestEntityStates(context.Context, *GetLatestEntityStatesRequest) (*GetLatestEntityStatesResponse, error)
 	//
 	// will be called from entity agents so that they can send the entity states
 	// of items they're responsible for to the monitoring service.
@@ -145,8 +145,8 @@ type UnimplementedMonitoringServiceServer struct {
 func (UnimplementedMonitoringServiceServer) GetEntityState(*GetEntityStateRequest, MonitoringService_GetEntityStateServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetEntityState not implemented")
 }
-func (UnimplementedMonitoringServiceServer) GetLatestEntityState(context.Context, *GetLatestEntityStateRequest) (*GetLatestEntityStateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLatestEntityState not implemented")
+func (UnimplementedMonitoringServiceServer) GetLatestEntityStates(context.Context, *GetLatestEntityStatesRequest) (*GetLatestEntityStatesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLatestEntityStates not implemented")
 }
 func (UnimplementedMonitoringServiceServer) UpdateEntityStates(MonitoringService_UpdateEntityStatesServer) error {
 	return status.Errorf(codes.Unimplemented, "method UpdateEntityStates not implemented")
@@ -185,20 +185,20 @@ func (x *monitoringServiceGetEntityStateServer) Send(m *GetEntityStateResponse) 
 	return x.ServerStream.SendMsg(m)
 }
 
-func _MonitoringService_GetLatestEntityState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetLatestEntityStateRequest)
+func _MonitoringService_GetLatestEntityStates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLatestEntityStatesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MonitoringServiceServer).GetLatestEntityState(ctx, in)
+		return srv.(MonitoringServiceServer).GetLatestEntityStates(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.monitoring.v1.MonitoringService/GetLatestEntityState",
+		FullMethod: "/strmprivacy.api.monitoring.v1.MonitoringService/GetLatestEntityStates",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MonitoringServiceServer).GetLatestEntityState(ctx, req.(*GetLatestEntityStateRequest))
+		return srv.(MonitoringServiceServer).GetLatestEntityStates(ctx, req.(*GetLatestEntityStatesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -237,8 +237,8 @@ var MonitoringService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*MonitoringServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetLatestEntityState",
-			Handler:    _MonitoringService_GetLatestEntityState_Handler,
+			MethodName: "GetLatestEntityStates",
+			Handler:    _MonitoringService_GetLatestEntityStates_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
