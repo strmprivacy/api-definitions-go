@@ -649,7 +649,7 @@ type ReviewDataContractRequest struct {
 	// Id or Data Contract Ref must be filled. If filled in both, Id takes precedence.
 	Id              string              `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	DataContractRef *v1.DataContractRef `protobuf:"bytes,3,opt,name=data_contract_ref,json=dataContractRef,proto3" json:"data_contract_ref,omitempty"`
-	// ignore empty to make dry run possible for testing
+	// When empty, no email is sent after putting the data contract into review
 	ApproverExternalUserId string `protobuf:"bytes,4,opt,name=approver_external_user_id,json=approverExternalUserId,proto3" json:"approver_external_user_id,omitempty"`
 }
 
