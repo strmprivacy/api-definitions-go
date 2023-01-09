@@ -30,7 +30,6 @@ type DataContractsServiceClient interface {
 	ActivateDataContract(ctx context.Context, in *ActivateDataContractRequest, opts ...grpc.CallOption) (*ActivateDataContractResponse, error)
 	DeleteDataContract(ctx context.Context, in *DeleteDataContractRequest, opts ...grpc.CallOption) (*DeleteDataContractResponse, error)
 	ArchiveDataContract(ctx context.Context, in *ArchiveDataContractRequest, opts ...grpc.CallOption) (*ArchiveDataContractResponse, error)
-	ApproveDataContract(ctx context.Context, in *ApproveDataContractRequest, opts ...grpc.CallOption) (*ApproveDataContractResponse, error)
 	GetDataContractSchemaCode(ctx context.Context, in *GetDataContractSchemaCodeRequest, opts ...grpc.CallOption) (*GetDataContractSchemaCodeResponse, error)
 	GetDataContractSchemaDefinition(ctx context.Context, in *GetDataContractSchemaDefinitionRequest, opts ...grpc.CallOption) (*GetDataContractSchemaDefinitionResponse, error)
 	ValidateDataContractsMaskedFields(ctx context.Context, in *ValidateDataContractsMaskedFieldsRequest, opts ...grpc.CallOption) (*ValidateDataContractsMaskedFieldsResponse, error)
@@ -117,15 +116,6 @@ func (c *dataContractsServiceClient) ArchiveDataContract(ctx context.Context, in
 	return out, nil
 }
 
-func (c *dataContractsServiceClient) ApproveDataContract(ctx context.Context, in *ApproveDataContractRequest, opts ...grpc.CallOption) (*ApproveDataContractResponse, error) {
-	out := new(ApproveDataContractResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_contracts.v1.DataContractsService/ApproveDataContract", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *dataContractsServiceClient) GetDataContractSchemaCode(ctx context.Context, in *GetDataContractSchemaCodeRequest, opts ...grpc.CallOption) (*GetDataContractSchemaCodeResponse, error) {
 	out := new(GetDataContractSchemaCodeResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_contracts.v1.DataContractsService/GetDataContractSchemaCode", in, out, opts...)
@@ -174,7 +164,6 @@ type DataContractsServiceServer interface {
 	ActivateDataContract(context.Context, *ActivateDataContractRequest) (*ActivateDataContractResponse, error)
 	DeleteDataContract(context.Context, *DeleteDataContractRequest) (*DeleteDataContractResponse, error)
 	ArchiveDataContract(context.Context, *ArchiveDataContractRequest) (*ArchiveDataContractResponse, error)
-	ApproveDataContract(context.Context, *ApproveDataContractRequest) (*ApproveDataContractResponse, error)
 	GetDataContractSchemaCode(context.Context, *GetDataContractSchemaCodeRequest) (*GetDataContractSchemaCodeResponse, error)
 	GetDataContractSchemaDefinition(context.Context, *GetDataContractSchemaDefinitionRequest) (*GetDataContractSchemaDefinitionResponse, error)
 	ValidateDataContractsMaskedFields(context.Context, *ValidateDataContractsMaskedFieldsRequest) (*ValidateDataContractsMaskedFieldsResponse, error)
@@ -209,9 +198,6 @@ func (UnimplementedDataContractsServiceServer) DeleteDataContract(context.Contex
 }
 func (UnimplementedDataContractsServiceServer) ArchiveDataContract(context.Context, *ArchiveDataContractRequest) (*ArchiveDataContractResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ArchiveDataContract not implemented")
-}
-func (UnimplementedDataContractsServiceServer) ApproveDataContract(context.Context, *ApproveDataContractRequest) (*ApproveDataContractResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ApproveDataContract not implemented")
 }
 func (UnimplementedDataContractsServiceServer) GetDataContractSchemaCode(context.Context, *GetDataContractSchemaCodeRequest) (*GetDataContractSchemaCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataContractSchemaCode not implemented")
@@ -382,24 +368,6 @@ func _DataContractsService_ArchiveDataContract_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DataContractsService_ApproveDataContract_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ApproveDataContractRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DataContractsServiceServer).ApproveDataContract(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.data_contracts.v1.DataContractsService/ApproveDataContract",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DataContractsServiceServer).ApproveDataContract(ctx, req.(*ApproveDataContractRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _DataContractsService_GetDataContractSchemaCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetDataContractSchemaCodeRequest)
 	if err := dec(in); err != nil {
@@ -510,10 +478,6 @@ var DataContractsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ArchiveDataContract",
 			Handler:    _DataContractsService_ArchiveDataContract_Handler,
-		},
-		{
-			MethodName: "ApproveDataContract",
-			Handler:    _DataContractsService_ApproveDataContract_Handler,
 		},
 		{
 			MethodName: "GetDataContractSchemaCode",
