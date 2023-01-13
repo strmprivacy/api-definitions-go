@@ -778,6 +778,8 @@ func (x *InitializeCustomerPortalResponse) GetCustomerPortalUri() string {
 	return ""
 }
 
+// (-- api-linter: core::0134::request-mask-required=disabled
+//     aip.dev/not-precedent:we prefer this approach over creating a new service. --)
 type UpdateOnboardingRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
