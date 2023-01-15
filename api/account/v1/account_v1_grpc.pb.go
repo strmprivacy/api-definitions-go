@@ -35,7 +35,6 @@ type AccountServiceClient interface {
 	// (-- api-linter: core::0134::synonyms=disabled
 	//     aip.dev/not-precedent: We're not updating a Checkout here. --)
 	SetCheckoutCancelled(ctx context.Context, in *SetCheckoutCancelledRequest, opts ...grpc.CallOption) (*SetCheckoutCancelledResponse, error)
-	UpdateOnboarding(ctx context.Context, in *UpdateOnboardingRequest, opts ...grpc.CallOption) (*UpdateOnboardingResponse, error)
 }
 
 type accountServiceClient struct {
@@ -109,15 +108,6 @@ func (c *accountServiceClient) SetCheckoutCancelled(ctx context.Context, in *Set
 	return out, nil
 }
 
-func (c *accountServiceClient) UpdateOnboarding(ctx context.Context, in *UpdateOnboardingRequest, opts ...grpc.CallOption) (*UpdateOnboardingResponse, error) {
-	out := new(UpdateOnboardingResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.account.v1.AccountService/UpdateOnboarding", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AccountServiceServer is the server API for AccountService service.
 // All implementations must embed UnimplementedAccountServiceServer
 // for forward compatibility
@@ -135,7 +125,6 @@ type AccountServiceServer interface {
 	// (-- api-linter: core::0134::synonyms=disabled
 	//     aip.dev/not-precedent: We're not updating a Checkout here. --)
 	SetCheckoutCancelled(context.Context, *SetCheckoutCancelledRequest) (*SetCheckoutCancelledResponse, error)
-	UpdateOnboarding(context.Context, *UpdateOnboardingRequest) (*UpdateOnboardingResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()
 }
 
@@ -163,9 +152,6 @@ func (UnimplementedAccountServiceServer) InitializeCustomerPortal(context.Contex
 }
 func (UnimplementedAccountServiceServer) SetCheckoutCancelled(context.Context, *SetCheckoutCancelledRequest) (*SetCheckoutCancelledResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetCheckoutCancelled not implemented")
-}
-func (UnimplementedAccountServiceServer) UpdateOnboarding(context.Context, *UpdateOnboardingRequest) (*UpdateOnboardingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateOnboarding not implemented")
 }
 func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 
@@ -306,24 +292,6 @@ func _AccountService_SetCheckoutCancelled_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AccountService_UpdateOnboarding_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateOnboardingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AccountServiceServer).UpdateOnboarding(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.account.v1.AccountService/UpdateOnboarding",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountServiceServer).UpdateOnboarding(ctx, req.(*UpdateOnboardingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // AccountService_ServiceDesc is the grpc.ServiceDesc for AccountService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -358,10 +326,6 @@ var AccountService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetCheckoutCancelled",
 			Handler:    _AccountService_SetCheckoutCancelled_Handler,
-		},
-		{
-			MethodName: "UpdateOnboarding",
-			Handler:    _AccountService_UpdateOnboarding_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
