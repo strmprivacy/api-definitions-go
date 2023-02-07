@@ -141,14 +141,13 @@ func (BatchJobStateType) EnumDescriptor() ([]byte, []int) {
 	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{1}
 }
 
+// Consent level is meant to interpret the consent-levels of an event for decryption purposes only.
 //
-//Consent level is meant to interpret the consent-levels of an event for decryption purposes only.
+// Cumulative means that the highest consent-level in an event must be greater than or equal to the single requested level
+// for the decrypted stream.
 //
-//Cumulative means that the highest consent-level in an event must be greater than or equal to the single requested level
-//for the decrypted stream.
-//
-//Granular means that the set of consent-levels in an event must enclose the set of requested event levels for the
-//decrypted stream.
+// Granular means that the set of consent-levels in an event must enclose the set of requested event levels for the
+// decrypted stream.
 type ConsentLevelType int32
 
 const (
@@ -249,8 +248,9 @@ func (SinkType) EnumDescriptor() ([]byte, []int) {
 }
 
 // (-- TODO align values with JAAS. see https://docs.confluent.io/platform/current/kafka/overview-authentication-methods.html --)
-//     also see the Kafka exporter to determine the correct terminology here
-//     SASL_SSL should probably be SASL_OAUTHBEARER --)
+//
+//	also see the Kafka exporter to determine the correct terminology here
+//	SASL_SSL should probably be SASL_OAUTHBEARER --)
 type AuthMechanism int32
 
 const (
@@ -677,22 +677,16 @@ type Schema_State int32
 
 const (
 	Schema_STATE_UNSPECIFIED Schema_State = 0
-	//
 	// This schema is valid and complete, but has not been accepted yet, can still be modified and also deleted.
 	Schema_DRAFT Schema_State = 1
-	//
 	// This schema is valid and complete can be used for events and batch jobs. It cannot be modified or deleted.
 	Schema_ACTIVE Schema_State = 2
-	//
 	// This schema is valid and complete has been active, but no more events can be sent using this schema. In-flight events are still processed.
 	Schema_ARCHIVED Schema_State = 3
-	//
 	// This schema is in review. It can be used once it has been approved.
 	Schema_IN_REVIEW Schema_State = 4
-	//
 	// This schema is still under construction.
 	Schema_INCOMPLETE Schema_State = 5
-	//
 	// This schema is approved and when activated can be used used for events and batch jobs. It cannot be modified or deleted.
 	Schema_APPROVED Schema_State = 6
 )
@@ -750,19 +744,14 @@ type EventContract_State int32
 
 const (
 	EventContract_STATE_UNSPECIFIED EventContract_State = 0
-	//
 	// This event contract is valid and complete, but has not been accepted yet, can still be modified and also deleted.
 	EventContract_DRAFT EventContract_State = 1
-	//
 	// This event contract is valid and complete can be used for events and batch jobs. It cannot be modified or deleted.
 	EventContract_ACTIVE EventContract_State = 2
-	//
 	// This event contract is valid and complete has been active, but no more events can be sent using this schema. In-flight events are still processed.
 	EventContract_ARCHIVED EventContract_State = 3
-	//
 	// This event contract is in review. It can be used once it has been approved.
 	EventContract_IN_REVIEW EventContract_State = 4
-	//
 	// This event contract is still under construction.
 	EventContract_INCOMPLETE EventContract_State = 5
 )
@@ -818,22 +807,16 @@ type DataContract_State int32
 
 const (
 	DataContract_STATE_UNSPECIFIED DataContract_State = 0
-	//
 	// This data contract is valid and complete, but has not been accepted yet, can still be modified and also deleted.
 	DataContract_DRAFT DataContract_State = 1
-	//
 	// This data contract is in review. It can be used once it has been approved.
 	DataContract_IN_REVIEW DataContract_State = 2
-	//
 	// This data contract is valid and complete can be used for events and batch jobs. It cannot be modified or deleted.
 	DataContract_ACTIVE DataContract_State = 3
-	//
 	// This data contract is valid and complete has been active, but no more events can be sent using this data contract. In-flight events are still processed.
 	DataContract_ARCHIVED DataContract_State = 4
-	//
 	// This data contract is still under construction.
 	DataContract_INCOMPLETE DataContract_State = 5
-	//
 	// This data contract is approved and when activated can be used used for events and batch jobs. It cannot be modified or deleted.
 	DataContract_APPROVED DataContract_State = 6
 )
@@ -985,7 +968,6 @@ func (Project_State) EnumDescriptor() ([]byte, []int) {
 	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{68, 0}
 }
 
-//
 // Streams are source or derived streams depending on whether or not linked_stream is null.
 // Key streams are a separate entity in the api.
 type Stream struct {
@@ -996,7 +978,6 @@ type Stream struct {
 	Ref *StreamRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	// Stream description
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	//
 	// consent levels for derived streams
 	//
 	// constraints:
@@ -1288,7 +1269,6 @@ type MaskedFields struct {
 	HashType string `protobuf:"bytes,1,opt,name=hash_type,json=hashType,proto3" json:"hash_type,omitempty"`
 	// hashing seed
 	Seed string `protobuf:"bytes,2,opt,name=seed,proto3" json:"seed,omitempty"`
-	//
 	// map of event-contract-ref vs field patterns
 	//
 	// constraints:
@@ -1408,9 +1388,8 @@ func (x *Limits) GetEventCount() int64 {
 	return 0
 }
 
-//
-//A Stream of key-link, encryption-key, policy-id messages created from a source stream
-//with the same `name`.
+// A Stream of key-link, encryption-key, policy-id messages created from a source stream
+// with the same `name`.
 type KeyStream struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1486,7 +1465,6 @@ type StreamRef struct {
 
 	// Deprecated: Do not use.
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	//
 	// the name of the stream
 	// constraints: generic name
 	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
@@ -1614,8 +1592,7 @@ func (x *KeyStreamRef) GetProjectId() string {
 	return ""
 }
 
-//
-//Credentials to produce to the event-gateway, or to consume from egress.
+// Credentials to produce to the event-gateway, or to consume from egress.
 type Credentials struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1698,6 +1675,7 @@ type Sink struct {
 	Ref      *SinkRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	SinkType SinkType `protobuf:"varint,2,opt,name=sink_type,json=sinkType,proto3,enum=strmprivacy.api.entities.v1.SinkType" json:"sink_type,omitempty"`
 	// Types that are assignable to Config:
+	//
 	//	*Sink_Bucket
 	Config isSink_Config `protobuf_oneof:"config"`
 }
@@ -1905,6 +1883,7 @@ type DataConnector struct {
 
 	Ref *DataConnectorRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	// Types that are assignable to Location:
+	//
 	//	*DataConnector_S3Bucket
 	//	*DataConnector_GoogleCloudStorageBucket
 	//	*DataConnector_AzureBlobStorageContainer
@@ -2164,7 +2143,8 @@ type AwsS3BucketLocation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: We refer to a bucket name. --)
+	//
+	//	aip.dev/not-precedent: We refer to a bucket name. --)
 	BucketName string `protobuf:"bytes,1,opt,name=bucket_name,json=bucketName,proto3" json:"bucket_name,omitempty"`
 	// The AWS IAM credentials that give access to this bucket, in JSON format as returned by the AWS CLI. This means a
 	// JSON with at least one property: "AccessKey", which contains at least the two properties: "AccessKeyId" and
@@ -2236,7 +2216,8 @@ type GoogleCloudStorageBucketLocation struct {
 	unknownFields protoimpl.UnknownFields
 
 	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: We refer to a bucket name. --)
+	//
+	//	aip.dev/not-precedent: We refer to a bucket name. --)
 	BucketName string `protobuf:"bytes,1,opt,name=bucket_name,json=bucketName,proto3" json:"bucket_name,omitempty"`
 	// The Google Cloud Service Account credentials JSON that is used to access the Google Cloud Storage bucket.
 	// We do not support credentials in P12 format.
@@ -2298,7 +2279,9 @@ type AzureBlobStorageContainerLocation struct {
 	// but Azure users can map this to their own domain or subdomain.
 	StorageAccountUri string `protobuf:"bytes,1,opt,name=storage_account_uri,json=storageAccountUri,proto3" json:"storage_account_uri,omitempty"`
 	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: We refer to a container name. --)
+	//
+	//	aip.dev/not-precedent: We refer to a container name. --)
+	//
 	// Name of the Storage Container
 	ContainerName string `protobuf:"bytes,2,opt,name=container_name,json=containerName,proto3" json:"container_name,omitempty"`
 	// The AAD client secret credential used to acquire a token for the AAD application that has the required
@@ -2486,6 +2469,7 @@ type DataType struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Types that are assignable to DataType:
+	//
 	//	*DataType_Csv
 	//	*DataType_Database
 	DataType isDataType_DataType `protobuf_oneof:"data_type"`
@@ -2607,8 +2591,7 @@ func (x *CsvConfig) GetCharset() string {
 	return ""
 }
 
-//
-//A batch exporter.
+// A batch exporter.
 type BatchExporter struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2616,13 +2599,16 @@ type BatchExporter struct {
 
 	Ref *BatchExporterRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	// Types that are assignable to StreamOrKeyStreamRef:
+	//
 	//	*BatchExporter_StreamRef
 	//	*BatchExporter_KeyStreamRef
 	StreamOrKeyStreamRef isBatchExporter_StreamOrKeyStreamRef `protobuf_oneof:"stream_or_key_stream_ref"`
 	// granularity of seconds, nanos is unused
 	Interval *durationpb.Duration `protobuf:"bytes,4,opt,name=interval,proto3" json:"interval,omitempty"`
 	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: We refer to the sink by name. --)
+	//
+	//	aip.dev/not-precedent: We refer to the sink by name. --)
+	//
 	// Deprecated in favor of data_connector_ref
 	//
 	// Deprecated: Do not use.
@@ -2874,8 +2860,7 @@ func (x *BatchExporterRef) GetProjectId() string {
 	return ""
 }
 
-//
-//Currently only our internal shared export cluster.
+// Currently only our internal shared export cluster.
 type KafkaCluster struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2947,8 +2932,7 @@ func (x *KafkaCluster) GetTokenUri() string {
 	return ""
 }
 
-//
-//How to refer to a certain Kafka cluster.
+// How to refer to a certain Kafka cluster.
 type KafkaClusterRef struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2956,7 +2940,6 @@ type KafkaClusterRef struct {
 
 	// (-- streammachine for the default export cluster --)
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	//
 	// constraints: generic name constraint
 	Name      string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	ProjectId string `protobuf:"bytes,3,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
@@ -3092,7 +3075,6 @@ type KafkaExporterRef struct {
 	unknownFields protoimpl.UnknownFields
 
 	BillingId string `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
-	//
 	// default value  <cluster-name>-<stream-name>
 	//
 	// constraints: generic name constraint
@@ -3160,7 +3142,6 @@ type KafkaExporterTarget struct {
 
 	// what cluster to produce to
 	ClusterRef *KafkaClusterRef `protobuf:"bytes,1,opt,name=cluster_ref,json=clusterRef,proto3" json:"cluster_ref,omitempty"`
-	//
 	// the topic this exporter produces to
 	// constraints: access checked on creation of kafka exporter
 	Topic string `protobuf:"bytes,2,opt,name=topic,proto3" json:"topic,omitempty"`
@@ -3230,11 +3211,10 @@ func (x *KafkaExporterTarget) GetClientSecret() string {
 	return ""
 }
 
+// User credentials to consume from topic produced by Kafka Exporter.
 //
-//User credentials to consume from topic produced by Kafka Exporter.
-//
-//The kafka exporter is linked to a certain cluster, so this entity is bound to a certain
-//kafka cluster.
+// The kafka exporter is linked to a certain cluster, so this entity is bound to a certain
+// kafka cluster.
 type KafkaUser struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -3242,7 +3222,8 @@ type KafkaUser struct {
 
 	Ref *KafkaUserRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: We refer to the kafka exporter by name. --)
+	//
+	//	aip.dev/not-precedent: We refer to the kafka exporter by name. --)
 	KafkaExporterName string           `protobuf:"bytes,3,opt,name=kafka_exporter_name,json=kafkaExporterName,proto3" json:"kafka_exporter_name,omitempty"`
 	Topic             string           `protobuf:"bytes,4,opt,name=topic,proto3" json:"topic,omitempty"`
 	ClientId          string           `protobuf:"bytes,5,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
@@ -3436,15 +3417,13 @@ func (x *ConsentLevels) GetConsentLevels() []int32 {
 	return nil
 }
 
-//
-//for descriptive purposes only.
+// for descriptive purposes only.
 type ConsentLevelMapping struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	Ref *ConsentLevelMappingRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
-	//
 	// some text like 'analytics'
 	// constraints: generic name constraint
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
@@ -3796,7 +3775,6 @@ type Schema struct {
 	State Schema_State `protobuf:"varint,2,opt,name=state,proto3,enum=strmprivacy.api.entities.v1.Schema_State" json:"state,omitempty"`
 	// (-- 'is' is intentional here (see https://google.aip.dev/140#booleans) --)
 	IsPublic bool `protobuf:"varint,3,opt,name=is_public,json=isPublic,proto3" json:"is_public,omitempty"`
-	//
 	// constraints: is no longer required provided simple_schema is not empty.
 	Definition   string                         `protobuf:"bytes,4,opt,name=definition,proto3" json:"definition,omitempty"`
 	Fingerprint  string                         `protobuf:"bytes,5,opt,name=fingerprint,proto3" json:"fingerprint,omitempty"`
@@ -3900,7 +3878,6 @@ type SimpleSchemaNode struct {
 	unknownFields protoimpl.UnknownFields
 
 	Type SimpleSchemaNodeType `protobuf:"varint,1,opt,name=type,proto3,enum=strmprivacy.api.entities.v1.SimpleSchemaNodeType" json:"type,omitempty"`
-	//
 	// constraints: same as SimpleSchemaDefinition
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	// avro compatible name set by creator OR derived from name
@@ -3999,10 +3976,8 @@ type SchemaMetadata struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	//
 	// The human readable title of this Schema. Used in the Portal. Defaults to the Schema name. This field can be modified.
 	Title string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
-	//
 	// The description of this Schema. Used in the Portal. Markdown syntax is supported. This field can be modified.
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 	// The timestamp when this Schema was created.
@@ -4643,13 +4618,13 @@ func (x *SinkTree) GetBatchExporters() []*BatchExporter {
 	return nil
 }
 
-//*******************************
+// *******************************
 // Batch Jobs
 // Currently we only support:
 // - CSV as DataFormat type
 // - a clean database for every batch job
 // - CSV files with a header row, because the header is needed to get the field names
-//*******************************
+// *******************************
 type BatchJob struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -4775,6 +4750,7 @@ type BatchJobWrapper struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Types that are assignable to Job:
+	//
 	//	*BatchJobWrapper_EncryptionBatchJob
 	//	*BatchJobWrapper_MicroAggregationBatchJob
 	Job isBatchJobWrapper_Job `protobuf_oneof:"job"`
@@ -5045,7 +5021,8 @@ type DataConnectorAndType struct {
 	// If omitted, files are read from the root of the bucket.
 	PathPrefix string `protobuf:"bytes,2,opt,name=path_prefix,json=pathPrefix,proto3" json:"path_prefix,omitempty"`
 	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: We think file_name is a better name. --)
+	//
+	//	aip.dev/not-precedent: We think file_name is a better name. --)
 	FileName string    `protobuf:"bytes,3,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
 	DataType *DataType `protobuf:"bytes,4,opt,name=data_type,json=dataType,proto3" json:"data_type,omitempty"`
 }
@@ -5568,13 +5545,13 @@ func (x *DerivedData) GetMaskedFields() *MaskedFields {
 	return nil
 }
 
-//*******************************
+// *******************************
 // K-Member Micro-aggregation Batch Job
 // Currently we only support:
 // - CSV as DataFormat type
 // - CSV files with a header row, because the header is needed to get the field names
 // - Numerical, Categorical & Ordinal data
-//*******************************
+// *******************************
 type MicroAggregationBatchJob struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6182,7 +6159,8 @@ func (x *Project) GetState() Project_State {
 }
 
 // (-- api-linter: core::0148::human-names=disabled
-//     aip.dev/not-precedent . --)
+//
+//	aip.dev/not-precedent . --)
 type User struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6367,7 +6345,6 @@ func (x *MaskedFields_PatternList) GetFieldPatterns() []string {
 	return nil
 }
 
-//
 // constraints: overall size < 100000 TBD
 type Schema_SimpleSchemaDefinition struct {
 	state         protoimpl.MessageState
@@ -6376,7 +6353,6 @@ type Schema_SimpleSchemaDefinition struct {
 
 	// constraints: printable characters
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	//
 	// constraints:
 	// dot separated sequence of name constraints
 	// must be Avro compatible. When absent becomes <handle>.<name>.v<version>

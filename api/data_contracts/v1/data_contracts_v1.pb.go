@@ -209,7 +209,9 @@ type ListDataContractsResponse struct {
 	// Deprecated: Do not use.
 	DataContracts []*v1.DataContract `protobuf:"bytes,1,rep,name=data_contracts,json=dataContracts,proto3" json:"data_contracts,omitempty"`
 	// (-- api-linter: core::0132::response-unknown-fields=disabled
-	//     aip.dev/not-precedent: We really need this field because a data-contract is mutable
+	//
+	//	aip.dev/not-precedent: We really need this field because a data-contract is mutable
+	//
 	// as long as the state is not active --)
 	DataContractsAndChecksums []*ListDataContractsResponse_DataContractAndChecksum `protobuf:"bytes,2,rep,name=data_contracts_and_checksums,json=dataContractsAndChecksums,proto3" json:"data_contracts_and_checksums,omitempty"`
 }
@@ -1297,7 +1299,9 @@ type GetDataContractSchemaCodeRequest struct {
 	// Id or Data Contract Ref must be filled. If filled in both Id takes precedence.
 	Id string `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	// (-- api-linter: core::0143::standardized-codes=disabled
-	//     aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)
+	//
+	//	aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)
+	//
 	// This should be an enum
 	Language        string              `protobuf:"bytes,3,opt,name=language,proto3" json:"language,omitempty"`
 	DataContractRef *v1.DataContractRef `protobuf:"bytes,4,opt,name=data_contract_ref,json=dataContractRef,proto3" json:"data_contract_ref,omitempty"`

@@ -142,7 +142,8 @@ type DeleteSinkRequest struct {
 
 	Ref *v1.SinkRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 	// (-- api-linter: core::0135::request-unknown-fields=disabled
-	//     aip.dev/not-precedent: We really need this field. --)
+	//
+	//	aip.dev/not-precedent: We really need this field. --)
 	Recursive bool `protobuf:"varint,2,opt,name=recursive,proto3" json:"recursive,omitempty"`
 }
 

@@ -246,7 +246,7 @@ func (x *AddDataSubjectsKeyLinksResponse) GetIssues() []*AddDataSubjectsKeyLinks
 }
 
 // one data subject 0 or more key links, each of which could have
-//been used to encrypt data up to a certain point in time.
+// been used to encrypt data up to a certain point in time.
 type DatasubjectKeylinks struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -528,7 +528,6 @@ func (x *ListDataSubjectsResponse) GetNextPageToken() string {
 	return ""
 }
 
-//
 // this list is empty when nothing has gone wrong.
 // issue_type are currently:
 //

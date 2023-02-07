@@ -22,7 +22,8 @@ const (
 )
 
 // (-- api-linter: core::0134::request-mask-required=disabled
-//     aip.dev/not-precedent: This RPC only updates one field. --)
+//
+//	aip.dev/not-precedent: This RPC only updates one field. --)
 type UpdateInstalledComponentStateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -382,7 +383,8 @@ type ListInstalledComponentsCurrentStatesResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// (-- api-linter: core::0132::response-unknown-fields=disabled
-	//     aip.dev/not-precedent: field name gets too clunky --)
+	//
+	//	aip.dev/not-precedent: field name gets too clunky --)
 	InstalledComponents []*InstalledComponentsCurrentState `protobuf:"bytes,1,rep,name=installed_components,json=installedComponents,proto3" json:"installed_components,omitempty"`
 }
 

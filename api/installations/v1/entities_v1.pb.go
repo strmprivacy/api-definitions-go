@@ -220,7 +220,8 @@ type Installation struct {
 	// installation. In this case, this field is required.
 	// When used in a SAAS installation, this field is empty.
 	// (-- api-linter: core::0203::required=disabled
-	//     aip.dev/not-precedent: This field is only required in certain circumstances. --)
+	//
+	//	aip.dev/not-precedent: This field is only required in certain circumstances. --)
 	BillingAccountId        string                   `protobuf:"bytes,3,opt,name=billing_account_id,json=billingAccountId,proto3" json:"billing_account_id,omitempty"`
 	InstallationCredentials *InstallationCredentials `protobuf:"bytes,4,opt,name=installation_credentials,json=installationCredentials,proto3" json:"installation_credentials,omitempty"`
 }

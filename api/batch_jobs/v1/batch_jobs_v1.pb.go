@@ -185,7 +185,8 @@ func (x *ListBatchJobsRequest) GetProjectId() string {
 }
 
 // (-- api-linter: core::0132::response-unknown-fields=disabled
-//     aip.dev/not-precedent: we prefer this approach over creating a new service --)
+//
+//	aip.dev/not-precedent: we prefer this approach over creating a new service --)
 type ListBatchJobsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -444,7 +445,8 @@ func (*DeleteBatchJobResponse) Descriptor() ([]byte, []int) {
 }
 
 // (-- api-linter: core::0134::request-mask-required=disabled
-//     aip.dev/not-precedent: This RPC only updates one field. --)
+//
+//	aip.dev/not-precedent: This RPC only updates one field. --)
 type UpdateBatchJobStateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

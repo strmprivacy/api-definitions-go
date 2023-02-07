@@ -22,7 +22,6 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DataSubjectsServiceClient interface {
-	//
 	// Retrieve all key links associated with certain data subject(s)
 	//
 	// returns: a list of data subject with their associated key links and their
@@ -35,10 +34,8 @@ type DataSubjectsServiceClient interface {
 	// The list of DatasubjectKeylinks is combined with a project_id; the DSS uses this to find the linked
 	// organization_id
 	AddDataSubjectsKeyLinks(ctx context.Context, in *AddDataSubjectsKeyLinksRequest, opts ...grpc.CallOption) (*AddDataSubjectsKeyLinksResponse, error)
-	//
 	// delete data subjects from the DSS database, and returns the deleted key links and timestamps
 	DeleteDataSubjects(ctx context.Context, in *DeleteDataSubjectsRequest, opts ...grpc.CallOption) (*DeleteDataSubjectsResponse, error)
-	//
 	// list data subjects from the DSS database
 	ListDataSubjects(ctx context.Context, in *ListDataSubjectsRequest, opts ...grpc.CallOption) (*ListDataSubjectsResponse, error)
 }
@@ -91,7 +88,6 @@ func (c *dataSubjectsServiceClient) ListDataSubjects(ctx context.Context, in *Li
 // All implementations must embed UnimplementedDataSubjectsServiceServer
 // for forward compatibility
 type DataSubjectsServiceServer interface {
-	//
 	// Retrieve all key links associated with certain data subject(s)
 	//
 	// returns: a list of data subject with their associated key links and their
@@ -104,10 +100,8 @@ type DataSubjectsServiceServer interface {
 	// The list of DatasubjectKeylinks is combined with a project_id; the DSS uses this to find the linked
 	// organization_id
 	AddDataSubjectsKeyLinks(context.Context, *AddDataSubjectsKeyLinksRequest) (*AddDataSubjectsKeyLinksResponse, error)
-	//
 	// delete data subjects from the DSS database, and returns the deleted key links and timestamps
 	DeleteDataSubjects(context.Context, *DeleteDataSubjectsRequest) (*DeleteDataSubjectsResponse, error)
-	//
 	// list data subjects from the DSS database
 	ListDataSubjects(context.Context, *ListDataSubjectsRequest) (*ListDataSubjectsResponse, error)
 	mustEmbedUnimplementedDataSubjectsServiceServer()

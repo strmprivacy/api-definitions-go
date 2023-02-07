@@ -33,7 +33,8 @@ type AccountServiceClient interface {
 	GetCheckoutStatus(ctx context.Context, in *GetCheckoutStatusRequest, opts ...grpc.CallOption) (*GetCheckoutStatusResponse, error)
 	InitializeCustomerPortal(ctx context.Context, in *InitializeCustomerPortalRequest, opts ...grpc.CallOption) (*InitializeCustomerPortalResponse, error)
 	// (-- api-linter: core::0134::synonyms=disabled
-	//     aip.dev/not-precedent: We're not updating a Checkout here. --)
+	//
+	//	aip.dev/not-precedent: We're not updating a Checkout here. --)
 	SetCheckoutCancelled(ctx context.Context, in *SetCheckoutCancelledRequest, opts ...grpc.CallOption) (*SetCheckoutCancelledResponse, error)
 	UpdateOnboarding(ctx context.Context, in *UpdateOnboardingRequest, opts ...grpc.CallOption) (*UpdateOnboardingResponse, error)
 }
@@ -133,7 +134,8 @@ type AccountServiceServer interface {
 	GetCheckoutStatus(context.Context, *GetCheckoutStatusRequest) (*GetCheckoutStatusResponse, error)
 	InitializeCustomerPortal(context.Context, *InitializeCustomerPortalRequest) (*InitializeCustomerPortalResponse, error)
 	// (-- api-linter: core::0134::synonyms=disabled
-	//     aip.dev/not-precedent: We're not updating a Checkout here. --)
+	//
+	//	aip.dev/not-precedent: We're not updating a Checkout here. --)
 	SetCheckoutCancelled(context.Context, *SetCheckoutCancelledRequest) (*SetCheckoutCancelledResponse, error)
 	UpdateOnboarding(context.Context, *UpdateOnboardingRequest) (*UpdateOnboardingResponse, error)
 	mustEmbedUnimplementedAccountServiceServer()

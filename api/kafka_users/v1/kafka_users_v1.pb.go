@@ -29,7 +29,8 @@ type ListKafkaUsersRequest struct {
 	unknownFields protoimpl.UnknownFields
 
 	// (-- api-linter: core::0122::name-suffix=disabled
-	//     aip.dev/not-precedent: ref is a better name than Google suggests ¯\_(ツ)_/¯ --)
+	//
+	//	aip.dev/not-precedent: ref is a better name than Google suggests ¯\_(ツ)_/¯ --)
 	Ref *v1.KafkaExporterRef `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
 }
 

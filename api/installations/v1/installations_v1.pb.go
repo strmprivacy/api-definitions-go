@@ -352,7 +352,8 @@ type ListInstallationProjectsResponse struct {
 	unknownFields protoimpl.UnknownFields
 
 	// (-- api-linter: core::0132::response-unknown-fields=disabled
-	//     aip.dev/not-precedent: this is best descriptive. --)
+	//
+	//	aip.dev/not-precedent: this is best descriptive. --)
 	ProjectIds []string `protobuf:"bytes,1,rep,name=project_ids,json=projectIds,proto3" json:"project_ids,omitempty"`
 }
 

@@ -183,7 +183,8 @@ func (x *InviteUsersResponse) GetIssues() []*InviteUsersResponse_UserInviteIssue
 }
 
 // (-- api-linter: core::0134::request-mask-required=disabled
-//     aip.dev/not-precedent: We will not be using the update field mask. --)
+//
+//	aip.dev/not-precedent: We will not be using the update field mask. --)
 type UpdateUserRolesRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

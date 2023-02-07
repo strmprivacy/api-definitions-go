@@ -220,10 +220,9 @@ func (EntityState_ResourceType) EnumDescriptor() ([]byte, []int) {
 	return file_strmprivacy_api_monitoring_v1_monitoring_proto_rawDescGZIP(), []int{6, 2}
 }
 
+// Initial call returns every entity state that's relevant to the caller.
 //
-//Initial call returns every entity state that's relevant to the caller.
-//
-//Subsequent streaming gives changes only.
+// Subsequent streaming gives changes only.
 type GetEntityStateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -338,8 +337,7 @@ func (x *GetEntityStateResponse) GetState() *EntityState {
 	return nil
 }
 
-//
-//Returns the latest entity state that's relevant to the caller.
+// Returns the latest entity state that's relevant to the caller.
 type GetLatestEntityStatesRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -454,9 +452,8 @@ func (x *GetLatestEntityStatesResponse) GetState() []*EntityState {
 	return nil
 }
 
-//
-//Only when changes occur to resources, an entity state is sent
-//(-- api-linter: core::0134::request-mask-required=disabled
+// Only when changes occur to resources, an entity state is sent
+// (-- api-linter: core::0134::request-mask-required=disabled
 type UpdateEntityStatesRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

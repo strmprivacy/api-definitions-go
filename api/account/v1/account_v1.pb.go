@@ -273,7 +273,8 @@ func (x *GetLegacyBillingIdResponse) GetBillingId() string {
 }
 
 // (-- api-linter: core::0133::request-resource-field=disabled
-//     aip.dev/not-precedent: Handle is just a string. --)
+//
+//	aip.dev/not-precedent: Handle is just a string. --)
 type CreateAccountHandleRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -788,7 +789,8 @@ func (x *InitializeCustomerPortalResponse) GetCustomerPortalUri() string {
 }
 
 // (-- api-linter: core::0134::request-mask-required=disabled
-//     aip.dev/not-precedent: we prefer this way over creating a new entity--)
+//
+//	aip.dev/not-precedent: we prefer this way over creating a new entity--)
 type UpdateOnboardingRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

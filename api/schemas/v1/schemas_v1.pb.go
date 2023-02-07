@@ -147,7 +147,8 @@ func (x *ListSchemasRequest) GetIndustries() []string {
 }
 
 // (-- api-linter: core::0158::response-plural-first-field=disabled
-//     aip.dev/not-precedent: Somehow this rule is not correctly checked here. --)
+//
+//	aip.dev/not-precedent: Somehow this rule is not correctly checked here. --)
 type ListSchemasResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -898,7 +899,8 @@ type GetSchemaCodeRequest struct {
 	BillingId string        `protobuf:"bytes,1,opt,name=billing_id,json=billingId,proto3" json:"billing_id,omitempty"`
 	Ref       *v1.SchemaRef `protobuf:"bytes,2,opt,name=ref,proto3" json:"ref,omitempty"`
 	// (-- api-linter: core::0143::standardized-codes=disabled
-	//     aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)
+	//
+	//	aip.dev/not-precedent: language here is a programming language, not a human spoken language. --)
 	Language string `protobuf:"bytes,3,opt,name=language,proto3" json:"language,omitempty"`
 }
 

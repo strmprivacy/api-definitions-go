@@ -22,15 +22,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MonitoringServiceClient interface {
-	//
 	// will be called by end users from the cli or console, to retrieve entity states
 	// and indicate them to users.
 	GetEntityState(ctx context.Context, in *GetEntityStateRequest, opts ...grpc.CallOption) (MonitoringService_GetEntityStateClient, error)
-	//
 	// can be called via the CLI and the Console, to get the latest entity state for all entities included
 	// in this request
 	GetLatestEntityStates(ctx context.Context, in *GetLatestEntityStatesRequest, opts ...grpc.CallOption) (*GetLatestEntityStatesResponse, error)
-	//
 	// will be called from entity agents so that they can send the entity states
 	// of items they're responsible for to the monitoring service.
 	UpdateEntityStates(ctx context.Context, opts ...grpc.CallOption) (MonitoringService_UpdateEntityStatesClient, error)
@@ -123,15 +120,12 @@ func (x *monitoringServiceUpdateEntityStatesClient) CloseAndRecv() (*UpdateEntit
 // All implementations must embed UnimplementedMonitoringServiceServer
 // for forward compatibility
 type MonitoringServiceServer interface {
-	//
 	// will be called by end users from the cli or console, to retrieve entity states
 	// and indicate them to users.
 	GetEntityState(*GetEntityStateRequest, MonitoringService_GetEntityStateServer) error
-	//
 	// can be called via the CLI and the Console, to get the latest entity state for all entities included
 	// in this request
 	GetLatestEntityStates(context.Context, *GetLatestEntityStatesRequest) (*GetLatestEntityStatesResponse, error)
-	//
 	// will be called from entity agents so that they can send the entity states
 	// of items they're responsible for to the monitoring service.
 	UpdateEntityStates(MonitoringService_UpdateEntityStatesServer) error

@@ -118,14 +118,16 @@ func (x *ListCredentialsResponse) GetCredentials() []*v1.Credentials {
 }
 
 // (-- api-linter: core::0135::request-name-required=disabled
-//     aip.dev/not-precedent: A credential has no name, but a level. --)
+//
+//	aip.dev/not-precedent: A credential has no name, but a level. --)
 type DeleteCredentialRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	// (-- api-linter: core::0135::request-unknown-fields=disabled
-	//     aip.dev/not-precedent: A credential has no name, but a level. --)
+	//
+	//	aip.dev/not-precedent: A credential has no name, but a level. --)
 	ClientId string `protobuf:"bytes,1,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
 }
 
@@ -301,14 +303,16 @@ func (x *GetCredentialResponse) GetCredential() *v1.Credentials {
 }
 
 // (-- api-linter: core::0133::request-resource-field=disabled
-//     aip.dev/not-precedent: Credentials are created for a specific stream. --)
+//
+//	aip.dev/not-precedent: Credentials are created for a specific stream. --)
 type CreateCredentialRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	// (-- api-linter: core::0133::request-unknown-fields=disabled
-	//     aip.dev/not-precedent: Credentials are created for a specific stream. --)
+	//
+	//	aip.dev/not-precedent: Credentials are created for a specific stream. --)
 	StreamRef *v1.StreamRef `protobuf:"bytes,1,opt,name=stream_ref,json=streamRef,proto3" json:"stream_ref,omitempty"`
 }
 
