@@ -43,21 +43,19 @@ func (c *handlesServiceClient) ListInstallationHandles(ctx context.Context, in *
 }
 
 // HandlesServiceServer is the server API for HandlesService service.
-// All implementations must embed UnimplementedHandlesServiceServer
+// All implementations should embed UnimplementedHandlesServiceServer
 // for forward compatibility
 type HandlesServiceServer interface {
 	ListInstallationHandles(context.Context, *ListInstallationHandlesRequest) (*ListInstallationHandlesResponse, error)
-	mustEmbedUnimplementedHandlesServiceServer()
 }
 
-// UnimplementedHandlesServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedHandlesServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedHandlesServiceServer struct {
 }
 
 func (UnimplementedHandlesServiceServer) ListInstallationHandles(context.Context, *ListInstallationHandlesRequest) (*ListInstallationHandlesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListInstallationHandles not implemented")
 }
-func (UnimplementedHandlesServiceServer) mustEmbedUnimplementedHandlesServiceServer() {}
 
 // UnsafeHandlesServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to HandlesServiceServer will

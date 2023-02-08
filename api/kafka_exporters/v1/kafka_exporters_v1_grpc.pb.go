@@ -73,17 +73,16 @@ func (c *kafkaExportersServiceClient) CreateKafkaExporter(ctx context.Context, i
 }
 
 // KafkaExportersServiceServer is the server API for KafkaExportersService service.
-// All implementations must embed UnimplementedKafkaExportersServiceServer
+// All implementations should embed UnimplementedKafkaExportersServiceServer
 // for forward compatibility
 type KafkaExportersServiceServer interface {
 	ListKafkaExporters(context.Context, *ListKafkaExportersRequest) (*ListKafkaExportersResponse, error)
 	GetKafkaExporter(context.Context, *GetKafkaExporterRequest) (*GetKafkaExporterResponse, error)
 	DeleteKafkaExporter(context.Context, *DeleteKafkaExporterRequest) (*DeleteKafkaExporterResponse, error)
 	CreateKafkaExporter(context.Context, *CreateKafkaExporterRequest) (*CreateKafkaExporterResponse, error)
-	mustEmbedUnimplementedKafkaExportersServiceServer()
 }
 
-// UnimplementedKafkaExportersServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedKafkaExportersServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedKafkaExportersServiceServer struct {
 }
 
@@ -99,7 +98,6 @@ func (UnimplementedKafkaExportersServiceServer) DeleteKafkaExporter(context.Cont
 func (UnimplementedKafkaExportersServiceServer) CreateKafkaExporter(context.Context, *CreateKafkaExporterRequest) (*CreateKafkaExporterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateKafkaExporter not implemented")
 }
-func (UnimplementedKafkaExportersServiceServer) mustEmbedUnimplementedKafkaExportersServiceServer() {}
 
 // UnsafeKafkaExportersServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to KafkaExportersServiceServer will

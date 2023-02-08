@@ -63,16 +63,15 @@ func (c *purposeMappingServiceClient) CreatePurposeMapping(ctx context.Context, 
 }
 
 // PurposeMappingServiceServer is the server API for PurposeMappingService service.
-// All implementations must embed UnimplementedPurposeMappingServiceServer
+// All implementations should embed UnimplementedPurposeMappingServiceServer
 // for forward compatibility
 type PurposeMappingServiceServer interface {
 	ListPurposeMappings(context.Context, *ListPurposeMappingsRequest) (*ListPurposeMappingsResponse, error)
 	GetPurposeMapping(context.Context, *GetPurposeMappingRequest) (*GetPurposeMappingResponse, error)
 	CreatePurposeMapping(context.Context, *CreatePurposeMappingRequest) (*CreatePurposeMappingResponse, error)
-	mustEmbedUnimplementedPurposeMappingServiceServer()
 }
 
-// UnimplementedPurposeMappingServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedPurposeMappingServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedPurposeMappingServiceServer struct {
 }
 
@@ -85,7 +84,6 @@ func (UnimplementedPurposeMappingServiceServer) GetPurposeMapping(context.Contex
 func (UnimplementedPurposeMappingServiceServer) CreatePurposeMapping(context.Context, *CreatePurposeMappingRequest) (*CreatePurposeMappingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePurposeMapping not implemented")
 }
-func (UnimplementedPurposeMappingServiceServer) mustEmbedUnimplementedPurposeMappingServiceServer() {}
 
 // UnsafePurposeMappingServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to PurposeMappingServiceServer will

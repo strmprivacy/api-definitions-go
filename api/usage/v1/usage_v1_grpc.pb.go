@@ -53,15 +53,14 @@ func (c *usageServiceClient) StoreUsageEvent(ctx context.Context, in *StoreUsage
 }
 
 // UsageServiceServer is the server API for UsageService service.
-// All implementations must embed UnimplementedUsageServiceServer
+// All implementations should embed UnimplementedUsageServiceServer
 // for forward compatibility
 type UsageServiceServer interface {
 	GetStreamEventUsage(context.Context, *GetStreamEventUsageRequest) (*GetStreamEventUsageResponse, error)
 	StoreUsageEvent(context.Context, *StoreUsageEventRequest) (*StoreUsageEventResponse, error)
-	mustEmbedUnimplementedUsageServiceServer()
 }
 
-// UnimplementedUsageServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedUsageServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedUsageServiceServer struct {
 }
 
@@ -71,7 +70,6 @@ func (UnimplementedUsageServiceServer) GetStreamEventUsage(context.Context, *Get
 func (UnimplementedUsageServiceServer) StoreUsageEvent(context.Context, *StoreUsageEventRequest) (*StoreUsageEventResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method StoreUsageEvent not implemented")
 }
-func (UnimplementedUsageServiceServer) mustEmbedUnimplementedUsageServiceServer() {}
 
 // UnsafeUsageServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to UsageServiceServer will

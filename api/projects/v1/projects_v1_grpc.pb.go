@@ -103,7 +103,7 @@ func (c *projectsServiceClient) ListProjectMembers(ctx context.Context, in *List
 }
 
 // ProjectsServiceServer is the server API for ProjectsService service.
-// All implementations must embed UnimplementedProjectsServiceServer
+// All implementations should embed UnimplementedProjectsServiceServer
 // for forward compatibility
 type ProjectsServiceServer interface {
 	ListProjects(context.Context, *ListProjectsRequest) (*ListProjectsResponse, error)
@@ -113,10 +113,9 @@ type ProjectsServiceServer interface {
 	AddProjectMembers(context.Context, *AddProjectMembersRequest) (*AddProjectMembersResponse, error)
 	RemoveProjectMembers(context.Context, *RemoveProjectMembersRequest) (*RemoveProjectMembersResponse, error)
 	ListProjectMembers(context.Context, *ListProjectMembersRequest) (*ListProjectMembersResponse, error)
-	mustEmbedUnimplementedProjectsServiceServer()
 }
 
-// UnimplementedProjectsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedProjectsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedProjectsServiceServer struct {
 }
 
@@ -141,7 +140,6 @@ func (UnimplementedProjectsServiceServer) RemoveProjectMembers(context.Context, 
 func (UnimplementedProjectsServiceServer) ListProjectMembers(context.Context, *ListProjectMembersRequest) (*ListProjectMembersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListProjectMembers not implemented")
 }
-func (UnimplementedProjectsServiceServer) mustEmbedUnimplementedProjectsServiceServer() {}
 
 // UnsafeProjectsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ProjectsServiceServer will

@@ -117,7 +117,7 @@ func (x *monitoringServiceUpdateEntityStatesClient) CloseAndRecv() (*UpdateEntit
 }
 
 // MonitoringServiceServer is the server API for MonitoringService service.
-// All implementations must embed UnimplementedMonitoringServiceServer
+// All implementations should embed UnimplementedMonitoringServiceServer
 // for forward compatibility
 type MonitoringServiceServer interface {
 	// will be called by end users from the cli or console, to retrieve entity states
@@ -129,10 +129,9 @@ type MonitoringServiceServer interface {
 	// will be called from entity agents so that they can send the entity states
 	// of items they're responsible for to the monitoring service.
 	UpdateEntityStates(MonitoringService_UpdateEntityStatesServer) error
-	mustEmbedUnimplementedMonitoringServiceServer()
 }
 
-// UnimplementedMonitoringServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedMonitoringServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedMonitoringServiceServer struct {
 }
 
@@ -145,7 +144,6 @@ func (UnimplementedMonitoringServiceServer) GetLatestEntityStates(context.Contex
 func (UnimplementedMonitoringServiceServer) UpdateEntityStates(MonitoringService_UpdateEntityStatesServer) error {
 	return status.Errorf(codes.Unimplemented, "method UpdateEntityStates not implemented")
 }
-func (UnimplementedMonitoringServiceServer) mustEmbedUnimplementedMonitoringServiceServer() {}
 
 // UnsafeMonitoringServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to MonitoringServiceServer will

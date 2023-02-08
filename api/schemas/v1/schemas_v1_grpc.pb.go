@@ -123,7 +123,7 @@ func (c *schemasServiceClient) GetSchemaDefinition(ctx context.Context, in *GetS
 }
 
 // SchemasServiceServer is the server API for SchemasService service.
-// All implementations must embed UnimplementedSchemasServiceServer
+// All implementations should embed UnimplementedSchemasServiceServer
 // for forward compatibility
 type SchemasServiceServer interface {
 	ListSchemas(context.Context, *ListSchemasRequest) (*ListSchemasResponse, error)
@@ -135,10 +135,9 @@ type SchemasServiceServer interface {
 	DeleteSchema(context.Context, *DeleteSchemaRequest) (*DeleteSchemaResponse, error)
 	ArchiveSchema(context.Context, *ArchiveSchemaRequest) (*ArchiveSchemaResponse, error)
 	GetSchemaDefinition(context.Context, *GetSchemaDefinitionRequest) (*GetSchemaDefinitionResponse, error)
-	mustEmbedUnimplementedSchemasServiceServer()
 }
 
-// UnimplementedSchemasServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedSchemasServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedSchemasServiceServer struct {
 }
 
@@ -169,7 +168,6 @@ func (UnimplementedSchemasServiceServer) ArchiveSchema(context.Context, *Archive
 func (UnimplementedSchemasServiceServer) GetSchemaDefinition(context.Context, *GetSchemaDefinitionRequest) (*GetSchemaDefinitionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSchemaDefinition not implemented")
 }
-func (UnimplementedSchemasServiceServer) mustEmbedUnimplementedSchemasServiceServer() {}
 
 // UnsafeSchemasServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to SchemasServiceServer will

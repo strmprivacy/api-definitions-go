@@ -83,7 +83,7 @@ func (c *streamsServiceClient) CreateStream(ctx context.Context, in *CreateStrea
 }
 
 // StreamsServiceServer is the server API for StreamsService service.
-// All implementations must embed UnimplementedStreamsServiceServer
+// All implementations should embed UnimplementedStreamsServiceServer
 // for forward compatibility
 type StreamsServiceServer interface {
 	ListStreams(context.Context, *ListStreamsRequest) (*ListStreamsResponse, error)
@@ -91,10 +91,9 @@ type StreamsServiceServer interface {
 	GetStream(context.Context, *GetStreamRequest) (*GetStreamResponse, error)
 	DeleteStream(context.Context, *DeleteStreamRequest) (*DeleteStreamResponse, error)
 	CreateStream(context.Context, *CreateStreamRequest) (*CreateStreamResponse, error)
-	mustEmbedUnimplementedStreamsServiceServer()
 }
 
-// UnimplementedStreamsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedStreamsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedStreamsServiceServer struct {
 }
 
@@ -113,7 +112,6 @@ func (UnimplementedStreamsServiceServer) DeleteStream(context.Context, *DeleteSt
 func (UnimplementedStreamsServiceServer) CreateStream(context.Context, *CreateStreamRequest) (*CreateStreamResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateStream not implemented")
 }
-func (UnimplementedStreamsServiceServer) mustEmbedUnimplementedStreamsServiceServer() {}
 
 // UnsafeStreamsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to StreamsServiceServer will

@@ -43,21 +43,19 @@ func (c *batchJobsAgentServiceClient) GetDesiredBatchJobs(ctx context.Context, i
 }
 
 // BatchJobsAgentServiceServer is the server API for BatchJobsAgentService service.
-// All implementations must embed UnimplementedBatchJobsAgentServiceServer
+// All implementations should embed UnimplementedBatchJobsAgentServiceServer
 // for forward compatibility
 type BatchJobsAgentServiceServer interface {
 	GetDesiredBatchJobs(context.Context, *GetDesiredBatchJobsRequest) (*GetDesiredBatchJobsResponse, error)
-	mustEmbedUnimplementedBatchJobsAgentServiceServer()
 }
 
-// UnimplementedBatchJobsAgentServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedBatchJobsAgentServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedBatchJobsAgentServiceServer struct {
 }
 
 func (UnimplementedBatchJobsAgentServiceServer) GetDesiredBatchJobs(context.Context, *GetDesiredBatchJobsRequest) (*GetDesiredBatchJobsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredBatchJobs not implemented")
 }
-func (UnimplementedBatchJobsAgentServiceServer) mustEmbedUnimplementedBatchJobsAgentServiceServer() {}
 
 // UnsafeBatchJobsAgentServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to BatchJobsAgentServiceServer will

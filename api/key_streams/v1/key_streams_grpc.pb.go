@@ -53,15 +53,14 @@ func (c *keyStreamsServiceClient) GetKeyStream(ctx context.Context, in *GetKeySt
 }
 
 // KeyStreamsServiceServer is the server API for KeyStreamsService service.
-// All implementations must embed UnimplementedKeyStreamsServiceServer
+// All implementations should embed UnimplementedKeyStreamsServiceServer
 // for forward compatibility
 type KeyStreamsServiceServer interface {
 	ListKeyStreams(context.Context, *ListKeyStreamsRequest) (*ListKeyStreamsResponse, error)
 	GetKeyStream(context.Context, *GetKeyStreamRequest) (*GetKeyStreamResponse, error)
-	mustEmbedUnimplementedKeyStreamsServiceServer()
 }
 
-// UnimplementedKeyStreamsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedKeyStreamsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedKeyStreamsServiceServer struct {
 }
 
@@ -71,7 +70,6 @@ func (UnimplementedKeyStreamsServiceServer) ListKeyStreams(context.Context, *Lis
 func (UnimplementedKeyStreamsServiceServer) GetKeyStream(context.Context, *GetKeyStreamRequest) (*GetKeyStreamResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKeyStream not implemented")
 }
-func (UnimplementedKeyStreamsServiceServer) mustEmbedUnimplementedKeyStreamsServiceServer() {}
 
 // UnsafeKeyStreamsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to KeyStreamsServiceServer will

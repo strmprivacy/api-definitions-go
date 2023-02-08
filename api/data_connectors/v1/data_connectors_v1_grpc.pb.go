@@ -73,17 +73,16 @@ func (c *dataConnectorsServiceClient) CreateDataConnector(ctx context.Context, i
 }
 
 // DataConnectorsServiceServer is the server API for DataConnectorsService service.
-// All implementations must embed UnimplementedDataConnectorsServiceServer
+// All implementations should embed UnimplementedDataConnectorsServiceServer
 // for forward compatibility
 type DataConnectorsServiceServer interface {
 	ListDataConnectors(context.Context, *ListDataConnectorsRequest) (*ListDataConnectorsResponse, error)
 	GetDataConnector(context.Context, *GetDataConnectorRequest) (*GetDataConnectorResponse, error)
 	DeleteDataConnector(context.Context, *DeleteDataConnectorRequest) (*DeleteDataConnectorResponse, error)
 	CreateDataConnector(context.Context, *CreateDataConnectorRequest) (*CreateDataConnectorResponse, error)
-	mustEmbedUnimplementedDataConnectorsServiceServer()
 }
 
-// UnimplementedDataConnectorsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedDataConnectorsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedDataConnectorsServiceServer struct {
 }
 
@@ -99,7 +98,6 @@ func (UnimplementedDataConnectorsServiceServer) DeleteDataConnector(context.Cont
 func (UnimplementedDataConnectorsServiceServer) CreateDataConnector(context.Context, *CreateDataConnectorRequest) (*CreateDataConnectorResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDataConnector not implemented")
 }
-func (UnimplementedDataConnectorsServiceServer) mustEmbedUnimplementedDataConnectorsServiceServer() {}
 
 // UnsafeDataConnectorsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to DataConnectorsServiceServer will

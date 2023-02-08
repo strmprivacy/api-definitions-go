@@ -73,17 +73,16 @@ func (c *kafkaClustersServiceClient) CreateKafkaCluster(ctx context.Context, in 
 }
 
 // KafkaClustersServiceServer is the server API for KafkaClustersService service.
-// All implementations must embed UnimplementedKafkaClustersServiceServer
+// All implementations should embed UnimplementedKafkaClustersServiceServer
 // for forward compatibility
 type KafkaClustersServiceServer interface {
 	ListKafkaClusters(context.Context, *ListKafkaClustersRequest) (*ListKafkaClustersResponse, error)
 	GetKafkaCluster(context.Context, *GetKafkaClusterRequest) (*GetKafkaClusterResponse, error)
 	DeleteKafkaCluster(context.Context, *DeleteKafkaClusterRequest) (*DeleteKafkaClusterResponse, error)
 	CreateKafkaCluster(context.Context, *CreateKafkaClusterRequest) (*CreateKafkaClusterResponse, error)
-	mustEmbedUnimplementedKafkaClustersServiceServer()
 }
 
-// UnimplementedKafkaClustersServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedKafkaClustersServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedKafkaClustersServiceServer struct {
 }
 
@@ -99,7 +98,6 @@ func (UnimplementedKafkaClustersServiceServer) DeleteKafkaCluster(context.Contex
 func (UnimplementedKafkaClustersServiceServer) CreateKafkaCluster(context.Context, *CreateKafkaClusterRequest) (*CreateKafkaClusterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateKafkaCluster not implemented")
 }
-func (UnimplementedKafkaClustersServiceServer) mustEmbedUnimplementedKafkaClustersServiceServer() {}
 
 // UnsafeKafkaClustersServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to KafkaClustersServiceServer will

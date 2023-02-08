@@ -85,7 +85,7 @@ func (c *dataSubjectsServiceClient) ListDataSubjects(ctx context.Context, in *Li
 }
 
 // DataSubjectsServiceServer is the server API for DataSubjectsService service.
-// All implementations must embed UnimplementedDataSubjectsServiceServer
+// All implementations should embed UnimplementedDataSubjectsServiceServer
 // for forward compatibility
 type DataSubjectsServiceServer interface {
 	// Retrieve all key links associated with certain data subject(s)
@@ -104,10 +104,9 @@ type DataSubjectsServiceServer interface {
 	DeleteDataSubjects(context.Context, *DeleteDataSubjectsRequest) (*DeleteDataSubjectsResponse, error)
 	// list data subjects from the DSS database
 	ListDataSubjects(context.Context, *ListDataSubjectsRequest) (*ListDataSubjectsResponse, error)
-	mustEmbedUnimplementedDataSubjectsServiceServer()
 }
 
-// UnimplementedDataSubjectsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedDataSubjectsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedDataSubjectsServiceServer struct {
 }
 
@@ -123,7 +122,6 @@ func (UnimplementedDataSubjectsServiceServer) DeleteDataSubjects(context.Context
 func (UnimplementedDataSubjectsServiceServer) ListDataSubjects(context.Context, *ListDataSubjectsRequest) (*ListDataSubjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDataSubjects not implemented")
 }
-func (UnimplementedDataSubjectsServiceServer) mustEmbedUnimplementedDataSubjectsServiceServer() {}
 
 // UnsafeDataSubjectsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to DataSubjectsServiceServer will

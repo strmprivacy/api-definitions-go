@@ -73,17 +73,16 @@ func (c *customerEntityVersionsServiceClient) GetBatchJobRunnerImage(ctx context
 }
 
 // CustomerEntityVersionsServiceServer is the server API for CustomerEntityVersionsService service.
-// All implementations must embed UnimplementedCustomerEntityVersionsServiceServer
+// All implementations should embed UnimplementedCustomerEntityVersionsServiceServer
 // for forward compatibility
 type CustomerEntityVersionsServiceServer interface {
 	GetBatchExporterImage(context.Context, *GetBatchExporterImageRequest) (*GetBatchExporterImageResponse, error)
 	GetKafkaExporterImage(context.Context, *GetKafkaExporterImageRequest) (*GetKafkaExporterImageResponse, error)
 	GetDecrypterImage(context.Context, *GetDecrypterImageRequest) (*GetDecrypterImageResponse, error)
 	GetBatchJobRunnerImage(context.Context, *GetBatchJobRunnerImageRequest) (*GetBatchJobRunnerImageResponse, error)
-	mustEmbedUnimplementedCustomerEntityVersionsServiceServer()
 }
 
-// UnimplementedCustomerEntityVersionsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedCustomerEntityVersionsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedCustomerEntityVersionsServiceServer struct {
 }
 
@@ -98,8 +97,6 @@ func (UnimplementedCustomerEntityVersionsServiceServer) GetDecrypterImage(contex
 }
 func (UnimplementedCustomerEntityVersionsServiceServer) GetBatchJobRunnerImage(context.Context, *GetBatchJobRunnerImageRequest) (*GetBatchJobRunnerImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBatchJobRunnerImage not implemented")
-}
-func (UnimplementedCustomerEntityVersionsServiceServer) mustEmbedUnimplementedCustomerEntityVersionsServiceServer() {
 }
 
 // UnsafeCustomerEntityVersionsServiceServer may be embedded to opt out of forward compatibility for this service.

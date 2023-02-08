@@ -83,7 +83,7 @@ func (c *batchJobsServiceClient) UpdateBatchJobState(ctx context.Context, in *Up
 }
 
 // BatchJobsServiceServer is the server API for BatchJobsService service.
-// All implementations must embed UnimplementedBatchJobsServiceServer
+// All implementations should embed UnimplementedBatchJobsServiceServer
 // for forward compatibility
 type BatchJobsServiceServer interface {
 	GetBatchJob(context.Context, *GetBatchJobRequest) (*GetBatchJobResponse, error)
@@ -91,10 +91,9 @@ type BatchJobsServiceServer interface {
 	CreateBatchJob(context.Context, *CreateBatchJobRequest) (*CreateBatchJobResponse, error)
 	DeleteBatchJob(context.Context, *DeleteBatchJobRequest) (*DeleteBatchJobResponse, error)
 	UpdateBatchJobState(context.Context, *UpdateBatchJobStateRequest) (*UpdateBatchJobStateResponse, error)
-	mustEmbedUnimplementedBatchJobsServiceServer()
 }
 
-// UnimplementedBatchJobsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedBatchJobsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedBatchJobsServiceServer struct {
 }
 
@@ -113,7 +112,6 @@ func (UnimplementedBatchJobsServiceServer) DeleteBatchJob(context.Context, *Dele
 func (UnimplementedBatchJobsServiceServer) UpdateBatchJobState(context.Context, *UpdateBatchJobStateRequest) (*UpdateBatchJobStateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBatchJobState not implemented")
 }
-func (UnimplementedBatchJobsServiceServer) mustEmbedUnimplementedBatchJobsServiceServer() {}
 
 // UnsafeBatchJobsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to BatchJobsServiceServer will

@@ -163,7 +163,7 @@ func (c *dataContractsServiceClient) SimpleSchemaDryRun(ctx context.Context, in 
 }
 
 // DataContractsServiceServer is the server API for DataContractsService service.
-// All implementations must embed UnimplementedDataContractsServiceServer
+// All implementations should embed UnimplementedDataContractsServiceServer
 // for forward compatibility
 type DataContractsServiceServer interface {
 	ListDataContracts(context.Context, *ListDataContractsRequest) (*ListDataContractsResponse, error)
@@ -179,10 +179,9 @@ type DataContractsServiceServer interface {
 	GetDataContractSchemaDefinition(context.Context, *GetDataContractSchemaDefinitionRequest) (*GetDataContractSchemaDefinitionResponse, error)
 	ValidateDataContractsMaskedFields(context.Context, *ValidateDataContractsMaskedFieldsRequest) (*ValidateDataContractsMaskedFieldsResponse, error)
 	SimpleSchemaDryRun(context.Context, *SimpleSchemaDryRunRequest) (*SimpleSchemaDryRunResponse, error)
-	mustEmbedUnimplementedDataContractsServiceServer()
 }
 
-// UnimplementedDataContractsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedDataContractsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedDataContractsServiceServer struct {
 }
 
@@ -225,7 +224,6 @@ func (UnimplementedDataContractsServiceServer) ValidateDataContractsMaskedFields
 func (UnimplementedDataContractsServiceServer) SimpleSchemaDryRun(context.Context, *SimpleSchemaDryRunRequest) (*SimpleSchemaDryRunResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SimpleSchemaDryRun not implemented")
 }
-func (UnimplementedDataContractsServiceServer) mustEmbedUnimplementedDataContractsServiceServer() {}
 
 // UnsafeDataContractsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to DataContractsServiceServer will

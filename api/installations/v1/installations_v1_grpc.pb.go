@@ -77,7 +77,7 @@ func (c *installationsServiceClient) ListInstallationProjects(ctx context.Contex
 }
 
 // InstallationsServiceServer is the server API for InstallationsService service.
-// All implementations must embed UnimplementedInstallationsServiceServer
+// All implementations should embed UnimplementedInstallationsServiceServer
 // for forward compatibility
 type InstallationsServiceServer interface {
 	GetInstallation(context.Context, *GetInstallationRequest) (*GetInstallationResponse, error)
@@ -86,10 +86,9 @@ type InstallationsServiceServer interface {
 	GetProjectInstallation(context.Context, *GetProjectInstallationRequest) (*GetProjectInstallationResponse, error)
 	// Deprecated: Do not use.
 	ListInstallationProjects(context.Context, *ListInstallationProjectsRequest) (*ListInstallationProjectsResponse, error)
-	mustEmbedUnimplementedInstallationsServiceServer()
 }
 
-// UnimplementedInstallationsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedInstallationsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedInstallationsServiceServer struct {
 }
 
@@ -105,7 +104,6 @@ func (UnimplementedInstallationsServiceServer) GetProjectInstallation(context.Co
 func (UnimplementedInstallationsServiceServer) ListInstallationProjects(context.Context, *ListInstallationProjectsRequest) (*ListInstallationProjectsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListInstallationProjects not implemented")
 }
-func (UnimplementedInstallationsServiceServer) mustEmbedUnimplementedInstallationsServiceServer() {}
 
 // UnsafeInstallationsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to InstallationsServiceServer will

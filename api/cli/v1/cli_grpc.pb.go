@@ -43,21 +43,19 @@ func (c *cliServiceClient) GetRelease(ctx context.Context, in *GetReleaseRequest
 }
 
 // CliServiceServer is the server API for CliService service.
-// All implementations must embed UnimplementedCliServiceServer
+// All implementations should embed UnimplementedCliServiceServer
 // for forward compatibility
 type CliServiceServer interface {
 	GetRelease(context.Context, *GetReleaseRequest) (*GetReleaseResponse, error)
-	mustEmbedUnimplementedCliServiceServer()
 }
 
-// UnimplementedCliServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedCliServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedCliServiceServer struct {
 }
 
 func (UnimplementedCliServiceServer) GetRelease(context.Context, *GetReleaseRequest) (*GetReleaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRelease not implemented")
 }
-func (UnimplementedCliServiceServer) mustEmbedUnimplementedCliServiceServer() {}
 
 // UnsafeCliServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to CliServiceServer will

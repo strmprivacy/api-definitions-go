@@ -43,21 +43,18 @@ func (c *batchExportersAgentServiceClient) GetDesiredBatchExporters(ctx context.
 }
 
 // BatchExportersAgentServiceServer is the server API for BatchExportersAgentService service.
-// All implementations must embed UnimplementedBatchExportersAgentServiceServer
+// All implementations should embed UnimplementedBatchExportersAgentServiceServer
 // for forward compatibility
 type BatchExportersAgentServiceServer interface {
 	GetDesiredBatchExporters(context.Context, *GetDesiredBatchExportersRequest) (*GetDesiredBatchExportersResponse, error)
-	mustEmbedUnimplementedBatchExportersAgentServiceServer()
 }
 
-// UnimplementedBatchExportersAgentServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedBatchExportersAgentServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedBatchExportersAgentServiceServer struct {
 }
 
 func (UnimplementedBatchExportersAgentServiceServer) GetDesiredBatchExporters(context.Context, *GetDesiredBatchExportersRequest) (*GetDesiredBatchExportersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredBatchExporters not implemented")
-}
-func (UnimplementedBatchExportersAgentServiceServer) mustEmbedUnimplementedBatchExportersAgentServiceServer() {
 }
 
 // UnsafeBatchExportersAgentServiceServer may be embedded to opt out of forward compatibility for this service.

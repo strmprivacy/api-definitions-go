@@ -73,17 +73,16 @@ func (c *batchExportersServiceClient) CreateBatchExporter(ctx context.Context, i
 }
 
 // BatchExportersServiceServer is the server API for BatchExportersService service.
-// All implementations must embed UnimplementedBatchExportersServiceServer
+// All implementations should embed UnimplementedBatchExportersServiceServer
 // for forward compatibility
 type BatchExportersServiceServer interface {
 	ListBatchExporters(context.Context, *ListBatchExportersRequest) (*ListBatchExportersResponse, error)
 	GetBatchExporter(context.Context, *GetBatchExporterRequest) (*GetBatchExporterResponse, error)
 	DeleteBatchExporter(context.Context, *DeleteBatchExporterRequest) (*DeleteBatchExporterResponse, error)
 	CreateBatchExporter(context.Context, *CreateBatchExporterRequest) (*CreateBatchExporterResponse, error)
-	mustEmbedUnimplementedBatchExportersServiceServer()
 }
 
-// UnimplementedBatchExportersServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedBatchExportersServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedBatchExportersServiceServer struct {
 }
 
@@ -99,7 +98,6 @@ func (UnimplementedBatchExportersServiceServer) DeleteBatchExporter(context.Cont
 func (UnimplementedBatchExportersServiceServer) CreateBatchExporter(context.Context, *CreateBatchExporterRequest) (*CreateBatchExporterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateBatchExporter not implemented")
 }
-func (UnimplementedBatchExportersServiceServer) mustEmbedUnimplementedBatchExportersServiceServer() {}
 
 // UnsafeBatchExportersServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to BatchExportersServiceServer will

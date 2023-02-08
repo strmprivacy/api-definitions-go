@@ -73,17 +73,16 @@ func (c *organizationsServiceClient) ListOrganizationMembers(ctx context.Context
 }
 
 // OrganizationsServiceServer is the server API for OrganizationsService service.
-// All implementations must embed UnimplementedOrganizationsServiceServer
+// All implementations should embed UnimplementedOrganizationsServiceServer
 // for forward compatibility
 type OrganizationsServiceServer interface {
 	InviteUsers(context.Context, *InviteUsersRequest) (*InviteUsersResponse, error)
 	UpdateUserRoles(context.Context, *UpdateUserRolesRequest) (*UpdateUserRolesResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	ListOrganizationMembers(context.Context, *ListOrganizationMembersRequest) (*ListOrganizationMembersResponse, error)
-	mustEmbedUnimplementedOrganizationsServiceServer()
 }
 
-// UnimplementedOrganizationsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedOrganizationsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedOrganizationsServiceServer struct {
 }
 
@@ -99,7 +98,6 @@ func (UnimplementedOrganizationsServiceServer) GetUser(context.Context, *GetUser
 func (UnimplementedOrganizationsServiceServer) ListOrganizationMembers(context.Context, *ListOrganizationMembersRequest) (*ListOrganizationMembersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListOrganizationMembers not implemented")
 }
-func (UnimplementedOrganizationsServiceServer) mustEmbedUnimplementedOrganizationsServiceServer() {}
 
 // UnsafeOrganizationsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to OrganizationsServiceServer will

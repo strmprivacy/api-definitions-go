@@ -43,21 +43,19 @@ func (c *streamsAgentServiceClient) GetStreams(ctx context.Context, in *GetStrea
 }
 
 // StreamsAgentServiceServer is the server API for StreamsAgentService service.
-// All implementations must embed UnimplementedStreamsAgentServiceServer
+// All implementations should embed UnimplementedStreamsAgentServiceServer
 // for forward compatibility
 type StreamsAgentServiceServer interface {
 	GetStreams(context.Context, *GetStreamsRequest) (*GetStreamsResponse, error)
-	mustEmbedUnimplementedStreamsAgentServiceServer()
 }
 
-// UnimplementedStreamsAgentServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedStreamsAgentServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedStreamsAgentServiceServer struct {
 }
 
 func (UnimplementedStreamsAgentServiceServer) GetStreams(context.Context, *GetStreamsRequest) (*GetStreamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetStreams not implemented")
 }
-func (UnimplementedStreamsAgentServiceServer) mustEmbedUnimplementedStreamsAgentServiceServer() {}
 
 // UnsafeStreamsAgentServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to StreamsAgentServiceServer will

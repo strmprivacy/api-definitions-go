@@ -73,17 +73,16 @@ func (c *kafkaUsersServiceClient) CreateKafkaUser(ctx context.Context, in *Creat
 }
 
 // KafkaUsersServiceServer is the server API for KafkaUsersService service.
-// All implementations must embed UnimplementedKafkaUsersServiceServer
+// All implementations should embed UnimplementedKafkaUsersServiceServer
 // for forward compatibility
 type KafkaUsersServiceServer interface {
 	ListKafkaUsers(context.Context, *ListKafkaUsersRequest) (*ListKafkaUsersResponse, error)
 	GetKafkaUser(context.Context, *GetKafkaUserRequest) (*GetKafkaUserResponse, error)
 	DeleteKafkaUser(context.Context, *DeleteKafkaUserRequest) (*DeleteKafkaUserResponse, error)
 	CreateKafkaUser(context.Context, *CreateKafkaUserRequest) (*CreateKafkaUserResponse, error)
-	mustEmbedUnimplementedKafkaUsersServiceServer()
 }
 
-// UnimplementedKafkaUsersServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedKafkaUsersServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedKafkaUsersServiceServer struct {
 }
 
@@ -99,7 +98,6 @@ func (UnimplementedKafkaUsersServiceServer) DeleteKafkaUser(context.Context, *De
 func (UnimplementedKafkaUsersServiceServer) CreateKafkaUser(context.Context, *CreateKafkaUserRequest) (*CreateKafkaUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateKafkaUser not implemented")
 }
-func (UnimplementedKafkaUsersServiceServer) mustEmbedUnimplementedKafkaUsersServiceServer() {}
 
 // UnsafeKafkaUsersServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to KafkaUsersServiceServer will

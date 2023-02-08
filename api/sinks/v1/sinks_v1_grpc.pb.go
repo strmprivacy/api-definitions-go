@@ -76,7 +76,7 @@ func (c *sinksServiceClient) CreateSink(ctx context.Context, in *CreateSinkReque
 }
 
 // SinksServiceServer is the server API for SinksService service.
-// All implementations must embed UnimplementedSinksServiceServer
+// All implementations should embed UnimplementedSinksServiceServer
 // for forward compatibility
 //
 // Deprecated: Do not use.
@@ -85,10 +85,9 @@ type SinksServiceServer interface {
 	GetSink(context.Context, *GetSinkRequest) (*GetSinkResponse, error)
 	DeleteSink(context.Context, *DeleteSinkRequest) (*DeleteSinkResponse, error)
 	CreateSink(context.Context, *CreateSinkRequest) (*CreateSinkResponse, error)
-	mustEmbedUnimplementedSinksServiceServer()
 }
 
-// UnimplementedSinksServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedSinksServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedSinksServiceServer struct {
 }
 
@@ -104,7 +103,6 @@ func (UnimplementedSinksServiceServer) DeleteSink(context.Context, *DeleteSinkRe
 func (UnimplementedSinksServiceServer) CreateSink(context.Context, *CreateSinkRequest) (*CreateSinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSink not implemented")
 }
-func (UnimplementedSinksServiceServer) mustEmbedUnimplementedSinksServiceServer() {}
 
 // UnsafeSinksServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to SinksServiceServer will

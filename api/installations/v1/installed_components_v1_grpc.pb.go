@@ -78,7 +78,7 @@ func (c *installedComponentsServiceClient) ListInstalledComponentsCurrentStates(
 }
 
 // InstalledComponentsServiceServer is the server API for InstalledComponentsService service.
-// All implementations must embed UnimplementedInstalledComponentsServiceServer
+// All implementations should embed UnimplementedInstalledComponentsServiceServer
 // for forward compatibility
 type InstalledComponentsServiceServer interface {
 	// Authentication goes through the installations realm; a strm-installation-id is required in the metadata.
@@ -90,10 +90,9 @@ type InstalledComponentsServiceServer interface {
 	// Authentication goes through the users realm; a strm-external-user-id is required in the metadata. Similar to list,
 	// but only lists the state of the instances in the last x minutes
 	ListInstalledComponentsCurrentStates(context.Context, *ListInstalledComponentsCurrentStatesRequest) (*ListInstalledComponentsCurrentStatesResponse, error)
-	mustEmbedUnimplementedInstalledComponentsServiceServer()
 }
 
-// UnimplementedInstalledComponentsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedInstalledComponentsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedInstalledComponentsServiceServer struct {
 }
 
@@ -108,8 +107,6 @@ func (UnimplementedInstalledComponentsServiceServer) ListInstalledComponents(con
 }
 func (UnimplementedInstalledComponentsServiceServer) ListInstalledComponentsCurrentStates(context.Context, *ListInstalledComponentsCurrentStatesRequest) (*ListInstalledComponentsCurrentStatesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListInstalledComponentsCurrentStates not implemented")
-}
-func (UnimplementedInstalledComponentsServiceServer) mustEmbedUnimplementedInstalledComponentsServiceServer() {
 }
 
 // UnsafeInstalledComponentsServiceServer may be embedded to opt out of forward compatibility for this service.

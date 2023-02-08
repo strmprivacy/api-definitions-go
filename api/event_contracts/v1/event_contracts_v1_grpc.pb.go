@@ -123,7 +123,7 @@ func (c *eventContractsServiceClient) GetEventContractAndSchema(ctx context.Cont
 }
 
 // EventContractsServiceServer is the server API for EventContractsService service.
-// All implementations must embed UnimplementedEventContractsServiceServer
+// All implementations should embed UnimplementedEventContractsServiceServer
 // for forward compatibility
 type EventContractsServiceServer interface {
 	ListEventContracts(context.Context, *ListEventContractsRequest) (*ListEventContractsResponse, error)
@@ -135,10 +135,9 @@ type EventContractsServiceServer interface {
 	ArchiveEventContract(context.Context, *ArchiveEventContractRequest) (*ArchiveEventContractResponse, error)
 	ValidateMaskedFields(context.Context, *ValidateMaskedFieldsRequest) (*ValidateMaskedFieldsResponse, error)
 	GetEventContractAndSchema(context.Context, *GetEventContractAndSchemaRequest) (*GetEventContractAndSchemaResponse, error)
-	mustEmbedUnimplementedEventContractsServiceServer()
 }
 
-// UnimplementedEventContractsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedEventContractsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedEventContractsServiceServer struct {
 }
 
@@ -169,7 +168,6 @@ func (UnimplementedEventContractsServiceServer) ValidateMaskedFields(context.Con
 func (UnimplementedEventContractsServiceServer) GetEventContractAndSchema(context.Context, *GetEventContractAndSchemaRequest) (*GetEventContractAndSchemaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEventContractAndSchema not implemented")
 }
-func (UnimplementedEventContractsServiceServer) mustEmbedUnimplementedEventContractsServiceServer() {}
 
 // UnsafeEventContractsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to EventContractsServiceServer will

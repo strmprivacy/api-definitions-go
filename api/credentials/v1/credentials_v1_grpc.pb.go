@@ -73,17 +73,16 @@ func (c *credentialsServiceClient) DeleteCredential(ctx context.Context, in *Del
 }
 
 // CredentialsServiceServer is the server API for CredentialsService service.
-// All implementations must embed UnimplementedCredentialsServiceServer
+// All implementations should embed UnimplementedCredentialsServiceServer
 // for forward compatibility
 type CredentialsServiceServer interface {
 	ListCredentials(context.Context, *ListCredentialsRequest) (*ListCredentialsResponse, error)
 	GetCredential(context.Context, *GetCredentialRequest) (*GetCredentialResponse, error)
 	CreateCredential(context.Context, *CreateCredentialRequest) (*CreateCredentialResponse, error)
 	DeleteCredential(context.Context, *DeleteCredentialRequest) (*DeleteCredentialResponse, error)
-	mustEmbedUnimplementedCredentialsServiceServer()
 }
 
-// UnimplementedCredentialsServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedCredentialsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedCredentialsServiceServer struct {
 }
 
@@ -99,7 +98,6 @@ func (UnimplementedCredentialsServiceServer) CreateCredential(context.Context, *
 func (UnimplementedCredentialsServiceServer) DeleteCredential(context.Context, *DeleteCredentialRequest) (*DeleteCredentialResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCredential not implemented")
 }
-func (UnimplementedCredentialsServiceServer) mustEmbedUnimplementedCredentialsServiceServer() {}
 
 // UnsafeCredentialsServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to CredentialsServiceServer will

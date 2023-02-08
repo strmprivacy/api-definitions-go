@@ -83,7 +83,7 @@ func (c *policiesServiceClient) UpdatePolicy(ctx context.Context, in *UpdatePoli
 }
 
 // PoliciesServiceServer is the server API for PoliciesService service.
-// All implementations must embed UnimplementedPoliciesServiceServer
+// All implementations should embed UnimplementedPoliciesServiceServer
 // for forward compatibility
 type PoliciesServiceServer interface {
 	ListPolicies(context.Context, *ListPoliciesRequest) (*ListPoliciesResponse, error)
@@ -91,10 +91,9 @@ type PoliciesServiceServer interface {
 	DeletePolicy(context.Context, *DeletePolicyRequest) (*DeletePolicyResponse, error)
 	CreatePolicy(context.Context, *CreatePolicyRequest) (*CreatePolicyResponse, error)
 	UpdatePolicy(context.Context, *UpdatePolicyRequest) (*UpdatePolicyResponse, error)
-	mustEmbedUnimplementedPoliciesServiceServer()
 }
 
-// UnimplementedPoliciesServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedPoliciesServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedPoliciesServiceServer struct {
 }
 
@@ -113,7 +112,6 @@ func (UnimplementedPoliciesServiceServer) CreatePolicy(context.Context, *CreateP
 func (UnimplementedPoliciesServiceServer) UpdatePolicy(context.Context, *UpdatePolicyRequest) (*UpdatePolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePolicy not implemented")
 }
-func (UnimplementedPoliciesServiceServer) mustEmbedUnimplementedPoliciesServiceServer() {}
 
 // UnsafePoliciesServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to PoliciesServiceServer will

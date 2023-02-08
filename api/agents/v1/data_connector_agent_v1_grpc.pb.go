@@ -43,21 +43,18 @@ func (c *dataConnectorsAgentServiceClient) GetDesiredDataConnectors(ctx context.
 }
 
 // DataConnectorsAgentServiceServer is the server API for DataConnectorsAgentService service.
-// All implementations must embed UnimplementedDataConnectorsAgentServiceServer
+// All implementations should embed UnimplementedDataConnectorsAgentServiceServer
 // for forward compatibility
 type DataConnectorsAgentServiceServer interface {
 	GetDesiredDataConnectors(context.Context, *GetDesiredDataConnectorsRequest) (*GetDesiredDataConnectorsResponse, error)
-	mustEmbedUnimplementedDataConnectorsAgentServiceServer()
 }
 
-// UnimplementedDataConnectorsAgentServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedDataConnectorsAgentServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedDataConnectorsAgentServiceServer struct {
 }
 
 func (UnimplementedDataConnectorsAgentServiceServer) GetDesiredDataConnectors(context.Context, *GetDesiredDataConnectorsRequest) (*GetDesiredDataConnectorsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDesiredDataConnectors not implemented")
-}
-func (UnimplementedDataConnectorsAgentServiceServer) mustEmbedUnimplementedDataConnectorsAgentServiceServer() {
 }
 
 // UnsafeDataConnectorsAgentServiceServer may be embedded to opt out of forward compatibility for this service.

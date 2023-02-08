@@ -120,7 +120,7 @@ func (c *accountServiceClient) UpdateOnboarding(ctx context.Context, in *UpdateO
 }
 
 // AccountServiceServer is the server API for AccountService service.
-// All implementations must embed UnimplementedAccountServiceServer
+// All implementations should embed UnimplementedAccountServiceServer
 // for forward compatibility
 type AccountServiceServer interface {
 	// Retrieve information regarding quotas, and the user context
@@ -138,10 +138,9 @@ type AccountServiceServer interface {
 	//	aip.dev/not-precedent: We're not updating a Checkout here. --)
 	SetCheckoutCancelled(context.Context, *SetCheckoutCancelledRequest) (*SetCheckoutCancelledResponse, error)
 	UpdateOnboarding(context.Context, *UpdateOnboardingRequest) (*UpdateOnboardingResponse, error)
-	mustEmbedUnimplementedAccountServiceServer()
 }
 
-// UnimplementedAccountServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedAccountServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedAccountServiceServer struct {
 }
 
@@ -169,7 +168,6 @@ func (UnimplementedAccountServiceServer) SetCheckoutCancelled(context.Context, *
 func (UnimplementedAccountServiceServer) UpdateOnboarding(context.Context, *UpdateOnboardingRequest) (*UpdateOnboardingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOnboarding not implemented")
 }
-func (UnimplementedAccountServiceServer) mustEmbedUnimplementedAccountServiceServer() {}
 
 // UnsafeAccountServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to AccountServiceServer will
