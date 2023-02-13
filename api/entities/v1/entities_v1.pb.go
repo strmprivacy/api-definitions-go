@@ -2413,7 +2413,9 @@ type JdbcLocation struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	JdbcUri      string       `protobuf:"bytes,1,opt,name=jdbc_uri,json=jdbcUri,proto3" json:"jdbc_uri,omitempty"`
+	JdbcUri string `protobuf:"bytes,1,opt,name=jdbc_uri,json=jdbcUri,proto3" json:"jdbc_uri,omitempty"`
+	// this is a private key for a service account to authenticate with google bigquery. It is added by the cli upon
+	// creating the jdbc data connector
 	PrivateKey   string       `protobuf:"bytes,2,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
 	DatabaseType DatabaseType `protobuf:"varint,3,opt,name=database_type,json=databaseType,proto3,enum=strmprivacy.api.entities.v1.DatabaseType" json:"database_type,omitempty"`
 }
