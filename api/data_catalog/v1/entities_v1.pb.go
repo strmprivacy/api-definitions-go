@@ -337,6 +337,7 @@ func (Relation_Direction) EnumDescriptor() ([]byte, []int) {
 	return file_strmprivacy_api_data_catalog_v1_entities_v1_proto_rawDescGZIP(), []int{6, 0}
 }
 
+// TODO add validations!
 // a collection of structured data, which is given structure by a schema
 type Dataset struct {
 	state         protoimpl.MessageState
