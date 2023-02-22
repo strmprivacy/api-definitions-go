@@ -23,9 +23,11 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DatasetsServiceClient interface {
 	GetDataset(ctx context.Context, in *GetDatasetRequest, opts ...grpc.CallOption) (*GetDatasetResponse, error)
+	GetDatasetSample(ctx context.Context, in *GetDatasetSampleRequest, opts ...grpc.CallOption) (*GetDatasetSampleResponse, error)
 	ListDatasets(ctx context.Context, in *ListDatasetsRequest, opts ...grpc.CallOption) (*ListDatasetsResponse, error)
 	UpdateDatasetTags(ctx context.Context, in *UpdateDatasetTagsRequest, opts ...grpc.CallOption) (*UpdateDatasetTagsResponse, error)
 	UpdateSchemaFieldTags(ctx context.Context, in *UpdateSchemaFieldTagsRequest, opts ...grpc.CallOption) (*UpdateSchemaFieldTagsResponse, error)
+	CreateDatasetContentsConnection(ctx context.Context, in *CreateDatasetContentsConnectionRequest, opts ...grpc.CallOption) (*CreateDatasetContentsConnectionResponse, error)
 }
 
 type datasetsServiceClient struct {
@@ -39,6 +41,15 @@ func NewDatasetsServiceClient(cc grpc.ClientConnInterface) DatasetsServiceClient
 func (c *datasetsServiceClient) GetDataset(ctx context.Context, in *GetDatasetRequest, opts ...grpc.CallOption) (*GetDatasetResponse, error) {
 	out := new(GetDatasetResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_catalog.v1.DatasetsService/GetDataset", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datasetsServiceClient) GetDatasetSample(ctx context.Context, in *GetDatasetSampleRequest, opts ...grpc.CallOption) (*GetDatasetSampleResponse, error) {
+	out := new(GetDatasetSampleResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_catalog.v1.DatasetsService/GetDatasetSample", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,14 +83,25 @@ func (c *datasetsServiceClient) UpdateSchemaFieldTags(ctx context.Context, in *U
 	return out, nil
 }
 
+func (c *datasetsServiceClient) CreateDatasetContentsConnection(ctx context.Context, in *CreateDatasetContentsConnectionRequest, opts ...grpc.CallOption) (*CreateDatasetContentsConnectionResponse, error) {
+	out := new(CreateDatasetContentsConnectionResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_catalog.v1.DatasetsService/CreateDatasetContentsConnection", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DatasetsServiceServer is the server API for DatasetsService service.
 // All implementations should embed UnimplementedDatasetsServiceServer
 // for forward compatibility
 type DatasetsServiceServer interface {
 	GetDataset(context.Context, *GetDatasetRequest) (*GetDatasetResponse, error)
+	GetDatasetSample(context.Context, *GetDatasetSampleRequest) (*GetDatasetSampleResponse, error)
 	ListDatasets(context.Context, *ListDatasetsRequest) (*ListDatasetsResponse, error)
 	UpdateDatasetTags(context.Context, *UpdateDatasetTagsRequest) (*UpdateDatasetTagsResponse, error)
 	UpdateSchemaFieldTags(context.Context, *UpdateSchemaFieldTagsRequest) (*UpdateSchemaFieldTagsResponse, error)
+	CreateDatasetContentsConnection(context.Context, *CreateDatasetContentsConnectionRequest) (*CreateDatasetContentsConnectionResponse, error)
 }
 
 // UnimplementedDatasetsServiceServer should be embedded to have forward compatible implementations.
@@ -89,6 +111,9 @@ type UnimplementedDatasetsServiceServer struct {
 func (UnimplementedDatasetsServiceServer) GetDataset(context.Context, *GetDatasetRequest) (*GetDatasetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataset not implemented")
 }
+func (UnimplementedDatasetsServiceServer) GetDatasetSample(context.Context, *GetDatasetSampleRequest) (*GetDatasetSampleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetSample not implemented")
+}
 func (UnimplementedDatasetsServiceServer) ListDatasets(context.Context, *ListDatasetsRequest) (*ListDatasetsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDatasets not implemented")
 }
@@ -97,6 +122,9 @@ func (UnimplementedDatasetsServiceServer) UpdateDatasetTags(context.Context, *Up
 }
 func (UnimplementedDatasetsServiceServer) UpdateSchemaFieldTags(context.Context, *UpdateSchemaFieldTagsRequest) (*UpdateSchemaFieldTagsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSchemaFieldTags not implemented")
+}
+func (UnimplementedDatasetsServiceServer) CreateDatasetContentsConnection(context.Context, *CreateDatasetContentsConnectionRequest) (*CreateDatasetContentsConnectionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateDatasetContentsConnection not implemented")
 }
 
 // UnsafeDatasetsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -124,6 +152,24 @@ func _DatasetsService_GetDataset_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatasetsServiceServer).GetDataset(ctx, req.(*GetDatasetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetsService_GetDatasetSample_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDatasetSampleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetsServiceServer).GetDatasetSample(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_catalog.v1.DatasetsService/GetDatasetSample",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetsServiceServer).GetDatasetSample(ctx, req.(*GetDatasetSampleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -182,6 +228,24 @@ func _DatasetsService_UpdateSchemaFieldTags_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DatasetsService_CreateDatasetContentsConnection_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateDatasetContentsConnectionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetsServiceServer).CreateDatasetContentsConnection(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_catalog.v1.DatasetsService/CreateDatasetContentsConnection",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetsServiceServer).CreateDatasetContentsConnection(ctx, req.(*CreateDatasetContentsConnectionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DatasetsService_ServiceDesc is the grpc.ServiceDesc for DatasetsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -194,6 +258,10 @@ var DatasetsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DatasetsService_GetDataset_Handler,
 		},
 		{
+			MethodName: "GetDatasetSample",
+			Handler:    _DatasetsService_GetDatasetSample_Handler,
+		},
+		{
 			MethodName: "ListDatasets",
 			Handler:    _DatasetsService_ListDatasets_Handler,
 		},
@@ -204,6 +272,10 @@ var DatasetsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateSchemaFieldTags",
 			Handler:    _DatasetsService_UpdateSchemaFieldTags_Handler,
+		},
+		{
+			MethodName: "CreateDatasetContentsConnection",
+			Handler:    _DatasetsService_CreateDatasetContentsConnection_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
