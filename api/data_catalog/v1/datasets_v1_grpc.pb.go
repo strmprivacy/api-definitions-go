@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type DatasetsServiceClient interface {
 	GetDataset(ctx context.Context, in *GetDatasetRequest, opts ...grpc.CallOption) (*GetDatasetResponse, error)
 	GetDatasetSample(ctx context.Context, in *GetDatasetSampleRequest, opts ...grpc.CallOption) (*GetDatasetSampleResponse, error)
+	GetDatasetMetrics(ctx context.Context, in *GetDatasetMetricsRequest, opts ...grpc.CallOption) (*GetDatasetMetricsResponse, error)
 	ListDatasets(ctx context.Context, in *ListDatasetsRequest, opts ...grpc.CallOption) (*ListDatasetsResponse, error)
 	UpdateDatasetTags(ctx context.Context, in *UpdateDatasetTagsRequest, opts ...grpc.CallOption) (*UpdateDatasetTagsResponse, error)
 	UpdateSchemaFieldTags(ctx context.Context, in *UpdateSchemaFieldTagsRequest, opts ...grpc.CallOption) (*UpdateSchemaFieldTagsResponse, error)
@@ -50,6 +51,15 @@ func (c *datasetsServiceClient) GetDataset(ctx context.Context, in *GetDatasetRe
 func (c *datasetsServiceClient) GetDatasetSample(ctx context.Context, in *GetDatasetSampleRequest, opts ...grpc.CallOption) (*GetDatasetSampleResponse, error) {
 	out := new(GetDatasetSampleResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_catalog.v1.DatasetsService/GetDatasetSample", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *datasetsServiceClient) GetDatasetMetrics(ctx context.Context, in *GetDatasetMetricsRequest, opts ...grpc.CallOption) (*GetDatasetMetricsResponse, error) {
+	out := new(GetDatasetMetricsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_catalog.v1.DatasetsService/GetDatasetMetrics", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -98,6 +108,7 @@ func (c *datasetsServiceClient) CreateDatasetContentsConnection(ctx context.Cont
 type DatasetsServiceServer interface {
 	GetDataset(context.Context, *GetDatasetRequest) (*GetDatasetResponse, error)
 	GetDatasetSample(context.Context, *GetDatasetSampleRequest) (*GetDatasetSampleResponse, error)
+	GetDatasetMetrics(context.Context, *GetDatasetMetricsRequest) (*GetDatasetMetricsResponse, error)
 	ListDatasets(context.Context, *ListDatasetsRequest) (*ListDatasetsResponse, error)
 	UpdateDatasetTags(context.Context, *UpdateDatasetTagsRequest) (*UpdateDatasetTagsResponse, error)
 	UpdateSchemaFieldTags(context.Context, *UpdateSchemaFieldTagsRequest) (*UpdateSchemaFieldTagsResponse, error)
@@ -113,6 +124,9 @@ func (UnimplementedDatasetsServiceServer) GetDataset(context.Context, *GetDatase
 }
 func (UnimplementedDatasetsServiceServer) GetDatasetSample(context.Context, *GetDatasetSampleRequest) (*GetDatasetSampleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetSample not implemented")
+}
+func (UnimplementedDatasetsServiceServer) GetDatasetMetrics(context.Context, *GetDatasetMetricsRequest) (*GetDatasetMetricsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDatasetMetrics not implemented")
 }
 func (UnimplementedDatasetsServiceServer) ListDatasets(context.Context, *ListDatasetsRequest) (*ListDatasetsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListDatasets not implemented")
@@ -170,6 +184,24 @@ func _DatasetsService_GetDatasetSample_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DatasetsServiceServer).GetDatasetSample(ctx, req.(*GetDatasetSampleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DatasetsService_GetDatasetMetrics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDatasetMetricsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DatasetsServiceServer).GetDatasetMetrics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_catalog.v1.DatasetsService/GetDatasetMetrics",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DatasetsServiceServer).GetDatasetMetrics(ctx, req.(*GetDatasetMetricsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -260,6 +292,10 @@ var DatasetsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDatasetSample",
 			Handler:    _DatasetsService_GetDatasetSample_Handler,
+		},
+		{
+			MethodName: "GetDatasetMetrics",
+			Handler:    _DatasetsService_GetDatasetMetrics_Handler,
 		},
 		{
 			MethodName: "ListDatasets",
