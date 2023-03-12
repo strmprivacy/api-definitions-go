@@ -220,6 +220,7 @@ func (EntityState_ResourceType) EnumDescriptor() ([]byte, []int) {
 	return file_strmprivacy_api_monitoring_v1_monitoring_proto_rawDescGZIP(), []int{6, 2}
 }
 
+// *
 // Initial call returns every entity state that's relevant to the caller.
 //
 // Subsequent streaming gives changes only.
@@ -337,6 +338,7 @@ func (x *GetEntityStateResponse) GetState() *EntityState {
 	return nil
 }
 
+// *
 // Returns the latest entity state that's relevant to the caller.
 type GetLatestEntityStatesRequest struct {
 	state         protoimpl.MessageState
