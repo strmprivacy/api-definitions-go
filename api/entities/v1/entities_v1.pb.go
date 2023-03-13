@@ -4631,7 +4631,7 @@ func (x *SinkTree) GetBatchExporters() []*BatchExporter {
 	return nil
 }
 
-// ********************************
+// *******************************
 // Batch Jobs
 // Currently we only support:
 // - CSV as DataFormat type
@@ -5558,7 +5558,7 @@ func (x *DerivedData) GetMaskedFields() *MaskedFields {
 	return nil
 }
 
-// ********************************
+// *******************************
 // K-Member Micro-aggregation Batch Job
 // Currently we only support:
 // - CSV as DataFormat type
