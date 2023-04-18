@@ -28,6 +28,7 @@ type NotificationsServiceClient interface {
 	// Being called by systems (schema-registry for instance) that want to notify subscribed
 	// users about something.
 	NotifySubscribers(ctx context.Context, in *NotifySubscribersRequest, opts ...grpc.CallOption) (*NotifySubscribersResponse, error)
+	ReceiveNotifications(ctx context.Context, in *ReceiveNotificationsRequest, opts ...grpc.CallOption) (NotificationsService_ReceiveNotificationsClient, error)
 }
 
 type notificationsServiceClient struct {
@@ -65,6 +66,38 @@ func (c *notificationsServiceClient) NotifySubscribers(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *notificationsServiceClient) ReceiveNotifications(ctx context.Context, in *ReceiveNotificationsRequest, opts ...grpc.CallOption) (NotificationsService_ReceiveNotificationsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &NotificationsService_ServiceDesc.Streams[0], "/strmprivacy.api.notifications.v1.NotificationsService/ReceiveNotifications", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &notificationsServiceReceiveNotificationsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type NotificationsService_ReceiveNotificationsClient interface {
+	Recv() (*ReceiveNotificationsResponse, error)
+	grpc.ClientStream
+}
+
+type notificationsServiceReceiveNotificationsClient struct {
+	grpc.ClientStream
+}
+
+func (x *notificationsServiceReceiveNotificationsClient) Recv() (*ReceiveNotificationsResponse, error) {
+	m := new(ReceiveNotificationsResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // NotificationsServiceServer is the server API for NotificationsService service.
 // All implementations should embed UnimplementedNotificationsServiceServer
 // for forward compatibility
@@ -75,6 +108,7 @@ type NotificationsServiceServer interface {
 	// Being called by systems (schema-registry for instance) that want to notify subscribed
 	// users about something.
 	NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error)
+	ReceiveNotifications(*ReceiveNotificationsRequest, NotificationsService_ReceiveNotificationsServer) error
 }
 
 // UnimplementedNotificationsServiceServer should be embedded to have forward compatible implementations.
@@ -89,6 +123,9 @@ func (UnimplementedNotificationsServiceServer) UnSubscribeNotifications(context.
 }
 func (UnimplementedNotificationsServiceServer) NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NotifySubscribers not implemented")
+}
+func (UnimplementedNotificationsServiceServer) ReceiveNotifications(*ReceiveNotificationsRequest, NotificationsService_ReceiveNotificationsServer) error {
+	return status.Errorf(codes.Unimplemented, "method ReceiveNotifications not implemented")
 }
 
 // UnsafeNotificationsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -156,6 +193,27 @@ func _NotificationsService_NotifySubscribers_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NotificationsService_ReceiveNotifications_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ReceiveNotificationsRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(NotificationsServiceServer).ReceiveNotifications(m, &notificationsServiceReceiveNotificationsServer{stream})
+}
+
+type NotificationsService_ReceiveNotificationsServer interface {
+	Send(*ReceiveNotificationsResponse) error
+	grpc.ServerStream
+}
+
+type notificationsServiceReceiveNotificationsServer struct {
+	grpc.ServerStream
+}
+
+func (x *notificationsServiceReceiveNotificationsServer) Send(m *ReceiveNotificationsResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // NotificationsService_ServiceDesc is the grpc.ServiceDesc for NotificationsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +234,12 @@ var NotificationsService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _NotificationsService_NotifySubscribers_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "ReceiveNotifications",
+			Handler:       _NotificationsService_ReceiveNotifications_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "strmprivacy/api/notifications/v1/notifications_v1.proto",
 }
