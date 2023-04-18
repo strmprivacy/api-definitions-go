@@ -6389,7 +6389,7 @@ type isGenericRef_Ref interface {
 }
 
 type GenericRef_ContractRef struct {
-	ContractRef *DataContractRef `protobuf:"bytes,2,opt,name=contract_ref,json=contractRef,proto3,oneof"` // optional
+	ContractRef *DataContractRef `protobuf:"bytes,2,opt,name=contract_ref,json=contractRef,proto3,oneof"`
 }
 
 func (*GenericRef_ContractRef) isGenericRef_Ref() {}
@@ -6399,11 +6399,13 @@ type Comment struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id         string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // uuid
+	// uuid
+	Id         string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	CreateTime *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
 	Ref        *GenericRef            `protobuf:"bytes,3,opt,name=ref,proto3" json:"ref,omitempty"`
 	Content    string                 `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
-	Creator    *User                  `protobuf:"bytes,5,opt,name=creator,proto3" json:"creator,omitempty"` // optional?
+	// might also be a machine
+	Creator *User `protobuf:"bytes,5,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (x *Comment) Reset() {

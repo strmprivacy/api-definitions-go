@@ -22,12 +22,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NotificationsServiceClient interface {
-	Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (*SubscribeResponse, error)
-	UnSubscribe(ctx context.Context, in *UnSubscribeRequest, opts ...grpc.CallOption) (*UnSubscribeResponse, error)
+	SubscribeNotifications(ctx context.Context, in *SubscribeNotificationsRequest, opts ...grpc.CallOption) (*SubscribeNotificationsResponse, error)
+	UnSubscribeNotifications(ctx context.Context, in *UnSubscribeNotificationsRequest, opts ...grpc.CallOption) (*UnSubscribeNotificationsResponse, error)
 	// *
 	// Being called by systems (schema-registry for instance) that want to notify subscribed
 	// users about something.
-	Notify(ctx context.Context, in *NotifyRequest, opts ...grpc.CallOption) (*NotifyResponse, error)
+	NotifySubscribers(ctx context.Context, in *NotifySubscribersRequest, opts ...grpc.CallOption) (*NotifySubscribersResponse, error)
 }
 
 type notificationsServiceClient struct {
@@ -38,27 +38,27 @@ func NewNotificationsServiceClient(cc grpc.ClientConnInterface) NotificationsSer
 	return &notificationsServiceClient{cc}
 }
 
-func (c *notificationsServiceClient) Subscribe(ctx context.Context, in *SubscribeRequest, opts ...grpc.CallOption) (*SubscribeResponse, error) {
-	out := new(SubscribeResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/Subscribe", in, out, opts...)
+func (c *notificationsServiceClient) SubscribeNotifications(ctx context.Context, in *SubscribeNotificationsRequest, opts ...grpc.CallOption) (*SubscribeNotificationsResponse, error) {
+	out := new(SubscribeNotificationsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/SubscribeNotifications", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *notificationsServiceClient) UnSubscribe(ctx context.Context, in *UnSubscribeRequest, opts ...grpc.CallOption) (*UnSubscribeResponse, error) {
-	out := new(UnSubscribeResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/UnSubscribe", in, out, opts...)
+func (c *notificationsServiceClient) UnSubscribeNotifications(ctx context.Context, in *UnSubscribeNotificationsRequest, opts ...grpc.CallOption) (*UnSubscribeNotificationsResponse, error) {
+	out := new(UnSubscribeNotificationsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/UnSubscribeNotifications", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *notificationsServiceClient) Notify(ctx context.Context, in *NotifyRequest, opts ...grpc.CallOption) (*NotifyResponse, error) {
-	out := new(NotifyResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/Notify", in, out, opts...)
+func (c *notificationsServiceClient) NotifySubscribers(ctx context.Context, in *NotifySubscribersRequest, opts ...grpc.CallOption) (*NotifySubscribersResponse, error) {
+	out := new(NotifySubscribersResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/NotifySubscribers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,26 +69,26 @@ func (c *notificationsServiceClient) Notify(ctx context.Context, in *NotifyReque
 // All implementations should embed UnimplementedNotificationsServiceServer
 // for forward compatibility
 type NotificationsServiceServer interface {
-	Subscribe(context.Context, *SubscribeRequest) (*SubscribeResponse, error)
-	UnSubscribe(context.Context, *UnSubscribeRequest) (*UnSubscribeResponse, error)
+	SubscribeNotifications(context.Context, *SubscribeNotificationsRequest) (*SubscribeNotificationsResponse, error)
+	UnSubscribeNotifications(context.Context, *UnSubscribeNotificationsRequest) (*UnSubscribeNotificationsResponse, error)
 	// *
 	// Being called by systems (schema-registry for instance) that want to notify subscribed
 	// users about something.
-	Notify(context.Context, *NotifyRequest) (*NotifyResponse, error)
+	NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error)
 }
 
 // UnimplementedNotificationsServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedNotificationsServiceServer struct {
 }
 
-func (UnimplementedNotificationsServiceServer) Subscribe(context.Context, *SubscribeRequest) (*SubscribeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Subscribe not implemented")
+func (UnimplementedNotificationsServiceServer) SubscribeNotifications(context.Context, *SubscribeNotificationsRequest) (*SubscribeNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubscribeNotifications not implemented")
 }
-func (UnimplementedNotificationsServiceServer) UnSubscribe(context.Context, *UnSubscribeRequest) (*UnSubscribeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UnSubscribe not implemented")
+func (UnimplementedNotificationsServiceServer) UnSubscribeNotifications(context.Context, *UnSubscribeNotificationsRequest) (*UnSubscribeNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnSubscribeNotifications not implemented")
 }
-func (UnimplementedNotificationsServiceServer) Notify(context.Context, *NotifyRequest) (*NotifyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Notify not implemented")
+func (UnimplementedNotificationsServiceServer) NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NotifySubscribers not implemented")
 }
 
 // UnsafeNotificationsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -102,56 +102,56 @@ func RegisterNotificationsServiceServer(s grpc.ServiceRegistrar, srv Notificatio
 	s.RegisterService(&NotificationsService_ServiceDesc, srv)
 }
 
-func _NotificationsService_Subscribe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SubscribeRequest)
+func _NotificationsService_SubscribeNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SubscribeNotificationsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NotificationsServiceServer).Subscribe(ctx, in)
+		return srv.(NotificationsServiceServer).SubscribeNotifications(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/Subscribe",
+		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/SubscribeNotifications",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NotificationsServiceServer).Subscribe(ctx, req.(*SubscribeRequest))
+		return srv.(NotificationsServiceServer).SubscribeNotifications(ctx, req.(*SubscribeNotificationsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _NotificationsService_UnSubscribe_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UnSubscribeRequest)
+func _NotificationsService_UnSubscribeNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnSubscribeNotificationsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NotificationsServiceServer).UnSubscribe(ctx, in)
+		return srv.(NotificationsServiceServer).UnSubscribeNotifications(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/UnSubscribe",
+		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/UnSubscribeNotifications",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NotificationsServiceServer).UnSubscribe(ctx, req.(*UnSubscribeRequest))
+		return srv.(NotificationsServiceServer).UnSubscribeNotifications(ctx, req.(*UnSubscribeNotificationsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _NotificationsService_Notify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(NotifyRequest)
+func _NotificationsService_NotifySubscribers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotifySubscribersRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(NotificationsServiceServer).Notify(ctx, in)
+		return srv.(NotificationsServiceServer).NotifySubscribers(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/Notify",
+		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/NotifySubscribers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NotificationsServiceServer).Notify(ctx, req.(*NotifyRequest))
+		return srv.(NotificationsServiceServer).NotifySubscribers(ctx, req.(*NotifySubscribersRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -164,16 +164,16 @@ var NotificationsService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*NotificationsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Subscribe",
-			Handler:    _NotificationsService_Subscribe_Handler,
+			MethodName: "SubscribeNotifications",
+			Handler:    _NotificationsService_SubscribeNotifications_Handler,
 		},
 		{
-			MethodName: "UnSubscribe",
-			Handler:    _NotificationsService_UnSubscribe_Handler,
+			MethodName: "UnSubscribeNotifications",
+			Handler:    _NotificationsService_UnSubscribeNotifications_Handler,
 		},
 		{
-			MethodName: "Notify",
-			Handler:    _NotificationsService_Notify_Handler,
+			MethodName: "NotifySubscribers",
+			Handler:    _NotificationsService_NotifySubscribers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
