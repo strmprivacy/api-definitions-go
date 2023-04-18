@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CommentsServiceClient interface {
 	CreateComment(ctx context.Context, in *CreateCommentRequest, opts ...grpc.CallOption) (*CreateCommentResponse, error)
+	ListComments(ctx context.Context, in *ListCommentsRequest, opts ...grpc.CallOption) (*ListCommentsResponse, error)
+	DeleteComment(ctx context.Context, in *DeleteCommentRequest, opts ...grpc.CallOption) (*DeleteCommentResponse, error)
 }
 
 type commentsServiceClient struct {
@@ -42,11 +44,31 @@ func (c *commentsServiceClient) CreateComment(ctx context.Context, in *CreateCom
 	return out, nil
 }
 
+func (c *commentsServiceClient) ListComments(ctx context.Context, in *ListCommentsRequest, opts ...grpc.CallOption) (*ListCommentsResponse, error) {
+	out := new(ListCommentsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.comments.v1.CommentsService/ListComments", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *commentsServiceClient) DeleteComment(ctx context.Context, in *DeleteCommentRequest, opts ...grpc.CallOption) (*DeleteCommentResponse, error) {
+	out := new(DeleteCommentResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.comments.v1.CommentsService/DeleteComment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommentsServiceServer is the server API for CommentsService service.
 // All implementations should embed UnimplementedCommentsServiceServer
 // for forward compatibility
 type CommentsServiceServer interface {
 	CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error)
+	ListComments(context.Context, *ListCommentsRequest) (*ListCommentsResponse, error)
+	DeleteComment(context.Context, *DeleteCommentRequest) (*DeleteCommentResponse, error)
 }
 
 // UnimplementedCommentsServiceServer should be embedded to have forward compatible implementations.
@@ -55,6 +77,12 @@ type UnimplementedCommentsServiceServer struct {
 
 func (UnimplementedCommentsServiceServer) CreateComment(context.Context, *CreateCommentRequest) (*CreateCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateComment not implemented")
+}
+func (UnimplementedCommentsServiceServer) ListComments(context.Context, *ListCommentsRequest) (*ListCommentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListComments not implemented")
+}
+func (UnimplementedCommentsServiceServer) DeleteComment(context.Context, *DeleteCommentRequest) (*DeleteCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteComment not implemented")
 }
 
 // UnsafeCommentsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -86,6 +114,42 @@ func _CommentsService_CreateComment_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CommentsService_ListComments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCommentsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommentsServiceServer).ListComments(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.comments.v1.CommentsService/ListComments",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommentsServiceServer).ListComments(ctx, req.(*ListCommentsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CommentsService_DeleteComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCommentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommentsServiceServer).DeleteComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.comments.v1.CommentsService/DeleteComment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommentsServiceServer).DeleteComment(ctx, req.(*DeleteCommentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CommentsService_ServiceDesc is the grpc.ServiceDesc for CommentsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,6 +160,14 @@ var CommentsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateComment",
 			Handler:    _CommentsService_CreateComment_Handler,
+		},
+		{
+			MethodName: "ListComments",
+			Handler:    _CommentsService_ListComments_Handler,
+		},
+		{
+			MethodName: "DeleteComment",
+			Handler:    _CommentsService_DeleteComment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
