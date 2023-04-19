@@ -22,13 +22,16 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type NotificationsServiceClient interface {
+	// Tell the notification service that the given user should receive notifications about the given entity.
 	SubscribeNotifications(ctx context.Context, in *SubscribeNotificationsRequest, opts ...grpc.CallOption) (*SubscribeNotificationsResponse, error)
+	// Tell the notification service that the given user should *not* receive notifications about the given entity.
 	UnSubscribeNotifications(ctx context.Context, in *UnSubscribeNotificationsRequest, opts ...grpc.CallOption) (*UnSubscribeNotificationsResponse, error)
-	// *
-	// Being called by systems (schema-registry for instance) that want to notify subscribed
-	// users about something.
+	// Called by systems (schema-registry for instance) that want to notify subscribed users about something.
 	NotifySubscribers(ctx context.Context, in *NotifySubscribersRequest, opts ...grpc.CallOption) (*NotifySubscribersResponse, error)
+	// Called by the user's browser to receive notifications.
 	ReceiveNotifications(ctx context.Context, in *ReceiveNotificationsRequest, opts ...grpc.CallOption) (NotificationsService_ReceiveNotificationsClient, error)
+	// List notifications for a user.
+	ListNotifications(ctx context.Context, in *ListNotificationsRequest, opts ...grpc.CallOption) (*ListNotificationsResponse, error)
 }
 
 type notificationsServiceClient struct {
@@ -98,17 +101,29 @@ func (x *notificationsServiceReceiveNotificationsClient) Recv() (*ReceiveNotific
 	return m, nil
 }
 
+func (c *notificationsServiceClient) ListNotifications(ctx context.Context, in *ListNotificationsRequest, opts ...grpc.CallOption) (*ListNotificationsResponse, error) {
+	out := new(ListNotificationsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/ListNotifications", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NotificationsServiceServer is the server API for NotificationsService service.
 // All implementations should embed UnimplementedNotificationsServiceServer
 // for forward compatibility
 type NotificationsServiceServer interface {
+	// Tell the notification service that the given user should receive notifications about the given entity.
 	SubscribeNotifications(context.Context, *SubscribeNotificationsRequest) (*SubscribeNotificationsResponse, error)
+	// Tell the notification service that the given user should *not* receive notifications about the given entity.
 	UnSubscribeNotifications(context.Context, *UnSubscribeNotificationsRequest) (*UnSubscribeNotificationsResponse, error)
-	// *
-	// Being called by systems (schema-registry for instance) that want to notify subscribed
-	// users about something.
+	// Called by systems (schema-registry for instance) that want to notify subscribed users about something.
 	NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error)
+	// Called by the user's browser to receive notifications.
 	ReceiveNotifications(*ReceiveNotificationsRequest, NotificationsService_ReceiveNotificationsServer) error
+	// List notifications for a user.
+	ListNotifications(context.Context, *ListNotificationsRequest) (*ListNotificationsResponse, error)
 }
 
 // UnimplementedNotificationsServiceServer should be embedded to have forward compatible implementations.
@@ -126,6 +141,9 @@ func (UnimplementedNotificationsServiceServer) NotifySubscribers(context.Context
 }
 func (UnimplementedNotificationsServiceServer) ReceiveNotifications(*ReceiveNotificationsRequest, NotificationsService_ReceiveNotificationsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ReceiveNotifications not implemented")
+}
+func (UnimplementedNotificationsServiceServer) ListNotifications(context.Context, *ListNotificationsRequest) (*ListNotificationsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListNotifications not implemented")
 }
 
 // UnsafeNotificationsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -214,6 +232,24 @@ func (x *notificationsServiceReceiveNotificationsServer) Send(m *ReceiveNotifica
 	return x.ServerStream.SendMsg(m)
 }
 
+func _NotificationsService_ListNotifications_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListNotificationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationsServiceServer).ListNotifications(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/ListNotifications",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationsServiceServer).ListNotifications(ctx, req.(*ListNotificationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NotificationsService_ServiceDesc is the grpc.ServiceDesc for NotificationsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -232,6 +268,10 @@ var NotificationsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "NotifySubscribers",
 			Handler:    _NotificationsService_NotifySubscribers_Handler,
+		},
+		{
+			MethodName: "ListNotifications",
+			Handler:    _NotificationsService_ListNotifications_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

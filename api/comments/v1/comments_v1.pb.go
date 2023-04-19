@@ -120,6 +120,7 @@ type ListCommentsRequest struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// The entity to list comments for.
 	EntityRef *v1.GenericRef `protobuf:"bytes,1,opt,name=entity_ref,json=entityRef,proto3" json:"entity_ref,omitempty"`
 	PageSize  int32          `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	PageToken string         `protobuf:"bytes,3,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
