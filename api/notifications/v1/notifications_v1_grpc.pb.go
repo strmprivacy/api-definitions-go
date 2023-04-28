@@ -26,6 +26,8 @@ type NotificationsServiceClient interface {
 	SubscribeNotifications(ctx context.Context, in *SubscribeNotificationsRequest, opts ...grpc.CallOption) (*SubscribeNotificationsResponse, error)
 	// Tell the notification service that the given user should *not* receive notifications about the given entity.
 	UnSubscribeNotifications(ctx context.Context, in *UnSubscribeNotificationsRequest, opts ...grpc.CallOption) (*UnSubscribeNotificationsResponse, error)
+	// List the subscriptions of a certain user.
+	ListSubscriptions(ctx context.Context, in *ListSubscriptionsRequest, opts ...grpc.CallOption) (*ListSubscriptionsResponse, error)
 	// Called by systems (schema-registry for instance) that want to notify subscribed users about something.
 	NotifySubscribers(ctx context.Context, in *NotifySubscribersRequest, opts ...grpc.CallOption) (*NotifySubscribersResponse, error)
 	// Called by the user's browser to receive notifications.
@@ -54,6 +56,15 @@ func (c *notificationsServiceClient) SubscribeNotifications(ctx context.Context,
 func (c *notificationsServiceClient) UnSubscribeNotifications(ctx context.Context, in *UnSubscribeNotificationsRequest, opts ...grpc.CallOption) (*UnSubscribeNotificationsResponse, error) {
 	out := new(UnSubscribeNotificationsResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/UnSubscribeNotifications", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationsServiceClient) ListSubscriptions(ctx context.Context, in *ListSubscriptionsRequest, opts ...grpc.CallOption) (*ListSubscriptionsResponse, error) {
+	out := new(ListSubscriptionsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/ListSubscriptions", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -118,6 +129,8 @@ type NotificationsServiceServer interface {
 	SubscribeNotifications(context.Context, *SubscribeNotificationsRequest) (*SubscribeNotificationsResponse, error)
 	// Tell the notification service that the given user should *not* receive notifications about the given entity.
 	UnSubscribeNotifications(context.Context, *UnSubscribeNotificationsRequest) (*UnSubscribeNotificationsResponse, error)
+	// List the subscriptions of a certain user.
+	ListSubscriptions(context.Context, *ListSubscriptionsRequest) (*ListSubscriptionsResponse, error)
 	// Called by systems (schema-registry for instance) that want to notify subscribed users about something.
 	NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error)
 	// Called by the user's browser to receive notifications.
@@ -135,6 +148,9 @@ func (UnimplementedNotificationsServiceServer) SubscribeNotifications(context.Co
 }
 func (UnimplementedNotificationsServiceServer) UnSubscribeNotifications(context.Context, *UnSubscribeNotificationsRequest) (*UnSubscribeNotificationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnSubscribeNotifications not implemented")
+}
+func (UnimplementedNotificationsServiceServer) ListSubscriptions(context.Context, *ListSubscriptionsRequest) (*ListSubscriptionsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListSubscriptions not implemented")
 }
 func (UnimplementedNotificationsServiceServer) NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NotifySubscribers not implemented")
@@ -189,6 +205,24 @@ func _NotificationsService_UnSubscribeNotifications_Handler(srv interface{}, ctx
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(NotificationsServiceServer).UnSubscribeNotifications(ctx, req.(*UnSubscribeNotificationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _NotificationsService_ListSubscriptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListSubscriptionsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationsServiceServer).ListSubscriptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/ListSubscriptions",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationsServiceServer).ListSubscriptions(ctx, req.(*ListSubscriptionsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -264,6 +298,10 @@ var NotificationsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UnSubscribeNotifications",
 			Handler:    _NotificationsService_UnSubscribeNotifications_Handler,
+		},
+		{
+			MethodName: "ListSubscriptions",
+			Handler:    _NotificationsService_ListSubscriptions_Handler,
 		},
 		{
 			MethodName: "NotifySubscribers",
