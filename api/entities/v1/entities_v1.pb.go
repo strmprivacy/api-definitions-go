@@ -6724,8 +6724,7 @@ type PipelineItems struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ItemProperties *ItemProperties               `protobuf:"bytes,1,opt,name=item_properties,json=itemProperties,proto3" json:"item_properties,omitempty"`
-	Items          []*PipelineItems_PipelineItem `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+	Items []*PipelineItems_PipelineItem `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
 }
 
 func (x *PipelineItems) Reset() {
@@ -6758,13 +6757,6 @@ func (x *PipelineItems) ProtoReflect() protoreflect.Message {
 // Deprecated: Use PipelineItems.ProtoReflect.Descriptor instead.
 func (*PipelineItems) Descriptor() ([]byte, []int) {
 	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{76}
-}
-
-func (x *PipelineItems) GetItemProperties() *ItemProperties {
-	if x != nil {
-		return x.ItemProperties
-	}
-	return nil
 }
 
 func (x *PipelineItems) GetItems() []*PipelineItems_PipelineItem {
@@ -7753,6 +7745,7 @@ type PipelineItems_PipelineItem struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	ItemProperties *ItemProperties `protobuf:"bytes,1,opt,name=item_properties,json=itemProperties,proto3" json:"item_properties,omitempty"`
 	// Types that are assignable to Pipeline:
 	//
 	//	*PipelineItems_PipelineItem_Stream
@@ -7792,6 +7785,13 @@ func (*PipelineItems_PipelineItem) Descriptor() ([]byte, []int) {
 	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{76, 0}
 }
 
+func (x *PipelineItems_PipelineItem) GetItemProperties() *ItemProperties {
+	if x != nil {
+		return x.ItemProperties
+	}
+	return nil
+}
+
 func (m *PipelineItems_PipelineItem) GetPipeline() isPipelineItems_PipelineItem_Pipeline {
 	if m != nil {
 		return m.Pipeline
@@ -7818,11 +7818,11 @@ type isPipelineItems_PipelineItem_Pipeline interface {
 }
 
 type PipelineItems_PipelineItem_Stream struct {
-	Stream *StreamRef `protobuf:"bytes,1,opt,name=stream,proto3,oneof"`
+	Stream *StreamRef `protobuf:"bytes,2,opt,name=stream,proto3,oneof"`
 }
 
 type PipelineItems_PipelineItem_BatchJob struct {
-	BatchJob *BatchJobRef `protobuf:"bytes,2,opt,name=batch_job,json=batchJob,proto3,oneof"`
+	BatchJob *BatchJobRef `protobuf:"bytes,3,opt,name=batch_job,json=batchJob,proto3,oneof"`
 }
 
 func (*PipelineItems_PipelineItem_Stream) isPipelineItems_PipelineItem_Pipeline() {}
@@ -9169,23 +9169,23 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e,
 	0x61, 0x6d, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x69, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x03, 0x75, 0x72, 0x69, 0x22, 0xe1, 0x02, 0x0a, 0x0d, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69,
-	0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x54, 0x0a, 0x0f, 0x69, 0x74, 0x65, 0x6d, 0x5f,
+	0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x4d, 0x0a, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73,
+	0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x37, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
+	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
+	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x49, 0x74, 0x65,
+	0x6d, 0x73, 0x2e, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x52,
+	0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x1a, 0x80, 0x02, 0x0a, 0x0c, 0x50, 0x69, 0x70, 0x65, 0x6c,
+	0x69, 0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x12, 0x54, 0x0a, 0x0f, 0x69, 0x74, 0x65, 0x6d, 0x5f,
 	0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
 	0x32, 0x2b, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61,
 	0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49,
 	0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x52, 0x0e, 0x69,
-	0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x12, 0x4d, 0x0a,
-	0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x37, 0x2e, 0x73,
-	0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65,
-	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x70, 0x65, 0x6c,
-	0x69, 0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x2e, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e,
-	0x65, 0x49, 0x74, 0x65, 0x6d, 0x52, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x1a, 0xaa, 0x01, 0x0a,
-	0x0c, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x12, 0x40, 0x0a,
-	0x06, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e,
+	0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x12, 0x40, 0x0a,
+	0x06, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e,
 	0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e,
 	0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x74, 0x72, 0x65,
 	0x61, 0x6d, 0x52, 0x65, 0x66, 0x48, 0x00, 0x52, 0x06, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x12,
-	0x47, 0x0a, 0x09, 0x62, 0x61, 0x74, 0x63, 0x68, 0x5f, 0x6a, 0x6f, 0x62, 0x18, 0x02, 0x20, 0x01,
+	0x47, 0x0a, 0x09, 0x62, 0x61, 0x74, 0x63, 0x68, 0x5f, 0x6a, 0x6f, 0x62, 0x18, 0x03, 0x20, 0x01,
 	0x28, 0x0b, 0x32, 0x28, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
 	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31,
 	0x2e, 0x42, 0x61, 0x74, 0x63, 0x68, 0x4a, 0x6f, 0x62, 0x52, 0x65, 0x66, 0x48, 0x00, 0x52, 0x08,
@@ -9608,27 +9608,27 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
 	109, // 127: strmprivacy.api.entities.v1.DataContractItems.items:type_name -> strmprivacy.api.entities.v1.DataContractItems.DataContractItem
 	110, // 128: strmprivacy.api.entities.v1.InfoAssetItems.items:type_name -> strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem
 	112, // 129: strmprivacy.api.entities.v1.DocumentItems.items:type_name -> strmprivacy.api.entities.v1.DocumentItems.DocumentItem
-	89,  // 130: strmprivacy.api.entities.v1.PipelineItems.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
-	113, // 131: strmprivacy.api.entities.v1.PipelineItems.items:type_name -> strmprivacy.api.entities.v1.PipelineItems.PipelineItem
-	0,   // 132: strmprivacy.api.entities.v1.User.user_roles:type_name -> strmprivacy.api.entities.v1.UserRole
-	82,  // 133: strmprivacy.api.entities.v1.GenericRef.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
-	115, // 134: strmprivacy.api.entities.v1.Comment.create_time:type_name -> google.protobuf.Timestamp
-	97,  // 135: strmprivacy.api.entities.v1.Comment.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
-	95,  // 136: strmprivacy.api.entities.v1.Comment.creator:type_name -> strmprivacy.api.entities.v1.User
-	115, // 137: strmprivacy.api.entities.v1.AuditTrailEntry.create_time:type_name -> google.protobuf.Timestamp
-	97,  // 138: strmprivacy.api.entities.v1.AuditTrailEntry.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
-	95,  // 139: strmprivacy.api.entities.v1.AuditTrailEntry.actor:type_name -> strmprivacy.api.entities.v1.User
-	101, // 140: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
-	57,  // 141: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	50,  // 142: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.ConsentLevels
-	15,  // 143: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.type:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.NullHandlingType
-	89,  // 144: strmprivacy.api.entities.v1.TodoItems.TodoItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
-	89,  // 145: strmprivacy.api.entities.v1.DataContractItems.DataContractItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
-	82,  // 146: strmprivacy.api.entities.v1.DataContractItems.DataContractItem.ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
-	89,  // 147: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
-	17,  // 148: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.state:type_name -> strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.State
-	111, // 149: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.classification:type_name -> strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.Classification
-	89,  // 150: strmprivacy.api.entities.v1.DocumentItems.DocumentItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	113, // 130: strmprivacy.api.entities.v1.PipelineItems.items:type_name -> strmprivacy.api.entities.v1.PipelineItems.PipelineItem
+	0,   // 131: strmprivacy.api.entities.v1.User.user_roles:type_name -> strmprivacy.api.entities.v1.UserRole
+	82,  // 132: strmprivacy.api.entities.v1.GenericRef.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
+	115, // 133: strmprivacy.api.entities.v1.Comment.create_time:type_name -> google.protobuf.Timestamp
+	97,  // 134: strmprivacy.api.entities.v1.Comment.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
+	95,  // 135: strmprivacy.api.entities.v1.Comment.creator:type_name -> strmprivacy.api.entities.v1.User
+	115, // 136: strmprivacy.api.entities.v1.AuditTrailEntry.create_time:type_name -> google.protobuf.Timestamp
+	97,  // 137: strmprivacy.api.entities.v1.AuditTrailEntry.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
+	95,  // 138: strmprivacy.api.entities.v1.AuditTrailEntry.actor:type_name -> strmprivacy.api.entities.v1.User
+	101, // 139: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
+	57,  // 140: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	50,  // 141: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.ConsentLevels
+	15,  // 142: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.type:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.NullHandlingType
+	89,  // 143: strmprivacy.api.entities.v1.TodoItems.TodoItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	89,  // 144: strmprivacy.api.entities.v1.DataContractItems.DataContractItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	82,  // 145: strmprivacy.api.entities.v1.DataContractItems.DataContractItem.ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
+	89,  // 146: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	17,  // 147: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.state:type_name -> strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.State
+	111, // 148: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.classification:type_name -> strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.Classification
+	89,  // 149: strmprivacy.api.entities.v1.DocumentItems.DocumentItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	89,  // 150: strmprivacy.api.entities.v1.PipelineItems.PipelineItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
 	24,  // 151: strmprivacy.api.entities.v1.PipelineItems.PipelineItem.stream:type_name -> strmprivacy.api.entities.v1.StreamRef
 	69,  // 152: strmprivacy.api.entities.v1.PipelineItems.PipelineItem.batch_job:type_name -> strmprivacy.api.entities.v1.BatchJobRef
 	153, // [153:153] is the sub-list for method output_type
