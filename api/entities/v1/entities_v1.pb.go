@@ -8129,7 +8129,8 @@ type InformationAsset_BusinessImpactRating struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Label string `protobuf:"bytes,1,opt,name=label,proto3" json:"label,omitempty"`
+	Label    string                                   `protobuf:"bytes,1,opt,name=label,proto3" json:"label,omitempty"`
+	Category *InformationAsset_BusinessImpactCategory `protobuf:"bytes,2,opt,name=category,proto3" json:"category,omitempty"`
 }
 
 func (x *InformationAsset_BusinessImpactRating) Reset() {
@@ -8171,7 +8172,14 @@ func (x *InformationAsset_BusinessImpactRating) GetLabel() string {
 	return ""
 }
 
-type InformationAsset_BusinessImpactRating_Category struct {
+func (x *InformationAsset_BusinessImpactRating) GetCategory() *InformationAsset_BusinessImpactCategory {
+	if x != nil {
+		return x.Category
+	}
+	return nil
+}
+
+type InformationAsset_BusinessImpactCategory struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -8181,8 +8189,8 @@ type InformationAsset_BusinessImpactRating_Category struct {
 	Value       float32 `protobuf:"fixed32,3,opt,name=value,proto3" json:"value,omitempty"`
 }
 
-func (x *InformationAsset_BusinessImpactRating_Category) Reset() {
-	*x = InformationAsset_BusinessImpactRating_Category{}
+func (x *InformationAsset_BusinessImpactCategory) Reset() {
+	*x = InformationAsset_BusinessImpactCategory{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[101]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -8190,13 +8198,13 @@ func (x *InformationAsset_BusinessImpactRating_Category) Reset() {
 	}
 }
 
-func (x *InformationAsset_BusinessImpactRating_Category) String() string {
+func (x *InformationAsset_BusinessImpactCategory) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*InformationAsset_BusinessImpactRating_Category) ProtoMessage() {}
+func (*InformationAsset_BusinessImpactCategory) ProtoMessage() {}
 
-func (x *InformationAsset_BusinessImpactRating_Category) ProtoReflect() protoreflect.Message {
+func (x *InformationAsset_BusinessImpactCategory) ProtoReflect() protoreflect.Message {
 	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[101]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -8208,26 +8216,26 @@ func (x *InformationAsset_BusinessImpactRating_Category) ProtoReflect() protoref
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use InformationAsset_BusinessImpactRating_Category.ProtoReflect.Descriptor instead.
-func (*InformationAsset_BusinessImpactRating_Category) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{77, 3, 0}
+// Deprecated: Use InformationAsset_BusinessImpactCategory.ProtoReflect.Descriptor instead.
+func (*InformationAsset_BusinessImpactCategory) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{77, 4}
 }
 
-func (x *InformationAsset_BusinessImpactRating_Category) GetName() string {
+func (x *InformationAsset_BusinessImpactCategory) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *InformationAsset_BusinessImpactRating_Category) GetDescription() string {
+func (x *InformationAsset_BusinessImpactCategory) GetDescription() string {
 	if x != nil {
 		return x.Description
 	}
 	return ""
 }
 
-func (x *InformationAsset_BusinessImpactRating_Category) GetValue() float32 {
+func (x *InformationAsset_BusinessImpactCategory) GetValue() float32 {
 	if x != nil {
 		return x.Value
 	}
@@ -9601,7 +9609,7 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x42, 0x61, 0x74,
 	0x63, 0x68, 0x4a, 0x6f, 0x62, 0x52, 0x65, 0x66, 0x48, 0x00, 0x52, 0x08, 0x62, 0x61, 0x74, 0x63,
 	0x68, 0x4a, 0x6f, 0x62, 0x42, 0x0f, 0x0a, 0x08, 0x70, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65,
-	0x12, 0x03, 0xf8, 0x42, 0x01, 0x22, 0x8f, 0x07, 0x0a, 0x10, 0x49, 0x6e, 0x66, 0x6f, 0x72, 0x6d,
+	0x12, 0x03, 0xf8, 0x42, 0x01, 0x22, 0xff, 0x07, 0x0a, 0x10, 0x49, 0x6e, 0x66, 0x6f, 0x72, 0x6d,
 	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x73, 0x73, 0x65, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x74, 0x65,
 	0x6d, 0x70, 0x6c, 0x61, 0x74, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x74, 0x65,
 	0x6d, 0x70, 0x6c, 0x61, 0x74, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02,
@@ -9650,10 +9658,17 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12,
 	0x1f, 0x0a, 0x0b, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x18, 0x02,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x49, 0x6e, 0x66, 0x6f,
-	0x1a, 0x84, 0x01, 0x0a, 0x14, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49, 0x6d, 0x70,
+	0x1a, 0x8e, 0x01, 0x0a, 0x14, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49, 0x6d, 0x70,
 	0x61, 0x63, 0x74, 0x52, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x61, 0x62,
-	0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x1a,
-	0x56, 0x0a, 0x08, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x12, 0x12, 0x0a, 0x04, 0x6e,
+	0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x12,
+	0x60, 0x0a, 0x08, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x44, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e,
+	0x49, 0x6e, 0x66, 0x6f, 0x72, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x73, 0x73, 0x65, 0x74,
+	0x2e, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49, 0x6d, 0x70, 0x61, 0x63, 0x74, 0x43,
+	0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x52, 0x08, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
+	0x79, 0x1a, 0x64, 0x0a, 0x16, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49, 0x6d, 0x70,
+	0x61, 0x63, 0x74, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x12, 0x12, 0x0a, 0x04, 0x6e,
 	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12,
 	0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
@@ -9939,17 +9954,17 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_goTypes = []interface{}{
 	(*TodoItems_TodoItem)(nil),                 // 109: strmprivacy.api.entities.v1.TodoItems.TodoItem
 	(*DataContractItems_DataContractItem)(nil), // 110: strmprivacy.api.entities.v1.DataContractItems.DataContractItem
 	(*InfoAssetItems_InfoAssetItem)(nil),       // 111: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem
-	(*InfoAssetItems_InfoAssetItem_Classification)(nil),    // 112: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.Classification
-	(*DocumentItems_DocumentItem)(nil),                     // 113: strmprivacy.api.entities.v1.DocumentItems.DocumentItem
-	(*PipelineItems_PipelineItem)(nil),                     // 114: strmprivacy.api.entities.v1.PipelineItems.PipelineItem
-	(*InformationAsset_Section)(nil),                       // 115: strmprivacy.api.entities.v1.InformationAsset.Section
-	(*InformationAsset_SubSection)(nil),                    // 116: strmprivacy.api.entities.v1.InformationAsset.SubSection
-	(*InformationAsset_Check)(nil),                         // 117: strmprivacy.api.entities.v1.InformationAsset.Check
-	(*InformationAsset_BusinessImpactRating)(nil),          // 118: strmprivacy.api.entities.v1.InformationAsset.BusinessImpactRating
-	(*InformationAsset_BusinessImpactRating_Category)(nil), // 119: strmprivacy.api.entities.v1.InformationAsset.BusinessImpactRating.Category
-	(*durationpb.Duration)(nil),                            // 120: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),                          // 121: google.protobuf.Timestamp
-	(*datetime.TimeZone)(nil),                              // 122: google.type.TimeZone
+	(*InfoAssetItems_InfoAssetItem_Classification)(nil), // 112: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.Classification
+	(*DocumentItems_DocumentItem)(nil),                  // 113: strmprivacy.api.entities.v1.DocumentItems.DocumentItem
+	(*PipelineItems_PipelineItem)(nil),                  // 114: strmprivacy.api.entities.v1.PipelineItems.PipelineItem
+	(*InformationAsset_Section)(nil),                    // 115: strmprivacy.api.entities.v1.InformationAsset.Section
+	(*InformationAsset_SubSection)(nil),                 // 116: strmprivacy.api.entities.v1.InformationAsset.SubSection
+	(*InformationAsset_Check)(nil),                      // 117: strmprivacy.api.entities.v1.InformationAsset.Check
+	(*InformationAsset_BusinessImpactRating)(nil),       // 118: strmprivacy.api.entities.v1.InformationAsset.BusinessImpactRating
+	(*InformationAsset_BusinessImpactCategory)(nil),     // 119: strmprivacy.api.entities.v1.InformationAsset.BusinessImpactCategory
+	(*durationpb.Duration)(nil),                         // 120: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),                       // 121: google.protobuf.Timestamp
+	(*datetime.TimeZone)(nil),                           // 122: google.type.TimeZone
 }
 var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
 	24,  // 0: strmprivacy.api.entities.v1.Stream.ref:type_name -> strmprivacy.api.entities.v1.StreamRef
@@ -10110,11 +10125,12 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
 	69,  // 155: strmprivacy.api.entities.v1.PipelineItems.PipelineItem.batch_job:type_name -> strmprivacy.api.entities.v1.BatchJobRef
 	116, // 156: strmprivacy.api.entities.v1.InformationAsset.Section.sub_sections:type_name -> strmprivacy.api.entities.v1.InformationAsset.SubSection
 	117, // 157: strmprivacy.api.entities.v1.InformationAsset.SubSection.checks:type_name -> strmprivacy.api.entities.v1.InformationAsset.Check
-	158, // [158:158] is the sub-list for method output_type
-	158, // [158:158] is the sub-list for method input_type
-	158, // [158:158] is the sub-list for extension type_name
-	158, // [158:158] is the sub-list for extension extendee
-	0,   // [0:158] is the sub-list for field type_name
+	119, // 158: strmprivacy.api.entities.v1.InformationAsset.BusinessImpactRating.category:type_name -> strmprivacy.api.entities.v1.InformationAsset.BusinessImpactCategory
+	159, // [159:159] is the sub-list for method output_type
+	159, // [159:159] is the sub-list for method input_type
+	159, // [159:159] is the sub-list for extension type_name
+	159, // [159:159] is the sub-list for extension extendee
+	0,   // [0:159] is the sub-list for field type_name
 }
 
 func init() { file_strmprivacy_api_entities_v1_entities_v1_proto_init() }
@@ -11288,7 +11304,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[101].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InformationAsset_BusinessImpactRating_Category); i {
+			switch v := v.(*InformationAsset_BusinessImpactCategory); i {
 			case 0:
 				return &v.state
 			case 1:
