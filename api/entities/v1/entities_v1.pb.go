@@ -971,6 +971,58 @@ func (Project_State) EnumDescriptor() ([]byte, []int) {
 	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{68, 0}
 }
 
+type InfoAssetItems_InfoAssetItem_State int32
+
+const (
+	InfoAssetItems_InfoAssetItem_STATE_UNSPECIFIED InfoAssetItems_InfoAssetItem_State = 0
+	InfoAssetItems_InfoAssetItem_DRAFT             InfoAssetItems_InfoAssetItem_State = 1
+	InfoAssetItems_InfoAssetItem_IN_REVIEW         InfoAssetItems_InfoAssetItem_State = 2
+	InfoAssetItems_InfoAssetItem_APPROVED          InfoAssetItems_InfoAssetItem_State = 3
+)
+
+// Enum value maps for InfoAssetItems_InfoAssetItem_State.
+var (
+	InfoAssetItems_InfoAssetItem_State_name = map[int32]string{
+		0: "STATE_UNSPECIFIED",
+		1: "DRAFT",
+		2: "IN_REVIEW",
+		3: "APPROVED",
+	}
+	InfoAssetItems_InfoAssetItem_State_value = map[string]int32{
+		"STATE_UNSPECIFIED": 0,
+		"DRAFT":             1,
+		"IN_REVIEW":         2,
+		"APPROVED":          3,
+	}
+)
+
+func (x InfoAssetItems_InfoAssetItem_State) Enum() *InfoAssetItems_InfoAssetItem_State {
+	p := new(InfoAssetItems_InfoAssetItem_State)
+	*p = x
+	return p
+}
+
+func (x InfoAssetItems_InfoAssetItem_State) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (InfoAssetItems_InfoAssetItem_State) Descriptor() protoreflect.EnumDescriptor {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[17].Descriptor()
+}
+
+func (InfoAssetItems_InfoAssetItem_State) Type() protoreflect.EnumType {
+	return &file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[17]
+}
+
+func (x InfoAssetItems_InfoAssetItem_State) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use InfoAssetItems_InfoAssetItem_State.Descriptor instead.
+func (InfoAssetItems_InfoAssetItem_State) EnumDescriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{74, 0, 0}
+}
+
 // Streams are source or derived streams depending on whether or not linked_stream is null.
 // Key streams are a separate entity in the api.
 type Stream struct {
@@ -6171,6 +6223,653 @@ func (x *Project) GetState() Project_State {
 	return Project_STATE_UNSPECIFIED
 }
 
+type ProjectPlan struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ProjectId string `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	// If title is empty, the project name from the project message can be used.
+	Title       string       `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Description string       `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	ItemGroups  []*ItemGroup `protobuf:"bytes,4,rep,name=item_groups,json=itemGroups,proto3" json:"item_groups,omitempty"`
+	Users       []*User      `protobuf:"bytes,5,rep,name=users,proto3" json:"users,omitempty"`
+}
+
+func (x *ProjectPlan) Reset() {
+	*x = ProjectPlan{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[69]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ProjectPlan) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ProjectPlan) ProtoMessage() {}
+
+func (x *ProjectPlan) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[69]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ProjectPlan.ProtoReflect.Descriptor instead.
+func (*ProjectPlan) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{69}
+}
+
+func (x *ProjectPlan) GetProjectId() string {
+	if x != nil {
+		return x.ProjectId
+	}
+	return ""
+}
+
+func (x *ProjectPlan) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *ProjectPlan) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *ProjectPlan) GetItemGroups() []*ItemGroup {
+	if x != nil {
+		return x.ItemGroups
+	}
+	return nil
+}
+
+func (x *ProjectPlan) GetUsers() []*User {
+	if x != nil {
+		return x.Users
+	}
+	return nil
+}
+
+type ItemGroup struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name        string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	// Types that are assignable to Items:
+	//
+	//	*ItemGroup_TodoItems
+	//	*ItemGroup_DataContractItems
+	//	*ItemGroup_InfoAssetItems
+	//	*ItemGroup_DocumentItems
+	//	*ItemGroup_PipelineItems
+	Items isItemGroup_Items `protobuf_oneof:"items"`
+}
+
+func (x *ItemGroup) Reset() {
+	*x = ItemGroup{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[70]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ItemGroup) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemGroup) ProtoMessage() {}
+
+func (x *ItemGroup) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[70]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemGroup.ProtoReflect.Descriptor instead.
+func (*ItemGroup) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{70}
+}
+
+func (x *ItemGroup) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *ItemGroup) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (m *ItemGroup) GetItems() isItemGroup_Items {
+	if m != nil {
+		return m.Items
+	}
+	return nil
+}
+
+func (x *ItemGroup) GetTodoItems() *TodoItems {
+	if x, ok := x.GetItems().(*ItemGroup_TodoItems); ok {
+		return x.TodoItems
+	}
+	return nil
+}
+
+func (x *ItemGroup) GetDataContractItems() *DataContractItems {
+	if x, ok := x.GetItems().(*ItemGroup_DataContractItems); ok {
+		return x.DataContractItems
+	}
+	return nil
+}
+
+func (x *ItemGroup) GetInfoAssetItems() *InfoAssetItems {
+	if x, ok := x.GetItems().(*ItemGroup_InfoAssetItems); ok {
+		return x.InfoAssetItems
+	}
+	return nil
+}
+
+func (x *ItemGroup) GetDocumentItems() *DocumentItems {
+	if x, ok := x.GetItems().(*ItemGroup_DocumentItems); ok {
+		return x.DocumentItems
+	}
+	return nil
+}
+
+func (x *ItemGroup) GetPipelineItems() *PipelineItems {
+	if x, ok := x.GetItems().(*ItemGroup_PipelineItems); ok {
+		return x.PipelineItems
+	}
+	return nil
+}
+
+type isItemGroup_Items interface {
+	isItemGroup_Items()
+}
+
+type ItemGroup_TodoItems struct {
+	TodoItems *TodoItems `protobuf:"bytes,4,opt,name=todo_items,json=todoItems,proto3,oneof"`
+}
+
+type ItemGroup_DataContractItems struct {
+	DataContractItems *DataContractItems `protobuf:"bytes,5,opt,name=data_contract_items,json=dataContractItems,proto3,oneof"`
+}
+
+type ItemGroup_InfoAssetItems struct {
+	InfoAssetItems *InfoAssetItems `protobuf:"bytes,6,opt,name=info_asset_items,json=infoAssetItems,proto3,oneof"`
+}
+
+type ItemGroup_DocumentItems struct {
+	DocumentItems *DocumentItems `protobuf:"bytes,7,opt,name=document_items,json=documentItems,proto3,oneof"`
+}
+
+type ItemGroup_PipelineItems struct {
+	PipelineItems *PipelineItems `protobuf:"bytes,8,opt,name=pipeline_items,json=pipelineItems,proto3,oneof"`
+}
+
+func (*ItemGroup_TodoItems) isItemGroup_Items() {}
+
+func (*ItemGroup_DataContractItems) isItemGroup_Items() {}
+
+func (*ItemGroup_InfoAssetItems) isItemGroup_Items() {}
+
+func (*ItemGroup_DocumentItems) isItemGroup_Items() {}
+
+func (*ItemGroup_PipelineItems) isItemGroup_Items() {}
+
+type ItemProperties struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id             string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	CreationTime   *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=creation_time,json=creationTime,proto3" json:"creation_time,omitempty"`
+	DueTime        *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=due_time,json=dueTime,proto3" json:"due_time,omitempty"`
+	CompletionTime *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=completion_time,json=completionTime,proto3" json:"completion_time,omitempty"`
+	// The user that created this item, retrieved from the JWT token.
+	Creator *User `protobuf:"bytes,5,opt,name=creator,proto3" json:"creator,omitempty"`
+	// The user that is assigned to this item.
+	Assignee *User `protobuf:"bytes,6,opt,name=assignee,proto3" json:"assignee,omitempty"`
+}
+
+func (x *ItemProperties) Reset() {
+	*x = ItemProperties{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[71]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ItemProperties) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ItemProperties) ProtoMessage() {}
+
+func (x *ItemProperties) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[71]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ItemProperties.ProtoReflect.Descriptor instead.
+func (*ItemProperties) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{71}
+}
+
+func (x *ItemProperties) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ItemProperties) GetCreationTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreationTime
+	}
+	return nil
+}
+
+func (x *ItemProperties) GetDueTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.DueTime
+	}
+	return nil
+}
+
+func (x *ItemProperties) GetCompletionTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CompletionTime
+	}
+	return nil
+}
+
+func (x *ItemProperties) GetCreator() *User {
+	if x != nil {
+		return x.Creator
+	}
+	return nil
+}
+
+func (x *ItemProperties) GetAssignee() *User {
+	if x != nil {
+		return x.Assignee
+	}
+	return nil
+}
+
+type TodoItems struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Items []*TodoItems_TodoItem `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+}
+
+func (x *TodoItems) Reset() {
+	*x = TodoItems{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[72]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TodoItems) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoItems) ProtoMessage() {}
+
+func (x *TodoItems) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[72]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoItems.ProtoReflect.Descriptor instead.
+func (*TodoItems) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{72}
+}
+
+func (x *TodoItems) GetItems() []*TodoItems_TodoItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+type DataContractItems struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Items []*DataContractItems_DataContractItem `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+}
+
+func (x *DataContractItems) Reset() {
+	*x = DataContractItems{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[73]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DataContractItems) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DataContractItems) ProtoMessage() {}
+
+func (x *DataContractItems) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[73]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DataContractItems.ProtoReflect.Descriptor instead.
+func (*DataContractItems) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73}
+}
+
+func (x *DataContractItems) GetItems() []*DataContractItems_DataContractItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+type InfoAssetItems struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Items []*InfoAssetItems_InfoAssetItem `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+}
+
+func (x *InfoAssetItems) Reset() {
+	*x = InfoAssetItems{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[74]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InfoAssetItems) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InfoAssetItems) ProtoMessage() {}
+
+func (x *InfoAssetItems) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[74]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InfoAssetItems.ProtoReflect.Descriptor instead.
+func (*InfoAssetItems) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{74}
+}
+
+func (x *InfoAssetItems) GetItems() []*InfoAssetItems_InfoAssetItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+type DocumentItems struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Items []*DocumentItems_DocumentItem `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+}
+
+func (x *DocumentItems) Reset() {
+	*x = DocumentItems{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[75]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DocumentItems) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DocumentItems) ProtoMessage() {}
+
+func (x *DocumentItems) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[75]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DocumentItems.ProtoReflect.Descriptor instead.
+func (*DocumentItems) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{75}
+}
+
+func (x *DocumentItems) GetItems() []*DocumentItems_DocumentItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+type PipelineItems struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Items []*PipelineItems_PipelineItem `protobuf:"bytes,2,rep,name=items,proto3" json:"items,omitempty"`
+}
+
+func (x *PipelineItems) Reset() {
+	*x = PipelineItems{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PipelineItems) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PipelineItems) ProtoMessage() {}
+
+func (x *PipelineItems) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PipelineItems.ProtoReflect.Descriptor instead.
+func (*PipelineItems) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{76}
+}
+
+func (x *PipelineItems) GetItems() []*PipelineItems_PipelineItem {
+	if x != nil {
+		return x.Items
+	}
+	return nil
+}
+
+type InformationAsset struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Template       string                                 `protobuf:"bytes,1,opt,name=template,proto3" json:"template,omitempty"`
+	Name           string                                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	UnderEmbargo   bool                                   `protobuf:"varint,3,opt,name=under_embargo,json=underEmbargo,proto3" json:"under_embargo,omitempty"`
+	BusinessImpact *InformationAsset_BusinessImpactRating `protobuf:"bytes,4,opt,name=business_impact,json=businessImpact,proto3" json:"business_impact,omitempty"`
+	SecurityLevels []string                               `protobuf:"bytes,5,rep,name=security_levels,json=securityLevels,proto3" json:"security_levels,omitempty"`
+	SecurityLevel  string                                 `protobuf:"bytes,6,opt,name=security_level,json=securityLevel,proto3" json:"security_level,omitempty"`
+	Sections       []*InformationAsset_Section            `protobuf:"bytes,7,rep,name=sections,proto3" json:"sections,omitempty"`
+	// is this instance actually a template, i.e. without filled in values.
+	IsTemplate bool `protobuf:"varint,8,opt,name=is_template,json=isTemplate,proto3" json:"is_template,omitempty"`
+}
+
+func (x *InformationAsset) Reset() {
+	*x = InformationAsset{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[77]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InformationAsset) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InformationAsset) ProtoMessage() {}
+
+func (x *InformationAsset) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[77]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InformationAsset.ProtoReflect.Descriptor instead.
+func (*InformationAsset) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{77}
+}
+
+func (x *InformationAsset) GetTemplate() string {
+	if x != nil {
+		return x.Template
+	}
+	return ""
+}
+
+func (x *InformationAsset) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InformationAsset) GetUnderEmbargo() bool {
+	if x != nil {
+		return x.UnderEmbargo
+	}
+	return false
+}
+
+func (x *InformationAsset) GetBusinessImpact() *InformationAsset_BusinessImpactRating {
+	if x != nil {
+		return x.BusinessImpact
+	}
+	return nil
+}
+
+func (x *InformationAsset) GetSecurityLevels() []string {
+	if x != nil {
+		return x.SecurityLevels
+	}
+	return nil
+}
+
+func (x *InformationAsset) GetSecurityLevel() string {
+	if x != nil {
+		return x.SecurityLevel
+	}
+	return ""
+}
+
+func (x *InformationAsset) GetSections() []*InformationAsset_Section {
+	if x != nil {
+		return x.Sections
+	}
+	return nil
+}
+
+func (x *InformationAsset) GetIsTemplate() bool {
+	if x != nil {
+		return x.IsTemplate
+	}
+	return false
+}
+
 // (-- api-linter: core::0148::human-names=disabled
 //
 //	aip.dev/not-precedent . --)
@@ -6186,12 +6885,13 @@ type User struct {
 	ExternalUserId string     `protobuf:"bytes,5,opt,name=external_user_id,json=externalUserId,proto3" json:"external_user_id,omitempty"`
 	// the organization of the user.
 	OrganizationId string `protobuf:"bytes,6,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	FunctionTitle  string `protobuf:"bytes,7,opt,name=function_title,json=functionTitle,proto3" json:"function_title,omitempty"`
 }
 
 func (x *User) Reset() {
 	*x = User{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[69]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[78]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6204,7 +6904,7 @@ func (x *User) String() string {
 func (*User) ProtoMessage() {}
 
 func (x *User) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[69]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[78]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6217,7 +6917,7 @@ func (x *User) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use User.ProtoReflect.Descriptor instead.
 func (*User) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{69}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{78}
 }
 
 func (x *User) GetEmail() string {
@@ -6262,6 +6962,13 @@ func (x *User) GetOrganizationId() string {
 	return ""
 }
 
+func (x *User) GetFunctionTitle() string {
+	if x != nil {
+		return x.FunctionTitle
+	}
+	return ""
+}
+
 type PurposeMapping struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6278,7 +6985,7 @@ type PurposeMapping struct {
 func (x *PurposeMapping) Reset() {
 	*x = PurposeMapping{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[70]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[79]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6291,7 +6998,7 @@ func (x *PurposeMapping) String() string {
 func (*PurposeMapping) ProtoMessage() {}
 
 func (x *PurposeMapping) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[70]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[79]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6304,7 +7011,7 @@ func (x *PurposeMapping) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PurposeMapping.ProtoReflect.Descriptor instead.
 func (*PurposeMapping) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{70}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{79}
 }
 
 func (x *PurposeMapping) GetLevel() int32 {
@@ -6343,7 +7050,7 @@ type GenericRef struct {
 func (x *GenericRef) Reset() {
 	*x = GenericRef{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[71]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6356,7 +7063,7 @@ func (x *GenericRef) String() string {
 func (*GenericRef) ProtoMessage() {}
 
 func (x *GenericRef) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[71]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6369,7 +7076,7 @@ func (x *GenericRef) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GenericRef.ProtoReflect.Descriptor instead.
 func (*GenericRef) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{71}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{80}
 }
 
 func (m *GenericRef) GetRef() isGenericRef_Ref {
@@ -6414,7 +7121,7 @@ type Comment struct {
 func (x *Comment) Reset() {
 	*x = Comment{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[72]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6427,7 +7134,7 @@ func (x *Comment) String() string {
 func (*Comment) ProtoMessage() {}
 
 func (x *Comment) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[72]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6440,7 +7147,7 @@ func (x *Comment) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Comment.ProtoReflect.Descriptor instead.
 func (*Comment) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{72}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{81}
 }
 
 func (x *Comment) GetId() string {
@@ -6496,7 +7203,7 @@ type AuditTrailEntry struct {
 func (x *AuditTrailEntry) Reset() {
 	*x = AuditTrailEntry{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[73]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[82]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6509,7 +7216,7 @@ func (x *AuditTrailEntry) String() string {
 func (*AuditTrailEntry) ProtoMessage() {}
 
 func (x *AuditTrailEntry) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[73]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[82]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6522,7 +7229,7 @@ func (x *AuditTrailEntry) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AuditTrailEntry.ProtoReflect.Descriptor instead.
 func (*AuditTrailEntry) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73}
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{82}
 }
 
 func (x *AuditTrailEntry) GetId() string {
@@ -6571,7 +7278,7 @@ type MaskedFields_PatternList struct {
 func (x *MaskedFields_PatternList) Reset() {
 	*x = MaskedFields_PatternList{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[75]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[84]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6584,7 +7291,7 @@ func (x *MaskedFields_PatternList) String() string {
 func (*MaskedFields_PatternList) ProtoMessage() {}
 
 func (x *MaskedFields_PatternList) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[75]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[84]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6628,7 +7335,7 @@ type Schema_SimpleSchemaDefinition struct {
 func (x *Schema_SimpleSchemaDefinition) Reset() {
 	*x = Schema_SimpleSchemaDefinition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[85]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6641,7 +7348,7 @@ func (x *Schema_SimpleSchemaDefinition) String() string {
 func (*Schema_SimpleSchemaDefinition) ProtoMessage() {}
 
 func (x *Schema_SimpleSchemaDefinition) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[85]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6710,7 +7417,7 @@ type FieldMetadata_PersonalDataConfig struct {
 func (x *FieldMetadata_PersonalDataConfig) Reset() {
 	*x = FieldMetadata_PersonalDataConfig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[89]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6723,7 +7430,7 @@ func (x *FieldMetadata_PersonalDataConfig) String() string {
 func (*FieldMetadata_PersonalDataConfig) ProtoMessage() {}
 
 func (x *FieldMetadata_PersonalDataConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[89]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6780,7 +7487,7 @@ type FieldMetadata_NullHandlingConfig struct {
 func (x *FieldMetadata_NullHandlingConfig) Reset() {
 	*x = FieldMetadata_NullHandlingConfig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[90]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -6793,7 +7500,7 @@ func (x *FieldMetadata_NullHandlingConfig) String() string {
 func (*FieldMetadata_NullHandlingConfig) ProtoMessage() {}
 
 func (x *FieldMetadata_NullHandlingConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[90]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -6821,6 +7528,702 @@ func (x *FieldMetadata_NullHandlingConfig) GetDefaultValue() string {
 		return x.DefaultValue
 	}
 	return ""
+}
+
+type TodoItems_TodoItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ItemProperties *ItemProperties `protobuf:"bytes,1,opt,name=item_properties,json=itemProperties,proto3" json:"item_properties,omitempty"`
+	// If the completion date is 0, then the todo is not done yet.
+	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+}
+
+func (x *TodoItems_TodoItem) Reset() {
+	*x = TodoItems_TodoItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[91]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *TodoItems_TodoItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TodoItems_TodoItem) ProtoMessage() {}
+
+func (x *TodoItems_TodoItem) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[91]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TodoItems_TodoItem.ProtoReflect.Descriptor instead.
+func (*TodoItems_TodoItem) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{72, 0}
+}
+
+func (x *TodoItems_TodoItem) GetItemProperties() *ItemProperties {
+	if x != nil {
+		return x.ItemProperties
+	}
+	return nil
+}
+
+func (x *TodoItems_TodoItem) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+type DataContractItems_DataContractItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ItemProperties *ItemProperties `protobuf:"bytes,1,opt,name=item_properties,json=itemProperties,proto3" json:"item_properties,omitempty"`
+	// Data Contract details can be retrieved through the Data Contract API.
+	Ref *DataContractRef `protobuf:"bytes,2,opt,name=ref,proto3" json:"ref,omitempty"`
+}
+
+func (x *DataContractItems_DataContractItem) Reset() {
+	*x = DataContractItems_DataContractItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[92]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DataContractItems_DataContractItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DataContractItems_DataContractItem) ProtoMessage() {}
+
+func (x *DataContractItems_DataContractItem) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[92]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DataContractItems_DataContractItem.ProtoReflect.Descriptor instead.
+func (*DataContractItems_DataContractItem) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 0}
+}
+
+func (x *DataContractItems_DataContractItem) GetItemProperties() *ItemProperties {
+	if x != nil {
+		return x.ItemProperties
+	}
+	return nil
+}
+
+func (x *DataContractItems_DataContractItem) GetRef() *DataContractRef {
+	if x != nil {
+		return x.Ref
+	}
+	return nil
+}
+
+type InfoAssetItems_InfoAssetItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ItemProperties *ItemProperties                              `protobuf:"bytes,1,opt,name=item_properties,json=itemProperties,proto3" json:"item_properties,omitempty"`
+	Name           string                                       `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	State          InfoAssetItems_InfoAssetItem_State           `protobuf:"varint,3,opt,name=state,proto3,enum=strmprivacy.api.entities.v1.InfoAssetItems_InfoAssetItem_State" json:"state,omitempty"`
+	Classification *InfoAssetItems_InfoAssetItem_Classification `protobuf:"bytes,4,opt,name=classification,proto3" json:"classification,omitempty"`
+}
+
+func (x *InfoAssetItems_InfoAssetItem) Reset() {
+	*x = InfoAssetItems_InfoAssetItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[93]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InfoAssetItems_InfoAssetItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InfoAssetItems_InfoAssetItem) ProtoMessage() {}
+
+func (x *InfoAssetItems_InfoAssetItem) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[93]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InfoAssetItems_InfoAssetItem.ProtoReflect.Descriptor instead.
+func (*InfoAssetItems_InfoAssetItem) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{74, 0}
+}
+
+func (x *InfoAssetItems_InfoAssetItem) GetItemProperties() *ItemProperties {
+	if x != nil {
+		return x.ItemProperties
+	}
+	return nil
+}
+
+func (x *InfoAssetItems_InfoAssetItem) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InfoAssetItems_InfoAssetItem) GetState() InfoAssetItems_InfoAssetItem_State {
+	if x != nil {
+		return x.State
+	}
+	return InfoAssetItems_InfoAssetItem_STATE_UNSPECIFIED
+}
+
+func (x *InfoAssetItems_InfoAssetItem) GetClassification() *InfoAssetItems_InfoAssetItem_Classification {
+	if x != nil {
+		return x.Classification
+	}
+	return nil
+}
+
+// TODO is the name correct? Could also be SensitivityClassification or RiskClassification.
+// TODO is points a part of the classification or a separate field?
+type InfoAssetItems_InfoAssetItem_Classification struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name     string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	ColorCss string `protobuf:"bytes,2,opt,name=color_css,json=colorCss,proto3" json:"color_css,omitempty"`
+	// The sensitivity points of the information asset (higher is more sensitive)
+	Points int32 `protobuf:"varint,4,opt,name=points,proto3" json:"points,omitempty"`
+}
+
+func (x *InfoAssetItems_InfoAssetItem_Classification) Reset() {
+	*x = InfoAssetItems_InfoAssetItem_Classification{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[94]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InfoAssetItems_InfoAssetItem_Classification) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InfoAssetItems_InfoAssetItem_Classification) ProtoMessage() {}
+
+func (x *InfoAssetItems_InfoAssetItem_Classification) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[94]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InfoAssetItems_InfoAssetItem_Classification.ProtoReflect.Descriptor instead.
+func (*InfoAssetItems_InfoAssetItem_Classification) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{74, 0, 0}
+}
+
+func (x *InfoAssetItems_InfoAssetItem_Classification) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InfoAssetItems_InfoAssetItem_Classification) GetColorCss() string {
+	if x != nil {
+		return x.ColorCss
+	}
+	return ""
+}
+
+func (x *InfoAssetItems_InfoAssetItem_Classification) GetPoints() int32 {
+	if x != nil {
+		return x.Points
+	}
+	return 0
+}
+
+type DocumentItems_DocumentItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ItemProperties *ItemProperties `protobuf:"bytes,1,opt,name=item_properties,json=itemProperties,proto3" json:"item_properties,omitempty"`
+	// Filename should be unique within the project.
+	Filename string `protobuf:"bytes,2,opt,name=filename,proto3" json:"filename,omitempty"`
+	// If the URI is set, then the document originates from an external source.
+	Uri string `protobuf:"bytes,3,opt,name=uri,proto3" json:"uri,omitempty"`
+}
+
+func (x *DocumentItems_DocumentItem) Reset() {
+	*x = DocumentItems_DocumentItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[95]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DocumentItems_DocumentItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DocumentItems_DocumentItem) ProtoMessage() {}
+
+func (x *DocumentItems_DocumentItem) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[95]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DocumentItems_DocumentItem.ProtoReflect.Descriptor instead.
+func (*DocumentItems_DocumentItem) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{75, 0}
+}
+
+func (x *DocumentItems_DocumentItem) GetItemProperties() *ItemProperties {
+	if x != nil {
+		return x.ItemProperties
+	}
+	return nil
+}
+
+func (x *DocumentItems_DocumentItem) GetFilename() string {
+	if x != nil {
+		return x.Filename
+	}
+	return ""
+}
+
+func (x *DocumentItems_DocumentItem) GetUri() string {
+	if x != nil {
+		return x.Uri
+	}
+	return ""
+}
+
+type PipelineItems_PipelineItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ItemProperties *ItemProperties `protobuf:"bytes,1,opt,name=item_properties,json=itemProperties,proto3" json:"item_properties,omitempty"`
+	// Types that are assignable to Pipeline:
+	//
+	//	*PipelineItems_PipelineItem_Stream
+	//	*PipelineItems_PipelineItem_BatchJob
+	Pipeline isPipelineItems_PipelineItem_Pipeline `protobuf_oneof:"pipeline"`
+}
+
+func (x *PipelineItems_PipelineItem) Reset() {
+	*x = PipelineItems_PipelineItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[96]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PipelineItems_PipelineItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PipelineItems_PipelineItem) ProtoMessage() {}
+
+func (x *PipelineItems_PipelineItem) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[96]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PipelineItems_PipelineItem.ProtoReflect.Descriptor instead.
+func (*PipelineItems_PipelineItem) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{76, 0}
+}
+
+func (x *PipelineItems_PipelineItem) GetItemProperties() *ItemProperties {
+	if x != nil {
+		return x.ItemProperties
+	}
+	return nil
+}
+
+func (m *PipelineItems_PipelineItem) GetPipeline() isPipelineItems_PipelineItem_Pipeline {
+	if m != nil {
+		return m.Pipeline
+	}
+	return nil
+}
+
+func (x *PipelineItems_PipelineItem) GetStream() *StreamRef {
+	if x, ok := x.GetPipeline().(*PipelineItems_PipelineItem_Stream); ok {
+		return x.Stream
+	}
+	return nil
+}
+
+func (x *PipelineItems_PipelineItem) GetBatchJob() *BatchJobRef {
+	if x, ok := x.GetPipeline().(*PipelineItems_PipelineItem_BatchJob); ok {
+		return x.BatchJob
+	}
+	return nil
+}
+
+type isPipelineItems_PipelineItem_Pipeline interface {
+	isPipelineItems_PipelineItem_Pipeline()
+}
+
+type PipelineItems_PipelineItem_Stream struct {
+	Stream *StreamRef `protobuf:"bytes,2,opt,name=stream,proto3,oneof"`
+}
+
+type PipelineItems_PipelineItem_BatchJob struct {
+	BatchJob *BatchJobRef `protobuf:"bytes,3,opt,name=batch_job,json=batchJob,proto3,oneof"`
+}
+
+func (*PipelineItems_PipelineItem_Stream) isPipelineItems_PipelineItem_Pipeline() {}
+
+func (*PipelineItems_PipelineItem_BatchJob) isPipelineItems_PipelineItem_Pipeline() {}
+
+type InformationAsset_Section struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// Business consequences for instance
+	Name        string                         `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	SubSections []*InformationAsset_SubSection `protobuf:"bytes,2,rep,name=sub_sections,json=subSections,proto3" json:"sub_sections,omitempty"`
+}
+
+func (x *InformationAsset_Section) Reset() {
+	*x = InformationAsset_Section{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[97]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InformationAsset_Section) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InformationAsset_Section) ProtoMessage() {}
+
+func (x *InformationAsset_Section) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[97]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InformationAsset_Section.ProtoReflect.Descriptor instead.
+func (*InformationAsset_Section) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{77, 0}
+}
+
+func (x *InformationAsset_Section) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InformationAsset_Section) GetSubSections() []*InformationAsset_SubSection {
+	if x != nil {
+		return x.SubSections
+	}
+	return nil
+}
+
+type InformationAsset_SubSection struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	// 'Impact on core business' for instance
+	Name        string                    `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description string                    `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	Explanation string                    `protobuf:"bytes,3,opt,name=explanation,proto3" json:"explanation,omitempty"`
+	Checks      []*InformationAsset_Check `protobuf:"bytes,4,rep,name=checks,proto3" json:"checks,omitempty"`
+}
+
+func (x *InformationAsset_SubSection) Reset() {
+	*x = InformationAsset_SubSection{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[98]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InformationAsset_SubSection) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InformationAsset_SubSection) ProtoMessage() {}
+
+func (x *InformationAsset_SubSection) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[98]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InformationAsset_SubSection.ProtoReflect.Descriptor instead.
+func (*InformationAsset_SubSection) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{77, 1}
+}
+
+func (x *InformationAsset_SubSection) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InformationAsset_SubSection) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *InformationAsset_SubSection) GetExplanation() string {
+	if x != nil {
+		return x.Explanation
+	}
+	return ""
+}
+
+func (x *InformationAsset_SubSection) GetChecks() []*InformationAsset_Check {
+	if x != nil {
+		return x.Checks
+	}
+	return nil
+}
+
+type InformationAsset_Check struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name       string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	DetailInfo string `protobuf:"bytes,2,opt,name=detail_info,json=detailInfo,proto3" json:"detail_info,omitempty"`
+}
+
+func (x *InformationAsset_Check) Reset() {
+	*x = InformationAsset_Check{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[99]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InformationAsset_Check) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InformationAsset_Check) ProtoMessage() {}
+
+func (x *InformationAsset_Check) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[99]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InformationAsset_Check.ProtoReflect.Descriptor instead.
+func (*InformationAsset_Check) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{77, 2}
+}
+
+func (x *InformationAsset_Check) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InformationAsset_Check) GetDetailInfo() string {
+	if x != nil {
+		return x.DetailInfo
+	}
+	return ""
+}
+
+type InformationAsset_BusinessImpactRating struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Label string `protobuf:"bytes,1,opt,name=label,proto3" json:"label,omitempty"`
+}
+
+func (x *InformationAsset_BusinessImpactRating) Reset() {
+	*x = InformationAsset_BusinessImpactRating{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[100]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InformationAsset_BusinessImpactRating) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InformationAsset_BusinessImpactRating) ProtoMessage() {}
+
+func (x *InformationAsset_BusinessImpactRating) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[100]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InformationAsset_BusinessImpactRating.ProtoReflect.Descriptor instead.
+func (*InformationAsset_BusinessImpactRating) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{77, 3}
+}
+
+func (x *InformationAsset_BusinessImpactRating) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+type InformationAsset_BusinessImpactRating_Category struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name        string  `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description string  `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	Value       float32 `protobuf:"fixed32,3,opt,name=value,proto3" json:"value,omitempty"`
+}
+
+func (x *InformationAsset_BusinessImpactRating_Category) Reset() {
+	*x = InformationAsset_BusinessImpactRating_Category{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[101]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *InformationAsset_BusinessImpactRating_Category) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InformationAsset_BusinessImpactRating_Category) ProtoMessage() {}
+
+func (x *InformationAsset_BusinessImpactRating_Category) ProtoReflect() protoreflect.Message {
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[101]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InformationAsset_BusinessImpactRating_Category.ProtoReflect.Descriptor instead.
+func (*InformationAsset_BusinessImpactRating_Category) Descriptor() ([]byte, []int) {
+	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{77, 3, 0}
+}
+
+func (x *InformationAsset_BusinessImpactRating_Category) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *InformationAsset_BusinessImpactRating_Category) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *InformationAsset_BusinessImpactRating_Category) GetValue() float32 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
 }
 
 var File_strmprivacy_api_entities_v1_entities_v1_proto protoreflect.FileDescriptor
@@ -8004,155 +9407,395 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0f, 0x0a, 0x0b, 0x4f, 0x50,
 	0x45, 0x52, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x41, 0x4c, 0x10, 0x01, 0x12, 0x14, 0x0a, 0x10, 0x50,
 	0x45, 0x4e, 0x44, 0x49, 0x4e, 0x47, 0x5f, 0x44, 0x45, 0x4c, 0x45, 0x54, 0x49, 0x4f, 0x4e, 0x10,
-	0x02, 0x22, 0x97, 0x02, 0x0a, 0x04, 0x55, 0x73, 0x65, 0x72, 0x12, 0x20, 0x0a, 0x05, 0x65, 0x6d,
-	0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05,
-	0xd0, 0x01, 0x01, 0x60, 0x01, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1d, 0x0a, 0x0a,
-	0x66, 0x69, 0x72, 0x73, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x09, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x6c,
-	0x61, 0x73, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
-	0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x44, 0x0a, 0x0a, 0x75, 0x73, 0x65, 0x72,
-	0x5f, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0e, 0x32, 0x25, 0x2e, 0x73,
+	0x02, 0x22, 0x82, 0x02, 0x0a, 0x0b, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x50, 0x6c, 0x61,
+	0x6e, 0x12, 0x1d, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64,
+	0x12, 0x23, 0x0a, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42,
+	0x0d, 0xfa, 0x42, 0x0a, 0x72, 0x08, 0x10, 0x01, 0x18, 0xac, 0x02, 0xd0, 0x01, 0x01, 0x52, 0x05,
+	0x74, 0x69, 0x74, 0x6c, 0x65, 0x12, 0x2d, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72,
+	0x06, 0x18, 0x88, 0x27, 0xd0, 0x01, 0x01, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x47, 0x0a, 0x0b, 0x69, 0x74, 0x65, 0x6d, 0x5f, 0x67, 0x72, 0x6f,
+	0x75, 0x70, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x73, 0x74, 0x72, 0x6d,
+	0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x74, 0x65, 0x6d, 0x47, 0x72, 0x6f, 0x75,
+	0x70, 0x52, 0x0a, 0x69, 0x74, 0x65, 0x6d, 0x47, 0x72, 0x6f, 0x75, 0x70, 0x73, 0x12, 0x37, 0x0a,
+	0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x18, 0x05, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73,
 	0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65,
 	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52,
-	0x6f, 0x6c, 0x65, 0x52, 0x09, 0x75, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x12, 0x35,
-	0x0a, 0x10, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f,
-	0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0,
-	0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x0e, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x55,
-	0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x34, 0x0a, 0x0f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b,
-	0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x0e, 0x6f, 0x72, 0x67,
-	0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x22, 0x82, 0x01, 0x0a, 0x0e,
-	0x50, 0x75, 0x72, 0x70, 0x6f, 0x73, 0x65, 0x4d, 0x61, 0x70, 0x70, 0x69, 0x6e, 0x67, 0x12, 0x1d,
-	0x0a, 0x05, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x42, 0x07, 0xfa,
-	0x42, 0x04, 0x1a, 0x02, 0x28, 0x00, 0x52, 0x05, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x12, 0x23, 0x0a,
-	0x07, 0x70, 0x75, 0x72, 0x70, 0x6f, 0x73, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09,
-	0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x02, 0x18, 0x64, 0x52, 0x07, 0x70, 0x75, 0x72, 0x70, 0x6f,
-	0x73, 0x65, 0x12, 0x2c, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
-	0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x02,
-	0xd0, 0x01, 0x01, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
-	0x22, 0x6f, 0x0a, 0x0a, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x12, 0x5a,
-	0x0a, 0x11, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x5f,
-	0x72, 0x65, 0x66, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x73, 0x74, 0x72, 0x6d,
-	0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69,
-	0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6f, 0x6e, 0x74,
-	0x72, 0x61, 0x63, 0x74, 0x52, 0x65, 0x66, 0x48, 0x00, 0x52, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x43,
-	0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x52, 0x65, 0x66, 0x42, 0x05, 0x0a, 0x03, 0x72, 0x65,
-	0x66, 0x22, 0xac, 0x02, 0x0a, 0x07, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x1b, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06,
-	0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x02, 0x69, 0x64, 0x12, 0x45, 0x0a, 0x0b, 0x63, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75,
-	0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xfa, 0x42, 0x05,
-	0xb2, 0x01, 0x02, 0x08, 0x00, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d,
-	0x65, 0x12, 0x50, 0x0a, 0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x5f, 0x72, 0x65, 0x66, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76,
-	0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73,
-	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x42, 0x08,
-	0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x09, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79,
-	0x52, 0x65, 0x66, 0x12, 0x24, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x04,
-	0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x01, 0x18, 0xe8, 0x07,
-	0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x45, 0x0a, 0x07, 0x63, 0x72, 0x65,
-	0x61, 0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73, 0x74, 0x72,
-	0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74,
-	0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x42, 0x08, 0xfa,
-	0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x00, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72,
-	0x22, 0xb0, 0x02, 0x0a, 0x0f, 0x41, 0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45,
-	0x6e, 0x74, 0x72, 0x79, 0x12, 0x1b, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x02, 0x69,
-	0x64, 0x12, 0x45, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
-	0x6d, 0x70, 0x42, 0x08, 0xfa, 0x42, 0x05, 0xb2, 0x01, 0x02, 0x08, 0x00, 0x52, 0x0a, 0x63, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x50, 0x0a, 0x0a, 0x65, 0x6e, 0x74, 0x69,
-	0x74, 0x79, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x73,
-	0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65,
-	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72,
-	0x69, 0x63, 0x52, 0x65, 0x66, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52,
-	0x09, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x52, 0x65, 0x66, 0x12, 0x24, 0x0a, 0x07, 0x63, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07,
-	0x72, 0x05, 0x10, 0x01, 0x18, 0xe8, 0x07, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
-	0x12, 0x41, 0x0a, 0x05, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x21, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73,
-	0x65, 0x72, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x05, 0x61, 0x63,
-	0x74, 0x6f, 0x72, 0x2a, 0x5d, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12,
-	0x19, 0x0a, 0x15, 0x55, 0x53, 0x45, 0x52, 0x5f, 0x52, 0x4f, 0x4c, 0x45, 0x5f, 0x55, 0x4e, 0x53,
-	0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x41, 0x44,
-	0x4d, 0x49, 0x4e, 0x10, 0x01, 0x12, 0x11, 0x0a, 0x0d, 0x50, 0x52, 0x4f, 0x4a, 0x45, 0x43, 0x54,
-	0x5f, 0x41, 0x44, 0x4d, 0x49, 0x4e, 0x10, 0x02, 0x12, 0x0c, 0x0a, 0x08, 0x41, 0x50, 0x50, 0x52,
-	0x4f, 0x56, 0x45, 0x52, 0x10, 0x03, 0x12, 0x0a, 0x0a, 0x06, 0x4d, 0x45, 0x4d, 0x42, 0x45, 0x52,
-	0x10, 0x04, 0x2a, 0x8d, 0x01, 0x0a, 0x11, 0x42, 0x61, 0x74, 0x63, 0x68, 0x4a, 0x6f, 0x62, 0x53,
-	0x74, 0x61, 0x74, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x24, 0x0a, 0x20, 0x42, 0x41, 0x54, 0x43,
-	0x48, 0x5f, 0x4a, 0x4f, 0x42, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45,
-	0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0b,
-	0x0a, 0x07, 0x50, 0x45, 0x4e, 0x44, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x53,
-	0x54, 0x41, 0x52, 0x54, 0x45, 0x44, 0x10, 0x02, 0x12, 0x12, 0x0a, 0x0e, 0x45, 0x52, 0x52, 0x4f,
-	0x52, 0x5f, 0x53, 0x54, 0x41, 0x52, 0x54, 0x49, 0x4e, 0x47, 0x10, 0x03, 0x12, 0x0b, 0x0a, 0x07,
-	0x52, 0x55, 0x4e, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x04, 0x12, 0x0c, 0x0a, 0x08, 0x46, 0x49, 0x4e,
-	0x49, 0x53, 0x48, 0x45, 0x44, 0x10, 0x05, 0x12, 0x09, 0x0a, 0x05, 0x45, 0x52, 0x52, 0x4f, 0x52,
-	0x10, 0x06, 0x2a, 0x54, 0x0a, 0x10, 0x43, 0x6f, 0x6e, 0x73, 0x65, 0x6e, 0x74, 0x4c, 0x65, 0x76,
-	0x65, 0x6c, 0x54, 0x79, 0x70, 0x65, 0x12, 0x22, 0x0a, 0x1e, 0x43, 0x4f, 0x4e, 0x53, 0x45, 0x4e,
-	0x54, 0x5f, 0x4c, 0x45, 0x56, 0x45, 0x4c, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53,
-	0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x43, 0x55,
-	0x4d, 0x55, 0x4c, 0x41, 0x54, 0x49, 0x56, 0x45, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08, 0x47, 0x52,
-	0x41, 0x4e, 0x55, 0x4c, 0x41, 0x52, 0x10, 0x02, 0x2a, 0x3d, 0x0a, 0x08, 0x53, 0x69, 0x6e, 0x6b,
-	0x54, 0x79, 0x70, 0x65, 0x12, 0x19, 0x0a, 0x15, 0x53, 0x49, 0x4e, 0x4b, 0x5f, 0x54, 0x59, 0x50,
-	0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12,
-	0x06, 0x0a, 0x02, 0x53, 0x33, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x47, 0x43, 0x4c, 0x4f, 0x55,
-	0x44, 0x10, 0x02, 0x1a, 0x02, 0x18, 0x01, 0x2a, 0x4d, 0x0a, 0x0d, 0x41, 0x75, 0x74, 0x68, 0x4d,
-	0x65, 0x63, 0x68, 0x61, 0x6e, 0x69, 0x73, 0x6d, 0x12, 0x1e, 0x0a, 0x1a, 0x41, 0x55, 0x54, 0x48,
-	0x5f, 0x4d, 0x45, 0x43, 0x48, 0x41, 0x4e, 0x49, 0x53, 0x4d, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45,
-	0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x53, 0x41, 0x53, 0x4c,
-	0x5f, 0x50, 0x4c, 0x41, 0x49, 0x4e, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08, 0x53, 0x41, 0x53, 0x4c,
-	0x5f, 0x53, 0x53, 0x4c, 0x10, 0x02, 0x2a, 0x43, 0x0a, 0x0a, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61,
-	0x54, 0x79, 0x70, 0x65, 0x12, 0x1b, 0x0a, 0x17, 0x53, 0x43, 0x48, 0x45, 0x4d, 0x41, 0x5f, 0x54,
-	0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10,
-	0x00, 0x12, 0x08, 0x0a, 0x04, 0x41, 0x56, 0x52, 0x4f, 0x10, 0x01, 0x12, 0x0e, 0x0a, 0x0a, 0x4a,
-	0x53, 0x4f, 0x4e, 0x53, 0x43, 0x48, 0x45, 0x4d, 0x41, 0x10, 0x02, 0x2a, 0x84, 0x01, 0x0a, 0x14,
-	0x53, 0x69, 0x6d, 0x70, 0x6c, 0x65, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x4e, 0x6f, 0x64, 0x65,
-	0x54, 0x79, 0x70, 0x65, 0x12, 0x27, 0x0a, 0x23, 0x53, 0x49, 0x4d, 0x50, 0x4c, 0x45, 0x5f, 0x53,
-	0x43, 0x48, 0x45, 0x4d, 0x41, 0x5f, 0x4e, 0x4f, 0x44, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f,
-	0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0a, 0x0a,
-	0x06, 0x53, 0x54, 0x52, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x42, 0x4f, 0x4f,
-	0x4c, 0x45, 0x41, 0x4e, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05, 0x46, 0x4c, 0x4f, 0x41, 0x54, 0x10,
-	0x03, 0x12, 0x0b, 0x0a, 0x07, 0x49, 0x4e, 0x54, 0x45, 0x47, 0x45, 0x52, 0x10, 0x04, 0x12, 0x08,
-	0x0a, 0x04, 0x4c, 0x4f, 0x4e, 0x47, 0x10, 0x05, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x4f, 0x44, 0x45,
-	0x10, 0x0a, 0x2a, 0x5f, 0x0a, 0x13, 0x46, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x50, 0x75, 0x62, 0x6c,
-	0x69, 0x63, 0x50, 0x72, 0x69, 0x76, 0x61, 0x74, 0x65, 0x12, 0x25, 0x0a, 0x21, 0x46, 0x49, 0x4c,
-	0x54, 0x45, 0x52, 0x5f, 0x50, 0x55, 0x42, 0x4c, 0x49, 0x43, 0x5f, 0x50, 0x52, 0x49, 0x56, 0x41,
-	0x54, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00,
-	0x12, 0x0f, 0x0a, 0x0b, 0x4f, 0x4e, 0x4c, 0x59, 0x5f, 0x50, 0x55, 0x42, 0x4c, 0x49, 0x43, 0x10,
-	0x01, 0x12, 0x10, 0x0a, 0x0c, 0x4f, 0x4e, 0x4c, 0x59, 0x5f, 0x50, 0x52, 0x49, 0x56, 0x41, 0x54,
-	0x45, 0x10, 0x02, 0x2a, 0x65, 0x0a, 0x13, 0x53, 0x74, 0x61, 0x74, 0x69, 0x73, 0x74, 0x69, 0x63,
-	0x61, 0x6c, 0x44, 0x61, 0x74, 0x61, 0x54, 0x79, 0x70, 0x65, 0x12, 0x25, 0x0a, 0x21, 0x53, 0x54,
-	0x41, 0x54, 0x49, 0x53, 0x54, 0x49, 0x43, 0x41, 0x4c, 0x5f, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x54,
-	0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10,
-	0x00, 0x12, 0x0b, 0x0a, 0x07, 0x4e, 0x4f, 0x4d, 0x49, 0x4e, 0x41, 0x4c, 0x10, 0x01, 0x12, 0x0b,
-	0x0a, 0x07, 0x4f, 0x52, 0x44, 0x49, 0x4e, 0x41, 0x4c, 0x10, 0x02, 0x12, 0x0d, 0x0a, 0x09, 0x4e,
-	0x55, 0x4d, 0x45, 0x52, 0x49, 0x43, 0x41, 0x4c, 0x10, 0x03, 0x2a, 0x92, 0x01, 0x0a, 0x10, 0x53,
-	0x75, 0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x6c, 0x61, 0x6e, 0x12,
-	0x21, 0x0a, 0x1d, 0x53, 0x55, 0x42, 0x53, 0x43, 0x52, 0x49, 0x50, 0x54, 0x49, 0x4f, 0x4e, 0x5f,
-	0x50, 0x4c, 0x41, 0x4e, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44,
-	0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x46, 0x52, 0x45, 0x45, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08,
-	0x42, 0x55, 0x53, 0x49, 0x4e, 0x45, 0x53, 0x53, 0x10, 0x02, 0x12, 0x0f, 0x0a, 0x0b, 0x53, 0x45,
-	0x4c, 0x46, 0x5f, 0x48, 0x4f, 0x53, 0x54, 0x45, 0x44, 0x10, 0x03, 0x12, 0x18, 0x0a, 0x14, 0x41,
-	0x57, 0x53, 0x5f, 0x4d, 0x41, 0x52, 0x4b, 0x45, 0x54, 0x50, 0x4c, 0x41, 0x43, 0x45, 0x5f, 0x50,
-	0x41, 0x59, 0x47, 0x10, 0x04, 0x12, 0x18, 0x0a, 0x14, 0x41, 0x57, 0x53, 0x5f, 0x4d, 0x41, 0x52,
-	0x4b, 0x45, 0x54, 0x50, 0x4c, 0x41, 0x43, 0x45, 0x5f, 0x42, 0x59, 0x4f, 0x4c, 0x10, 0x05, 0x2a,
-	0x63, 0x0a, 0x0c, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12,
-	0x1d, 0x0a, 0x19, 0x44, 0x41, 0x54, 0x41, 0x42, 0x41, 0x53, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45,
-	0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0c,
-	0x0a, 0x08, 0x50, 0x4f, 0x53, 0x54, 0x47, 0x52, 0x45, 0x53, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05,
-	0x4d, 0x59, 0x53, 0x51, 0x4c, 0x10, 0x02, 0x12, 0x0c, 0x0a, 0x08, 0x42, 0x49, 0x47, 0x51, 0x55,
-	0x45, 0x52, 0x59, 0x10, 0x03, 0x12, 0x0d, 0x0a, 0x09, 0x53, 0x4e, 0x4f, 0x57, 0x46, 0x4c, 0x41,
-	0x4b, 0x45, 0x10, 0x04, 0x42, 0x69, 0x0a, 0x1e, 0x69, 0x6f, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
+	0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x22, 0x95, 0x04, 0x0a, 0x09, 0x49, 0x74, 0x65, 0x6d, 0x47,
+	0x72, 0x6f, 0x75, 0x70, 0x12, 0x1d, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x01, 0x18, 0x64, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x2d, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0x18,
+	0x88, 0x27, 0xd0, 0x01, 0x01, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x47, 0x0a, 0x0a, 0x74, 0x6f, 0x64, 0x6f, 0x5f, 0x69, 0x74, 0x65, 0x6d, 0x73,
+	0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
+	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
+	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x54, 0x6f, 0x64, 0x6f, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x48, 0x00,
+	0x52, 0x09, 0x74, 0x6f, 0x64, 0x6f, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x60, 0x0a, 0x13, 0x64,
+	0x61, 0x74, 0x61, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x5f, 0x69, 0x74, 0x65,
+	0x6d, 0x73, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2e, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
 	0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74,
-	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x50, 0x01, 0x5a, 0x45, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
-	0x2f, 0x61, 0x70, 0x69, 0x2d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x73,
-	0x2d, 0x67, 0x6f, 0x2f, 0x76, 0x32, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x65, 0x6e, 0x74, 0x69, 0x74,
-	0x69, 0x65, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6f, 0x6e, 0x74, 0x72,
+	0x61, 0x63, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x48, 0x00, 0x52, 0x11, 0x64, 0x61, 0x74, 0x61,
+	0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x57, 0x0a,
+	0x10, 0x69, 0x6e, 0x66, 0x6f, 0x5f, 0x61, 0x73, 0x73, 0x65, 0x74, 0x5f, 0x69, 0x74, 0x65, 0x6d,
+	0x73, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
+	0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69,
+	0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x73, 0x73, 0x65, 0x74, 0x49,
+	0x74, 0x65, 0x6d, 0x73, 0x48, 0x00, 0x52, 0x0e, 0x69, 0x6e, 0x66, 0x6f, 0x41, 0x73, 0x73, 0x65,
+	0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x53, 0x0a, 0x0e, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65,
+	0x6e, 0x74, 0x5f, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2a,
+	0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x6f, 0x63,
+	0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x48, 0x00, 0x52, 0x0d, 0x64, 0x6f,
+	0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x53, 0x0a, 0x0e, 0x70,
+	0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x5f, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x08, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x2a, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63,
+	0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x48,
+	0x00, 0x52, 0x0d, 0x70, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x73,
+	0x42, 0x0c, 0x0a, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x03, 0xf8, 0x42, 0x01, 0x22, 0xe3,
+	0x02, 0x0a, 0x0e, 0x49, 0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65,
+	0x73, 0x12, 0x18, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x08, 0xfa,
+	0x42, 0x05, 0x72, 0x03, 0xb0, 0x01, 0x01, 0x52, 0x02, 0x69, 0x64, 0x12, 0x3f, 0x0a, 0x0d, 0x63,
+	0x72, 0x65, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x0c,
+	0x63, 0x72, 0x65, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x35, 0x0a, 0x08,
+	0x64, 0x75, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a,
+	0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66,
+	0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x07, 0x64, 0x75, 0x65, 0x54,
+	0x69, 0x6d, 0x65, 0x12, 0x43, 0x0a, 0x0f, 0x63, 0x6f, 0x6d, 0x70, 0x6c, 0x65, 0x74, 0x69, 0x6f,
+	0x6e, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67,
+	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54,
+	0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x0e, 0x63, 0x6f, 0x6d, 0x70, 0x6c, 0x65,
+	0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x3b, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61,
+	0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73, 0x74, 0x72, 0x6d,
+	0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x07, 0x63, 0x72,
+	0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x3d, 0x0a, 0x08, 0x61, 0x73, 0x73, 0x69, 0x67, 0x6e, 0x65,
+	0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
+	0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69,
+	0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x08, 0x61, 0x73, 0x73, 0x69,
+	0x67, 0x6e, 0x65, 0x65, 0x22, 0xe1, 0x01, 0x0a, 0x09, 0x54, 0x6f, 0x64, 0x6f, 0x49, 0x74, 0x65,
+	0x6d, 0x73, 0x12, 0x45, 0x0a, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28,
+	0x0b, 0x32, 0x2f, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e,
+	0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e,
+	0x54, 0x6f, 0x64, 0x6f, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x2e, 0x54, 0x6f, 0x64, 0x6f, 0x49, 0x74,
+	0x65, 0x6d, 0x52, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x1a, 0x8c, 0x01, 0x0a, 0x08, 0x54, 0x6f,
+	0x64, 0x6f, 0x49, 0x74, 0x65, 0x6d, 0x12, 0x54, 0x0a, 0x0f, 0x69, 0x74, 0x65, 0x6d, 0x5f, 0x70,
+	0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x2b, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x74,
+	0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x52, 0x0e, 0x69, 0x74,
+	0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x12, 0x2a, 0x0a, 0x0b,
+	0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x72, 0x03, 0x18, 0x88, 0x27, 0x52, 0x0b, 0x64, 0x65, 0x73,
+	0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x9f, 0x02, 0x0a, 0x11, 0x44, 0x61, 0x74,
+	0x61, 0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x55,
+	0x0a, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x3f, 0x2e,
+	0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x61, 0x74, 0x61,
+	0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x2e, 0x44, 0x61,
+	0x74, 0x61, 0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x52, 0x05,
+	0x69, 0x74, 0x65, 0x6d, 0x73, 0x1a, 0xb2, 0x01, 0x0a, 0x10, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6f,
+	0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x12, 0x54, 0x0a, 0x0f, 0x69, 0x74,
+	0x65, 0x6d, 0x5f, 0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63,
+	0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x49, 0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73,
+	0x52, 0x0e, 0x69, 0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73,
+	0x12, 0x48, 0x0a, 0x03, 0x72, 0x65, 0x66, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e,
+	0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x61, 0x74, 0x61,
+	0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x52, 0x65, 0x66, 0x42, 0x08, 0xfa, 0x42, 0x05,
+	0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x03, 0x72, 0x65, 0x66, 0x22, 0xe2, 0x04, 0x0a, 0x0e, 0x49,
+	0x6e, 0x66, 0x6f, 0x41, 0x73, 0x73, 0x65, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x4f, 0x0a,
+	0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x39, 0x2e, 0x73,
+	0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65,
+	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x41,
+	0x73, 0x73, 0x65, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x73,
+	0x73, 0x65, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x52, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x1a, 0xfe,
+	0x03, 0x0a, 0x0d, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x73, 0x73, 0x65, 0x74, 0x49, 0x74, 0x65, 0x6d,
+	0x12, 0x54, 0x0a, 0x0f, 0x69, 0x74, 0x65, 0x6d, 0x5f, 0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74,
+	0x69, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x73, 0x74, 0x72, 0x6d,
+	0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70,
+	0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x52, 0x0e, 0x69, 0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70,
+	0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x12, 0x1c, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x72, 0x03, 0x18, 0xac, 0x02, 0x52, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x12, 0x5a, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x0e, 0x32, 0x3f, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63,
+	0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x73, 0x73, 0x65, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73,
+	0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x73, 0x73, 0x65, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x2e, 0x53,
+	0x74, 0x61, 0x74, 0x65, 0x42, 0x03, 0xe0, 0x41, 0x03, 0x52, 0x05, 0x73, 0x74, 0x61, 0x74, 0x65,
+	0x12, 0x70, 0x0a, 0x0e, 0x63, 0x6c, 0x61, 0x73, 0x73, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x48, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
+	0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74,
+	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x73, 0x73, 0x65, 0x74,
+	0x49, 0x74, 0x65, 0x6d, 0x73, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x41, 0x73, 0x73, 0x65, 0x74, 0x49,
+	0x74, 0x65, 0x6d, 0x2e, 0x43, 0x6c, 0x61, 0x73, 0x73, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x52, 0x0e, 0x63, 0x6c, 0x61, 0x73, 0x73, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x1a, 0x63, 0x0a, 0x0e, 0x43, 0x6c, 0x61, 0x73, 0x73, 0x69, 0x66, 0x69, 0x63, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1c, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x72, 0x03, 0x18, 0xac, 0x02, 0x52, 0x04, 0x6e, 0x61,
+	0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x63, 0x6f, 0x6c, 0x6f, 0x72, 0x5f, 0x63, 0x73, 0x73, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x6f, 0x6c, 0x6f, 0x72, 0x43, 0x73, 0x73, 0x12,
+	0x16, 0x0a, 0x06, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x18, 0x04, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x06, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x73, 0x22, 0x46, 0x0a, 0x05, 0x53, 0x74, 0x61, 0x74, 0x65,
+	0x12, 0x15, 0x0a, 0x11, 0x53, 0x54, 0x41, 0x54, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43,
+	0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x44, 0x52, 0x41, 0x46, 0x54,
+	0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09, 0x49, 0x4e, 0x5f, 0x52, 0x45, 0x56, 0x49, 0x45, 0x57, 0x10,
+	0x02, 0x12, 0x0c, 0x0a, 0x08, 0x41, 0x50, 0x50, 0x52, 0x4f, 0x56, 0x45, 0x44, 0x10, 0x03, 0x22,
+	0xf3, 0x01, 0x0a, 0x0d, 0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x74, 0x65, 0x6d,
+	0x73, 0x12, 0x4d, 0x0a, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x37, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44,
+	0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x2e, 0x44, 0x6f, 0x63,
+	0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x74, 0x65, 0x6d, 0x52, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73,
+	0x1a, 0x92, 0x01, 0x0a, 0x0c, 0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x74, 0x65,
+	0x6d, 0x12, 0x54, 0x0a, 0x0f, 0x69, 0x74, 0x65, 0x6d, 0x5f, 0x70, 0x72, 0x6f, 0x70, 0x65, 0x72,
+	0x74, 0x69, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x73, 0x74, 0x72,
+	0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74,
+	0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f,
+	0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x52, 0x0e, 0x69, 0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f,
+	0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x12, 0x1a, 0x0a, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x66, 0x69, 0x6c, 0x65, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x69, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x03, 0x75, 0x72, 0x69, 0x22, 0xe1, 0x02, 0x0a, 0x0d, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69,
+	0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x73, 0x12, 0x4d, 0x0a, 0x05, 0x69, 0x74, 0x65, 0x6d, 0x73,
+	0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x37, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
+	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
+	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x49, 0x74, 0x65,
+	0x6d, 0x73, 0x2e, 0x50, 0x69, 0x70, 0x65, 0x6c, 0x69, 0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x52,
+	0x05, 0x69, 0x74, 0x65, 0x6d, 0x73, 0x1a, 0x80, 0x02, 0x0a, 0x0c, 0x50, 0x69, 0x70, 0x65, 0x6c,
+	0x69, 0x6e, 0x65, 0x49, 0x74, 0x65, 0x6d, 0x12, 0x54, 0x0a, 0x0f, 0x69, 0x74, 0x65, 0x6d, 0x5f,
+	0x70, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x2b, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61,
+	0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49,
+	0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x52, 0x0e, 0x69,
+	0x74, 0x65, 0x6d, 0x50, 0x72, 0x6f, 0x70, 0x65, 0x72, 0x74, 0x69, 0x65, 0x73, 0x12, 0x40, 0x0a,
+	0x06, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e,
+	0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e,
+	0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x74, 0x72, 0x65,
+	0x61, 0x6d, 0x52, 0x65, 0x66, 0x48, 0x00, 0x52, 0x06, 0x73, 0x74, 0x72, 0x65, 0x61, 0x6d, 0x12,
+	0x47, 0x0a, 0x09, 0x62, 0x61, 0x74, 0x63, 0x68, 0x5f, 0x6a, 0x6f, 0x62, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x28, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31,
+	0x2e, 0x42, 0x61, 0x74, 0x63, 0x68, 0x4a, 0x6f, 0x62, 0x52, 0x65, 0x66, 0x48, 0x00, 0x52, 0x08,
+	0x62, 0x61, 0x74, 0x63, 0x68, 0x4a, 0x6f, 0x62, 0x42, 0x0f, 0x0a, 0x08, 0x70, 0x69, 0x70, 0x65,
+	0x6c, 0x69, 0x6e, 0x65, 0x12, 0x03, 0xf8, 0x42, 0x01, 0x22, 0x8d, 0x07, 0x0a, 0x10, 0x49, 0x6e,
+	0x66, 0x6f, 0x72, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x73, 0x73, 0x65, 0x74, 0x12, 0x1a,
+	0x0a, 0x08, 0x74, 0x65, 0x6d, 0x70, 0x6c, 0x61, 0x74, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x08, 0x74, 0x65, 0x6d, 0x70, 0x6c, 0x61, 0x74, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61,
+	0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x23,
+	0x0a, 0x0d, 0x75, 0x6e, 0x64, 0x65, 0x72, 0x5f, 0x65, 0x6d, 0x62, 0x61, 0x72, 0x67, 0x6f, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0c, 0x75, 0x6e, 0x64, 0x65, 0x72, 0x45, 0x6d, 0x62, 0x61,
+	0x72, 0x67, 0x6f, 0x12, 0x6b, 0x0a, 0x0f, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x5f,
+	0x69, 0x6d, 0x70, 0x61, 0x63, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x42, 0x2e, 0x73,
+	0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65,
+	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x72,
+	0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x73, 0x73, 0x65, 0x74, 0x2e, 0x42, 0x75, 0x73, 0x69,
+	0x6e, 0x65, 0x73, 0x73, 0x49, 0x6d, 0x70, 0x61, 0x63, 0x74, 0x52, 0x61, 0x74, 0x69, 0x6e, 0x67,
+	0x52, 0x0e, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49, 0x6d, 0x70, 0x61, 0x63, 0x74,
+	0x12, 0x27, 0x0a, 0x0f, 0x73, 0x65, 0x63, 0x75, 0x72, 0x69, 0x74, 0x79, 0x5f, 0x6c, 0x65, 0x76,
+	0x65, 0x6c, 0x73, 0x18, 0x05, 0x20, 0x03, 0x28, 0x09, 0x52, 0x0e, 0x73, 0x65, 0x63, 0x75, 0x72,
+	0x69, 0x74, 0x79, 0x4c, 0x65, 0x76, 0x65, 0x6c, 0x73, 0x12, 0x25, 0x0a, 0x0e, 0x73, 0x65, 0x63,
+	0x75, 0x72, 0x69, 0x74, 0x79, 0x5f, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x18, 0x06, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0d, 0x73, 0x65, 0x63, 0x75, 0x72, 0x69, 0x74, 0x79, 0x4c, 0x65, 0x76, 0x65, 0x6c,
+	0x12, 0x51, 0x0a, 0x08, 0x73, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x07, 0x20, 0x03,
+	0x28, 0x0b, 0x32, 0x35, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
+	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31,
+	0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x72, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x41, 0x73, 0x73, 0x65,
+	0x74, 0x2e, 0x53, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x08, 0x73, 0x65, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x73, 0x12, 0x1f, 0x0a, 0x0b, 0x69, 0x73, 0x5f, 0x74, 0x65, 0x6d, 0x70, 0x6c, 0x61,
+	0x74, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0a, 0x69, 0x73, 0x54, 0x65, 0x6d, 0x70,
+	0x6c, 0x61, 0x74, 0x65, 0x1a, 0x7a, 0x0a, 0x07, 0x53, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x5b, 0x0a, 0x0c, 0x73, 0x75, 0x62, 0x5f, 0x73, 0x65, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x38, 0x2e, 0x73, 0x74, 0x72, 0x6d,
+	0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x72, 0x6d, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x41, 0x73, 0x73, 0x65, 0x74, 0x2e, 0x53, 0x75, 0x62, 0x53, 0x65, 0x63, 0x74,
+	0x69, 0x6f, 0x6e, 0x52, 0x0b, 0x73, 0x75, 0x62, 0x53, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x73,
+	0x1a, 0xb1, 0x01, 0x0a, 0x0a, 0x53, 0x75, 0x62, 0x53, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x20, 0x0a, 0x0b, 0x65, 0x78, 0x70, 0x6c, 0x61, 0x6e, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x65, 0x78, 0x70, 0x6c,
+	0x61, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x4b, 0x0a, 0x06, 0x63, 0x68, 0x65, 0x63, 0x6b,
+	0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x33, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
+	0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69,
+	0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x49, 0x6e, 0x66, 0x6f, 0x72, 0x6d, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x41, 0x73, 0x73, 0x65, 0x74, 0x2e, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x52, 0x06, 0x63, 0x68,
+	0x65, 0x63, 0x6b, 0x73, 0x1a, 0x3c, 0x0a, 0x05, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x12, 0x12, 0x0a,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d,
+	0x65, 0x12, 0x1f, 0x0a, 0x0b, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x5f, 0x69, 0x6e, 0x66, 0x6f,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x49, 0x6e,
+	0x66, 0x6f, 0x1a, 0x84, 0x01, 0x0a, 0x14, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49,
+	0x6d, 0x70, 0x61, 0x63, 0x74, 0x52, 0x61, 0x74, 0x69, 0x6e, 0x67, 0x12, 0x14, 0x0a, 0x05, 0x6c,
+	0x61, 0x62, 0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65,
+	0x6c, 0x1a, 0x56, 0x0a, 0x08, 0x43, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x12, 0x12, 0x0a,
+	0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d,
+	0x65, 0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
+	0x69, 0x6f, 0x6e, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x02, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x22, 0xbe, 0x02, 0x0a, 0x04, 0x55, 0x73,
+	0x65, 0x72, 0x12, 0x20, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0xd0, 0x01, 0x01, 0x60, 0x01, 0x52, 0x05, 0x65,
+	0x6d, 0x61, 0x69, 0x6c, 0x12, 0x1d, 0x0a, 0x0a, 0x66, 0x69, 0x72, 0x73, 0x74, 0x5f, 0x6e, 0x61,
+	0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x66, 0x69, 0x72, 0x73, 0x74, 0x4e,
+	0x61, 0x6d, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x6c, 0x61, 0x73, 0x74, 0x5f, 0x6e, 0x61, 0x6d, 0x65,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x6c, 0x61, 0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65,
+	0x12, 0x44, 0x0a, 0x0a, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x72, 0x6f, 0x6c, 0x65, 0x73, 0x18, 0x04,
+	0x20, 0x03, 0x28, 0x0e, 0x32, 0x25, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61,
+	0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e,
+	0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x09, 0x75, 0x73, 0x65,
+	0x72, 0x52, 0x6f, 0x6c, 0x65, 0x73, 0x12, 0x35, 0x0a, 0x10, 0x65, 0x78, 0x74, 0x65, 0x72, 0x6e,
+	0x61, 0x6c, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09,
+	0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x0e, 0x65,
+	0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x55, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x34, 0x0a,
+	0x0f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64,
+	0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01,
+	0xb0, 0x01, 0x01, 0x52, 0x0e, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x49, 0x64, 0x12, 0x25, 0x0a, 0x0e, 0x66, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f,
+	0x74, 0x69, 0x74, 0x6c, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0d, 0x66, 0x75, 0x6e,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x69, 0x74, 0x6c, 0x65, 0x22, 0x82, 0x01, 0x0a, 0x0e, 0x50,
+	0x75, 0x72, 0x70, 0x6f, 0x73, 0x65, 0x4d, 0x61, 0x70, 0x70, 0x69, 0x6e, 0x67, 0x12, 0x1d, 0x0a,
+	0x05, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x42, 0x07, 0xfa, 0x42,
+	0x04, 0x1a, 0x02, 0x28, 0x00, 0x52, 0x05, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x12, 0x23, 0x0a, 0x07,
+	0x70, 0x75, 0x72, 0x70, 0x6f, 0x73, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa,
+	0x42, 0x06, 0x72, 0x04, 0x10, 0x02, 0x18, 0x64, 0x52, 0x07, 0x70, 0x75, 0x72, 0x70, 0x6f, 0x73,
+	0x65, 0x12, 0x2c, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x02, 0xd0,
+	0x01, 0x01, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22,
+	0x6f, 0x0a, 0x0a, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x12, 0x5a, 0x0a,
+	0x11, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x5f, 0x72,
+	0x65, 0x66, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
+	0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74,
+	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x43, 0x6f, 0x6e, 0x74, 0x72,
+	0x61, 0x63, 0x74, 0x52, 0x65, 0x66, 0x48, 0x00, 0x52, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x43, 0x6f,
+	0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x52, 0x65, 0x66, 0x42, 0x05, 0x0a, 0x03, 0x72, 0x65, 0x66,
+	0x22, 0xac, 0x02, 0x0a, 0x07, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x1b, 0x0a, 0x02,
+	0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0,
+	0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x02, 0x69, 0x64, 0x12, 0x45, 0x0a, 0x0b, 0x63, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a,
+	0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66,
+	0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xfa, 0x42, 0x05, 0xb2,
+	0x01, 0x02, 0x08, 0x00, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65,
+	0x12, 0x50, 0x0a, 0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61,
+	0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e,
+	0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x42, 0x08, 0xfa,
+	0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x09, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x52,
+	0x65, 0x66, 0x12, 0x24, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x01, 0x18, 0xe8, 0x07, 0x52,
+	0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x45, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61,
+	0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73, 0x74, 0x72, 0x6d,
+	0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x42, 0x08, 0xfa, 0x42,
+	0x05, 0x8a, 0x01, 0x02, 0x10, 0x00, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22,
+	0xb0, 0x02, 0x0a, 0x0f, 0x41, 0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e,
+	0x74, 0x72, 0x79, 0x12, 0x1b, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42,
+	0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x45, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d,
+	0x70, 0x42, 0x08, 0xfa, 0x42, 0x05, 0xb2, 0x01, 0x02, 0x08, 0x00, 0x52, 0x0a, 0x63, 0x72, 0x65,
+	0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x50, 0x0a, 0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74,
+	0x79, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x73, 0x74,
+	0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e,
+	0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
+	0x63, 0x52, 0x65, 0x66, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x09,
+	0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x52, 0x65, 0x66, 0x12, 0x24, 0x0a, 0x07, 0x63, 0x6f, 0x6e,
+	0x74, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72,
+	0x05, 0x10, 0x01, 0x18, 0xe8, 0x07, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12,
+	0x41, 0x0a, 0x05, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21,
+	0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69,
+	0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65,
+	0x72, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x05, 0x61, 0x63, 0x74,
+	0x6f, 0x72, 0x2a, 0x5d, 0x0a, 0x08, 0x55, 0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19,
+	0x0a, 0x15, 0x55, 0x53, 0x45, 0x52, 0x5f, 0x52, 0x4f, 0x4c, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50,
+	0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x41, 0x44, 0x4d,
+	0x49, 0x4e, 0x10, 0x01, 0x12, 0x11, 0x0a, 0x0d, 0x50, 0x52, 0x4f, 0x4a, 0x45, 0x43, 0x54, 0x5f,
+	0x41, 0x44, 0x4d, 0x49, 0x4e, 0x10, 0x02, 0x12, 0x0c, 0x0a, 0x08, 0x41, 0x50, 0x50, 0x52, 0x4f,
+	0x56, 0x45, 0x52, 0x10, 0x03, 0x12, 0x0a, 0x0a, 0x06, 0x4d, 0x45, 0x4d, 0x42, 0x45, 0x52, 0x10,
+	0x04, 0x2a, 0x8d, 0x01, 0x0a, 0x11, 0x42, 0x61, 0x74, 0x63, 0x68, 0x4a, 0x6f, 0x62, 0x53, 0x74,
+	0x61, 0x74, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x24, 0x0a, 0x20, 0x42, 0x41, 0x54, 0x43, 0x48,
+	0x5f, 0x4a, 0x4f, 0x42, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f,
+	0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0b, 0x0a,
+	0x07, 0x50, 0x45, 0x4e, 0x44, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x53, 0x54,
+	0x41, 0x52, 0x54, 0x45, 0x44, 0x10, 0x02, 0x12, 0x12, 0x0a, 0x0e, 0x45, 0x52, 0x52, 0x4f, 0x52,
+	0x5f, 0x53, 0x54, 0x41, 0x52, 0x54, 0x49, 0x4e, 0x47, 0x10, 0x03, 0x12, 0x0b, 0x0a, 0x07, 0x52,
+	0x55, 0x4e, 0x4e, 0x49, 0x4e, 0x47, 0x10, 0x04, 0x12, 0x0c, 0x0a, 0x08, 0x46, 0x49, 0x4e, 0x49,
+	0x53, 0x48, 0x45, 0x44, 0x10, 0x05, 0x12, 0x09, 0x0a, 0x05, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10,
+	0x06, 0x2a, 0x54, 0x0a, 0x10, 0x43, 0x6f, 0x6e, 0x73, 0x65, 0x6e, 0x74, 0x4c, 0x65, 0x76, 0x65,
+	0x6c, 0x54, 0x79, 0x70, 0x65, 0x12, 0x22, 0x0a, 0x1e, 0x43, 0x4f, 0x4e, 0x53, 0x45, 0x4e, 0x54,
+	0x5f, 0x4c, 0x45, 0x56, 0x45, 0x4c, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50,
+	0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x43, 0x55, 0x4d,
+	0x55, 0x4c, 0x41, 0x54, 0x49, 0x56, 0x45, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08, 0x47, 0x52, 0x41,
+	0x4e, 0x55, 0x4c, 0x41, 0x52, 0x10, 0x02, 0x2a, 0x3d, 0x0a, 0x08, 0x53, 0x69, 0x6e, 0x6b, 0x54,
+	0x79, 0x70, 0x65, 0x12, 0x19, 0x0a, 0x15, 0x53, 0x49, 0x4e, 0x4b, 0x5f, 0x54, 0x59, 0x50, 0x45,
+	0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x06,
+	0x0a, 0x02, 0x53, 0x33, 0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x47, 0x43, 0x4c, 0x4f, 0x55, 0x44,
+	0x10, 0x02, 0x1a, 0x02, 0x18, 0x01, 0x2a, 0x4d, 0x0a, 0x0d, 0x41, 0x75, 0x74, 0x68, 0x4d, 0x65,
+	0x63, 0x68, 0x61, 0x6e, 0x69, 0x73, 0x6d, 0x12, 0x1e, 0x0a, 0x1a, 0x41, 0x55, 0x54, 0x48, 0x5f,
+	0x4d, 0x45, 0x43, 0x48, 0x41, 0x4e, 0x49, 0x53, 0x4d, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43,
+	0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0e, 0x0a, 0x0a, 0x53, 0x41, 0x53, 0x4c, 0x5f,
+	0x50, 0x4c, 0x41, 0x49, 0x4e, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08, 0x53, 0x41, 0x53, 0x4c, 0x5f,
+	0x53, 0x53, 0x4c, 0x10, 0x02, 0x2a, 0x43, 0x0a, 0x0a, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x54,
+	0x79, 0x70, 0x65, 0x12, 0x1b, 0x0a, 0x17, 0x53, 0x43, 0x48, 0x45, 0x4d, 0x41, 0x5f, 0x54, 0x59,
+	0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00,
+	0x12, 0x08, 0x0a, 0x04, 0x41, 0x56, 0x52, 0x4f, 0x10, 0x01, 0x12, 0x0e, 0x0a, 0x0a, 0x4a, 0x53,
+	0x4f, 0x4e, 0x53, 0x43, 0x48, 0x45, 0x4d, 0x41, 0x10, 0x02, 0x2a, 0x84, 0x01, 0x0a, 0x14, 0x53,
+	0x69, 0x6d, 0x70, 0x6c, 0x65, 0x53, 0x63, 0x68, 0x65, 0x6d, 0x61, 0x4e, 0x6f, 0x64, 0x65, 0x54,
+	0x79, 0x70, 0x65, 0x12, 0x27, 0x0a, 0x23, 0x53, 0x49, 0x4d, 0x50, 0x4c, 0x45, 0x5f, 0x53, 0x43,
+	0x48, 0x45, 0x4d, 0x41, 0x5f, 0x4e, 0x4f, 0x44, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x55,
+	0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0a, 0x0a, 0x06,
+	0x53, 0x54, 0x52, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x0b, 0x0a, 0x07, 0x42, 0x4f, 0x4f, 0x4c,
+	0x45, 0x41, 0x4e, 0x10, 0x02, 0x12, 0x09, 0x0a, 0x05, 0x46, 0x4c, 0x4f, 0x41, 0x54, 0x10, 0x03,
+	0x12, 0x0b, 0x0a, 0x07, 0x49, 0x4e, 0x54, 0x45, 0x47, 0x45, 0x52, 0x10, 0x04, 0x12, 0x08, 0x0a,
+	0x04, 0x4c, 0x4f, 0x4e, 0x47, 0x10, 0x05, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x4f, 0x44, 0x45, 0x10,
+	0x0a, 0x2a, 0x5f, 0x0a, 0x13, 0x46, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x50, 0x75, 0x62, 0x6c, 0x69,
+	0x63, 0x50, 0x72, 0x69, 0x76, 0x61, 0x74, 0x65, 0x12, 0x25, 0x0a, 0x21, 0x46, 0x49, 0x4c, 0x54,
+	0x45, 0x52, 0x5f, 0x50, 0x55, 0x42, 0x4c, 0x49, 0x43, 0x5f, 0x50, 0x52, 0x49, 0x56, 0x41, 0x54,
+	0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12,
+	0x0f, 0x0a, 0x0b, 0x4f, 0x4e, 0x4c, 0x59, 0x5f, 0x50, 0x55, 0x42, 0x4c, 0x49, 0x43, 0x10, 0x01,
+	0x12, 0x10, 0x0a, 0x0c, 0x4f, 0x4e, 0x4c, 0x59, 0x5f, 0x50, 0x52, 0x49, 0x56, 0x41, 0x54, 0x45,
+	0x10, 0x02, 0x2a, 0x65, 0x0a, 0x13, 0x53, 0x74, 0x61, 0x74, 0x69, 0x73, 0x74, 0x69, 0x63, 0x61,
+	0x6c, 0x44, 0x61, 0x74, 0x61, 0x54, 0x79, 0x70, 0x65, 0x12, 0x25, 0x0a, 0x21, 0x53, 0x54, 0x41,
+	0x54, 0x49, 0x53, 0x54, 0x49, 0x43, 0x41, 0x4c, 0x5f, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x54, 0x59,
+	0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00,
+	0x12, 0x0b, 0x0a, 0x07, 0x4e, 0x4f, 0x4d, 0x49, 0x4e, 0x41, 0x4c, 0x10, 0x01, 0x12, 0x0b, 0x0a,
+	0x07, 0x4f, 0x52, 0x44, 0x49, 0x4e, 0x41, 0x4c, 0x10, 0x02, 0x12, 0x0d, 0x0a, 0x09, 0x4e, 0x55,
+	0x4d, 0x45, 0x52, 0x49, 0x43, 0x41, 0x4c, 0x10, 0x03, 0x2a, 0x92, 0x01, 0x0a, 0x10, 0x53, 0x75,
+	0x62, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x6c, 0x61, 0x6e, 0x12, 0x21,
+	0x0a, 0x1d, 0x53, 0x55, 0x42, 0x53, 0x43, 0x52, 0x49, 0x50, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x50,
+	0x4c, 0x41, 0x4e, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10,
+	0x00, 0x12, 0x08, 0x0a, 0x04, 0x46, 0x52, 0x45, 0x45, 0x10, 0x01, 0x12, 0x0c, 0x0a, 0x08, 0x42,
+	0x55, 0x53, 0x49, 0x4e, 0x45, 0x53, 0x53, 0x10, 0x02, 0x12, 0x0f, 0x0a, 0x0b, 0x53, 0x45, 0x4c,
+	0x46, 0x5f, 0x48, 0x4f, 0x53, 0x54, 0x45, 0x44, 0x10, 0x03, 0x12, 0x18, 0x0a, 0x14, 0x41, 0x57,
+	0x53, 0x5f, 0x4d, 0x41, 0x52, 0x4b, 0x45, 0x54, 0x50, 0x4c, 0x41, 0x43, 0x45, 0x5f, 0x50, 0x41,
+	0x59, 0x47, 0x10, 0x04, 0x12, 0x18, 0x0a, 0x14, 0x41, 0x57, 0x53, 0x5f, 0x4d, 0x41, 0x52, 0x4b,
+	0x45, 0x54, 0x50, 0x4c, 0x41, 0x43, 0x45, 0x5f, 0x42, 0x59, 0x4f, 0x4c, 0x10, 0x05, 0x2a, 0x63,
+	0x0a, 0x0c, 0x44, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1d,
+	0x0a, 0x19, 0x44, 0x41, 0x54, 0x41, 0x42, 0x41, 0x53, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f,
+	0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0c, 0x0a,
+	0x08, 0x50, 0x4f, 0x53, 0x54, 0x47, 0x52, 0x45, 0x53, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x4d,
+	0x59, 0x53, 0x51, 0x4c, 0x10, 0x02, 0x12, 0x0c, 0x0a, 0x08, 0x42, 0x49, 0x47, 0x51, 0x55, 0x45,
+	0x52, 0x59, 0x10, 0x03, 0x12, 0x0d, 0x0a, 0x09, 0x53, 0x4e, 0x4f, 0x57, 0x46, 0x4c, 0x41, 0x4b,
+	0x45, 0x10, 0x04, 0x42, 0x69, 0x0a, 0x1e, 0x69, 0x6f, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
+	0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69,
+	0x65, 0x73, 0x2e, 0x76, 0x31, 0x50, 0x01, 0x5a, 0x45, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
+	0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2f,
+	0x61, 0x70, 0x69, 0x2d, 0x64, 0x65, 0x66, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x2d,
+	0x67, 0x6f, 0x2f, 0x76, 0x32, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69,
+	0x65, 0x73, 0x2f, 0x76, 0x31, 0x3b, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -8167,8 +9810,8 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP() []byte {
 	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescData
 }
 
-var file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 17)
-var file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 82)
+var file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 18)
+var file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 102)
 var file_strmprivacy_api_entities_v1_entities_v1_proto_goTypes = []interface{}{
 	(UserRole)(0),             // 0: strmprivacy.api.entities.v1.UserRole
 	(BatchJobStateType)(0),    // 1: strmprivacy.api.entities.v1.BatchJobStateType
@@ -8186,225 +9829,277 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_goTypes = []interface{}{
 	(EventContract_State)(0),  // 13: strmprivacy.api.entities.v1.EventContract.State
 	(DataContract_State)(0),   // 14: strmprivacy.api.entities.v1.DataContract.State
 	(FieldMetadata_NullHandlingConfig_NullHandlingType)(0), // 15: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.NullHandlingType
-	(Project_State)(0),                        // 16: strmprivacy.api.entities.v1.Project.State
-	(*Stream)(nil),                            // 17: strmprivacy.api.entities.v1.Stream
-	(*ExtendedStream)(nil),                    // 18: strmprivacy.api.entities.v1.ExtendedStream
-	(*ExtendedStreamGroup)(nil),               // 19: strmprivacy.api.entities.v1.ExtendedStreamGroup
-	(*MaskedFields)(nil),                      // 20: strmprivacy.api.entities.v1.MaskedFields
-	(*Limits)(nil),                            // 21: strmprivacy.api.entities.v1.Limits
-	(*KeyStream)(nil),                         // 22: strmprivacy.api.entities.v1.KeyStream
-	(*StreamRef)(nil),                         // 23: strmprivacy.api.entities.v1.StreamRef
-	(*KeyStreamRef)(nil),                      // 24: strmprivacy.api.entities.v1.KeyStreamRef
-	(*Credentials)(nil),                       // 25: strmprivacy.api.entities.v1.Credentials
-	(*Sink)(nil),                              // 26: strmprivacy.api.entities.v1.Sink
-	(*SinkRef)(nil),                           // 27: strmprivacy.api.entities.v1.SinkRef
-	(*BucketConfig)(nil),                      // 28: strmprivacy.api.entities.v1.BucketConfig
-	(*DataConnector)(nil),                     // 29: strmprivacy.api.entities.v1.DataConnector
-	(*DataConnectorRef)(nil),                  // 30: strmprivacy.api.entities.v1.DataConnectorRef
-	(*DataConnectorDependentEntities)(nil),    // 31: strmprivacy.api.entities.v1.DataConnectorDependentEntities
-	(*AwsS3BucketLocation)(nil),               // 32: strmprivacy.api.entities.v1.AwsS3BucketLocation
-	(*GoogleCloudStorageBucketLocation)(nil),  // 33: strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
-	(*AzureBlobStorageContainerLocation)(nil), // 34: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
-	(*AzureClientSecretCredential)(nil),       // 35: strmprivacy.api.entities.v1.AzureClientSecretCredential
-	(*JdbcLocation)(nil),                      // 36: strmprivacy.api.entities.v1.JdbcLocation
-	(*DataType)(nil),                          // 37: strmprivacy.api.entities.v1.DataType
-	(*CsvConfig)(nil),                         // 38: strmprivacy.api.entities.v1.CsvConfig
-	(*BatchExporter)(nil),                     // 39: strmprivacy.api.entities.v1.BatchExporter
-	(*ExtendedBatchExporter)(nil),             // 40: strmprivacy.api.entities.v1.ExtendedBatchExporter
-	(*BatchExporterRef)(nil),                  // 41: strmprivacy.api.entities.v1.BatchExporterRef
-	(*KafkaCluster)(nil),                      // 42: strmprivacy.api.entities.v1.KafkaCluster
-	(*KafkaClusterRef)(nil),                   // 43: strmprivacy.api.entities.v1.KafkaClusterRef
-	(*KafkaExporter)(nil),                     // 44: strmprivacy.api.entities.v1.KafkaExporter
-	(*KafkaExporterRef)(nil),                  // 45: strmprivacy.api.entities.v1.KafkaExporterRef
-	(*KafkaExporterTarget)(nil),               // 46: strmprivacy.api.entities.v1.KafkaExporterTarget
-	(*KafkaUser)(nil),                         // 47: strmprivacy.api.entities.v1.KafkaUser
-	(*KafkaUserRef)(nil),                      // 48: strmprivacy.api.entities.v1.KafkaUserRef
-	(*ConsentLevels)(nil),                     // 49: strmprivacy.api.entities.v1.ConsentLevels
-	(*ConsentLevelMapping)(nil),               // 50: strmprivacy.api.entities.v1.ConsentLevelMapping
-	(*ConsentLevelMappingRef)(nil),            // 51: strmprivacy.api.entities.v1.ConsentLevelMappingRef
-	(*Policy)(nil),                            // 52: strmprivacy.api.entities.v1.Policy
-	(*WindowedEventCount)(nil),                // 53: strmprivacy.api.entities.v1.WindowedEventCount
-	(*SchemaRef)(nil),                         // 54: strmprivacy.api.entities.v1.SchemaRef
-	(*Schema)(nil),                            // 55: strmprivacy.api.entities.v1.Schema
-	(*SimpleSchemaNode)(nil),                  // 56: strmprivacy.api.entities.v1.SimpleSchemaNode
-	(*SchemaMetadata)(nil),                    // 57: strmprivacy.api.entities.v1.SchemaMetadata
-	(*EventContractRef)(nil),                  // 58: strmprivacy.api.entities.v1.EventContractRef
-	(*EventContract)(nil),                     // 59: strmprivacy.api.entities.v1.EventContract
-	(*EventContractMetadata)(nil),             // 60: strmprivacy.api.entities.v1.EventContractMetadata
-	(*Label)(nil),                             // 61: strmprivacy.api.entities.v1.Label
-	(*Validation)(nil),                        // 62: strmprivacy.api.entities.v1.Validation
-	(*StreamTree)(nil),                        // 63: strmprivacy.api.entities.v1.StreamTree
-	(*SinkTree)(nil),                          // 64: strmprivacy.api.entities.v1.SinkTree
-	(*BatchJob)(nil),                          // 65: strmprivacy.api.entities.v1.BatchJob
-	(*BatchJobWrapper)(nil),                   // 66: strmprivacy.api.entities.v1.BatchJobWrapper
-	(*ExtendedBatchJob)(nil),                  // 67: strmprivacy.api.entities.v1.ExtendedBatchJob
-	(*BatchJobRef)(nil),                       // 68: strmprivacy.api.entities.v1.BatchJobRef
-	(*BatchJobState)(nil),                     // 69: strmprivacy.api.entities.v1.BatchJobState
-	(*DataConnectorAndType)(nil),              // 70: strmprivacy.api.entities.v1.DataConnectorAndType
-	(*DatabaseConfig)(nil),                    // 71: strmprivacy.api.entities.v1.DatabaseConfig
-	(*ConsentConfig)(nil),                     // 72: strmprivacy.api.entities.v1.ConsentConfig
-	(*ConsentLevelExtractor)(nil),             // 73: strmprivacy.api.entities.v1.ConsentLevelExtractor
-	(*EncryptionConfig)(nil),                  // 74: strmprivacy.api.entities.v1.EncryptionConfig
-	(*TimestampConfig)(nil),                   // 75: strmprivacy.api.entities.v1.TimestampConfig
-	(*EncryptedData)(nil),                     // 76: strmprivacy.api.entities.v1.EncryptedData
-	(*EncryptionKeysData)(nil),                // 77: strmprivacy.api.entities.v1.EncryptionKeysData
-	(*DerivedData)(nil),                       // 78: strmprivacy.api.entities.v1.DerivedData
-	(*MicroAggregationBatchJob)(nil),          // 79: strmprivacy.api.entities.v1.MicroAggregationBatchJob
-	(*MicroAggregationConfig)(nil),            // 80: strmprivacy.api.entities.v1.MicroAggregationConfig
-	(*DataContractRef)(nil),                   // 81: strmprivacy.api.entities.v1.DataContractRef
-	(*DataContract)(nil),                      // 82: strmprivacy.api.entities.v1.DataContract
-	(*FieldMetadata)(nil),                     // 83: strmprivacy.api.entities.v1.FieldMetadata
-	(*DataContractMetadata)(nil),              // 84: strmprivacy.api.entities.v1.DataContractMetadata
-	(*Project)(nil),                           // 85: strmprivacy.api.entities.v1.Project
-	(*User)(nil),                              // 86: strmprivacy.api.entities.v1.User
-	(*PurposeMapping)(nil),                    // 87: strmprivacy.api.entities.v1.PurposeMapping
-	(*GenericRef)(nil),                        // 88: strmprivacy.api.entities.v1.GenericRef
-	(*Comment)(nil),                           // 89: strmprivacy.api.entities.v1.Comment
-	(*AuditTrailEntry)(nil),                   // 90: strmprivacy.api.entities.v1.AuditTrailEntry
-	nil,                                       // 91: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
-	(*MaskedFields_PatternList)(nil),          // 92: strmprivacy.api.entities.v1.MaskedFields.PatternList
-	(*Schema_SimpleSchemaDefinition)(nil),     // 93: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
-	nil,                                       // 94: strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
-	nil,                                       // 95: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry
-	nil,                                       // 96: strmprivacy.api.entities.v1.DataContract.PiiFieldsEntry
-	(*FieldMetadata_PersonalDataConfig)(nil),  // 97: strmprivacy.api.entities.v1.FieldMetadata.PersonalDataConfig
-	(*FieldMetadata_NullHandlingConfig)(nil),  // 98: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig
-	(*durationpb.Duration)(nil),               // 99: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),             // 100: google.protobuf.Timestamp
-	(*datetime.TimeZone)(nil),                 // 101: google.type.TimeZone
+	(Project_State)(0),                         // 16: strmprivacy.api.entities.v1.Project.State
+	(InfoAssetItems_InfoAssetItem_State)(0),    // 17: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.State
+	(*Stream)(nil),                             // 18: strmprivacy.api.entities.v1.Stream
+	(*ExtendedStream)(nil),                     // 19: strmprivacy.api.entities.v1.ExtendedStream
+	(*ExtendedStreamGroup)(nil),                // 20: strmprivacy.api.entities.v1.ExtendedStreamGroup
+	(*MaskedFields)(nil),                       // 21: strmprivacy.api.entities.v1.MaskedFields
+	(*Limits)(nil),                             // 22: strmprivacy.api.entities.v1.Limits
+	(*KeyStream)(nil),                          // 23: strmprivacy.api.entities.v1.KeyStream
+	(*StreamRef)(nil),                          // 24: strmprivacy.api.entities.v1.StreamRef
+	(*KeyStreamRef)(nil),                       // 25: strmprivacy.api.entities.v1.KeyStreamRef
+	(*Credentials)(nil),                        // 26: strmprivacy.api.entities.v1.Credentials
+	(*Sink)(nil),                               // 27: strmprivacy.api.entities.v1.Sink
+	(*SinkRef)(nil),                            // 28: strmprivacy.api.entities.v1.SinkRef
+	(*BucketConfig)(nil),                       // 29: strmprivacy.api.entities.v1.BucketConfig
+	(*DataConnector)(nil),                      // 30: strmprivacy.api.entities.v1.DataConnector
+	(*DataConnectorRef)(nil),                   // 31: strmprivacy.api.entities.v1.DataConnectorRef
+	(*DataConnectorDependentEntities)(nil),     // 32: strmprivacy.api.entities.v1.DataConnectorDependentEntities
+	(*AwsS3BucketLocation)(nil),                // 33: strmprivacy.api.entities.v1.AwsS3BucketLocation
+	(*GoogleCloudStorageBucketLocation)(nil),   // 34: strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
+	(*AzureBlobStorageContainerLocation)(nil),  // 35: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
+	(*AzureClientSecretCredential)(nil),        // 36: strmprivacy.api.entities.v1.AzureClientSecretCredential
+	(*JdbcLocation)(nil),                       // 37: strmprivacy.api.entities.v1.JdbcLocation
+	(*DataType)(nil),                           // 38: strmprivacy.api.entities.v1.DataType
+	(*CsvConfig)(nil),                          // 39: strmprivacy.api.entities.v1.CsvConfig
+	(*BatchExporter)(nil),                      // 40: strmprivacy.api.entities.v1.BatchExporter
+	(*ExtendedBatchExporter)(nil),              // 41: strmprivacy.api.entities.v1.ExtendedBatchExporter
+	(*BatchExporterRef)(nil),                   // 42: strmprivacy.api.entities.v1.BatchExporterRef
+	(*KafkaCluster)(nil),                       // 43: strmprivacy.api.entities.v1.KafkaCluster
+	(*KafkaClusterRef)(nil),                    // 44: strmprivacy.api.entities.v1.KafkaClusterRef
+	(*KafkaExporter)(nil),                      // 45: strmprivacy.api.entities.v1.KafkaExporter
+	(*KafkaExporterRef)(nil),                   // 46: strmprivacy.api.entities.v1.KafkaExporterRef
+	(*KafkaExporterTarget)(nil),                // 47: strmprivacy.api.entities.v1.KafkaExporterTarget
+	(*KafkaUser)(nil),                          // 48: strmprivacy.api.entities.v1.KafkaUser
+	(*KafkaUserRef)(nil),                       // 49: strmprivacy.api.entities.v1.KafkaUserRef
+	(*ConsentLevels)(nil),                      // 50: strmprivacy.api.entities.v1.ConsentLevels
+	(*ConsentLevelMapping)(nil),                // 51: strmprivacy.api.entities.v1.ConsentLevelMapping
+	(*ConsentLevelMappingRef)(nil),             // 52: strmprivacy.api.entities.v1.ConsentLevelMappingRef
+	(*Policy)(nil),                             // 53: strmprivacy.api.entities.v1.Policy
+	(*WindowedEventCount)(nil),                 // 54: strmprivacy.api.entities.v1.WindowedEventCount
+	(*SchemaRef)(nil),                          // 55: strmprivacy.api.entities.v1.SchemaRef
+	(*Schema)(nil),                             // 56: strmprivacy.api.entities.v1.Schema
+	(*SimpleSchemaNode)(nil),                   // 57: strmprivacy.api.entities.v1.SimpleSchemaNode
+	(*SchemaMetadata)(nil),                     // 58: strmprivacy.api.entities.v1.SchemaMetadata
+	(*EventContractRef)(nil),                   // 59: strmprivacy.api.entities.v1.EventContractRef
+	(*EventContract)(nil),                      // 60: strmprivacy.api.entities.v1.EventContract
+	(*EventContractMetadata)(nil),              // 61: strmprivacy.api.entities.v1.EventContractMetadata
+	(*Label)(nil),                              // 62: strmprivacy.api.entities.v1.Label
+	(*Validation)(nil),                         // 63: strmprivacy.api.entities.v1.Validation
+	(*StreamTree)(nil),                         // 64: strmprivacy.api.entities.v1.StreamTree
+	(*SinkTree)(nil),                           // 65: strmprivacy.api.entities.v1.SinkTree
+	(*BatchJob)(nil),                           // 66: strmprivacy.api.entities.v1.BatchJob
+	(*BatchJobWrapper)(nil),                    // 67: strmprivacy.api.entities.v1.BatchJobWrapper
+	(*ExtendedBatchJob)(nil),                   // 68: strmprivacy.api.entities.v1.ExtendedBatchJob
+	(*BatchJobRef)(nil),                        // 69: strmprivacy.api.entities.v1.BatchJobRef
+	(*BatchJobState)(nil),                      // 70: strmprivacy.api.entities.v1.BatchJobState
+	(*DataConnectorAndType)(nil),               // 71: strmprivacy.api.entities.v1.DataConnectorAndType
+	(*DatabaseConfig)(nil),                     // 72: strmprivacy.api.entities.v1.DatabaseConfig
+	(*ConsentConfig)(nil),                      // 73: strmprivacy.api.entities.v1.ConsentConfig
+	(*ConsentLevelExtractor)(nil),              // 74: strmprivacy.api.entities.v1.ConsentLevelExtractor
+	(*EncryptionConfig)(nil),                   // 75: strmprivacy.api.entities.v1.EncryptionConfig
+	(*TimestampConfig)(nil),                    // 76: strmprivacy.api.entities.v1.TimestampConfig
+	(*EncryptedData)(nil),                      // 77: strmprivacy.api.entities.v1.EncryptedData
+	(*EncryptionKeysData)(nil),                 // 78: strmprivacy.api.entities.v1.EncryptionKeysData
+	(*DerivedData)(nil),                        // 79: strmprivacy.api.entities.v1.DerivedData
+	(*MicroAggregationBatchJob)(nil),           // 80: strmprivacy.api.entities.v1.MicroAggregationBatchJob
+	(*MicroAggregationConfig)(nil),             // 81: strmprivacy.api.entities.v1.MicroAggregationConfig
+	(*DataContractRef)(nil),                    // 82: strmprivacy.api.entities.v1.DataContractRef
+	(*DataContract)(nil),                       // 83: strmprivacy.api.entities.v1.DataContract
+	(*FieldMetadata)(nil),                      // 84: strmprivacy.api.entities.v1.FieldMetadata
+	(*DataContractMetadata)(nil),               // 85: strmprivacy.api.entities.v1.DataContractMetadata
+	(*Project)(nil),                            // 86: strmprivacy.api.entities.v1.Project
+	(*ProjectPlan)(nil),                        // 87: strmprivacy.api.entities.v1.ProjectPlan
+	(*ItemGroup)(nil),                          // 88: strmprivacy.api.entities.v1.ItemGroup
+	(*ItemProperties)(nil),                     // 89: strmprivacy.api.entities.v1.ItemProperties
+	(*TodoItems)(nil),                          // 90: strmprivacy.api.entities.v1.TodoItems
+	(*DataContractItems)(nil),                  // 91: strmprivacy.api.entities.v1.DataContractItems
+	(*InfoAssetItems)(nil),                     // 92: strmprivacy.api.entities.v1.InfoAssetItems
+	(*DocumentItems)(nil),                      // 93: strmprivacy.api.entities.v1.DocumentItems
+	(*PipelineItems)(nil),                      // 94: strmprivacy.api.entities.v1.PipelineItems
+	(*InformationAsset)(nil),                   // 95: strmprivacy.api.entities.v1.InformationAsset
+	(*User)(nil),                               // 96: strmprivacy.api.entities.v1.User
+	(*PurposeMapping)(nil),                     // 97: strmprivacy.api.entities.v1.PurposeMapping
+	(*GenericRef)(nil),                         // 98: strmprivacy.api.entities.v1.GenericRef
+	(*Comment)(nil),                            // 99: strmprivacy.api.entities.v1.Comment
+	(*AuditTrailEntry)(nil),                    // 100: strmprivacy.api.entities.v1.AuditTrailEntry
+	nil,                                        // 101: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
+	(*MaskedFields_PatternList)(nil),           // 102: strmprivacy.api.entities.v1.MaskedFields.PatternList
+	(*Schema_SimpleSchemaDefinition)(nil),      // 103: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
+	nil,                                        // 104: strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
+	nil,                                        // 105: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry
+	nil,                                        // 106: strmprivacy.api.entities.v1.DataContract.PiiFieldsEntry
+	(*FieldMetadata_PersonalDataConfig)(nil),   // 107: strmprivacy.api.entities.v1.FieldMetadata.PersonalDataConfig
+	(*FieldMetadata_NullHandlingConfig)(nil),   // 108: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig
+	(*TodoItems_TodoItem)(nil),                 // 109: strmprivacy.api.entities.v1.TodoItems.TodoItem
+	(*DataContractItems_DataContractItem)(nil), // 110: strmprivacy.api.entities.v1.DataContractItems.DataContractItem
+	(*InfoAssetItems_InfoAssetItem)(nil),       // 111: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem
+	(*InfoAssetItems_InfoAssetItem_Classification)(nil),    // 112: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.Classification
+	(*DocumentItems_DocumentItem)(nil),                     // 113: strmprivacy.api.entities.v1.DocumentItems.DocumentItem
+	(*PipelineItems_PipelineItem)(nil),                     // 114: strmprivacy.api.entities.v1.PipelineItems.PipelineItem
+	(*InformationAsset_Section)(nil),                       // 115: strmprivacy.api.entities.v1.InformationAsset.Section
+	(*InformationAsset_SubSection)(nil),                    // 116: strmprivacy.api.entities.v1.InformationAsset.SubSection
+	(*InformationAsset_Check)(nil),                         // 117: strmprivacy.api.entities.v1.InformationAsset.Check
+	(*InformationAsset_BusinessImpactRating)(nil),          // 118: strmprivacy.api.entities.v1.InformationAsset.BusinessImpactRating
+	(*InformationAsset_BusinessImpactRating_Category)(nil), // 119: strmprivacy.api.entities.v1.InformationAsset.BusinessImpactRating.Category
+	(*durationpb.Duration)(nil),                            // 120: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),                          // 121: google.protobuf.Timestamp
+	(*datetime.TimeZone)(nil),                              // 122: google.type.TimeZone
 }
 var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
-	23,  // 0: strmprivacy.api.entities.v1.Stream.ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	24,  // 0: strmprivacy.api.entities.v1.Stream.ref:type_name -> strmprivacy.api.entities.v1.StreamRef
 	2,   // 1: strmprivacy.api.entities.v1.Stream.consent_level_type:type_name -> strmprivacy.api.entities.v1.ConsentLevelType
-	21,  // 2: strmprivacy.api.entities.v1.Stream.limits:type_name -> strmprivacy.api.entities.v1.Limits
-	25,  // 3: strmprivacy.api.entities.v1.Stream.credentials:type_name -> strmprivacy.api.entities.v1.Credentials
-	20,  // 4: strmprivacy.api.entities.v1.Stream.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
-	17,  // 5: strmprivacy.api.entities.v1.ExtendedStream.stream:type_name -> strmprivacy.api.entities.v1.Stream
-	18,  // 6: strmprivacy.api.entities.v1.ExtendedStreamGroup.source_stream:type_name -> strmprivacy.api.entities.v1.ExtendedStream
-	18,  // 7: strmprivacy.api.entities.v1.ExtendedStreamGroup.derived_streams:type_name -> strmprivacy.api.entities.v1.ExtendedStream
-	91,  // 8: strmprivacy.api.entities.v1.MaskedFields.field_patterns:type_name -> strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
-	24,  // 9: strmprivacy.api.entities.v1.KeyStream.ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
-	27,  // 10: strmprivacy.api.entities.v1.Sink.ref:type_name -> strmprivacy.api.entities.v1.SinkRef
+	22,  // 2: strmprivacy.api.entities.v1.Stream.limits:type_name -> strmprivacy.api.entities.v1.Limits
+	26,  // 3: strmprivacy.api.entities.v1.Stream.credentials:type_name -> strmprivacy.api.entities.v1.Credentials
+	21,  // 4: strmprivacy.api.entities.v1.Stream.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
+	18,  // 5: strmprivacy.api.entities.v1.ExtendedStream.stream:type_name -> strmprivacy.api.entities.v1.Stream
+	19,  // 6: strmprivacy.api.entities.v1.ExtendedStreamGroup.source_stream:type_name -> strmprivacy.api.entities.v1.ExtendedStream
+	19,  // 7: strmprivacy.api.entities.v1.ExtendedStreamGroup.derived_streams:type_name -> strmprivacy.api.entities.v1.ExtendedStream
+	101, // 8: strmprivacy.api.entities.v1.MaskedFields.field_patterns:type_name -> strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
+	25,  // 9: strmprivacy.api.entities.v1.KeyStream.ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
+	28,  // 10: strmprivacy.api.entities.v1.Sink.ref:type_name -> strmprivacy.api.entities.v1.SinkRef
 	3,   // 11: strmprivacy.api.entities.v1.Sink.sink_type:type_name -> strmprivacy.api.entities.v1.SinkType
-	28,  // 12: strmprivacy.api.entities.v1.Sink.bucket:type_name -> strmprivacy.api.entities.v1.BucketConfig
-	30,  // 13: strmprivacy.api.entities.v1.DataConnector.ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
-	32,  // 14: strmprivacy.api.entities.v1.DataConnector.s3_bucket:type_name -> strmprivacy.api.entities.v1.AwsS3BucketLocation
-	33,  // 15: strmprivacy.api.entities.v1.DataConnector.google_cloud_storage_bucket:type_name -> strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
-	34,  // 16: strmprivacy.api.entities.v1.DataConnector.azure_blob_storage_container:type_name -> strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
-	36,  // 17: strmprivacy.api.entities.v1.DataConnector.jdbc_location:type_name -> strmprivacy.api.entities.v1.JdbcLocation
-	31,  // 18: strmprivacy.api.entities.v1.DataConnector.dependent_entities:type_name -> strmprivacy.api.entities.v1.DataConnectorDependentEntities
-	39,  // 19: strmprivacy.api.entities.v1.DataConnectorDependentEntities.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	65,  // 20: strmprivacy.api.entities.v1.DataConnectorDependentEntities.batch_jobs:type_name -> strmprivacy.api.entities.v1.BatchJob
-	79,  // 21: strmprivacy.api.entities.v1.DataConnectorDependentEntities.micro_aggregation_batch_jobs:type_name -> strmprivacy.api.entities.v1.MicroAggregationBatchJob
-	35,  // 22: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation.client_secret_credential:type_name -> strmprivacy.api.entities.v1.AzureClientSecretCredential
+	29,  // 12: strmprivacy.api.entities.v1.Sink.bucket:type_name -> strmprivacy.api.entities.v1.BucketConfig
+	31,  // 13: strmprivacy.api.entities.v1.DataConnector.ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
+	33,  // 14: strmprivacy.api.entities.v1.DataConnector.s3_bucket:type_name -> strmprivacy.api.entities.v1.AwsS3BucketLocation
+	34,  // 15: strmprivacy.api.entities.v1.DataConnector.google_cloud_storage_bucket:type_name -> strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
+	35,  // 16: strmprivacy.api.entities.v1.DataConnector.azure_blob_storage_container:type_name -> strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
+	37,  // 17: strmprivacy.api.entities.v1.DataConnector.jdbc_location:type_name -> strmprivacy.api.entities.v1.JdbcLocation
+	32,  // 18: strmprivacy.api.entities.v1.DataConnector.dependent_entities:type_name -> strmprivacy.api.entities.v1.DataConnectorDependentEntities
+	40,  // 19: strmprivacy.api.entities.v1.DataConnectorDependentEntities.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	66,  // 20: strmprivacy.api.entities.v1.DataConnectorDependentEntities.batch_jobs:type_name -> strmprivacy.api.entities.v1.BatchJob
+	80,  // 21: strmprivacy.api.entities.v1.DataConnectorDependentEntities.micro_aggregation_batch_jobs:type_name -> strmprivacy.api.entities.v1.MicroAggregationBatchJob
+	36,  // 22: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation.client_secret_credential:type_name -> strmprivacy.api.entities.v1.AzureClientSecretCredential
 	10,  // 23: strmprivacy.api.entities.v1.JdbcLocation.database_type:type_name -> strmprivacy.api.entities.v1.DatabaseType
-	38,  // 24: strmprivacy.api.entities.v1.DataType.csv:type_name -> strmprivacy.api.entities.v1.CsvConfig
-	71,  // 25: strmprivacy.api.entities.v1.DataType.database:type_name -> strmprivacy.api.entities.v1.DatabaseConfig
-	41,  // 26: strmprivacy.api.entities.v1.BatchExporter.ref:type_name -> strmprivacy.api.entities.v1.BatchExporterRef
-	23,  // 27: strmprivacy.api.entities.v1.BatchExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
-	24,  // 28: strmprivacy.api.entities.v1.BatchExporter.key_stream_ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
-	99,  // 29: strmprivacy.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
-	30,  // 30: strmprivacy.api.entities.v1.BatchExporter.data_connector_ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
-	39,  // 31: strmprivacy.api.entities.v1.ExtendedBatchExporter.exporter:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	43,  // 32: strmprivacy.api.entities.v1.KafkaCluster.ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	39,  // 24: strmprivacy.api.entities.v1.DataType.csv:type_name -> strmprivacy.api.entities.v1.CsvConfig
+	72,  // 25: strmprivacy.api.entities.v1.DataType.database:type_name -> strmprivacy.api.entities.v1.DatabaseConfig
+	42,  // 26: strmprivacy.api.entities.v1.BatchExporter.ref:type_name -> strmprivacy.api.entities.v1.BatchExporterRef
+	24,  // 27: strmprivacy.api.entities.v1.BatchExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	25,  // 28: strmprivacy.api.entities.v1.BatchExporter.key_stream_ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
+	120, // 29: strmprivacy.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
+	31,  // 30: strmprivacy.api.entities.v1.BatchExporter.data_connector_ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
+	40,  // 31: strmprivacy.api.entities.v1.ExtendedBatchExporter.exporter:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	44,  // 32: strmprivacy.api.entities.v1.KafkaCluster.ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
 	4,   // 33: strmprivacy.api.entities.v1.KafkaCluster.auth_mechanism:type_name -> strmprivacy.api.entities.v1.AuthMechanism
-	45,  // 34: strmprivacy.api.entities.v1.KafkaExporter.ref:type_name -> strmprivacy.api.entities.v1.KafkaExporterRef
-	23,  // 35: strmprivacy.api.entities.v1.KafkaExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
-	46,  // 36: strmprivacy.api.entities.v1.KafkaExporter.target:type_name -> strmprivacy.api.entities.v1.KafkaExporterTarget
-	47,  // 37: strmprivacy.api.entities.v1.KafkaExporter.users:type_name -> strmprivacy.api.entities.v1.KafkaUser
-	43,  // 38: strmprivacy.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	48,  // 39: strmprivacy.api.entities.v1.KafkaUser.ref:type_name -> strmprivacy.api.entities.v1.KafkaUserRef
-	43,  // 40: strmprivacy.api.entities.v1.KafkaUser.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	51,  // 41: strmprivacy.api.entities.v1.ConsentLevelMapping.ref:type_name -> strmprivacy.api.entities.v1.ConsentLevelMappingRef
+	46,  // 34: strmprivacy.api.entities.v1.KafkaExporter.ref:type_name -> strmprivacy.api.entities.v1.KafkaExporterRef
+	24,  // 35: strmprivacy.api.entities.v1.KafkaExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	47,  // 36: strmprivacy.api.entities.v1.KafkaExporter.target:type_name -> strmprivacy.api.entities.v1.KafkaExporterTarget
+	48,  // 37: strmprivacy.api.entities.v1.KafkaExporter.users:type_name -> strmprivacy.api.entities.v1.KafkaUser
+	44,  // 38: strmprivacy.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	49,  // 39: strmprivacy.api.entities.v1.KafkaUser.ref:type_name -> strmprivacy.api.entities.v1.KafkaUserRef
+	44,  // 40: strmprivacy.api.entities.v1.KafkaUser.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	52,  // 41: strmprivacy.api.entities.v1.ConsentLevelMapping.ref:type_name -> strmprivacy.api.entities.v1.ConsentLevelMappingRef
 	11,  // 42: strmprivacy.api.entities.v1.Policy.state:type_name -> strmprivacy.api.entities.v1.Policy.State
-	100, // 43: strmprivacy.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
-	100, // 44: strmprivacy.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
+	121, // 43: strmprivacy.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
+	121, // 44: strmprivacy.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
 	5,   // 45: strmprivacy.api.entities.v1.SchemaRef.schema_type:type_name -> strmprivacy.api.entities.v1.SchemaType
-	54,  // 46: strmprivacy.api.entities.v1.Schema.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	55,  // 46: strmprivacy.api.entities.v1.Schema.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
 	12,  // 47: strmprivacy.api.entities.v1.Schema.state:type_name -> strmprivacy.api.entities.v1.Schema.State
-	57,  // 48: strmprivacy.api.entities.v1.Schema.metadata:type_name -> strmprivacy.api.entities.v1.SchemaMetadata
-	93,  // 49: strmprivacy.api.entities.v1.Schema.simple_schema:type_name -> strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
+	58,  // 48: strmprivacy.api.entities.v1.Schema.metadata:type_name -> strmprivacy.api.entities.v1.SchemaMetadata
+	103, // 49: strmprivacy.api.entities.v1.Schema.simple_schema:type_name -> strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
 	6,   // 50: strmprivacy.api.entities.v1.SimpleSchemaNode.type:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNodeType
-	56,  // 51: strmprivacy.api.entities.v1.SimpleSchemaNode.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	100, // 52: strmprivacy.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
-	61,  // 53: strmprivacy.api.entities.v1.SchemaMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
-	58,  // 54: strmprivacy.api.entities.v1.EventContract.ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
+	57,  // 51: strmprivacy.api.entities.v1.SimpleSchemaNode.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	121, // 52: strmprivacy.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
+	62,  // 53: strmprivacy.api.entities.v1.SchemaMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	59,  // 54: strmprivacy.api.entities.v1.EventContract.ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
 	13,  // 55: strmprivacy.api.entities.v1.EventContract.state:type_name -> strmprivacy.api.entities.v1.EventContract.State
-	54,  // 56: strmprivacy.api.entities.v1.EventContract.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	94,  // 57: strmprivacy.api.entities.v1.EventContract.pii_fields:type_name -> strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
-	62,  // 58: strmprivacy.api.entities.v1.EventContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
-	60,  // 59: strmprivacy.api.entities.v1.EventContract.metadata:type_name -> strmprivacy.api.entities.v1.EventContractMetadata
-	100, // 60: strmprivacy.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
-	61,  // 61: strmprivacy.api.entities.v1.EventContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
-	17,  // 62: strmprivacy.api.entities.v1.StreamTree.stream:type_name -> strmprivacy.api.entities.v1.Stream
-	22,  // 63: strmprivacy.api.entities.v1.StreamTree.key_stream:type_name -> strmprivacy.api.entities.v1.KeyStream
-	17,  // 64: strmprivacy.api.entities.v1.StreamTree.derived:type_name -> strmprivacy.api.entities.v1.Stream
-	39,  // 65: strmprivacy.api.entities.v1.StreamTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	44,  // 66: strmprivacy.api.entities.v1.StreamTree.kafka_exporters:type_name -> strmprivacy.api.entities.v1.KafkaExporter
-	26,  // 67: strmprivacy.api.entities.v1.SinkTree.sink:type_name -> strmprivacy.api.entities.v1.Sink
-	39,  // 68: strmprivacy.api.entities.v1.SinkTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	68,  // 69: strmprivacy.api.entities.v1.BatchJob.ref:type_name -> strmprivacy.api.entities.v1.BatchJobRef
-	69,  // 70: strmprivacy.api.entities.v1.BatchJob.states:type_name -> strmprivacy.api.entities.v1.BatchJobState
-	70,  // 71: strmprivacy.api.entities.v1.BatchJob.source_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	72,  // 72: strmprivacy.api.entities.v1.BatchJob.consent:type_name -> strmprivacy.api.entities.v1.ConsentConfig
-	74,  // 73: strmprivacy.api.entities.v1.BatchJob.encryption:type_name -> strmprivacy.api.entities.v1.EncryptionConfig
-	58,  // 74: strmprivacy.api.entities.v1.BatchJob.event_contract_ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
-	76,  // 75: strmprivacy.api.entities.v1.BatchJob.encrypted_data:type_name -> strmprivacy.api.entities.v1.EncryptedData
-	77,  // 76: strmprivacy.api.entities.v1.BatchJob.encryption_keys_data:type_name -> strmprivacy.api.entities.v1.EncryptionKeysData
-	78,  // 77: strmprivacy.api.entities.v1.BatchJob.derived_data:type_name -> strmprivacy.api.entities.v1.DerivedData
-	65,  // 78: strmprivacy.api.entities.v1.BatchJobWrapper.encryption_batch_job:type_name -> strmprivacy.api.entities.v1.BatchJob
-	79,  // 79: strmprivacy.api.entities.v1.BatchJobWrapper.micro_aggregation_batch_job:type_name -> strmprivacy.api.entities.v1.MicroAggregationBatchJob
-	65,  // 80: strmprivacy.api.entities.v1.ExtendedBatchJob.batch_job:type_name -> strmprivacy.api.entities.v1.BatchJob
-	66,  // 81: strmprivacy.api.entities.v1.ExtendedBatchJob.job:type_name -> strmprivacy.api.entities.v1.BatchJobWrapper
-	100, // 82: strmprivacy.api.entities.v1.BatchJobState.state_time:type_name -> google.protobuf.Timestamp
+	55,  // 56: strmprivacy.api.entities.v1.EventContract.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	104, // 57: strmprivacy.api.entities.v1.EventContract.pii_fields:type_name -> strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
+	63,  // 58: strmprivacy.api.entities.v1.EventContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
+	61,  // 59: strmprivacy.api.entities.v1.EventContract.metadata:type_name -> strmprivacy.api.entities.v1.EventContractMetadata
+	121, // 60: strmprivacy.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
+	62,  // 61: strmprivacy.api.entities.v1.EventContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	18,  // 62: strmprivacy.api.entities.v1.StreamTree.stream:type_name -> strmprivacy.api.entities.v1.Stream
+	23,  // 63: strmprivacy.api.entities.v1.StreamTree.key_stream:type_name -> strmprivacy.api.entities.v1.KeyStream
+	18,  // 64: strmprivacy.api.entities.v1.StreamTree.derived:type_name -> strmprivacy.api.entities.v1.Stream
+	40,  // 65: strmprivacy.api.entities.v1.StreamTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	45,  // 66: strmprivacy.api.entities.v1.StreamTree.kafka_exporters:type_name -> strmprivacy.api.entities.v1.KafkaExporter
+	27,  // 67: strmprivacy.api.entities.v1.SinkTree.sink:type_name -> strmprivacy.api.entities.v1.Sink
+	40,  // 68: strmprivacy.api.entities.v1.SinkTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	69,  // 69: strmprivacy.api.entities.v1.BatchJob.ref:type_name -> strmprivacy.api.entities.v1.BatchJobRef
+	70,  // 70: strmprivacy.api.entities.v1.BatchJob.states:type_name -> strmprivacy.api.entities.v1.BatchJobState
+	71,  // 71: strmprivacy.api.entities.v1.BatchJob.source_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	73,  // 72: strmprivacy.api.entities.v1.BatchJob.consent:type_name -> strmprivacy.api.entities.v1.ConsentConfig
+	75,  // 73: strmprivacy.api.entities.v1.BatchJob.encryption:type_name -> strmprivacy.api.entities.v1.EncryptionConfig
+	59,  // 74: strmprivacy.api.entities.v1.BatchJob.event_contract_ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
+	77,  // 75: strmprivacy.api.entities.v1.BatchJob.encrypted_data:type_name -> strmprivacy.api.entities.v1.EncryptedData
+	78,  // 76: strmprivacy.api.entities.v1.BatchJob.encryption_keys_data:type_name -> strmprivacy.api.entities.v1.EncryptionKeysData
+	79,  // 77: strmprivacy.api.entities.v1.BatchJob.derived_data:type_name -> strmprivacy.api.entities.v1.DerivedData
+	66,  // 78: strmprivacy.api.entities.v1.BatchJobWrapper.encryption_batch_job:type_name -> strmprivacy.api.entities.v1.BatchJob
+	80,  // 79: strmprivacy.api.entities.v1.BatchJobWrapper.micro_aggregation_batch_job:type_name -> strmprivacy.api.entities.v1.MicroAggregationBatchJob
+	66,  // 80: strmprivacy.api.entities.v1.ExtendedBatchJob.batch_job:type_name -> strmprivacy.api.entities.v1.BatchJob
+	67,  // 81: strmprivacy.api.entities.v1.ExtendedBatchJob.job:type_name -> strmprivacy.api.entities.v1.BatchJobWrapper
+	121, // 82: strmprivacy.api.entities.v1.BatchJobState.state_time:type_name -> google.protobuf.Timestamp
 	1,   // 83: strmprivacy.api.entities.v1.BatchJobState.state:type_name -> strmprivacy.api.entities.v1.BatchJobStateType
-	30,  // 84: strmprivacy.api.entities.v1.DataConnectorAndType.data_connector_ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
-	37,  // 85: strmprivacy.api.entities.v1.DataConnectorAndType.data_type:type_name -> strmprivacy.api.entities.v1.DataType
-	73,  // 86: strmprivacy.api.entities.v1.ConsentConfig.consent_level_extractor:type_name -> strmprivacy.api.entities.v1.ConsentLevelExtractor
-	95,  // 87: strmprivacy.api.entities.v1.ConsentLevelExtractor.field_patterns:type_name -> strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry
-	75,  // 88: strmprivacy.api.entities.v1.EncryptionConfig.timestamp_config:type_name -> strmprivacy.api.entities.v1.TimestampConfig
-	101, // 89: strmprivacy.api.entities.v1.TimestampConfig.default_time_zone:type_name -> google.type.TimeZone
-	70,  // 90: strmprivacy.api.entities.v1.EncryptedData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	70,  // 91: strmprivacy.api.entities.v1.EncryptionKeysData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	70,  // 92: strmprivacy.api.entities.v1.DerivedData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	31,  // 84: strmprivacy.api.entities.v1.DataConnectorAndType.data_connector_ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
+	38,  // 85: strmprivacy.api.entities.v1.DataConnectorAndType.data_type:type_name -> strmprivacy.api.entities.v1.DataType
+	74,  // 86: strmprivacy.api.entities.v1.ConsentConfig.consent_level_extractor:type_name -> strmprivacy.api.entities.v1.ConsentLevelExtractor
+	105, // 87: strmprivacy.api.entities.v1.ConsentLevelExtractor.field_patterns:type_name -> strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry
+	76,  // 88: strmprivacy.api.entities.v1.EncryptionConfig.timestamp_config:type_name -> strmprivacy.api.entities.v1.TimestampConfig
+	122, // 89: strmprivacy.api.entities.v1.TimestampConfig.default_time_zone:type_name -> google.type.TimeZone
+	71,  // 90: strmprivacy.api.entities.v1.EncryptedData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	71,  // 91: strmprivacy.api.entities.v1.EncryptionKeysData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	71,  // 92: strmprivacy.api.entities.v1.DerivedData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
 	2,   // 93: strmprivacy.api.entities.v1.DerivedData.consent_level_type:type_name -> strmprivacy.api.entities.v1.ConsentLevelType
-	20,  // 94: strmprivacy.api.entities.v1.DerivedData.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
-	68,  // 95: strmprivacy.api.entities.v1.MicroAggregationBatchJob.ref:type_name -> strmprivacy.api.entities.v1.BatchJobRef
-	69,  // 96: strmprivacy.api.entities.v1.MicroAggregationBatchJob.states:type_name -> strmprivacy.api.entities.v1.BatchJobState
-	70,  // 97: strmprivacy.api.entities.v1.MicroAggregationBatchJob.source_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	70,  // 98: strmprivacy.api.entities.v1.MicroAggregationBatchJob.target_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	81,  // 99: strmprivacy.api.entities.v1.MicroAggregationBatchJob.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
-	80,  // 100: strmprivacy.api.entities.v1.MicroAggregationBatchJob.aggregation_config:type_name -> strmprivacy.api.entities.v1.MicroAggregationConfig
-	81,  // 101: strmprivacy.api.entities.v1.DataContract.ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
+	21,  // 94: strmprivacy.api.entities.v1.DerivedData.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
+	69,  // 95: strmprivacy.api.entities.v1.MicroAggregationBatchJob.ref:type_name -> strmprivacy.api.entities.v1.BatchJobRef
+	70,  // 96: strmprivacy.api.entities.v1.MicroAggregationBatchJob.states:type_name -> strmprivacy.api.entities.v1.BatchJobState
+	71,  // 97: strmprivacy.api.entities.v1.MicroAggregationBatchJob.source_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	71,  // 98: strmprivacy.api.entities.v1.MicroAggregationBatchJob.target_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	82,  // 99: strmprivacy.api.entities.v1.MicroAggregationBatchJob.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
+	81,  // 100: strmprivacy.api.entities.v1.MicroAggregationBatchJob.aggregation_config:type_name -> strmprivacy.api.entities.v1.MicroAggregationConfig
+	82,  // 101: strmprivacy.api.entities.v1.DataContract.ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
 	14,  // 102: strmprivacy.api.entities.v1.DataContract.state:type_name -> strmprivacy.api.entities.v1.DataContract.State
-	96,  // 103: strmprivacy.api.entities.v1.DataContract.pii_fields:type_name -> strmprivacy.api.entities.v1.DataContract.PiiFieldsEntry
-	62,  // 104: strmprivacy.api.entities.v1.DataContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
-	84,  // 105: strmprivacy.api.entities.v1.DataContract.metadata:type_name -> strmprivacy.api.entities.v1.DataContractMetadata
-	55,  // 106: strmprivacy.api.entities.v1.DataContract.schema:type_name -> strmprivacy.api.entities.v1.Schema
-	83,  // 107: strmprivacy.api.entities.v1.DataContract.field_metadata:type_name -> strmprivacy.api.entities.v1.FieldMetadata
-	97,  // 108: strmprivacy.api.entities.v1.FieldMetadata.personal_data_config:type_name -> strmprivacy.api.entities.v1.FieldMetadata.PersonalDataConfig
+	106, // 103: strmprivacy.api.entities.v1.DataContract.pii_fields:type_name -> strmprivacy.api.entities.v1.DataContract.PiiFieldsEntry
+	63,  // 104: strmprivacy.api.entities.v1.DataContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
+	85,  // 105: strmprivacy.api.entities.v1.DataContract.metadata:type_name -> strmprivacy.api.entities.v1.DataContractMetadata
+	56,  // 106: strmprivacy.api.entities.v1.DataContract.schema:type_name -> strmprivacy.api.entities.v1.Schema
+	84,  // 107: strmprivacy.api.entities.v1.DataContract.field_metadata:type_name -> strmprivacy.api.entities.v1.FieldMetadata
+	107, // 108: strmprivacy.api.entities.v1.FieldMetadata.personal_data_config:type_name -> strmprivacy.api.entities.v1.FieldMetadata.PersonalDataConfig
 	8,   // 109: strmprivacy.api.entities.v1.FieldMetadata.statistical_data_type:type_name -> strmprivacy.api.entities.v1.StatisticalDataType
-	98,  // 110: strmprivacy.api.entities.v1.FieldMetadata.null_handling_config:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig
-	100, // 111: strmprivacy.api.entities.v1.DataContractMetadata.create_time:type_name -> google.protobuf.Timestamp
-	61,  // 112: strmprivacy.api.entities.v1.DataContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	108, // 110: strmprivacy.api.entities.v1.FieldMetadata.null_handling_config:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig
+	121, // 111: strmprivacy.api.entities.v1.DataContractMetadata.create_time:type_name -> google.protobuf.Timestamp
+	62,  // 112: strmprivacy.api.entities.v1.DataContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
 	16,  // 113: strmprivacy.api.entities.v1.Project.state:type_name -> strmprivacy.api.entities.v1.Project.State
-	0,   // 114: strmprivacy.api.entities.v1.User.user_roles:type_name -> strmprivacy.api.entities.v1.UserRole
-	81,  // 115: strmprivacy.api.entities.v1.GenericRef.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
-	100, // 116: strmprivacy.api.entities.v1.Comment.create_time:type_name -> google.protobuf.Timestamp
-	88,  // 117: strmprivacy.api.entities.v1.Comment.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
-	86,  // 118: strmprivacy.api.entities.v1.Comment.creator:type_name -> strmprivacy.api.entities.v1.User
-	100, // 119: strmprivacy.api.entities.v1.AuditTrailEntry.create_time:type_name -> google.protobuf.Timestamp
-	88,  // 120: strmprivacy.api.entities.v1.AuditTrailEntry.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
-	86,  // 121: strmprivacy.api.entities.v1.AuditTrailEntry.actor:type_name -> strmprivacy.api.entities.v1.User
-	92,  // 122: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
-	56,  // 123: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	49,  // 124: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.ConsentLevels
-	15,  // 125: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.type:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.NullHandlingType
-	126, // [126:126] is the sub-list for method output_type
-	126, // [126:126] is the sub-list for method input_type
-	126, // [126:126] is the sub-list for extension type_name
-	126, // [126:126] is the sub-list for extension extendee
-	0,   // [0:126] is the sub-list for field type_name
+	88,  // 114: strmprivacy.api.entities.v1.ProjectPlan.item_groups:type_name -> strmprivacy.api.entities.v1.ItemGroup
+	96,  // 115: strmprivacy.api.entities.v1.ProjectPlan.users:type_name -> strmprivacy.api.entities.v1.User
+	90,  // 116: strmprivacy.api.entities.v1.ItemGroup.todo_items:type_name -> strmprivacy.api.entities.v1.TodoItems
+	91,  // 117: strmprivacy.api.entities.v1.ItemGroup.data_contract_items:type_name -> strmprivacy.api.entities.v1.DataContractItems
+	92,  // 118: strmprivacy.api.entities.v1.ItemGroup.info_asset_items:type_name -> strmprivacy.api.entities.v1.InfoAssetItems
+	93,  // 119: strmprivacy.api.entities.v1.ItemGroup.document_items:type_name -> strmprivacy.api.entities.v1.DocumentItems
+	94,  // 120: strmprivacy.api.entities.v1.ItemGroup.pipeline_items:type_name -> strmprivacy.api.entities.v1.PipelineItems
+	121, // 121: strmprivacy.api.entities.v1.ItemProperties.creation_time:type_name -> google.protobuf.Timestamp
+	121, // 122: strmprivacy.api.entities.v1.ItemProperties.due_time:type_name -> google.protobuf.Timestamp
+	121, // 123: strmprivacy.api.entities.v1.ItemProperties.completion_time:type_name -> google.protobuf.Timestamp
+	96,  // 124: strmprivacy.api.entities.v1.ItemProperties.creator:type_name -> strmprivacy.api.entities.v1.User
+	96,  // 125: strmprivacy.api.entities.v1.ItemProperties.assignee:type_name -> strmprivacy.api.entities.v1.User
+	109, // 126: strmprivacy.api.entities.v1.TodoItems.items:type_name -> strmprivacy.api.entities.v1.TodoItems.TodoItem
+	110, // 127: strmprivacy.api.entities.v1.DataContractItems.items:type_name -> strmprivacy.api.entities.v1.DataContractItems.DataContractItem
+	111, // 128: strmprivacy.api.entities.v1.InfoAssetItems.items:type_name -> strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem
+	113, // 129: strmprivacy.api.entities.v1.DocumentItems.items:type_name -> strmprivacy.api.entities.v1.DocumentItems.DocumentItem
+	114, // 130: strmprivacy.api.entities.v1.PipelineItems.items:type_name -> strmprivacy.api.entities.v1.PipelineItems.PipelineItem
+	118, // 131: strmprivacy.api.entities.v1.InformationAsset.business_impact:type_name -> strmprivacy.api.entities.v1.InformationAsset.BusinessImpactRating
+	115, // 132: strmprivacy.api.entities.v1.InformationAsset.sections:type_name -> strmprivacy.api.entities.v1.InformationAsset.Section
+	0,   // 133: strmprivacy.api.entities.v1.User.user_roles:type_name -> strmprivacy.api.entities.v1.UserRole
+	82,  // 134: strmprivacy.api.entities.v1.GenericRef.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
+	121, // 135: strmprivacy.api.entities.v1.Comment.create_time:type_name -> google.protobuf.Timestamp
+	98,  // 136: strmprivacy.api.entities.v1.Comment.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
+	96,  // 137: strmprivacy.api.entities.v1.Comment.creator:type_name -> strmprivacy.api.entities.v1.User
+	121, // 138: strmprivacy.api.entities.v1.AuditTrailEntry.create_time:type_name -> google.protobuf.Timestamp
+	98,  // 139: strmprivacy.api.entities.v1.AuditTrailEntry.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
+	96,  // 140: strmprivacy.api.entities.v1.AuditTrailEntry.actor:type_name -> strmprivacy.api.entities.v1.User
+	102, // 141: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
+	57,  // 142: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	50,  // 143: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.ConsentLevels
+	15,  // 144: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.type:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.NullHandlingType
+	89,  // 145: strmprivacy.api.entities.v1.TodoItems.TodoItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	89,  // 146: strmprivacy.api.entities.v1.DataContractItems.DataContractItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	82,  // 147: strmprivacy.api.entities.v1.DataContractItems.DataContractItem.ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
+	89,  // 148: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	17,  // 149: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.state:type_name -> strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.State
+	112, // 150: strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.classification:type_name -> strmprivacy.api.entities.v1.InfoAssetItems.InfoAssetItem.Classification
+	89,  // 151: strmprivacy.api.entities.v1.DocumentItems.DocumentItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	89,  // 152: strmprivacy.api.entities.v1.PipelineItems.PipelineItem.item_properties:type_name -> strmprivacy.api.entities.v1.ItemProperties
+	24,  // 153: strmprivacy.api.entities.v1.PipelineItems.PipelineItem.stream:type_name -> strmprivacy.api.entities.v1.StreamRef
+	69,  // 154: strmprivacy.api.entities.v1.PipelineItems.PipelineItem.batch_job:type_name -> strmprivacy.api.entities.v1.BatchJobRef
+	116, // 155: strmprivacy.api.entities.v1.InformationAsset.Section.sub_sections:type_name -> strmprivacy.api.entities.v1.InformationAsset.SubSection
+	117, // 156: strmprivacy.api.entities.v1.InformationAsset.SubSection.checks:type_name -> strmprivacy.api.entities.v1.InformationAsset.Check
+	157, // [157:157] is the sub-list for method output_type
+	157, // [157:157] is the sub-list for method input_type
+	157, // [157:157] is the sub-list for extension type_name
+	157, // [157:157] is the sub-list for extension extendee
+	0,   // [0:157] is the sub-list for field type_name
 }
 
 func init() { file_strmprivacy_api_entities_v1_entities_v1_proto_init() }
@@ -9242,7 +10937,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[69].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*User); i {
+			switch v := v.(*ProjectPlan); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9254,7 +10949,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[70].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PurposeMapping); i {
+			switch v := v.(*ItemGroup); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9266,7 +10961,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[71].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GenericRef); i {
+			switch v := v.(*ItemProperties); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9278,7 +10973,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[72].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Comment); i {
+			switch v := v.(*TodoItems); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9290,7 +10985,19 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[73].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuditTrailEntry); i {
+			switch v := v.(*DataContractItems); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[74].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InfoAssetItems); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9302,7 +11009,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[75].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MaskedFields_PatternList); i {
+			switch v := v.(*DocumentItems); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9314,7 +11021,43 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Schema_SimpleSchemaDefinition); i {
+			switch v := v.(*PipelineItems); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[77].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InformationAsset); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[78].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*User); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[79].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PurposeMapping); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9326,7 +11069,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FieldMetadata_PersonalDataConfig); i {
+			switch v := v.(*GenericRef); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9338,7 +11081,199 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Comment); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[82].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AuditTrailEntry); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[84].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MaskedFields_PatternList); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[85].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Schema_SimpleSchemaDefinition); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[89].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FieldMetadata_PersonalDataConfig); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[90].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FieldMetadata_NullHandlingConfig); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[91].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*TodoItems_TodoItem); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[92].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DataContractItems_DataContractItem); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[93].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InfoAssetItems_InfoAssetItem); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[94].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InfoAssetItems_InfoAssetItem_Classification); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[95].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DocumentItems_DocumentItem); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[96].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*PipelineItems_PipelineItem); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[97].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InformationAsset_Section); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[98].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InformationAsset_SubSection); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[99].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InformationAsset_Check); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[100].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InformationAsset_BusinessImpactRating); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[101].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*InformationAsset_BusinessImpactRating_Category); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -9371,16 +11306,27 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 		(*BatchJobWrapper_EncryptionBatchJob)(nil),
 		(*BatchJobWrapper_MicroAggregationBatchJob)(nil),
 	}
-	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[71].OneofWrappers = []interface{}{
+	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[70].OneofWrappers = []interface{}{
+		(*ItemGroup_TodoItems)(nil),
+		(*ItemGroup_DataContractItems)(nil),
+		(*ItemGroup_InfoAssetItems)(nil),
+		(*ItemGroup_DocumentItems)(nil),
+		(*ItemGroup_PipelineItems)(nil),
+	}
+	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80].OneofWrappers = []interface{}{
 		(*GenericRef_DataContractRef)(nil),
+	}
+	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[96].OneofWrappers = []interface{}{
+		(*PipelineItems_PipelineItem_Stream)(nil),
+		(*PipelineItems_PipelineItem_BatchJob)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc,
-			NumEnums:      17,
-			NumMessages:   82,
+			NumEnums:      18,
+			NumMessages:   102,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
