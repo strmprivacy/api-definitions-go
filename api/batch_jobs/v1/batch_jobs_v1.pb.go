@@ -252,7 +252,11 @@ type CreateBatchJobRequest struct {
 	// Deprecated: Do not use.
 	BatchJob *v1.BatchJob `protobuf:"bytes,1,opt,name=batch_job,json=batchJob,proto3" json:"batch_job,omitempty"`
 	// Todo: use [(validate.rules).message.required = true] instead once all apps use the wrapper
-	// (-- api-linter: core::0133::request-required-fields
+	// (-- api-linter: core::0133::request-required-fields=disabled
+	//
+	//	aip.dev/not-precedent: We really need this field to be required because
+	//
+	// it used to work up til now, and api-linter is complaining just for the fun of it. --)
 	Job *v1.BatchJobWrapper `protobuf:"bytes,2,opt,name=job,proto3" json:"job,omitempty"`
 }
 
