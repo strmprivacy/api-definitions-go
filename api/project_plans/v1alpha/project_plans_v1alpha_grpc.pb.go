@@ -22,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProjectPlansServiceClient interface {
+	ListProjectPlans(ctx context.Context, in *ListProjectPlansRequest, opts ...grpc.CallOption) (*ListProjectPlansResponse, error)
 	GetProjectPlan(ctx context.Context, in *GetProjectPlanRequest, opts ...grpc.CallOption) (*GetProjectPlanResponse, error)
 	UpsertProjectPlan(ctx context.Context, in *UpsertProjectPlanRequest, opts ...grpc.CallOption) (*UpsertProjectPlanResponse, error)
 }
@@ -32,6 +33,15 @@ type projectPlansServiceClient struct {
 
 func NewProjectPlansServiceClient(cc grpc.ClientConnInterface) ProjectPlansServiceClient {
 	return &projectPlansServiceClient{cc}
+}
+
+func (c *projectPlansServiceClient) ListProjectPlans(ctx context.Context, in *ListProjectPlansRequest, opts ...grpc.CallOption) (*ListProjectPlansResponse, error) {
+	out := new(ListProjectPlansResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/ListProjectPlans", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *projectPlansServiceClient) GetProjectPlan(ctx context.Context, in *GetProjectPlanRequest, opts ...grpc.CallOption) (*GetProjectPlanResponse, error) {
@@ -56,6 +66,7 @@ func (c *projectPlansServiceClient) UpsertProjectPlan(ctx context.Context, in *U
 // All implementations should embed UnimplementedProjectPlansServiceServer
 // for forward compatibility
 type ProjectPlansServiceServer interface {
+	ListProjectPlans(context.Context, *ListProjectPlansRequest) (*ListProjectPlansResponse, error)
 	GetProjectPlan(context.Context, *GetProjectPlanRequest) (*GetProjectPlanResponse, error)
 	UpsertProjectPlan(context.Context, *UpsertProjectPlanRequest) (*UpsertProjectPlanResponse, error)
 }
@@ -64,6 +75,9 @@ type ProjectPlansServiceServer interface {
 type UnimplementedProjectPlansServiceServer struct {
 }
 
+func (UnimplementedProjectPlansServiceServer) ListProjectPlans(context.Context, *ListProjectPlansRequest) (*ListProjectPlansResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProjectPlans not implemented")
+}
 func (UnimplementedProjectPlansServiceServer) GetProjectPlan(context.Context, *GetProjectPlanRequest) (*GetProjectPlanResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProjectPlan not implemented")
 }
@@ -80,6 +94,24 @@ type UnsafeProjectPlansServiceServer interface {
 
 func RegisterProjectPlansServiceServer(s grpc.ServiceRegistrar, srv ProjectPlansServiceServer) {
 	s.RegisterService(&ProjectPlansService_ServiceDesc, srv)
+}
+
+func _ProjectPlansService_ListProjectPlans_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProjectPlansRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectPlansServiceServer).ListProjectPlans(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/ListProjectPlans",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectPlansServiceServer).ListProjectPlans(ctx, req.(*ListProjectPlansRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _ProjectPlansService_GetProjectPlan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -125,6 +157,10 @@ var ProjectPlansService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "strmprivacy.api.project_plans.v1alpha.ProjectPlansService",
 	HandlerType: (*ProjectPlansServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListProjectPlans",
+			Handler:    _ProjectPlansService_ListProjectPlans_Handler,
+		},
 		{
 			MethodName: "GetProjectPlan",
 			Handler:    _ProjectPlansService_GetProjectPlan_Handler,
