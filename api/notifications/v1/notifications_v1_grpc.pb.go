@@ -30,6 +30,8 @@ type NotificationsServiceClient interface {
 	ListSubscriptions(ctx context.Context, in *ListSubscriptionsRequest, opts ...grpc.CallOption) (*ListSubscriptionsResponse, error)
 	// Called by systems (schema-registry for instance) that want to notify subscribed users about something.
 	NotifySubscribers(ctx context.Context, in *NotifySubscribersRequest, opts ...grpc.CallOption) (*NotifySubscribersResponse, error)
+	// Notify specific users directly, regardless of their subscriptions.
+	NotifyUsers(ctx context.Context, in *NotifyUsersRequest, opts ...grpc.CallOption) (*NotifyUsersResponse, error)
 	// Called by the user's browser to receive notifications.
 	ReceiveNotifications(ctx context.Context, in *ReceiveNotificationsRequest, opts ...grpc.CallOption) (NotificationsService_ReceiveNotificationsClient, error)
 	// List notifications for a user.
@@ -74,6 +76,15 @@ func (c *notificationsServiceClient) ListSubscriptions(ctx context.Context, in *
 func (c *notificationsServiceClient) NotifySubscribers(ctx context.Context, in *NotifySubscribersRequest, opts ...grpc.CallOption) (*NotifySubscribersResponse, error) {
 	out := new(NotifySubscribersResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/NotifySubscribers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *notificationsServiceClient) NotifyUsers(ctx context.Context, in *NotifyUsersRequest, opts ...grpc.CallOption) (*NotifyUsersResponse, error) {
+	out := new(NotifyUsersResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/NotifyUsers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -133,6 +144,8 @@ type NotificationsServiceServer interface {
 	ListSubscriptions(context.Context, *ListSubscriptionsRequest) (*ListSubscriptionsResponse, error)
 	// Called by systems (schema-registry for instance) that want to notify subscribed users about something.
 	NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error)
+	// Notify specific users directly, regardless of their subscriptions.
+	NotifyUsers(context.Context, *NotifyUsersRequest) (*NotifyUsersResponse, error)
 	// Called by the user's browser to receive notifications.
 	ReceiveNotifications(*ReceiveNotificationsRequest, NotificationsService_ReceiveNotificationsServer) error
 	// List notifications for a user.
@@ -154,6 +167,9 @@ func (UnimplementedNotificationsServiceServer) ListSubscriptions(context.Context
 }
 func (UnimplementedNotificationsServiceServer) NotifySubscribers(context.Context, *NotifySubscribersRequest) (*NotifySubscribersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method NotifySubscribers not implemented")
+}
+func (UnimplementedNotificationsServiceServer) NotifyUsers(context.Context, *NotifyUsersRequest) (*NotifyUsersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method NotifyUsers not implemented")
 }
 func (UnimplementedNotificationsServiceServer) ReceiveNotifications(*ReceiveNotificationsRequest, NotificationsService_ReceiveNotificationsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ReceiveNotifications not implemented")
@@ -245,6 +261,24 @@ func _NotificationsService_NotifySubscribers_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NotificationsService_NotifyUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(NotifyUsersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationsServiceServer).NotifyUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/NotifyUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationsServiceServer).NotifyUsers(ctx, req.(*NotifyUsersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _NotificationsService_ReceiveNotifications_Handler(srv interface{}, stream grpc.ServerStream) error {
 	m := new(ReceiveNotificationsRequest)
 	if err := stream.RecvMsg(m); err != nil {
@@ -306,6 +340,10 @@ var NotificationsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "NotifySubscribers",
 			Handler:    _NotificationsService_NotifySubscribers_Handler,
+		},
+		{
+			MethodName: "NotifyUsers",
+			Handler:    _NotificationsService_NotifyUsers_Handler,
 		},
 		{
 			MethodName: "ListNotifications",
