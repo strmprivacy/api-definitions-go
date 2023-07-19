@@ -390,7 +390,7 @@ type ItemProperties struct {
 	Creator *v1.User `protobuf:"bytes,5,opt,name=creator,proto3" json:"creator,omitempty"`
 	// The user that is assigned to this item.
 	Assignee *v1.User `protobuf:"bytes,6,opt,name=assignee,proto3" json:"assignee,omitempty"`
-	// optional help text describing the item. Might give an example response for instance.
+	// help text describing the item. Might give an example response for instance.
 	HelpText string `protobuf:"bytes,7,opt,name=help_text,json=helpText,proto3" json:"help_text,omitempty"`
 }
 
