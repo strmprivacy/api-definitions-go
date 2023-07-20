@@ -25,6 +25,7 @@ type ProjectsServiceClient interface {
 	ListProjects(ctx context.Context, in *ListProjectsRequest, opts ...grpc.CallOption) (*ListProjectsResponse, error)
 	CreateProject(ctx context.Context, in *CreateProjectRequest, opts ...grpc.CallOption) (*CreateProjectResponse, error)
 	DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*DeleteProjectResponse, error)
+	ArchiveProject(ctx context.Context, in *ArchiveProjectRequest, opts ...grpc.CallOption) (*ArchiveProjectResponse, error)
 	GetProject(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectResponse, error)
 	AddProjectMembers(ctx context.Context, in *AddProjectMembersRequest, opts ...grpc.CallOption) (*AddProjectMembersResponse, error)
 	RemoveProjectMembers(ctx context.Context, in *RemoveProjectMembersRequest, opts ...grpc.CallOption) (*RemoveProjectMembersResponse, error)
@@ -60,6 +61,15 @@ func (c *projectsServiceClient) CreateProject(ctx context.Context, in *CreatePro
 func (c *projectsServiceClient) DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*DeleteProjectResponse, error) {
 	out := new(DeleteProjectResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.projects.v1.ProjectsService/DeleteProject", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *projectsServiceClient) ArchiveProject(ctx context.Context, in *ArchiveProjectRequest, opts ...grpc.CallOption) (*ArchiveProjectResponse, error) {
+	out := new(ArchiveProjectResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.projects.v1.ProjectsService/ArchiveProject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -109,6 +119,7 @@ type ProjectsServiceServer interface {
 	ListProjects(context.Context, *ListProjectsRequest) (*ListProjectsResponse, error)
 	CreateProject(context.Context, *CreateProjectRequest) (*CreateProjectResponse, error)
 	DeleteProject(context.Context, *DeleteProjectRequest) (*DeleteProjectResponse, error)
+	ArchiveProject(context.Context, *ArchiveProjectRequest) (*ArchiveProjectResponse, error)
 	GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error)
 	AddProjectMembers(context.Context, *AddProjectMembersRequest) (*AddProjectMembersResponse, error)
 	RemoveProjectMembers(context.Context, *RemoveProjectMembersRequest) (*RemoveProjectMembersResponse, error)
@@ -127,6 +138,9 @@ func (UnimplementedProjectsServiceServer) CreateProject(context.Context, *Create
 }
 func (UnimplementedProjectsServiceServer) DeleteProject(context.Context, *DeleteProjectRequest) (*DeleteProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProject not implemented")
+}
+func (UnimplementedProjectsServiceServer) ArchiveProject(context.Context, *ArchiveProjectRequest) (*ArchiveProjectResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ArchiveProject not implemented")
 }
 func (UnimplementedProjectsServiceServer) GetProject(context.Context, *GetProjectRequest) (*GetProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProject not implemented")
@@ -202,6 +216,24 @@ func _ProjectsService_DeleteProject_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProjectsServiceServer).DeleteProject(ctx, req.(*DeleteProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProjectsService_ArchiveProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ArchiveProjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectsServiceServer).ArchiveProject(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.projects.v1.ProjectsService/ArchiveProject",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectsServiceServer).ArchiveProject(ctx, req.(*ArchiveProjectRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -296,6 +328,10 @@ var ProjectsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteProject",
 			Handler:    _ProjectsService_DeleteProject_Handler,
+		},
+		{
+			MethodName: "ArchiveProject",
+			Handler:    _ProjectsService_ArchiveProject_Handler,
 		},
 		{
 			MethodName: "GetProject",
