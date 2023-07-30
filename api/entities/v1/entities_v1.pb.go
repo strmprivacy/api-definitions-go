@@ -992,8 +992,6 @@ const (
 	GenericRef_KAFKA_EXPORTER GenericRef_GenericRefType = 6
 	// id = project-plan id
 	GenericRef_PROJECT_PLAN GenericRef_GenericRefType = 7
-	// id = external-user-id
-	GenericRef_USER GenericRef_GenericRefType = 8
 )
 
 // Enum value maps for GenericRef_GenericRefType.
@@ -1007,7 +1005,6 @@ var (
 		5: "DATA_CONNECTOR",
 		6: "KAFKA_EXPORTER",
 		7: "PROJECT_PLAN",
-		8: "USER",
 	}
 	GenericRef_GenericRefType_value = map[string]int32{
 		"GENERIC_REF_TYPE_UNSPECIFIED": 0,
@@ -1018,7 +1015,6 @@ var (
 		"DATA_CONNECTOR":               5,
 		"KAFKA_EXPORTER":               6,
 		"PROJECT_PLAN":                 7,
-		"USER":                         8,
 	}
 )
 
@@ -1047,220 +1043,6 @@ func (x GenericRef_GenericRefType) Number() protoreflect.EnumNumber {
 // Deprecated: Use GenericRef_GenericRefType.Descriptor instead.
 func (GenericRef_GenericRefType) EnumDescriptor() ([]byte, []int) {
 	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{71, 0}
-}
-
-type AuditTrailEntry_Action int32
-
-const (
-	AuditTrailEntry_ACTION_UNSPECIFIED AuditTrailEntry_Action = 0
-	AuditTrailEntry_CREATED            AuditTrailEntry_Action = 1
-	AuditTrailEntry_DESTROYED          AuditTrailEntry_Action = 2
-	AuditTrailEntry_CHANGED            AuditTrailEntry_Action = 3
-	AuditTrailEntry_RELATION_CREATED   AuditTrailEntry_Action = 4
-	AuditTrailEntry_RELATION_DESTROYED AuditTrailEntry_Action = 5
-	AuditTrailEntry_RELATION_CHANGED   AuditTrailEntry_Action = 6
-)
-
-// Enum value maps for AuditTrailEntry_Action.
-var (
-	AuditTrailEntry_Action_name = map[int32]string{
-		0: "ACTION_UNSPECIFIED",
-		1: "CREATED",
-		2: "DESTROYED",
-		3: "CHANGED",
-		4: "RELATION_CREATED",
-		5: "RELATION_DESTROYED",
-		6: "RELATION_CHANGED",
-	}
-	AuditTrailEntry_Action_value = map[string]int32{
-		"ACTION_UNSPECIFIED": 0,
-		"CREATED":            1,
-		"DESTROYED":          2,
-		"CHANGED":            3,
-		"RELATION_CREATED":   4,
-		"RELATION_DESTROYED": 5,
-		"RELATION_CHANGED":   6,
-	}
-)
-
-func (x AuditTrailEntry_Action) Enum() *AuditTrailEntry_Action {
-	p := new(AuditTrailEntry_Action)
-	*p = x
-	return p
-}
-
-func (x AuditTrailEntry_Action) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (AuditTrailEntry_Action) Descriptor() protoreflect.EnumDescriptor {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[18].Descriptor()
-}
-
-func (AuditTrailEntry_Action) Type() protoreflect.EnumType {
-	return &file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[18]
-}
-
-func (x AuditTrailEntry_Action) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use AuditTrailEntry_Action.Descriptor instead.
-func (AuditTrailEntry_Action) EnumDescriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 0}
-}
-
-type AuditTrailEntry_Category int32
-
-const (
-	AuditTrailEntry_CATEGORY_UNSPECIFIED AuditTrailEntry_Category = 0
-	AuditTrailEntry_TECH                 AuditTrailEntry_Category = 1
-	AuditTrailEntry_CIO                  AuditTrailEntry_Category = 2
-	AuditTrailEntry_LEGAL                AuditTrailEntry_Category = 3
-)
-
-// Enum value maps for AuditTrailEntry_Category.
-var (
-	AuditTrailEntry_Category_name = map[int32]string{
-		0: "CATEGORY_UNSPECIFIED",
-		1: "TECH",
-		2: "CIO",
-		3: "LEGAL",
-	}
-	AuditTrailEntry_Category_value = map[string]int32{
-		"CATEGORY_UNSPECIFIED": 0,
-		"TECH":                 1,
-		"CIO":                  2,
-		"LEGAL":                3,
-	}
-)
-
-func (x AuditTrailEntry_Category) Enum() *AuditTrailEntry_Category {
-	p := new(AuditTrailEntry_Category)
-	*p = x
-	return p
-}
-
-func (x AuditTrailEntry_Category) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (AuditTrailEntry_Category) Descriptor() protoreflect.EnumDescriptor {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[19].Descriptor()
-}
-
-func (AuditTrailEntry_Category) Type() protoreflect.EnumType {
-	return &file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[19]
-}
-
-func (x AuditTrailEntry_Category) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use AuditTrailEntry_Category.Descriptor instead.
-func (AuditTrailEntry_Category) EnumDescriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 1}
-}
-
-type AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType int32
-
-const (
-	AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DIFF_TYPE_UNSPECIFIED AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType = 0
-	AuditTrailEntry_ContentMessage_ProjectPlanDiffs_MISSING               AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType = 1
-	AuditTrailEntry_ContentMessage_ProjectPlanDiffs_UNEXPECTED            AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType = 2
-	AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DIFFERENT             AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType = 3
-)
-
-// Enum value maps for AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType.
-var (
-	AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType_name = map[int32]string{
-		0: "DIFF_TYPE_UNSPECIFIED",
-		1: "MISSING",
-		2: "UNEXPECTED",
-		3: "DIFFERENT",
-	}
-	AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType_value = map[string]int32{
-		"DIFF_TYPE_UNSPECIFIED": 0,
-		"MISSING":               1,
-		"UNEXPECTED":            2,
-		"DIFFERENT":             3,
-	}
-)
-
-func (x AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType) Enum() *AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType {
-	p := new(AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType)
-	*p = x
-	return p
-}
-
-func (x AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType) Descriptor() protoreflect.EnumDescriptor {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[20].Descriptor()
-}
-
-func (AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType) Type() protoreflect.EnumType {
-	return &file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[20]
-}
-
-func (x AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType.Descriptor instead.
-func (AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType) EnumDescriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 0, 1, 0}
-}
-
-type Relation_RelationType int32
-
-const (
-	Relation_RELATION_TYPE_UNSPECIFIED Relation_RelationType = 0
-	Relation_MEMBER_OF                 Relation_RelationType = 1
-	Relation_MENTIONED                 Relation_RelationType = 2
-)
-
-// Enum value maps for Relation_RelationType.
-var (
-	Relation_RelationType_name = map[int32]string{
-		0: "RELATION_TYPE_UNSPECIFIED",
-		1: "MEMBER_OF",
-		2: "MENTIONED",
-	}
-	Relation_RelationType_value = map[string]int32{
-		"RELATION_TYPE_UNSPECIFIED": 0,
-		"MEMBER_OF":                 1,
-		"MENTIONED":                 2,
-	}
-)
-
-func (x Relation_RelationType) Enum() *Relation_RelationType {
-	p := new(Relation_RelationType)
-	*p = x
-	return p
-}
-
-func (x Relation_RelationType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (Relation_RelationType) Descriptor() protoreflect.EnumDescriptor {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[21].Descriptor()
-}
-
-func (Relation_RelationType) Type() protoreflect.EnumType {
-	return &file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes[21]
-}
-
-func (x Relation_RelationType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use Relation_RelationType.Descriptor instead.
-func (Relation_RelationType) EnumDescriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{74, 0}
 }
 
 // Streams are source or derived streams depending on whether or not linked_stream is null.
@@ -6707,9 +6489,6 @@ type Comment struct {
 	ProjectId string `protobuf:"bytes,6,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	// Human readable name of the entity this comment is attached to.
 	EntityName string `protobuf:"bytes,7,opt,name=entity_name,json=entityName,proto3" json:"entity_name,omitempty"`
-	// entities that this comment is related to, so the relation is from
-	// the entity_ref above to 0 or more of these.
-	Relations []*Relation `protobuf:"bytes,9,rep,name=relations,proto3" json:"relations,omitempty"`
 }
 
 func (x *Comment) Reset() {
@@ -6793,13 +6572,6 @@ func (x *Comment) GetEntityName() string {
 	return ""
 }
 
-func (x *Comment) GetRelations() []*Relation {
-	if x != nil {
-		return x.Relations
-	}
-	return nil
-}
-
 type AuditTrailEntry struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -6810,8 +6582,6 @@ type AuditTrailEntry struct {
 	// The entity this audit trail entry is attached to.
 	EntityRef *GenericRef `protobuf:"bytes,3,opt,name=entity_ref,json=entityRef,proto3" json:"entity_ref,omitempty"`
 	// The content of the audit trail entry.
-	//
-	// Deprecated: Do not use.
 	Content string `protobuf:"bytes,4,opt,name=content,proto3" json:"content,omitempty"`
 	// The user whose action triggered the audit trail entry. Upon creation, only the user's external_user_id needs to be set.
 	Actor *User `protobuf:"bytes,5,opt,name=actor,proto3" json:"actor,omitempty"`
@@ -6819,19 +6589,6 @@ type AuditTrailEntry struct {
 	ProjectId string `protobuf:"bytes,6,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	// Human readable name of the entity.
 	EntityName string `protobuf:"bytes,7,opt,name=entity_name,json=entityName,proto3" json:"entity_name,omitempty"`
-	// what is happening in this audit trail entry.
-	Action AuditTrailEntry_Action `protobuf:"varint,8,opt,name=action,proto3,enum=strmprivacy.api.entities.v1.AuditTrailEntry_Action" json:"action,omitempty"`
-	// entities that this audit-trail entry is related to, so the relation is from
-	// the entity_ref above to 0 or more of these.
-	Relations []*Relation `protobuf:"bytes,9,rep,name=relations,proto3" json:"relations,omitempty"`
-	// define who (or what screen) sees what. For filtering.
-	Category []AuditTrailEntry_Category `protobuf:"varint,10,rep,packed,name=category,proto3,enum=strmprivacy.api.entities.v1.AuditTrailEntry_Category" json:"category,omitempty"`
-	// level of detail between 0 (quiet) and 5 (verbose)
-	Detail int32 `protobuf:"varint,11,opt,name=detail,proto3" json:"detail,omitempty"`
-	// the strictly defined contents, that are going to supplant the `content` field.
-	ContentMessage *AuditTrailEntry_ContentMessage `protobuf:"bytes,12,opt,name=content_message,json=contentMessage,proto3" json:"content_message,omitempty"`
-	// JsonPointer to a particular aspect of the generic entity
-	SubPart string `protobuf:"bytes,13,opt,name=sub_part,json=subPart,proto3" json:"sub_part,omitempty"`
 }
 
 func (x *AuditTrailEntry) Reset() {
@@ -6887,7 +6644,6 @@ func (x *AuditTrailEntry) GetEntityRef() *GenericRef {
 	return nil
 }
 
-// Deprecated: Do not use.
 func (x *AuditTrailEntry) GetContent() string {
 	if x != nil {
 		return x.Content
@@ -6916,103 +6672,6 @@ func (x *AuditTrailEntry) GetEntityName() string {
 	return ""
 }
 
-func (x *AuditTrailEntry) GetAction() AuditTrailEntry_Action {
-	if x != nil {
-		return x.Action
-	}
-	return AuditTrailEntry_ACTION_UNSPECIFIED
-}
-
-func (x *AuditTrailEntry) GetRelations() []*Relation {
-	if x != nil {
-		return x.Relations
-	}
-	return nil
-}
-
-func (x *AuditTrailEntry) GetCategory() []AuditTrailEntry_Category {
-	if x != nil {
-		return x.Category
-	}
-	return nil
-}
-
-func (x *AuditTrailEntry) GetDetail() int32 {
-	if x != nil {
-		return x.Detail
-	}
-	return 0
-}
-
-func (x *AuditTrailEntry) GetContentMessage() *AuditTrailEntry_ContentMessage {
-	if x != nil {
-		return x.ContentMessage
-	}
-	return nil
-}
-
-func (x *AuditTrailEntry) GetSubPart() string {
-	if x != nil {
-		return x.SubPart
-	}
-	return ""
-}
-
-type Relation struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Ref          *GenericRef           `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
-	RelationType Relation_RelationType `protobuf:"varint,2,opt,name=relation_type,json=relationType,proto3,enum=strmprivacy.api.entities.v1.Relation_RelationType" json:"relation_type,omitempty"`
-}
-
-func (x *Relation) Reset() {
-	*x = Relation{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[74]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Relation) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Relation) ProtoMessage() {}
-
-func (x *Relation) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[74]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Relation.ProtoReflect.Descriptor instead.
-func (*Relation) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{74}
-}
-
-func (x *Relation) GetRef() *GenericRef {
-	if x != nil {
-		return x.Ref
-	}
-	return nil
-}
-
-func (x *Relation) GetRelationType() Relation_RelationType {
-	if x != nil {
-		return x.RelationType
-	}
-	return Relation_RELATION_TYPE_UNSPECIFIED
-}
-
 type MaskedFields_PatternList struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -7024,7 +6683,7 @@ type MaskedFields_PatternList struct {
 func (x *MaskedFields_PatternList) Reset() {
 	*x = MaskedFields_PatternList{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[75]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7037,7 +6696,7 @@ func (x *MaskedFields_PatternList) String() string {
 func (*MaskedFields_PatternList) ProtoMessage() {}
 
 func (x *MaskedFields_PatternList) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[75]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7081,7 +6740,7 @@ type Schema_SimpleSchemaDefinition struct {
 func (x *Schema_SimpleSchemaDefinition) Reset() {
 	*x = Schema_SimpleSchemaDefinition{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[77]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7094,7 +6753,7 @@ func (x *Schema_SimpleSchemaDefinition) String() string {
 func (*Schema_SimpleSchemaDefinition) ProtoMessage() {}
 
 func (x *Schema_SimpleSchemaDefinition) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[77]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7163,7 +6822,7 @@ type FieldMetadata_PersonalDataConfig struct {
 func (x *FieldMetadata_PersonalDataConfig) Reset() {
 	*x = FieldMetadata_PersonalDataConfig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7176,7 +6835,7 @@ func (x *FieldMetadata_PersonalDataConfig) String() string {
 func (*FieldMetadata_PersonalDataConfig) ProtoMessage() {}
 
 func (x *FieldMetadata_PersonalDataConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7233,7 +6892,7 @@ type FieldMetadata_NullHandlingConfig struct {
 func (x *FieldMetadata_NullHandlingConfig) Reset() {
 	*x = FieldMetadata_NullHandlingConfig{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[82]
+		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -7246,7 +6905,7 @@ func (x *FieldMetadata_NullHandlingConfig) String() string {
 func (*FieldMetadata_NullHandlingConfig) ProtoMessage() {}
 
 func (x *FieldMetadata_NullHandlingConfig) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[82]
+	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -7272,320 +6931,6 @@ func (x *FieldMetadata_NullHandlingConfig) GetType() FieldMetadata_NullHandlingC
 func (x *FieldMetadata_NullHandlingConfig) GetDefaultValue() string {
 	if x != nil {
 		return x.DefaultValue
-	}
-	return ""
-}
-
-type AuditTrailEntry_ContentMessage struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// Types that are assignable to Content:
-	//
-	//	*AuditTrailEntry_ContentMessage_ExperimentalA
-	//	*AuditTrailEntry_ContentMessage_ExperimentalB
-	//	*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_
-	//	*AuditTrailEntry_ContentMessage_ProjectMemberChanges
-	Content isAuditTrailEntry_ContentMessage_Content `protobuf_oneof:"content"`
-}
-
-func (x *AuditTrailEntry_ContentMessage) Reset() {
-	*x = AuditTrailEntry_ContentMessage{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[83]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AuditTrailEntry_ContentMessage) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AuditTrailEntry_ContentMessage) ProtoMessage() {}
-
-func (x *AuditTrailEntry_ContentMessage) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[83]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AuditTrailEntry_ContentMessage.ProtoReflect.Descriptor instead.
-func (*AuditTrailEntry_ContentMessage) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 0}
-}
-
-func (m *AuditTrailEntry_ContentMessage) GetContent() isAuditTrailEntry_ContentMessage_Content {
-	if m != nil {
-		return m.Content
-	}
-	return nil
-}
-
-func (x *AuditTrailEntry_ContentMessage) GetExperimentalA() *AuditTrailEntry_ContentMessage_Experimental {
-	if x, ok := x.GetContent().(*AuditTrailEntry_ContentMessage_ExperimentalA); ok {
-		return x.ExperimentalA
-	}
-	return nil
-}
-
-func (x *AuditTrailEntry_ContentMessage) GetExperimentalB() *AuditTrailEntry_ContentMessage_Experimental {
-	if x, ok := x.GetContent().(*AuditTrailEntry_ContentMessage_ExperimentalB); ok {
-		return x.ExperimentalB
-	}
-	return nil
-}
-
-func (x *AuditTrailEntry_ContentMessage) GetProjectPlanDiffs() *AuditTrailEntry_ContentMessage_ProjectPlanDiffs {
-	if x, ok := x.GetContent().(*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_); ok {
-		return x.ProjectPlanDiffs
-	}
-	return nil
-}
-
-func (x *AuditTrailEntry_ContentMessage) GetProjectMemberChanges() *AuditTrailEntry_ContentMessage_ProjectMemberChange {
-	if x, ok := x.GetContent().(*AuditTrailEntry_ContentMessage_ProjectMemberChanges); ok {
-		return x.ProjectMemberChanges
-	}
-	return nil
-}
-
-type isAuditTrailEntry_ContentMessage_Content interface {
-	isAuditTrailEntry_ContentMessage_Content()
-}
-
-type AuditTrailEntry_ContentMessage_ExperimentalA struct {
-	ExperimentalA *AuditTrailEntry_ContentMessage_Experimental `protobuf:"bytes,1,opt,name=experimental_a,json=experimentalA,proto3,oneof"`
-}
-
-type AuditTrailEntry_ContentMessage_ExperimentalB struct {
-	ExperimentalB *AuditTrailEntry_ContentMessage_Experimental `protobuf:"bytes,2,opt,name=experimental_b,json=experimentalB,proto3,oneof"`
-}
-
-type AuditTrailEntry_ContentMessage_ProjectPlanDiffs_ struct {
-	ProjectPlanDiffs *AuditTrailEntry_ContentMessage_ProjectPlanDiffs `protobuf:"bytes,3,opt,name=project_plan_diffs,json=projectPlanDiffs,proto3,oneof"`
-}
-
-type AuditTrailEntry_ContentMessage_ProjectMemberChanges struct {
-	ProjectMemberChanges *AuditTrailEntry_ContentMessage_ProjectMemberChange `protobuf:"bytes,4,opt,name=project_member_changes,json=projectMemberChanges,proto3,oneof"`
-}
-
-func (*AuditTrailEntry_ContentMessage_ExperimentalA) isAuditTrailEntry_ContentMessage_Content() {}
-
-func (*AuditTrailEntry_ContentMessage_ExperimentalB) isAuditTrailEntry_ContentMessage_Content() {}
-
-func (*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_) isAuditTrailEntry_ContentMessage_Content() {}
-
-func (*AuditTrailEntry_ContentMessage_ProjectMemberChanges) isAuditTrailEntry_ContentMessage_Content() {
-}
-
-type AuditTrailEntry_ContentMessage_Experimental struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Content string `protobuf:"bytes,1,opt,name=content,proto3" json:"content,omitempty"`
-}
-
-func (x *AuditTrailEntry_ContentMessage_Experimental) Reset() {
-	*x = AuditTrailEntry_ContentMessage_Experimental{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[84]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AuditTrailEntry_ContentMessage_Experimental) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AuditTrailEntry_ContentMessage_Experimental) ProtoMessage() {}
-
-func (x *AuditTrailEntry_ContentMessage_Experimental) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[84]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AuditTrailEntry_ContentMessage_Experimental.ProtoReflect.Descriptor instead.
-func (*AuditTrailEntry_ContentMessage_Experimental) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 0, 0}
-}
-
-func (x *AuditTrailEntry_ContentMessage_Experimental) GetContent() string {
-	if x != nil {
-		return x.Content
-	}
-	return ""
-}
-
-type AuditTrailEntry_ContentMessage_ProjectPlanDiffs struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Diffs []*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff `protobuf:"bytes,1,rep,name=diffs,proto3" json:"diffs,omitempty"`
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs) Reset() {
-	*x = AuditTrailEntry_ContentMessage_ProjectPlanDiffs{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[85]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AuditTrailEntry_ContentMessage_ProjectPlanDiffs) ProtoMessage() {}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[85]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AuditTrailEntry_ContentMessage_ProjectPlanDiffs.ProtoReflect.Descriptor instead.
-func (*AuditTrailEntry_ContentMessage_ProjectPlanDiffs) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 0, 1}
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs) GetDiffs() []*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff {
-	if x != nil {
-		return x.Diffs
-	}
-	return nil
-}
-
-// I don't think these are needed any more
-type AuditTrailEntry_ContentMessage_ProjectMemberChange struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectMemberChange) Reset() {
-	*x = AuditTrailEntry_ContentMessage_ProjectMemberChange{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[86]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectMemberChange) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AuditTrailEntry_ContentMessage_ProjectMemberChange) ProtoMessage() {}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectMemberChange) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[86]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AuditTrailEntry_ContentMessage_ProjectMemberChange.ProtoReflect.Descriptor instead.
-func (*AuditTrailEntry_ContentMessage_ProjectMemberChange) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 0, 2}
-}
-
-type AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	DiffType AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType `protobuf:"varint,1,opt,name=diff_type,json=diffType,proto3,enum=strmprivacy.api.entities.v1.AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType" json:"diff_type,omitempty"`
-	Path     string                                                   `protobuf:"bytes,2,opt,name=path,proto3" json:"path,omitempty"`
-	Node     string                                                   `protobuf:"bytes,3,opt,name=node,proto3" json:"node,omitempty"`
-	Expected string                                                   `protobuf:"bytes,4,opt,name=expected,proto3" json:"expected,omitempty"`
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) Reset() {
-	*x = AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[87]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) ProtoMessage() {}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) ProtoReflect() protoreflect.Message {
-	mi := &file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[87]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff.ProtoReflect.Descriptor instead.
-func (*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) Descriptor() ([]byte, []int) {
-	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP(), []int{73, 0, 1, 0}
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) GetDiffType() AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType {
-	if x != nil {
-		return x.DiffType
-	}
-	return AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DIFF_TYPE_UNSPECIFIED
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) GetPath() string {
-	if x != nil {
-		return x.Path
-	}
-	return ""
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) GetNode() string {
-	if x != nil {
-		return x.Node
-	}
-	return ""
-}
-
-func (x *AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff) GetExpected() string {
-	if x != nil {
-		return x.Expected
 	}
 	return ""
 }
@@ -8803,14 +8148,14 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x70, 0x75, 0x72, 0x70, 0x6f, 0x73, 0x65, 0x12, 0x2c, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72,
 	0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42,
 	0x07, 0x72, 0x05, 0x10, 0x02, 0xd0, 0x01, 0x01, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69,
-	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0xa1, 0x02, 0x0a, 0x0a, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x97, 0x02, 0x0a, 0x0a, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69,
 	0x63, 0x52, 0x65, 0x66, 0x12, 0x4a, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x0e, 0x32, 0x36, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
 	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31,
 	0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x2e, 0x47, 0x65, 0x6e, 0x65,
 	0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x54, 0x79, 0x70, 0x65, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65,
 	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
-	0x22, 0xb6, 0x01, 0x0a, 0x0e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x54,
+	0x22, 0xac, 0x01, 0x0a, 0x0e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x54,
 	0x79, 0x70, 0x65, 0x12, 0x20, 0x0a, 0x1c, 0x47, 0x45, 0x4e, 0x45, 0x52, 0x49, 0x43, 0x5f, 0x52,
 	0x45, 0x46, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46,
 	0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x11, 0x0a, 0x0d, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x43, 0x4f,
@@ -8820,174 +8165,55 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc = []byte{
 	0x54, 0x45, 0x52, 0x10, 0x04, 0x12, 0x12, 0x0a, 0x0e, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x43, 0x4f,
 	0x4e, 0x4e, 0x45, 0x43, 0x54, 0x4f, 0x52, 0x10, 0x05, 0x12, 0x12, 0x0a, 0x0e, 0x4b, 0x41, 0x46,
 	0x4b, 0x41, 0x5f, 0x45, 0x58, 0x50, 0x4f, 0x52, 0x54, 0x45, 0x52, 0x10, 0x06, 0x12, 0x10, 0x0a,
-	0x0c, 0x50, 0x52, 0x4f, 0x4a, 0x45, 0x43, 0x54, 0x5f, 0x50, 0x4c, 0x41, 0x4e, 0x10, 0x07, 0x12,
-	0x08, 0x0a, 0x04, 0x55, 0x53, 0x45, 0x52, 0x10, 0x08, 0x22, 0xbe, 0x03, 0x0a, 0x07, 0x43, 0x6f,
-	0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x1b, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x02,
-	0x69, 0x64, 0x12, 0x45, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d,
-	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74,
-	0x61, 0x6d, 0x70, 0x42, 0x08, 0xfa, 0x42, 0x05, 0xb2, 0x01, 0x02, 0x08, 0x00, 0x52, 0x0a, 0x63,
-	0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x50, 0x0a, 0x0a, 0x65, 0x6e, 0x74,
-	0x69, 0x74, 0x79, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e,
-	0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e,
-	0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65,
-	0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01,
-	0x52, 0x09, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x52, 0x65, 0x66, 0x12, 0x24, 0x0a, 0x07, 0x63,
-	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42,
-	0x07, 0x72, 0x05, 0x10, 0x01, 0x18, 0xe8, 0x07, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e,
-	0x74, 0x12, 0x45, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
-	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31,
-	0x2e, 0x55, 0x73, 0x65, 0x72, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x00, 0x52,
-	0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x2a, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x6a,
-	0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42,
-	0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x09, 0x70, 0x72, 0x6f, 0x6a, 0x65,
-	0x63, 0x74, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x5f, 0x6e,
-	0x61, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74,
-	0x79, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x43, 0x0a, 0x09, 0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x73, 0x18, 0x09, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
+	0x0c, 0x50, 0x52, 0x4f, 0x4a, 0x45, 0x43, 0x54, 0x5f, 0x50, 0x4c, 0x41, 0x4e, 0x10, 0x07, 0x22,
+	0xf9, 0x02, 0x0a, 0x07, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x1b, 0x0a, 0x02, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01,
+	0x01, 0xb0, 0x01, 0x01, 0x52, 0x02, 0x69, 0x64, 0x12, 0x45, 0x0a, 0x0b, 0x63, 0x72, 0x65, 0x61,
+	0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e,
+	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
+	0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xfa, 0x42, 0x05, 0xb2, 0x01,
+	0x02, 0x08, 0x00, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12,
+	0x50, 0x0a, 0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63,
+	0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76,
+	0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x42, 0x08, 0xfa, 0x42,
+	0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x09, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x52, 0x65,
+	0x66, 0x12, 0x24, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x01, 0x18, 0xe8, 0x07, 0x52, 0x07,
+	0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x45, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74,
+	0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
 	0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74,
-	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x09, 0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0xb0, 0x0f, 0x0a, 0x0f, 0x41,
-	0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x1b,
-	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72,
-	0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x02, 0x69, 0x64, 0x12, 0x45, 0x0a, 0x0b, 0x63,
-	0x72, 0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
-	0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
-	0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xfa, 0x42,
-	0x05, 0xb2, 0x01, 0x02, 0x08, 0x00, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69,
-	0x6d, 0x65, 0x12, 0x50, 0x0a, 0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x5f, 0x72, 0x65, 0x66,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
-	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
-	0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66, 0x42,
-	0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x09, 0x65, 0x6e, 0x74, 0x69, 0x74,
-	0x79, 0x52, 0x65, 0x66, 0x12, 0x26, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18,
-	0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0c, 0x18, 0x01, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x01,
-	0x18, 0xe8, 0x07, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x41, 0x0a, 0x05,
-	0x61, 0x63, 0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73, 0x74,
-	0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e,
-	0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x42, 0x08,
-	0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x05, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x12,
-	0x2a, 0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x06, 0x20,
-	0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01,
-	0x52, 0x09, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x65,
-	0x6e, 0x74, 0x69, 0x74, 0x79, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x4b, 0x0a, 0x06,
-	0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x08, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x33, 0x2e, 0x73,
-	0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65,
-	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x75, 0x64, 0x69, 0x74,
-	0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e, 0x41, 0x63, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x06, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x43, 0x0a, 0x09, 0x72, 0x65, 0x6c,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x09, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x25, 0x2e, 0x73,
-	0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65,
-	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x6c, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x52, 0x09, 0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x51,
-	0x0a, 0x08, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x18, 0x0a, 0x20, 0x03, 0x28, 0x0e,
-	0x32, 0x35, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61,
-	0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41,
-	0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e, 0x43,
-	0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x52, 0x08, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72,
-	0x79, 0x12, 0x16, 0x0a, 0x06, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x18, 0x0b, 0x20, 0x01, 0x28,
-	0x05, 0x52, 0x06, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x64, 0x0a, 0x0f, 0x63, 0x6f, 0x6e,
-	0x74, 0x65, 0x6e, 0x74, 0x5f, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x0c, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x3b, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
-	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31,
-	0x2e, 0x41, 0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79,
-	0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x52,
-	0x0e, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12,
-	0x19, 0x0a, 0x08, 0x73, 0x75, 0x62, 0x5f, 0x70, 0x61, 0x72, 0x74, 0x18, 0x0d, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x07, 0x73, 0x75, 0x62, 0x50, 0x61, 0x72, 0x74, 0x1a, 0xdc, 0x07, 0x0a, 0x0e, 0x43,
-	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x71, 0x0a,
-	0x0e, 0x65, 0x78, 0x70, 0x65, 0x72, 0x69, 0x6d, 0x65, 0x6e, 0x74, 0x61, 0x6c, 0x5f, 0x61, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x48, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76,
-	0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73,
-	0x2e, 0x76, 0x31, 0x2e, 0x41, 0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e,
-	0x74, 0x72, 0x79, 0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61,
-	0x67, 0x65, 0x2e, 0x45, 0x78, 0x70, 0x65, 0x72, 0x69, 0x6d, 0x65, 0x6e, 0x74, 0x61, 0x6c, 0x48,
-	0x00, 0x52, 0x0d, 0x65, 0x78, 0x70, 0x65, 0x72, 0x69, 0x6d, 0x65, 0x6e, 0x74, 0x61, 0x6c, 0x41,
-	0x12, 0x71, 0x0a, 0x0e, 0x65, 0x78, 0x70, 0x65, 0x72, 0x69, 0x6d, 0x65, 0x6e, 0x74, 0x61, 0x6c,
-	0x5f, 0x62, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x48, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
-	0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74,
-	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69,
-	0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d, 0x65,
-	0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x45, 0x78, 0x70, 0x65, 0x72, 0x69, 0x6d, 0x65, 0x6e, 0x74,
-	0x61, 0x6c, 0x48, 0x00, 0x52, 0x0d, 0x65, 0x78, 0x70, 0x65, 0x72, 0x69, 0x6d, 0x65, 0x6e, 0x74,
-	0x61, 0x6c, 0x42, 0x12, 0x7c, 0x0a, 0x12, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x70,
-	0x6c, 0x61, 0x6e, 0x5f, 0x64, 0x69, 0x66, 0x66, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32,
-	0x4c, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x75,
-	0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x50, 0x72, 0x6f,
-	0x6a, 0x65, 0x63, 0x74, 0x50, 0x6c, 0x61, 0x6e, 0x44, 0x69, 0x66, 0x66, 0x73, 0x48, 0x00, 0x52,
-	0x10, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x50, 0x6c, 0x61, 0x6e, 0x44, 0x69, 0x66, 0x66,
-	0x73, 0x12, 0x87, 0x01, 0x0a, 0x16, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x6d, 0x65,
-	0x6d, 0x62, 0x65, 0x72, 0x5f, 0x63, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x73, 0x18, 0x04, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x4f, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79,
-	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31,
-	0x2e, 0x41, 0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79,
-	0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e,
-	0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x43, 0x68, 0x61,
-	0x6e, 0x67, 0x65, 0x48, 0x00, 0x52, 0x14, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x4d, 0x65,
-	0x6d, 0x62, 0x65, 0x72, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x73, 0x1a, 0x28, 0x0a, 0x0c, 0x45,
-	0x78, 0x70, 0x65, 0x72, 0x69, 0x6d, 0x65, 0x6e, 0x74, 0x61, 0x6c, 0x12, 0x18, 0x0a, 0x07, 0x63,
-	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x63, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x1a, 0x8f, 0x03, 0x0a, 0x10, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63,
-	0x74, 0x50, 0x6c, 0x61, 0x6e, 0x44, 0x69, 0x66, 0x66, 0x73, 0x12, 0x67, 0x0a, 0x05, 0x64, 0x69,
-	0x66, 0x66, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x51, 0x2e, 0x73, 0x74, 0x72, 0x6d,
-	0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69,
-	0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61,
-	0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d,
-	0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x50, 0x6c,
-	0x61, 0x6e, 0x44, 0x69, 0x66, 0x66, 0x73, 0x2e, 0x44, 0x69, 0x66, 0x66, 0x52, 0x05, 0x64, 0x69,
-	0x66, 0x66, 0x73, 0x1a, 0xbe, 0x01, 0x0a, 0x04, 0x44, 0x69, 0x66, 0x66, 0x12, 0x72, 0x0a, 0x09,
-	0x64, 0x69, 0x66, 0x66, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32,
-	0x55, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x41, 0x75,
-	0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x2e, 0x43, 0x6f,
-	0x6e, 0x74, 0x65, 0x6e, 0x74, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x2e, 0x50, 0x72, 0x6f,
-	0x6a, 0x65, 0x63, 0x74, 0x50, 0x6c, 0x61, 0x6e, 0x44, 0x69, 0x66, 0x66, 0x73, 0x2e, 0x44, 0x69,
-	0x66, 0x66, 0x54, 0x79, 0x70, 0x65, 0x52, 0x08, 0x64, 0x69, 0x66, 0x66, 0x54, 0x79, 0x70, 0x65,
-	0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
-	0x70, 0x61, 0x74, 0x68, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x6f, 0x64, 0x65, 0x18, 0x03, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x6e, 0x6f, 0x64, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x78, 0x70, 0x65,
-	0x63, 0x74, 0x65, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x78, 0x70, 0x65,
-	0x63, 0x74, 0x65, 0x64, 0x22, 0x51, 0x0a, 0x08, 0x44, 0x69, 0x66, 0x66, 0x54, 0x79, 0x70, 0x65,
-	0x12, 0x19, 0x0a, 0x15, 0x44, 0x49, 0x46, 0x46, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x55, 0x4e,
-	0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0b, 0x0a, 0x07, 0x4d,
-	0x49, 0x53, 0x53, 0x49, 0x4e, 0x47, 0x10, 0x01, 0x12, 0x0e, 0x0a, 0x0a, 0x55, 0x4e, 0x45, 0x58,
-	0x50, 0x45, 0x43, 0x54, 0x45, 0x44, 0x10, 0x02, 0x12, 0x0d, 0x0a, 0x09, 0x44, 0x49, 0x46, 0x46,
-	0x45, 0x52, 0x45, 0x4e, 0x54, 0x10, 0x03, 0x1a, 0x15, 0x0a, 0x13, 0x50, 0x72, 0x6f, 0x6a, 0x65,
-	0x63, 0x74, 0x4d, 0x65, 0x6d, 0x62, 0x65, 0x72, 0x43, 0x68, 0x61, 0x6e, 0x67, 0x65, 0x42, 0x09,
-	0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x8d, 0x01, 0x0a, 0x06, 0x41, 0x63,
-	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x12, 0x41, 0x43, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x55,
-	0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0b, 0x0a, 0x07,
-	0x43, 0x52, 0x45, 0x41, 0x54, 0x45, 0x44, 0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09, 0x44, 0x45, 0x53,
-	0x54, 0x52, 0x4f, 0x59, 0x45, 0x44, 0x10, 0x02, 0x12, 0x0b, 0x0a, 0x07, 0x43, 0x48, 0x41, 0x4e,
-	0x47, 0x45, 0x44, 0x10, 0x03, 0x12, 0x14, 0x0a, 0x10, 0x52, 0x45, 0x4c, 0x41, 0x54, 0x49, 0x4f,
-	0x4e, 0x5f, 0x43, 0x52, 0x45, 0x41, 0x54, 0x45, 0x44, 0x10, 0x04, 0x12, 0x16, 0x0a, 0x12, 0x52,
-	0x45, 0x4c, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x44, 0x45, 0x53, 0x54, 0x52, 0x4f, 0x59, 0x45,
-	0x44, 0x10, 0x05, 0x12, 0x14, 0x0a, 0x10, 0x52, 0x45, 0x4c, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f,
-	0x43, 0x48, 0x41, 0x4e, 0x47, 0x45, 0x44, 0x10, 0x06, 0x22, 0x42, 0x0a, 0x08, 0x43, 0x61, 0x74,
-	0x65, 0x67, 0x6f, 0x72, 0x79, 0x12, 0x18, 0x0a, 0x14, 0x43, 0x41, 0x54, 0x45, 0x47, 0x4f, 0x52,
-	0x59, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12,
-	0x08, 0x0a, 0x04, 0x54, 0x45, 0x43, 0x48, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03, 0x43, 0x49, 0x4f,
-	0x10, 0x02, 0x12, 0x09, 0x0a, 0x05, 0x4c, 0x45, 0x47, 0x41, 0x4c, 0x10, 0x03, 0x22, 0xeb, 0x01,
-	0x0a, 0x08, 0x52, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x39, 0x0a, 0x03, 0x72, 0x65,
-	0x66, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
+	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x42, 0x08, 0xfa, 0x42, 0x05,
+	0x8a, 0x01, 0x02, 0x10, 0x00, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x2a,
+	0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x06, 0x20, 0x01,
+	0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52,
+	0x09, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x65, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x22, 0xfd, 0x02, 0x0a, 0x0f,
+	0x41, 0x75, 0x64, 0x69, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6c, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12,
+	0x1b, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08,
+	0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52, 0x02, 0x69, 0x64, 0x12, 0x45, 0x0a, 0x0b,
+	0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x42, 0x08, 0xfa,
+	0x42, 0x05, 0xb2, 0x01, 0x02, 0x08, 0x00, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54,
+	0x69, 0x6d, 0x65, 0x12, 0x50, 0x0a, 0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x5f, 0x72, 0x65,
+	0x66, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x27, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72,
 	0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69,
 	0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x69, 0x63, 0x52, 0x65, 0x66,
-	0x52, 0x03, 0x72, 0x65, 0x66, 0x12, 0x57, 0x0a, 0x0d, 0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x32, 0x2e, 0x73,
-	0x74, 0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65,
-	0x6e, 0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x6c, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x2e, 0x52, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65,
-	0x52, 0x0c, 0x72, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x22, 0x4b,
-	0x0a, 0x0c, 0x52, 0x65, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1d,
-	0x0a, 0x19, 0x52, 0x45, 0x4c, 0x41, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f,
-	0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0d, 0x0a,
-	0x09, 0x4d, 0x45, 0x4d, 0x42, 0x45, 0x52, 0x5f, 0x4f, 0x46, 0x10, 0x01, 0x12, 0x0d, 0x0a, 0x09,
-	0x4d, 0x45, 0x4e, 0x54, 0x49, 0x4f, 0x4e, 0x45, 0x44, 0x10, 0x02, 0x2a, 0x5d, 0x0a, 0x08, 0x55,
+	0x42, 0x08, 0xfa, 0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x09, 0x65, 0x6e, 0x74, 0x69,
+	0x74, 0x79, 0x52, 0x65, 0x66, 0x12, 0x24, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74,
+	0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x01, 0x18,
+	0xe8, 0x07, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x41, 0x0a, 0x05, 0x61,
+	0x63, 0x74, 0x6f, 0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x73, 0x74, 0x72,
+	0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74,
+	0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x42, 0x08, 0xfa,
+	0x42, 0x05, 0x8a, 0x01, 0x02, 0x10, 0x01, 0x52, 0x05, 0x61, 0x63, 0x74, 0x6f, 0x72, 0x12, 0x2a,
+	0x0a, 0x0a, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x5f, 0x69, 0x64, 0x18, 0x06, 0x20, 0x01,
+	0x28, 0x09, 0x42, 0x0b, 0xfa, 0x42, 0x08, 0x72, 0x06, 0xd0, 0x01, 0x01, 0xb0, 0x01, 0x01, 0x52,
+	0x09, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x49, 0x64, 0x12, 0x1f, 0x0a, 0x0b, 0x65, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0a, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x4e, 0x61, 0x6d, 0x65, 0x2a, 0x5d, 0x0a, 0x08, 0x55,
 	0x73, 0x65, 0x72, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x19, 0x0a, 0x15, 0x55, 0x53, 0x45, 0x52, 0x5f,
 	0x52, 0x4f, 0x4c, 0x45, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44,
 	0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x41, 0x44, 0x4d, 0x49, 0x4e, 0x10, 0x01, 0x12, 0x11, 0x0a,
@@ -9079,8 +8305,8 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescGZIP() []byte {
 	return file_strmprivacy_api_entities_v1_entities_v1_proto_rawDescData
 }
 
-var file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 22)
-var file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 88)
+var file_strmprivacy_api_entities_v1_entities_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 18)
+var file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 82)
 var file_strmprivacy_api_entities_v1_entities_v1_proto_goTypes = []interface{}{
 	(UserRole)(0),             // 0: strmprivacy.api.entities.v1.UserRole
 	(BatchJobStateType)(0),    // 1: strmprivacy.api.entities.v1.BatchJobStateType
@@ -9098,249 +8324,226 @@ var file_strmprivacy_api_entities_v1_entities_v1_proto_goTypes = []interface{}{
 	(EventContract_State)(0),  // 13: strmprivacy.api.entities.v1.EventContract.State
 	(DataContract_State)(0),   // 14: strmprivacy.api.entities.v1.DataContract.State
 	(FieldMetadata_NullHandlingConfig_NullHandlingType)(0), // 15: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.NullHandlingType
-	(Project_State)(0),                                            // 16: strmprivacy.api.entities.v1.Project.State
-	(GenericRef_GenericRefType)(0),                                // 17: strmprivacy.api.entities.v1.GenericRef.GenericRefType
-	(AuditTrailEntry_Action)(0),                                   // 18: strmprivacy.api.entities.v1.AuditTrailEntry.Action
-	(AuditTrailEntry_Category)(0),                                 // 19: strmprivacy.api.entities.v1.AuditTrailEntry.Category
-	(AuditTrailEntry_ContentMessage_ProjectPlanDiffs_DiffType)(0), // 20: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectPlanDiffs.DiffType
-	(Relation_RelationType)(0),                                    // 21: strmprivacy.api.entities.v1.Relation.RelationType
-	(*Stream)(nil),                                                // 22: strmprivacy.api.entities.v1.Stream
-	(*ExtendedStream)(nil),                                        // 23: strmprivacy.api.entities.v1.ExtendedStream
-	(*ExtendedStreamGroup)(nil),                                   // 24: strmprivacy.api.entities.v1.ExtendedStreamGroup
-	(*MaskedFields)(nil),                                          // 25: strmprivacy.api.entities.v1.MaskedFields
-	(*Limits)(nil),                                                // 26: strmprivacy.api.entities.v1.Limits
-	(*KeyStream)(nil),                                             // 27: strmprivacy.api.entities.v1.KeyStream
-	(*StreamRef)(nil),                                             // 28: strmprivacy.api.entities.v1.StreamRef
-	(*KeyStreamRef)(nil),                                          // 29: strmprivacy.api.entities.v1.KeyStreamRef
-	(*Credentials)(nil),                                           // 30: strmprivacy.api.entities.v1.Credentials
-	(*Sink)(nil),                                                  // 31: strmprivacy.api.entities.v1.Sink
-	(*SinkRef)(nil),                                               // 32: strmprivacy.api.entities.v1.SinkRef
-	(*BucketConfig)(nil),                                          // 33: strmprivacy.api.entities.v1.BucketConfig
-	(*DataConnector)(nil),                                         // 34: strmprivacy.api.entities.v1.DataConnector
-	(*DataConnectorRef)(nil),                                      // 35: strmprivacy.api.entities.v1.DataConnectorRef
-	(*DataConnectorDependentEntities)(nil),                        // 36: strmprivacy.api.entities.v1.DataConnectorDependentEntities
-	(*AwsS3BucketLocation)(nil),                                   // 37: strmprivacy.api.entities.v1.AwsS3BucketLocation
-	(*GoogleCloudStorageBucketLocation)(nil),                      // 38: strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
-	(*AzureBlobStorageContainerLocation)(nil),                     // 39: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
-	(*AzureClientSecretCredential)(nil),                           // 40: strmprivacy.api.entities.v1.AzureClientSecretCredential
-	(*JdbcLocation)(nil),                                          // 41: strmprivacy.api.entities.v1.JdbcLocation
-	(*DataType)(nil),                                              // 42: strmprivacy.api.entities.v1.DataType
-	(*CsvConfig)(nil),                                             // 43: strmprivacy.api.entities.v1.CsvConfig
-	(*BatchExporter)(nil),                                         // 44: strmprivacy.api.entities.v1.BatchExporter
-	(*ExtendedBatchExporter)(nil),                                 // 45: strmprivacy.api.entities.v1.ExtendedBatchExporter
-	(*BatchExporterRef)(nil),                                      // 46: strmprivacy.api.entities.v1.BatchExporterRef
-	(*KafkaCluster)(nil),                                          // 47: strmprivacy.api.entities.v1.KafkaCluster
-	(*KafkaClusterRef)(nil),                                       // 48: strmprivacy.api.entities.v1.KafkaClusterRef
-	(*KafkaExporter)(nil),                                         // 49: strmprivacy.api.entities.v1.KafkaExporter
-	(*KafkaExporterRef)(nil),                                      // 50: strmprivacy.api.entities.v1.KafkaExporterRef
-	(*KafkaExporterTarget)(nil),                                   // 51: strmprivacy.api.entities.v1.KafkaExporterTarget
-	(*KafkaUser)(nil),                                             // 52: strmprivacy.api.entities.v1.KafkaUser
-	(*KafkaUserRef)(nil),                                          // 53: strmprivacy.api.entities.v1.KafkaUserRef
-	(*ConsentLevels)(nil),                                         // 54: strmprivacy.api.entities.v1.ConsentLevels
-	(*ConsentLevelMapping)(nil),                                   // 55: strmprivacy.api.entities.v1.ConsentLevelMapping
-	(*ConsentLevelMappingRef)(nil),                                // 56: strmprivacy.api.entities.v1.ConsentLevelMappingRef
-	(*Policy)(nil),                                                // 57: strmprivacy.api.entities.v1.Policy
-	(*WindowedEventCount)(nil),                                    // 58: strmprivacy.api.entities.v1.WindowedEventCount
-	(*SchemaRef)(nil),                                             // 59: strmprivacy.api.entities.v1.SchemaRef
-	(*Schema)(nil),                                                // 60: strmprivacy.api.entities.v1.Schema
-	(*SimpleSchemaNode)(nil),                                      // 61: strmprivacy.api.entities.v1.SimpleSchemaNode
-	(*SchemaMetadata)(nil),                                        // 62: strmprivacy.api.entities.v1.SchemaMetadata
-	(*EventContractRef)(nil),                                      // 63: strmprivacy.api.entities.v1.EventContractRef
-	(*EventContract)(nil),                                         // 64: strmprivacy.api.entities.v1.EventContract
-	(*EventContractMetadata)(nil),                                 // 65: strmprivacy.api.entities.v1.EventContractMetadata
-	(*Label)(nil),                                                 // 66: strmprivacy.api.entities.v1.Label
-	(*Validation)(nil),                                            // 67: strmprivacy.api.entities.v1.Validation
-	(*StreamTree)(nil),                                            // 68: strmprivacy.api.entities.v1.StreamTree
-	(*SinkTree)(nil),                                              // 69: strmprivacy.api.entities.v1.SinkTree
-	(*BatchJob)(nil),                                              // 70: strmprivacy.api.entities.v1.BatchJob
-	(*BatchJobWrapper)(nil),                                       // 71: strmprivacy.api.entities.v1.BatchJobWrapper
-	(*ExtendedBatchJob)(nil),                                      // 72: strmprivacy.api.entities.v1.ExtendedBatchJob
-	(*BatchJobRef)(nil),                                           // 73: strmprivacy.api.entities.v1.BatchJobRef
-	(*BatchJobState)(nil),                                         // 74: strmprivacy.api.entities.v1.BatchJobState
-	(*DataConnectorAndType)(nil),                                  // 75: strmprivacy.api.entities.v1.DataConnectorAndType
-	(*DatabaseConfig)(nil),                                        // 76: strmprivacy.api.entities.v1.DatabaseConfig
-	(*ConsentConfig)(nil),                                         // 77: strmprivacy.api.entities.v1.ConsentConfig
-	(*ConsentLevelExtractor)(nil),                                 // 78: strmprivacy.api.entities.v1.ConsentLevelExtractor
-	(*EncryptionConfig)(nil),                                      // 79: strmprivacy.api.entities.v1.EncryptionConfig
-	(*TimestampConfig)(nil),                                       // 80: strmprivacy.api.entities.v1.TimestampConfig
-	(*EncryptedData)(nil),                                         // 81: strmprivacy.api.entities.v1.EncryptedData
-	(*EncryptionKeysData)(nil),                                    // 82: strmprivacy.api.entities.v1.EncryptionKeysData
-	(*DerivedData)(nil),                                           // 83: strmprivacy.api.entities.v1.DerivedData
-	(*MicroAggregationBatchJob)(nil),                              // 84: strmprivacy.api.entities.v1.MicroAggregationBatchJob
-	(*MicroAggregationConfig)(nil),                                // 85: strmprivacy.api.entities.v1.MicroAggregationConfig
-	(*DataContractRef)(nil),                                       // 86: strmprivacy.api.entities.v1.DataContractRef
-	(*DataContract)(nil),                                          // 87: strmprivacy.api.entities.v1.DataContract
-	(*FieldMetadata)(nil),                                         // 88: strmprivacy.api.entities.v1.FieldMetadata
-	(*DataContractMetadata)(nil),                                  // 89: strmprivacy.api.entities.v1.DataContractMetadata
-	(*Project)(nil),                                               // 90: strmprivacy.api.entities.v1.Project
-	(*User)(nil),                                                  // 91: strmprivacy.api.entities.v1.User
-	(*PurposeMapping)(nil),                                        // 92: strmprivacy.api.entities.v1.PurposeMapping
-	(*GenericRef)(nil),                                            // 93: strmprivacy.api.entities.v1.GenericRef
-	(*Comment)(nil),                                               // 94: strmprivacy.api.entities.v1.Comment
-	(*AuditTrailEntry)(nil),                                       // 95: strmprivacy.api.entities.v1.AuditTrailEntry
-	(*Relation)(nil),                                              // 96: strmprivacy.api.entities.v1.Relation
-	nil,                                                           // 97: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
-	(*MaskedFields_PatternList)(nil),                              // 98: strmprivacy.api.entities.v1.MaskedFields.PatternList
-	(*Schema_SimpleSchemaDefinition)(nil),                         // 99: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
-	nil,                                                           // 100: strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
-	nil,                                                           // 101: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry
-	nil,                                                           // 102: strmprivacy.api.entities.v1.DataContract.PiiFieldsEntry
-	(*FieldMetadata_PersonalDataConfig)(nil),                      // 103: strmprivacy.api.entities.v1.FieldMetadata.PersonalDataConfig
-	(*FieldMetadata_NullHandlingConfig)(nil),                      // 104: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig
-	(*AuditTrailEntry_ContentMessage)(nil),                        // 105: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage
-	(*AuditTrailEntry_ContentMessage_Experimental)(nil),           // 106: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.Experimental
-	(*AuditTrailEntry_ContentMessage_ProjectPlanDiffs)(nil),      // 107: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectPlanDiffs
-	(*AuditTrailEntry_ContentMessage_ProjectMemberChange)(nil),   // 108: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectMemberChange
-	(*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff)(nil), // 109: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectPlanDiffs.Diff
-	(*durationpb.Duration)(nil),                                  // 110: google.protobuf.Duration
-	(*timestamppb.Timestamp)(nil),                                // 111: google.protobuf.Timestamp
-	(*datetime.TimeZone)(nil),                                    // 112: google.type.TimeZone
+	(Project_State)(0),                        // 16: strmprivacy.api.entities.v1.Project.State
+	(GenericRef_GenericRefType)(0),            // 17: strmprivacy.api.entities.v1.GenericRef.GenericRefType
+	(*Stream)(nil),                            // 18: strmprivacy.api.entities.v1.Stream
+	(*ExtendedStream)(nil),                    // 19: strmprivacy.api.entities.v1.ExtendedStream
+	(*ExtendedStreamGroup)(nil),               // 20: strmprivacy.api.entities.v1.ExtendedStreamGroup
+	(*MaskedFields)(nil),                      // 21: strmprivacy.api.entities.v1.MaskedFields
+	(*Limits)(nil),                            // 22: strmprivacy.api.entities.v1.Limits
+	(*KeyStream)(nil),                         // 23: strmprivacy.api.entities.v1.KeyStream
+	(*StreamRef)(nil),                         // 24: strmprivacy.api.entities.v1.StreamRef
+	(*KeyStreamRef)(nil),                      // 25: strmprivacy.api.entities.v1.KeyStreamRef
+	(*Credentials)(nil),                       // 26: strmprivacy.api.entities.v1.Credentials
+	(*Sink)(nil),                              // 27: strmprivacy.api.entities.v1.Sink
+	(*SinkRef)(nil),                           // 28: strmprivacy.api.entities.v1.SinkRef
+	(*BucketConfig)(nil),                      // 29: strmprivacy.api.entities.v1.BucketConfig
+	(*DataConnector)(nil),                     // 30: strmprivacy.api.entities.v1.DataConnector
+	(*DataConnectorRef)(nil),                  // 31: strmprivacy.api.entities.v1.DataConnectorRef
+	(*DataConnectorDependentEntities)(nil),    // 32: strmprivacy.api.entities.v1.DataConnectorDependentEntities
+	(*AwsS3BucketLocation)(nil),               // 33: strmprivacy.api.entities.v1.AwsS3BucketLocation
+	(*GoogleCloudStorageBucketLocation)(nil),  // 34: strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
+	(*AzureBlobStorageContainerLocation)(nil), // 35: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
+	(*AzureClientSecretCredential)(nil),       // 36: strmprivacy.api.entities.v1.AzureClientSecretCredential
+	(*JdbcLocation)(nil),                      // 37: strmprivacy.api.entities.v1.JdbcLocation
+	(*DataType)(nil),                          // 38: strmprivacy.api.entities.v1.DataType
+	(*CsvConfig)(nil),                         // 39: strmprivacy.api.entities.v1.CsvConfig
+	(*BatchExporter)(nil),                     // 40: strmprivacy.api.entities.v1.BatchExporter
+	(*ExtendedBatchExporter)(nil),             // 41: strmprivacy.api.entities.v1.ExtendedBatchExporter
+	(*BatchExporterRef)(nil),                  // 42: strmprivacy.api.entities.v1.BatchExporterRef
+	(*KafkaCluster)(nil),                      // 43: strmprivacy.api.entities.v1.KafkaCluster
+	(*KafkaClusterRef)(nil),                   // 44: strmprivacy.api.entities.v1.KafkaClusterRef
+	(*KafkaExporter)(nil),                     // 45: strmprivacy.api.entities.v1.KafkaExporter
+	(*KafkaExporterRef)(nil),                  // 46: strmprivacy.api.entities.v1.KafkaExporterRef
+	(*KafkaExporterTarget)(nil),               // 47: strmprivacy.api.entities.v1.KafkaExporterTarget
+	(*KafkaUser)(nil),                         // 48: strmprivacy.api.entities.v1.KafkaUser
+	(*KafkaUserRef)(nil),                      // 49: strmprivacy.api.entities.v1.KafkaUserRef
+	(*ConsentLevels)(nil),                     // 50: strmprivacy.api.entities.v1.ConsentLevels
+	(*ConsentLevelMapping)(nil),               // 51: strmprivacy.api.entities.v1.ConsentLevelMapping
+	(*ConsentLevelMappingRef)(nil),            // 52: strmprivacy.api.entities.v1.ConsentLevelMappingRef
+	(*Policy)(nil),                            // 53: strmprivacy.api.entities.v1.Policy
+	(*WindowedEventCount)(nil),                // 54: strmprivacy.api.entities.v1.WindowedEventCount
+	(*SchemaRef)(nil),                         // 55: strmprivacy.api.entities.v1.SchemaRef
+	(*Schema)(nil),                            // 56: strmprivacy.api.entities.v1.Schema
+	(*SimpleSchemaNode)(nil),                  // 57: strmprivacy.api.entities.v1.SimpleSchemaNode
+	(*SchemaMetadata)(nil),                    // 58: strmprivacy.api.entities.v1.SchemaMetadata
+	(*EventContractRef)(nil),                  // 59: strmprivacy.api.entities.v1.EventContractRef
+	(*EventContract)(nil),                     // 60: strmprivacy.api.entities.v1.EventContract
+	(*EventContractMetadata)(nil),             // 61: strmprivacy.api.entities.v1.EventContractMetadata
+	(*Label)(nil),                             // 62: strmprivacy.api.entities.v1.Label
+	(*Validation)(nil),                        // 63: strmprivacy.api.entities.v1.Validation
+	(*StreamTree)(nil),                        // 64: strmprivacy.api.entities.v1.StreamTree
+	(*SinkTree)(nil),                          // 65: strmprivacy.api.entities.v1.SinkTree
+	(*BatchJob)(nil),                          // 66: strmprivacy.api.entities.v1.BatchJob
+	(*BatchJobWrapper)(nil),                   // 67: strmprivacy.api.entities.v1.BatchJobWrapper
+	(*ExtendedBatchJob)(nil),                  // 68: strmprivacy.api.entities.v1.ExtendedBatchJob
+	(*BatchJobRef)(nil),                       // 69: strmprivacy.api.entities.v1.BatchJobRef
+	(*BatchJobState)(nil),                     // 70: strmprivacy.api.entities.v1.BatchJobState
+	(*DataConnectorAndType)(nil),              // 71: strmprivacy.api.entities.v1.DataConnectorAndType
+	(*DatabaseConfig)(nil),                    // 72: strmprivacy.api.entities.v1.DatabaseConfig
+	(*ConsentConfig)(nil),                     // 73: strmprivacy.api.entities.v1.ConsentConfig
+	(*ConsentLevelExtractor)(nil),             // 74: strmprivacy.api.entities.v1.ConsentLevelExtractor
+	(*EncryptionConfig)(nil),                  // 75: strmprivacy.api.entities.v1.EncryptionConfig
+	(*TimestampConfig)(nil),                   // 76: strmprivacy.api.entities.v1.TimestampConfig
+	(*EncryptedData)(nil),                     // 77: strmprivacy.api.entities.v1.EncryptedData
+	(*EncryptionKeysData)(nil),                // 78: strmprivacy.api.entities.v1.EncryptionKeysData
+	(*DerivedData)(nil),                       // 79: strmprivacy.api.entities.v1.DerivedData
+	(*MicroAggregationBatchJob)(nil),          // 80: strmprivacy.api.entities.v1.MicroAggregationBatchJob
+	(*MicroAggregationConfig)(nil),            // 81: strmprivacy.api.entities.v1.MicroAggregationConfig
+	(*DataContractRef)(nil),                   // 82: strmprivacy.api.entities.v1.DataContractRef
+	(*DataContract)(nil),                      // 83: strmprivacy.api.entities.v1.DataContract
+	(*FieldMetadata)(nil),                     // 84: strmprivacy.api.entities.v1.FieldMetadata
+	(*DataContractMetadata)(nil),              // 85: strmprivacy.api.entities.v1.DataContractMetadata
+	(*Project)(nil),                           // 86: strmprivacy.api.entities.v1.Project
+	(*User)(nil),                              // 87: strmprivacy.api.entities.v1.User
+	(*PurposeMapping)(nil),                    // 88: strmprivacy.api.entities.v1.PurposeMapping
+	(*GenericRef)(nil),                        // 89: strmprivacy.api.entities.v1.GenericRef
+	(*Comment)(nil),                           // 90: strmprivacy.api.entities.v1.Comment
+	(*AuditTrailEntry)(nil),                   // 91: strmprivacy.api.entities.v1.AuditTrailEntry
+	nil,                                       // 92: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
+	(*MaskedFields_PatternList)(nil),          // 93: strmprivacy.api.entities.v1.MaskedFields.PatternList
+	(*Schema_SimpleSchemaDefinition)(nil),     // 94: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
+	nil,                                       // 95: strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
+	nil,                                       // 96: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry
+	nil,                                       // 97: strmprivacy.api.entities.v1.DataContract.PiiFieldsEntry
+	(*FieldMetadata_PersonalDataConfig)(nil),  // 98: strmprivacy.api.entities.v1.FieldMetadata.PersonalDataConfig
+	(*FieldMetadata_NullHandlingConfig)(nil),  // 99: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig
+	(*durationpb.Duration)(nil),               // 100: google.protobuf.Duration
+	(*timestamppb.Timestamp)(nil),             // 101: google.protobuf.Timestamp
+	(*datetime.TimeZone)(nil),                 // 102: google.type.TimeZone
 }
 var file_strmprivacy_api_entities_v1_entities_v1_proto_depIdxs = []int32{
-	28,  // 0: strmprivacy.api.entities.v1.Stream.ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	24,  // 0: strmprivacy.api.entities.v1.Stream.ref:type_name -> strmprivacy.api.entities.v1.StreamRef
 	2,   // 1: strmprivacy.api.entities.v1.Stream.consent_level_type:type_name -> strmprivacy.api.entities.v1.ConsentLevelType
-	26,  // 2: strmprivacy.api.entities.v1.Stream.limits:type_name -> strmprivacy.api.entities.v1.Limits
-	30,  // 3: strmprivacy.api.entities.v1.Stream.credentials:type_name -> strmprivacy.api.entities.v1.Credentials
-	25,  // 4: strmprivacy.api.entities.v1.Stream.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
-	22,  // 5: strmprivacy.api.entities.v1.ExtendedStream.stream:type_name -> strmprivacy.api.entities.v1.Stream
-	23,  // 6: strmprivacy.api.entities.v1.ExtendedStreamGroup.source_stream:type_name -> strmprivacy.api.entities.v1.ExtendedStream
-	23,  // 7: strmprivacy.api.entities.v1.ExtendedStreamGroup.derived_streams:type_name -> strmprivacy.api.entities.v1.ExtendedStream
-	97,  // 8: strmprivacy.api.entities.v1.MaskedFields.field_patterns:type_name -> strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
-	29,  // 9: strmprivacy.api.entities.v1.KeyStream.ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
-	32,  // 10: strmprivacy.api.entities.v1.Sink.ref:type_name -> strmprivacy.api.entities.v1.SinkRef
+	22,  // 2: strmprivacy.api.entities.v1.Stream.limits:type_name -> strmprivacy.api.entities.v1.Limits
+	26,  // 3: strmprivacy.api.entities.v1.Stream.credentials:type_name -> strmprivacy.api.entities.v1.Credentials
+	21,  // 4: strmprivacy.api.entities.v1.Stream.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
+	18,  // 5: strmprivacy.api.entities.v1.ExtendedStream.stream:type_name -> strmprivacy.api.entities.v1.Stream
+	19,  // 6: strmprivacy.api.entities.v1.ExtendedStreamGroup.source_stream:type_name -> strmprivacy.api.entities.v1.ExtendedStream
+	19,  // 7: strmprivacy.api.entities.v1.ExtendedStreamGroup.derived_streams:type_name -> strmprivacy.api.entities.v1.ExtendedStream
+	92,  // 8: strmprivacy.api.entities.v1.MaskedFields.field_patterns:type_name -> strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry
+	25,  // 9: strmprivacy.api.entities.v1.KeyStream.ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
+	28,  // 10: strmprivacy.api.entities.v1.Sink.ref:type_name -> strmprivacy.api.entities.v1.SinkRef
 	3,   // 11: strmprivacy.api.entities.v1.Sink.sink_type:type_name -> strmprivacy.api.entities.v1.SinkType
-	33,  // 12: strmprivacy.api.entities.v1.Sink.bucket:type_name -> strmprivacy.api.entities.v1.BucketConfig
-	35,  // 13: strmprivacy.api.entities.v1.DataConnector.ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
-	37,  // 14: strmprivacy.api.entities.v1.DataConnector.s3_bucket:type_name -> strmprivacy.api.entities.v1.AwsS3BucketLocation
-	38,  // 15: strmprivacy.api.entities.v1.DataConnector.google_cloud_storage_bucket:type_name -> strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
-	39,  // 16: strmprivacy.api.entities.v1.DataConnector.azure_blob_storage_container:type_name -> strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
-	41,  // 17: strmprivacy.api.entities.v1.DataConnector.jdbc_location:type_name -> strmprivacy.api.entities.v1.JdbcLocation
-	36,  // 18: strmprivacy.api.entities.v1.DataConnector.dependent_entities:type_name -> strmprivacy.api.entities.v1.DataConnectorDependentEntities
-	44,  // 19: strmprivacy.api.entities.v1.DataConnectorDependentEntities.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	70,  // 20: strmprivacy.api.entities.v1.DataConnectorDependentEntities.batch_jobs:type_name -> strmprivacy.api.entities.v1.BatchJob
-	84,  // 21: strmprivacy.api.entities.v1.DataConnectorDependentEntities.micro_aggregation_batch_jobs:type_name -> strmprivacy.api.entities.v1.MicroAggregationBatchJob
-	40,  // 22: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation.client_secret_credential:type_name -> strmprivacy.api.entities.v1.AzureClientSecretCredential
+	29,  // 12: strmprivacy.api.entities.v1.Sink.bucket:type_name -> strmprivacy.api.entities.v1.BucketConfig
+	31,  // 13: strmprivacy.api.entities.v1.DataConnector.ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
+	33,  // 14: strmprivacy.api.entities.v1.DataConnector.s3_bucket:type_name -> strmprivacy.api.entities.v1.AwsS3BucketLocation
+	34,  // 15: strmprivacy.api.entities.v1.DataConnector.google_cloud_storage_bucket:type_name -> strmprivacy.api.entities.v1.GoogleCloudStorageBucketLocation
+	35,  // 16: strmprivacy.api.entities.v1.DataConnector.azure_blob_storage_container:type_name -> strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation
+	37,  // 17: strmprivacy.api.entities.v1.DataConnector.jdbc_location:type_name -> strmprivacy.api.entities.v1.JdbcLocation
+	32,  // 18: strmprivacy.api.entities.v1.DataConnector.dependent_entities:type_name -> strmprivacy.api.entities.v1.DataConnectorDependentEntities
+	40,  // 19: strmprivacy.api.entities.v1.DataConnectorDependentEntities.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	66,  // 20: strmprivacy.api.entities.v1.DataConnectorDependentEntities.batch_jobs:type_name -> strmprivacy.api.entities.v1.BatchJob
+	80,  // 21: strmprivacy.api.entities.v1.DataConnectorDependentEntities.micro_aggregation_batch_jobs:type_name -> strmprivacy.api.entities.v1.MicroAggregationBatchJob
+	36,  // 22: strmprivacy.api.entities.v1.AzureBlobStorageContainerLocation.client_secret_credential:type_name -> strmprivacy.api.entities.v1.AzureClientSecretCredential
 	10,  // 23: strmprivacy.api.entities.v1.JdbcLocation.database_type:type_name -> strmprivacy.api.entities.v1.DatabaseType
-	43,  // 24: strmprivacy.api.entities.v1.DataType.csv:type_name -> strmprivacy.api.entities.v1.CsvConfig
-	76,  // 25: strmprivacy.api.entities.v1.DataType.database:type_name -> strmprivacy.api.entities.v1.DatabaseConfig
-	46,  // 26: strmprivacy.api.entities.v1.BatchExporter.ref:type_name -> strmprivacy.api.entities.v1.BatchExporterRef
-	28,  // 27: strmprivacy.api.entities.v1.BatchExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
-	29,  // 28: strmprivacy.api.entities.v1.BatchExporter.key_stream_ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
-	110, // 29: strmprivacy.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
-	35,  // 30: strmprivacy.api.entities.v1.BatchExporter.data_connector_ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
-	44,  // 31: strmprivacy.api.entities.v1.ExtendedBatchExporter.exporter:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	48,  // 32: strmprivacy.api.entities.v1.KafkaCluster.ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	39,  // 24: strmprivacy.api.entities.v1.DataType.csv:type_name -> strmprivacy.api.entities.v1.CsvConfig
+	72,  // 25: strmprivacy.api.entities.v1.DataType.database:type_name -> strmprivacy.api.entities.v1.DatabaseConfig
+	42,  // 26: strmprivacy.api.entities.v1.BatchExporter.ref:type_name -> strmprivacy.api.entities.v1.BatchExporterRef
+	24,  // 27: strmprivacy.api.entities.v1.BatchExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	25,  // 28: strmprivacy.api.entities.v1.BatchExporter.key_stream_ref:type_name -> strmprivacy.api.entities.v1.KeyStreamRef
+	100, // 29: strmprivacy.api.entities.v1.BatchExporter.interval:type_name -> google.protobuf.Duration
+	31,  // 30: strmprivacy.api.entities.v1.BatchExporter.data_connector_ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
+	40,  // 31: strmprivacy.api.entities.v1.ExtendedBatchExporter.exporter:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	44,  // 32: strmprivacy.api.entities.v1.KafkaCluster.ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
 	4,   // 33: strmprivacy.api.entities.v1.KafkaCluster.auth_mechanism:type_name -> strmprivacy.api.entities.v1.AuthMechanism
-	50,  // 34: strmprivacy.api.entities.v1.KafkaExporter.ref:type_name -> strmprivacy.api.entities.v1.KafkaExporterRef
-	28,  // 35: strmprivacy.api.entities.v1.KafkaExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
-	51,  // 36: strmprivacy.api.entities.v1.KafkaExporter.target:type_name -> strmprivacy.api.entities.v1.KafkaExporterTarget
-	52,  // 37: strmprivacy.api.entities.v1.KafkaExporter.users:type_name -> strmprivacy.api.entities.v1.KafkaUser
-	48,  // 38: strmprivacy.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	53,  // 39: strmprivacy.api.entities.v1.KafkaUser.ref:type_name -> strmprivacy.api.entities.v1.KafkaUserRef
-	48,  // 40: strmprivacy.api.entities.v1.KafkaUser.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
-	56,  // 41: strmprivacy.api.entities.v1.ConsentLevelMapping.ref:type_name -> strmprivacy.api.entities.v1.ConsentLevelMappingRef
+	46,  // 34: strmprivacy.api.entities.v1.KafkaExporter.ref:type_name -> strmprivacy.api.entities.v1.KafkaExporterRef
+	24,  // 35: strmprivacy.api.entities.v1.KafkaExporter.stream_ref:type_name -> strmprivacy.api.entities.v1.StreamRef
+	47,  // 36: strmprivacy.api.entities.v1.KafkaExporter.target:type_name -> strmprivacy.api.entities.v1.KafkaExporterTarget
+	48,  // 37: strmprivacy.api.entities.v1.KafkaExporter.users:type_name -> strmprivacy.api.entities.v1.KafkaUser
+	44,  // 38: strmprivacy.api.entities.v1.KafkaExporterTarget.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	49,  // 39: strmprivacy.api.entities.v1.KafkaUser.ref:type_name -> strmprivacy.api.entities.v1.KafkaUserRef
+	44,  // 40: strmprivacy.api.entities.v1.KafkaUser.cluster_ref:type_name -> strmprivacy.api.entities.v1.KafkaClusterRef
+	52,  // 41: strmprivacy.api.entities.v1.ConsentLevelMapping.ref:type_name -> strmprivacy.api.entities.v1.ConsentLevelMappingRef
 	11,  // 42: strmprivacy.api.entities.v1.Policy.state:type_name -> strmprivacy.api.entities.v1.Policy.State
-	111, // 43: strmprivacy.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
-	111, // 44: strmprivacy.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
+	101, // 43: strmprivacy.api.entities.v1.WindowedEventCount.start_time:type_name -> google.protobuf.Timestamp
+	101, // 44: strmprivacy.api.entities.v1.WindowedEventCount.end_time:type_name -> google.protobuf.Timestamp
 	5,   // 45: strmprivacy.api.entities.v1.SchemaRef.schema_type:type_name -> strmprivacy.api.entities.v1.SchemaType
-	59,  // 46: strmprivacy.api.entities.v1.Schema.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	55,  // 46: strmprivacy.api.entities.v1.Schema.ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
 	12,  // 47: strmprivacy.api.entities.v1.Schema.state:type_name -> strmprivacy.api.entities.v1.Schema.State
-	62,  // 48: strmprivacy.api.entities.v1.Schema.metadata:type_name -> strmprivacy.api.entities.v1.SchemaMetadata
-	99,  // 49: strmprivacy.api.entities.v1.Schema.simple_schema:type_name -> strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
+	58,  // 48: strmprivacy.api.entities.v1.Schema.metadata:type_name -> strmprivacy.api.entities.v1.SchemaMetadata
+	94,  // 49: strmprivacy.api.entities.v1.Schema.simple_schema:type_name -> strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition
 	6,   // 50: strmprivacy.api.entities.v1.SimpleSchemaNode.type:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNodeType
-	61,  // 51: strmprivacy.api.entities.v1.SimpleSchemaNode.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	111, // 52: strmprivacy.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
-	66,  // 53: strmprivacy.api.entities.v1.SchemaMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
-	63,  // 54: strmprivacy.api.entities.v1.EventContract.ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
+	57,  // 51: strmprivacy.api.entities.v1.SimpleSchemaNode.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	101, // 52: strmprivacy.api.entities.v1.SchemaMetadata.create_time:type_name -> google.protobuf.Timestamp
+	62,  // 53: strmprivacy.api.entities.v1.SchemaMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	59,  // 54: strmprivacy.api.entities.v1.EventContract.ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
 	13,  // 55: strmprivacy.api.entities.v1.EventContract.state:type_name -> strmprivacy.api.entities.v1.EventContract.State
-	59,  // 56: strmprivacy.api.entities.v1.EventContract.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
-	100, // 57: strmprivacy.api.entities.v1.EventContract.pii_fields:type_name -> strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
-	67,  // 58: strmprivacy.api.entities.v1.EventContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
-	65,  // 59: strmprivacy.api.entities.v1.EventContract.metadata:type_name -> strmprivacy.api.entities.v1.EventContractMetadata
-	111, // 60: strmprivacy.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
-	66,  // 61: strmprivacy.api.entities.v1.EventContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
-	22,  // 62: strmprivacy.api.entities.v1.StreamTree.stream:type_name -> strmprivacy.api.entities.v1.Stream
-	27,  // 63: strmprivacy.api.entities.v1.StreamTree.key_stream:type_name -> strmprivacy.api.entities.v1.KeyStream
-	22,  // 64: strmprivacy.api.entities.v1.StreamTree.derived:type_name -> strmprivacy.api.entities.v1.Stream
-	44,  // 65: strmprivacy.api.entities.v1.StreamTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	49,  // 66: strmprivacy.api.entities.v1.StreamTree.kafka_exporters:type_name -> strmprivacy.api.entities.v1.KafkaExporter
-	31,  // 67: strmprivacy.api.entities.v1.SinkTree.sink:type_name -> strmprivacy.api.entities.v1.Sink
-	44,  // 68: strmprivacy.api.entities.v1.SinkTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
-	73,  // 69: strmprivacy.api.entities.v1.BatchJob.ref:type_name -> strmprivacy.api.entities.v1.BatchJobRef
-	74,  // 70: strmprivacy.api.entities.v1.BatchJob.states:type_name -> strmprivacy.api.entities.v1.BatchJobState
-	75,  // 71: strmprivacy.api.entities.v1.BatchJob.source_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	77,  // 72: strmprivacy.api.entities.v1.BatchJob.consent:type_name -> strmprivacy.api.entities.v1.ConsentConfig
-	79,  // 73: strmprivacy.api.entities.v1.BatchJob.encryption:type_name -> strmprivacy.api.entities.v1.EncryptionConfig
-	63,  // 74: strmprivacy.api.entities.v1.BatchJob.event_contract_ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
-	81,  // 75: strmprivacy.api.entities.v1.BatchJob.encrypted_data:type_name -> strmprivacy.api.entities.v1.EncryptedData
-	82,  // 76: strmprivacy.api.entities.v1.BatchJob.encryption_keys_data:type_name -> strmprivacy.api.entities.v1.EncryptionKeysData
-	83,  // 77: strmprivacy.api.entities.v1.BatchJob.derived_data:type_name -> strmprivacy.api.entities.v1.DerivedData
-	70,  // 78: strmprivacy.api.entities.v1.BatchJobWrapper.encryption_batch_job:type_name -> strmprivacy.api.entities.v1.BatchJob
-	84,  // 79: strmprivacy.api.entities.v1.BatchJobWrapper.micro_aggregation_batch_job:type_name -> strmprivacy.api.entities.v1.MicroAggregationBatchJob
-	70,  // 80: strmprivacy.api.entities.v1.ExtendedBatchJob.batch_job:type_name -> strmprivacy.api.entities.v1.BatchJob
-	71,  // 81: strmprivacy.api.entities.v1.ExtendedBatchJob.job:type_name -> strmprivacy.api.entities.v1.BatchJobWrapper
-	111, // 82: strmprivacy.api.entities.v1.BatchJobState.state_time:type_name -> google.protobuf.Timestamp
+	55,  // 56: strmprivacy.api.entities.v1.EventContract.schema_ref:type_name -> strmprivacy.api.entities.v1.SchemaRef
+	95,  // 57: strmprivacy.api.entities.v1.EventContract.pii_fields:type_name -> strmprivacy.api.entities.v1.EventContract.PiiFieldsEntry
+	63,  // 58: strmprivacy.api.entities.v1.EventContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
+	61,  // 59: strmprivacy.api.entities.v1.EventContract.metadata:type_name -> strmprivacy.api.entities.v1.EventContractMetadata
+	101, // 60: strmprivacy.api.entities.v1.EventContractMetadata.create_time:type_name -> google.protobuf.Timestamp
+	62,  // 61: strmprivacy.api.entities.v1.EventContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	18,  // 62: strmprivacy.api.entities.v1.StreamTree.stream:type_name -> strmprivacy.api.entities.v1.Stream
+	23,  // 63: strmprivacy.api.entities.v1.StreamTree.key_stream:type_name -> strmprivacy.api.entities.v1.KeyStream
+	18,  // 64: strmprivacy.api.entities.v1.StreamTree.derived:type_name -> strmprivacy.api.entities.v1.Stream
+	40,  // 65: strmprivacy.api.entities.v1.StreamTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	45,  // 66: strmprivacy.api.entities.v1.StreamTree.kafka_exporters:type_name -> strmprivacy.api.entities.v1.KafkaExporter
+	27,  // 67: strmprivacy.api.entities.v1.SinkTree.sink:type_name -> strmprivacy.api.entities.v1.Sink
+	40,  // 68: strmprivacy.api.entities.v1.SinkTree.batch_exporters:type_name -> strmprivacy.api.entities.v1.BatchExporter
+	69,  // 69: strmprivacy.api.entities.v1.BatchJob.ref:type_name -> strmprivacy.api.entities.v1.BatchJobRef
+	70,  // 70: strmprivacy.api.entities.v1.BatchJob.states:type_name -> strmprivacy.api.entities.v1.BatchJobState
+	71,  // 71: strmprivacy.api.entities.v1.BatchJob.source_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	73,  // 72: strmprivacy.api.entities.v1.BatchJob.consent:type_name -> strmprivacy.api.entities.v1.ConsentConfig
+	75,  // 73: strmprivacy.api.entities.v1.BatchJob.encryption:type_name -> strmprivacy.api.entities.v1.EncryptionConfig
+	59,  // 74: strmprivacy.api.entities.v1.BatchJob.event_contract_ref:type_name -> strmprivacy.api.entities.v1.EventContractRef
+	77,  // 75: strmprivacy.api.entities.v1.BatchJob.encrypted_data:type_name -> strmprivacy.api.entities.v1.EncryptedData
+	78,  // 76: strmprivacy.api.entities.v1.BatchJob.encryption_keys_data:type_name -> strmprivacy.api.entities.v1.EncryptionKeysData
+	79,  // 77: strmprivacy.api.entities.v1.BatchJob.derived_data:type_name -> strmprivacy.api.entities.v1.DerivedData
+	66,  // 78: strmprivacy.api.entities.v1.BatchJobWrapper.encryption_batch_job:type_name -> strmprivacy.api.entities.v1.BatchJob
+	80,  // 79: strmprivacy.api.entities.v1.BatchJobWrapper.micro_aggregation_batch_job:type_name -> strmprivacy.api.entities.v1.MicroAggregationBatchJob
+	66,  // 80: strmprivacy.api.entities.v1.ExtendedBatchJob.batch_job:type_name -> strmprivacy.api.entities.v1.BatchJob
+	67,  // 81: strmprivacy.api.entities.v1.ExtendedBatchJob.job:type_name -> strmprivacy.api.entities.v1.BatchJobWrapper
+	101, // 82: strmprivacy.api.entities.v1.BatchJobState.state_time:type_name -> google.protobuf.Timestamp
 	1,   // 83: strmprivacy.api.entities.v1.BatchJobState.state:type_name -> strmprivacy.api.entities.v1.BatchJobStateType
-	35,  // 84: strmprivacy.api.entities.v1.DataConnectorAndType.data_connector_ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
-	42,  // 85: strmprivacy.api.entities.v1.DataConnectorAndType.data_type:type_name -> strmprivacy.api.entities.v1.DataType
-	78,  // 86: strmprivacy.api.entities.v1.ConsentConfig.consent_level_extractor:type_name -> strmprivacy.api.entities.v1.ConsentLevelExtractor
-	101, // 87: strmprivacy.api.entities.v1.ConsentLevelExtractor.field_patterns:type_name -> strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry
-	80,  // 88: strmprivacy.api.entities.v1.EncryptionConfig.timestamp_config:type_name -> strmprivacy.api.entities.v1.TimestampConfig
-	112, // 89: strmprivacy.api.entities.v1.TimestampConfig.default_time_zone:type_name -> google.type.TimeZone
-	75,  // 90: strmprivacy.api.entities.v1.EncryptedData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	75,  // 91: strmprivacy.api.entities.v1.EncryptionKeysData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	75,  // 92: strmprivacy.api.entities.v1.DerivedData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	31,  // 84: strmprivacy.api.entities.v1.DataConnectorAndType.data_connector_ref:type_name -> strmprivacy.api.entities.v1.DataConnectorRef
+	38,  // 85: strmprivacy.api.entities.v1.DataConnectorAndType.data_type:type_name -> strmprivacy.api.entities.v1.DataType
+	74,  // 86: strmprivacy.api.entities.v1.ConsentConfig.consent_level_extractor:type_name -> strmprivacy.api.entities.v1.ConsentLevelExtractor
+	96,  // 87: strmprivacy.api.entities.v1.ConsentLevelExtractor.field_patterns:type_name -> strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry
+	76,  // 88: strmprivacy.api.entities.v1.EncryptionConfig.timestamp_config:type_name -> strmprivacy.api.entities.v1.TimestampConfig
+	102, // 89: strmprivacy.api.entities.v1.TimestampConfig.default_time_zone:type_name -> google.type.TimeZone
+	71,  // 90: strmprivacy.api.entities.v1.EncryptedData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	71,  // 91: strmprivacy.api.entities.v1.EncryptionKeysData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	71,  // 92: strmprivacy.api.entities.v1.DerivedData.target:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
 	2,   // 93: strmprivacy.api.entities.v1.DerivedData.consent_level_type:type_name -> strmprivacy.api.entities.v1.ConsentLevelType
-	25,  // 94: strmprivacy.api.entities.v1.DerivedData.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
-	73,  // 95: strmprivacy.api.entities.v1.MicroAggregationBatchJob.ref:type_name -> strmprivacy.api.entities.v1.BatchJobRef
-	74,  // 96: strmprivacy.api.entities.v1.MicroAggregationBatchJob.states:type_name -> strmprivacy.api.entities.v1.BatchJobState
-	75,  // 97: strmprivacy.api.entities.v1.MicroAggregationBatchJob.source_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	75,  // 98: strmprivacy.api.entities.v1.MicroAggregationBatchJob.target_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
-	86,  // 99: strmprivacy.api.entities.v1.MicroAggregationBatchJob.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
-	85,  // 100: strmprivacy.api.entities.v1.MicroAggregationBatchJob.aggregation_config:type_name -> strmprivacy.api.entities.v1.MicroAggregationConfig
-	86,  // 101: strmprivacy.api.entities.v1.DataContract.ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
+	21,  // 94: strmprivacy.api.entities.v1.DerivedData.masked_fields:type_name -> strmprivacy.api.entities.v1.MaskedFields
+	69,  // 95: strmprivacy.api.entities.v1.MicroAggregationBatchJob.ref:type_name -> strmprivacy.api.entities.v1.BatchJobRef
+	70,  // 96: strmprivacy.api.entities.v1.MicroAggregationBatchJob.states:type_name -> strmprivacy.api.entities.v1.BatchJobState
+	71,  // 97: strmprivacy.api.entities.v1.MicroAggregationBatchJob.source_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	71,  // 98: strmprivacy.api.entities.v1.MicroAggregationBatchJob.target_data:type_name -> strmprivacy.api.entities.v1.DataConnectorAndType
+	82,  // 99: strmprivacy.api.entities.v1.MicroAggregationBatchJob.data_contract_ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
+	81,  // 100: strmprivacy.api.entities.v1.MicroAggregationBatchJob.aggregation_config:type_name -> strmprivacy.api.entities.v1.MicroAggregationConfig
+	82,  // 101: strmprivacy.api.entities.v1.DataContract.ref:type_name -> strmprivacy.api.entities.v1.DataContractRef
 	14,  // 102: strmprivacy.api.entities.v1.DataContract.state:type_name -> strmprivacy.api.entities.v1.DataContract.State
-	102, // 103: strmprivacy.api.entities.v1.DataContract.pii_fields:type_name -> strmprivacy.api.entities.v1.DataContract.PiiFieldsEntry
-	67,  // 104: strmprivacy.api.entities.v1.DataContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
-	89,  // 105: strmprivacy.api.entities.v1.DataContract.metadata:type_name -> strmprivacy.api.entities.v1.DataContractMetadata
-	60,  // 106: strmprivacy.api.entities.v1.DataContract.schema:type_name -> strmprivacy.api.entities.v1.Schema
-	88,  // 107: strmprivacy.api.entities.v1.DataContract.field_metadata:type_name -> strmprivacy.api.entities.v1.FieldMetadata
-	103, // 108: strmprivacy.api.entities.v1.FieldMetadata.personal_data_config:type_name -> strmprivacy.api.entities.v1.FieldMetadata.PersonalDataConfig
+	97,  // 103: strmprivacy.api.entities.v1.DataContract.pii_fields:type_name -> strmprivacy.api.entities.v1.DataContract.PiiFieldsEntry
+	63,  // 104: strmprivacy.api.entities.v1.DataContract.validations:type_name -> strmprivacy.api.entities.v1.Validation
+	85,  // 105: strmprivacy.api.entities.v1.DataContract.metadata:type_name -> strmprivacy.api.entities.v1.DataContractMetadata
+	56,  // 106: strmprivacy.api.entities.v1.DataContract.schema:type_name -> strmprivacy.api.entities.v1.Schema
+	84,  // 107: strmprivacy.api.entities.v1.DataContract.field_metadata:type_name -> strmprivacy.api.entities.v1.FieldMetadata
+	98,  // 108: strmprivacy.api.entities.v1.FieldMetadata.personal_data_config:type_name -> strmprivacy.api.entities.v1.FieldMetadata.PersonalDataConfig
 	8,   // 109: strmprivacy.api.entities.v1.FieldMetadata.statistical_data_type:type_name -> strmprivacy.api.entities.v1.StatisticalDataType
-	104, // 110: strmprivacy.api.entities.v1.FieldMetadata.null_handling_config:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig
-	111, // 111: strmprivacy.api.entities.v1.DataContractMetadata.create_time:type_name -> google.protobuf.Timestamp
-	66,  // 112: strmprivacy.api.entities.v1.DataContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
+	99,  // 110: strmprivacy.api.entities.v1.FieldMetadata.null_handling_config:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig
+	101, // 111: strmprivacy.api.entities.v1.DataContractMetadata.create_time:type_name -> google.protobuf.Timestamp
+	62,  // 112: strmprivacy.api.entities.v1.DataContractMetadata.labels:type_name -> strmprivacy.api.entities.v1.Label
 	16,  // 113: strmprivacy.api.entities.v1.Project.state:type_name -> strmprivacy.api.entities.v1.Project.State
 	0,   // 114: strmprivacy.api.entities.v1.User.user_roles:type_name -> strmprivacy.api.entities.v1.UserRole
 	17,  // 115: strmprivacy.api.entities.v1.GenericRef.type:type_name -> strmprivacy.api.entities.v1.GenericRef.GenericRefType
-	111, // 116: strmprivacy.api.entities.v1.Comment.create_time:type_name -> google.protobuf.Timestamp
-	93,  // 117: strmprivacy.api.entities.v1.Comment.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
-	91,  // 118: strmprivacy.api.entities.v1.Comment.creator:type_name -> strmprivacy.api.entities.v1.User
-	96,  // 119: strmprivacy.api.entities.v1.Comment.relations:type_name -> strmprivacy.api.entities.v1.Relation
-	111, // 120: strmprivacy.api.entities.v1.AuditTrailEntry.create_time:type_name -> google.protobuf.Timestamp
-	93,  // 121: strmprivacy.api.entities.v1.AuditTrailEntry.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
-	91,  // 122: strmprivacy.api.entities.v1.AuditTrailEntry.actor:type_name -> strmprivacy.api.entities.v1.User
-	18,  // 123: strmprivacy.api.entities.v1.AuditTrailEntry.action:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.Action
-	96,  // 124: strmprivacy.api.entities.v1.AuditTrailEntry.relations:type_name -> strmprivacy.api.entities.v1.Relation
-	19,  // 125: strmprivacy.api.entities.v1.AuditTrailEntry.category:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.Category
-	105, // 126: strmprivacy.api.entities.v1.AuditTrailEntry.content_message:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage
-	93,  // 127: strmprivacy.api.entities.v1.Relation.ref:type_name -> strmprivacy.api.entities.v1.GenericRef
-	21,  // 128: strmprivacy.api.entities.v1.Relation.relation_type:type_name -> strmprivacy.api.entities.v1.Relation.RelationType
-	98,  // 129: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
-	61,  // 130: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
-	54,  // 131: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.ConsentLevels
-	15,  // 132: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.type:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.NullHandlingType
-	106, // 133: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.experimental_a:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.Experimental
-	106, // 134: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.experimental_b:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.Experimental
-	107, // 135: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.project_plan_diffs:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectPlanDiffs
-	108, // 136: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.project_member_changes:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectMemberChange
-	109, // 137: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectPlanDiffs.diffs:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectPlanDiffs.Diff
-	20,  // 138: strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectPlanDiffs.Diff.diff_type:type_name -> strmprivacy.api.entities.v1.AuditTrailEntry.ContentMessage.ProjectPlanDiffs.DiffType
-	139, // [139:139] is the sub-list for method output_type
-	139, // [139:139] is the sub-list for method input_type
-	139, // [139:139] is the sub-list for extension type_name
-	139, // [139:139] is the sub-list for extension extendee
-	0,   // [0:139] is the sub-list for field type_name
+	101, // 116: strmprivacy.api.entities.v1.Comment.create_time:type_name -> google.protobuf.Timestamp
+	89,  // 117: strmprivacy.api.entities.v1.Comment.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
+	87,  // 118: strmprivacy.api.entities.v1.Comment.creator:type_name -> strmprivacy.api.entities.v1.User
+	101, // 119: strmprivacy.api.entities.v1.AuditTrailEntry.create_time:type_name -> google.protobuf.Timestamp
+	89,  // 120: strmprivacy.api.entities.v1.AuditTrailEntry.entity_ref:type_name -> strmprivacy.api.entities.v1.GenericRef
+	87,  // 121: strmprivacy.api.entities.v1.AuditTrailEntry.actor:type_name -> strmprivacy.api.entities.v1.User
+	93,  // 122: strmprivacy.api.entities.v1.MaskedFields.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.MaskedFields.PatternList
+	57,  // 123: strmprivacy.api.entities.v1.Schema.SimpleSchemaDefinition.nodes:type_name -> strmprivacy.api.entities.v1.SimpleSchemaNode
+	50,  // 124: strmprivacy.api.entities.v1.ConsentLevelExtractor.FieldPatternsEntry.value:type_name -> strmprivacy.api.entities.v1.ConsentLevels
+	15,  // 125: strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.type:type_name -> strmprivacy.api.entities.v1.FieldMetadata.NullHandlingConfig.NullHandlingType
+	126, // [126:126] is the sub-list for method output_type
+	126, // [126:126] is the sub-list for method input_type
+	126, // [126:126] is the sub-list for extension type_name
+	126, // [126:126] is the sub-list for extension extendee
+	0,   // [0:126] is the sub-list for field type_name
 }
 
 func init() { file_strmprivacy_api_entities_v1_entities_v1_proto_init() }
@@ -10237,19 +9440,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 				return nil
 			}
 		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[74].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Relation); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76].Exporter = func(v interface{}, i int) interface{} {
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[75].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MaskedFields_PatternList); i {
 			case 0:
 				return &v.state
@@ -10261,7 +9452,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 				return nil
 			}
 		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[77].Exporter = func(v interface{}, i int) interface{} {
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[76].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Schema_SimpleSchemaDefinition); i {
 			case 0:
 				return &v.state
@@ -10273,7 +9464,7 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 				return nil
 			}
 		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81].Exporter = func(v interface{}, i int) interface{} {
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[80].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FieldMetadata_PersonalDataConfig); i {
 			case 0:
 				return &v.state
@@ -10285,68 +9476,8 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 				return nil
 			}
 		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[82].Exporter = func(v interface{}, i int) interface{} {
+		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[81].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*FieldMetadata_NullHandlingConfig); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[83].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuditTrailEntry_ContentMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[84].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuditTrailEntry_ContentMessage_Experimental); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[85].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuditTrailEntry_ContentMessage_ProjectPlanDiffs); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[86].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuditTrailEntry_ContentMessage_ProjectMemberChange); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[87].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_Diff); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -10379,19 +9510,13 @@ func file_strmprivacy_api_entities_v1_entities_v1_proto_init() {
 		(*BatchJobWrapper_EncryptionBatchJob)(nil),
 		(*BatchJobWrapper_MicroAggregationBatchJob)(nil),
 	}
-	file_strmprivacy_api_entities_v1_entities_v1_proto_msgTypes[83].OneofWrappers = []interface{}{
-		(*AuditTrailEntry_ContentMessage_ExperimentalA)(nil),
-		(*AuditTrailEntry_ContentMessage_ExperimentalB)(nil),
-		(*AuditTrailEntry_ContentMessage_ProjectPlanDiffs_)(nil),
-		(*AuditTrailEntry_ContentMessage_ProjectMemberChanges)(nil),
-	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_strmprivacy_api_entities_v1_entities_v1_proto_rawDesc,
-			NumEnums:      22,
-			NumMessages:   88,
+			NumEnums:      18,
+			NumMessages:   82,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
