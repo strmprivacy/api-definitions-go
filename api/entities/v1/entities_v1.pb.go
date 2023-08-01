@@ -6798,6 +6798,17 @@ type AuditTrailEntry struct {
 	EntityName string `protobuf:"bytes,7,opt,name=entity_name,json=entityName,proto3" json:"entity_name,omitempty"`
 	// what is happening in this audit trail entry.
 	Action AuditTrailEntry_Action `protobuf:"varint,8,opt,name=action,proto3,enum=strmprivacy.api.entities.v1.AuditTrailEntry_Action" json:"action,omitempty"`
+	// level of detail between 0 (quiet) and 5 (verbose)
+	// Verbosity verbosity = 13;
+	// TODO check with Paul before we decide.
+	//
+	//	enum Verbosity {
+	//	  VERBOSITY_UNDEFINED = 0;
+	//	  INFO = 1;
+	//	  DEBUG = 2;
+	//	  TRACE = 3;
+	//	}
+	//
 	// define who (or what screen) sees what.
 	// Used for filtering depending on who is using the UI,
 	// or specific views in the UI.
