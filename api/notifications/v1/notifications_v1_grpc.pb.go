@@ -36,6 +36,8 @@ type NotificationsServiceClient interface {
 	ReceiveNotifications(ctx context.Context, in *ReceiveNotificationsRequest, opts ...grpc.CallOption) (NotificationsService_ReceiveNotificationsClient, error)
 	// List notifications for a user.
 	ListNotifications(ctx context.Context, in *ListNotificationsRequest, opts ...grpc.CallOption) (*ListNotificationsResponse, error)
+	// set the has_been_seen status of notification(s)
+	AlterNotificationsHasBeenSeen(ctx context.Context, in *AlterNotificationsHasBeenSeenRequest, opts ...grpc.CallOption) (*AlterNotificationsHasBeenSeenResponse, error)
 }
 
 type notificationsServiceClient struct {
@@ -132,6 +134,15 @@ func (c *notificationsServiceClient) ListNotifications(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *notificationsServiceClient) AlterNotificationsHasBeenSeen(ctx context.Context, in *AlterNotificationsHasBeenSeenRequest, opts ...grpc.CallOption) (*AlterNotificationsHasBeenSeenResponse, error) {
+	out := new(AlterNotificationsHasBeenSeenResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.notifications.v1.NotificationsService/AlterNotificationsHasBeenSeen", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // NotificationsServiceServer is the server API for NotificationsService service.
 // All implementations should embed UnimplementedNotificationsServiceServer
 // for forward compatibility
@@ -150,6 +161,8 @@ type NotificationsServiceServer interface {
 	ReceiveNotifications(*ReceiveNotificationsRequest, NotificationsService_ReceiveNotificationsServer) error
 	// List notifications for a user.
 	ListNotifications(context.Context, *ListNotificationsRequest) (*ListNotificationsResponse, error)
+	// set the has_been_seen status of notification(s)
+	AlterNotificationsHasBeenSeen(context.Context, *AlterNotificationsHasBeenSeenRequest) (*AlterNotificationsHasBeenSeenResponse, error)
 }
 
 // UnimplementedNotificationsServiceServer should be embedded to have forward compatible implementations.
@@ -176,6 +189,9 @@ func (UnimplementedNotificationsServiceServer) ReceiveNotifications(*ReceiveNoti
 }
 func (UnimplementedNotificationsServiceServer) ListNotifications(context.Context, *ListNotificationsRequest) (*ListNotificationsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListNotifications not implemented")
+}
+func (UnimplementedNotificationsServiceServer) AlterNotificationsHasBeenSeen(context.Context, *AlterNotificationsHasBeenSeenRequest) (*AlterNotificationsHasBeenSeenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AlterNotificationsHasBeenSeen not implemented")
 }
 
 // UnsafeNotificationsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -318,6 +334,24 @@ func _NotificationsService_ListNotifications_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _NotificationsService_AlterNotificationsHasBeenSeen_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AlterNotificationsHasBeenSeenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NotificationsServiceServer).AlterNotificationsHasBeenSeen(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.notifications.v1.NotificationsService/AlterNotificationsHasBeenSeen",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NotificationsServiceServer).AlterNotificationsHasBeenSeen(ctx, req.(*AlterNotificationsHasBeenSeenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // NotificationsService_ServiceDesc is the grpc.ServiceDesc for NotificationsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -348,6 +382,10 @@ var NotificationsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListNotifications",
 			Handler:    _NotificationsService_ListNotifications_Handler,
+		},
+		{
+			MethodName: "AlterNotificationsHasBeenSeen",
+			Handler:    _NotificationsService_AlterNotificationsHasBeenSeen_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
