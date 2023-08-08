@@ -18,120 +18,156 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// ProjectPlansServiceClient is the client API for ProjectPlansService service.
+// RopaServiceClient is the client API for RopaService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ProjectPlansServiceClient interface {
+type RopaServiceClient interface {
 	GetRopa(ctx context.Context, in *GetRopaRequest, opts ...grpc.CallOption) (*GetRopaResponse, error)
-	AddRopaEntry(ctx context.Context, in *AddRopaEntryRequest, opts ...grpc.CallOption) (*AddRopaEntryResponse, error)
+	UpsertRopa(ctx context.Context, in *UpsertRopaRequest, opts ...grpc.CallOption) (*UpsertRopaResponse, error)
+	UpsertRopaEntry(ctx context.Context, in *UpsertRopaEntryRequest, opts ...grpc.CallOption) (*UpsertRopaEntryResponse, error)
 }
 
-type projectPlansServiceClient struct {
+type ropaServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewProjectPlansServiceClient(cc grpc.ClientConnInterface) ProjectPlansServiceClient {
-	return &projectPlansServiceClient{cc}
+func NewRopaServiceClient(cc grpc.ClientConnInterface) RopaServiceClient {
+	return &ropaServiceClient{cc}
 }
 
-func (c *projectPlansServiceClient) GetRopa(ctx context.Context, in *GetRopaRequest, opts ...grpc.CallOption) (*GetRopaResponse, error) {
+func (c *ropaServiceClient) GetRopa(ctx context.Context, in *GetRopaRequest, opts ...grpc.CallOption) (*GetRopaResponse, error) {
 	out := new(GetRopaResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.ProjectPlansService/GetRopa", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.RopaService/GetRopa", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *projectPlansServiceClient) AddRopaEntry(ctx context.Context, in *AddRopaEntryRequest, opts ...grpc.CallOption) (*AddRopaEntryResponse, error) {
-	out := new(AddRopaEntryResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.ProjectPlansService/AddRopaEntry", in, out, opts...)
+func (c *ropaServiceClient) UpsertRopa(ctx context.Context, in *UpsertRopaRequest, opts ...grpc.CallOption) (*UpsertRopaResponse, error) {
+	out := new(UpsertRopaResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRopa", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ProjectPlansServiceServer is the server API for ProjectPlansService service.
-// All implementations should embed UnimplementedProjectPlansServiceServer
+func (c *ropaServiceClient) UpsertRopaEntry(ctx context.Context, in *UpsertRopaEntryRequest, opts ...grpc.CallOption) (*UpsertRopaEntryResponse, error) {
+	out := new(UpsertRopaEntryResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRopaEntry", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// RopaServiceServer is the server API for RopaService service.
+// All implementations should embed UnimplementedRopaServiceServer
 // for forward compatibility
-type ProjectPlansServiceServer interface {
+type RopaServiceServer interface {
 	GetRopa(context.Context, *GetRopaRequest) (*GetRopaResponse, error)
-	AddRopaEntry(context.Context, *AddRopaEntryRequest) (*AddRopaEntryResponse, error)
+	UpsertRopa(context.Context, *UpsertRopaRequest) (*UpsertRopaResponse, error)
+	UpsertRopaEntry(context.Context, *UpsertRopaEntryRequest) (*UpsertRopaEntryResponse, error)
 }
 
-// UnimplementedProjectPlansServiceServer should be embedded to have forward compatible implementations.
-type UnimplementedProjectPlansServiceServer struct {
+// UnimplementedRopaServiceServer should be embedded to have forward compatible implementations.
+type UnimplementedRopaServiceServer struct {
 }
 
-func (UnimplementedProjectPlansServiceServer) GetRopa(context.Context, *GetRopaRequest) (*GetRopaResponse, error) {
+func (UnimplementedRopaServiceServer) GetRopa(context.Context, *GetRopaRequest) (*GetRopaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRopa not implemented")
 }
-func (UnimplementedProjectPlansServiceServer) AddRopaEntry(context.Context, *AddRopaEntryRequest) (*AddRopaEntryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddRopaEntry not implemented")
+func (UnimplementedRopaServiceServer) UpsertRopa(context.Context, *UpsertRopaRequest) (*UpsertRopaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertRopa not implemented")
+}
+func (UnimplementedRopaServiceServer) UpsertRopaEntry(context.Context, *UpsertRopaEntryRequest) (*UpsertRopaEntryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertRopaEntry not implemented")
 }
 
-// UnsafeProjectPlansServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ProjectPlansServiceServer will
+// UnsafeRopaServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to RopaServiceServer will
 // result in compilation errors.
-type UnsafeProjectPlansServiceServer interface {
-	mustEmbedUnimplementedProjectPlansServiceServer()
+type UnsafeRopaServiceServer interface {
+	mustEmbedUnimplementedRopaServiceServer()
 }
 
-func RegisterProjectPlansServiceServer(s grpc.ServiceRegistrar, srv ProjectPlansServiceServer) {
-	s.RegisterService(&ProjectPlansService_ServiceDesc, srv)
+func RegisterRopaServiceServer(s grpc.ServiceRegistrar, srv RopaServiceServer) {
+	s.RegisterService(&RopaService_ServiceDesc, srv)
 }
 
-func _ProjectPlansService_GetRopa_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _RopaService_GetRopa_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRopaRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProjectPlansServiceServer).GetRopa(ctx, in)
+		return srv.(RopaServiceServer).GetRopa(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.ropa.v1alpha.ProjectPlansService/GetRopa",
+		FullMethod: "/strmprivacy.api.ropa.v1alpha.RopaService/GetRopa",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProjectPlansServiceServer).GetRopa(ctx, req.(*GetRopaRequest))
+		return srv.(RopaServiceServer).GetRopa(ctx, req.(*GetRopaRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProjectPlansService_AddRopaEntry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddRopaEntryRequest)
+func _RopaService_UpsertRopa_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpsertRopaRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProjectPlansServiceServer).AddRopaEntry(ctx, in)
+		return srv.(RopaServiceServer).UpsertRopa(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.ropa.v1alpha.ProjectPlansService/AddRopaEntry",
+		FullMethod: "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRopa",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProjectPlansServiceServer).AddRopaEntry(ctx, req.(*AddRopaEntryRequest))
+		return srv.(RopaServiceServer).UpsertRopa(ctx, req.(*UpsertRopaRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// ProjectPlansService_ServiceDesc is the grpc.ServiceDesc for ProjectPlansService service.
+func _RopaService_UpsertRopaEntry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpsertRopaEntryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RopaServiceServer).UpsertRopaEntry(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRopaEntry",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RopaServiceServer).UpsertRopaEntry(ctx, req.(*UpsertRopaEntryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// RopaService_ServiceDesc is the grpc.ServiceDesc for RopaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ProjectPlansService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "strmprivacy.api.ropa.v1alpha.ProjectPlansService",
-	HandlerType: (*ProjectPlansServiceServer)(nil),
+var RopaService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "strmprivacy.api.ropa.v1alpha.RopaService",
+	HandlerType: (*RopaServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetRopa",
-			Handler:    _ProjectPlansService_GetRopa_Handler,
+			Handler:    _RopaService_GetRopa_Handler,
 		},
 		{
-			MethodName: "AddRopaEntry",
-			Handler:    _ProjectPlansService_AddRopaEntry_Handler,
+			MethodName: "UpsertRopa",
+			Handler:    _RopaService_UpsertRopa_Handler,
+		},
+		{
+			MethodName: "UpsertRopaEntry",
+			Handler:    _RopaService_UpsertRopaEntry_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
