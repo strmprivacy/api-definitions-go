@@ -23,7 +23,6 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrganizationsServiceClient interface {
 	InviteUsers(ctx context.Context, in *InviteUsersRequest, opts ...grpc.CallOption) (*InviteUsersResponse, error)
-	ListUserInvites(ctx context.Context, in *ListUserInvitesRequest, opts ...grpc.CallOption) (*ListUserInvitesResponse, error)
 	UpdateUserRoles(ctx context.Context, in *UpdateUserRolesRequest, opts ...grpc.CallOption) (*UpdateUserRolesResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	ListOrganizationMembers(ctx context.Context, in *ListOrganizationMembersRequest, opts ...grpc.CallOption) (*ListOrganizationMembersResponse, error)
@@ -40,15 +39,6 @@ func NewOrganizationsServiceClient(cc grpc.ClientConnInterface) OrganizationsSer
 func (c *organizationsServiceClient) InviteUsers(ctx context.Context, in *InviteUsersRequest, opts ...grpc.CallOption) (*InviteUsersResponse, error) {
 	out := new(InviteUsersResponse)
 	err := c.cc.Invoke(ctx, "/strmprivacy.api.organizations.v1.OrganizationsService/InviteUsers", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *organizationsServiceClient) ListUserInvites(ctx context.Context, in *ListUserInvitesRequest, opts ...grpc.CallOption) (*ListUserInvitesResponse, error) {
-	out := new(ListUserInvitesResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.organizations.v1.OrganizationsService/ListUserInvites", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +77,6 @@ func (c *organizationsServiceClient) ListOrganizationMembers(ctx context.Context
 // for forward compatibility
 type OrganizationsServiceServer interface {
 	InviteUsers(context.Context, *InviteUsersRequest) (*InviteUsersResponse, error)
-	ListUserInvites(context.Context, *ListUserInvitesRequest) (*ListUserInvitesResponse, error)
 	UpdateUserRoles(context.Context, *UpdateUserRolesRequest) (*UpdateUserRolesResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	ListOrganizationMembers(context.Context, *ListOrganizationMembersRequest) (*ListOrganizationMembersResponse, error)
@@ -99,9 +88,6 @@ type UnimplementedOrganizationsServiceServer struct {
 
 func (UnimplementedOrganizationsServiceServer) InviteUsers(context.Context, *InviteUsersRequest) (*InviteUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InviteUsers not implemented")
-}
-func (UnimplementedOrganizationsServiceServer) ListUserInvites(context.Context, *ListUserInvitesRequest) (*ListUserInvitesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListUserInvites not implemented")
 }
 func (UnimplementedOrganizationsServiceServer) UpdateUserRoles(context.Context, *UpdateUserRolesRequest) (*UpdateUserRolesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUserRoles not implemented")
@@ -138,24 +124,6 @@ func _OrganizationsService_InviteUsers_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrganizationsServiceServer).InviteUsers(ctx, req.(*InviteUsersRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrganizationsService_ListUserInvites_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListUserInvitesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrganizationsServiceServer).ListUserInvites(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.organizations.v1.OrganizationsService/ListUserInvites",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrganizationsServiceServer).ListUserInvites(ctx, req.(*ListUserInvitesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -224,10 +192,6 @@ var OrganizationsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InviteUsers",
 			Handler:    _OrganizationsService_InviteUsers_Handler,
-		},
-		{
-			MethodName: "ListUserInvites",
-			Handler:    _OrganizationsService_ListUserInvites_Handler,
 		},
 		{
 			MethodName: "UpdateUserRoles",
