@@ -22,9 +22,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RopaServiceClient interface {
+	// This will return all (latest versions of) the records.
 	GetRopa(ctx context.Context, in *GetRopaRequest, opts ...grpc.CallOption) (*GetRopaResponse, error)
-	UpsertRopa(ctx context.Context, in *UpsertRopaRequest, opts ...grpc.CallOption) (*UpsertRopaResponse, error)
-	UpsertRopaEntry(ctx context.Context, in *UpsertRopaEntryRequest, opts ...grpc.CallOption) (*UpsertRopaEntryResponse, error)
+	// Create or update a record.
+	UpsertRecord(ctx context.Context, in *UpsertRecordRequest, opts ...grpc.CallOption) (*UpsertRecordResponse, error)
+	// Get a record by id or data contract ref.
+	GetRecord(ctx context.Context, in *GetRecordRequest, opts ...grpc.CallOption) (*GetRecordResponse, error)
 }
 
 type ropaServiceClient struct {
@@ -44,18 +47,18 @@ func (c *ropaServiceClient) GetRopa(ctx context.Context, in *GetRopaRequest, opt
 	return out, nil
 }
 
-func (c *ropaServiceClient) UpsertRopa(ctx context.Context, in *UpsertRopaRequest, opts ...grpc.CallOption) (*UpsertRopaResponse, error) {
-	out := new(UpsertRopaResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRopa", in, out, opts...)
+func (c *ropaServiceClient) UpsertRecord(ctx context.Context, in *UpsertRecordRequest, opts ...grpc.CallOption) (*UpsertRecordResponse, error) {
+	out := new(UpsertRecordResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRecord", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *ropaServiceClient) UpsertRopaEntry(ctx context.Context, in *UpsertRopaEntryRequest, opts ...grpc.CallOption) (*UpsertRopaEntryResponse, error) {
-	out := new(UpsertRopaEntryResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRopaEntry", in, out, opts...)
+func (c *ropaServiceClient) GetRecord(ctx context.Context, in *GetRecordRequest, opts ...grpc.CallOption) (*GetRecordResponse, error) {
+	out := new(GetRecordResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.ropa.v1alpha.RopaService/GetRecord", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,9 +69,12 @@ func (c *ropaServiceClient) UpsertRopaEntry(ctx context.Context, in *UpsertRopaE
 // All implementations should embed UnimplementedRopaServiceServer
 // for forward compatibility
 type RopaServiceServer interface {
+	// This will return all (latest versions of) the records.
 	GetRopa(context.Context, *GetRopaRequest) (*GetRopaResponse, error)
-	UpsertRopa(context.Context, *UpsertRopaRequest) (*UpsertRopaResponse, error)
-	UpsertRopaEntry(context.Context, *UpsertRopaEntryRequest) (*UpsertRopaEntryResponse, error)
+	// Create or update a record.
+	UpsertRecord(context.Context, *UpsertRecordRequest) (*UpsertRecordResponse, error)
+	// Get a record by id or data contract ref.
+	GetRecord(context.Context, *GetRecordRequest) (*GetRecordResponse, error)
 }
 
 // UnimplementedRopaServiceServer should be embedded to have forward compatible implementations.
@@ -78,11 +84,11 @@ type UnimplementedRopaServiceServer struct {
 func (UnimplementedRopaServiceServer) GetRopa(context.Context, *GetRopaRequest) (*GetRopaResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRopa not implemented")
 }
-func (UnimplementedRopaServiceServer) UpsertRopa(context.Context, *UpsertRopaRequest) (*UpsertRopaResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpsertRopa not implemented")
+func (UnimplementedRopaServiceServer) UpsertRecord(context.Context, *UpsertRecordRequest) (*UpsertRecordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpsertRecord not implemented")
 }
-func (UnimplementedRopaServiceServer) UpsertRopaEntry(context.Context, *UpsertRopaEntryRequest) (*UpsertRopaEntryResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpsertRopaEntry not implemented")
+func (UnimplementedRopaServiceServer) GetRecord(context.Context, *GetRecordRequest) (*GetRecordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRecord not implemented")
 }
 
 // UnsafeRopaServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -114,38 +120,38 @@ func _RopaService_GetRopa_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RopaService_UpsertRopa_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpsertRopaRequest)
+func _RopaService_UpsertRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpsertRecordRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RopaServiceServer).UpsertRopa(ctx, in)
+		return srv.(RopaServiceServer).UpsertRecord(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRopa",
+		FullMethod: "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRecord",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RopaServiceServer).UpsertRopa(ctx, req.(*UpsertRopaRequest))
+		return srv.(RopaServiceServer).UpsertRecord(ctx, req.(*UpsertRecordRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RopaService_UpsertRopaEntry_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpsertRopaEntryRequest)
+func _RopaService_GetRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRecordRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RopaServiceServer).UpsertRopaEntry(ctx, in)
+		return srv.(RopaServiceServer).GetRecord(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/strmprivacy.api.ropa.v1alpha.RopaService/UpsertRopaEntry",
+		FullMethod: "/strmprivacy.api.ropa.v1alpha.RopaService/GetRecord",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RopaServiceServer).UpsertRopaEntry(ctx, req.(*UpsertRopaEntryRequest))
+		return srv.(RopaServiceServer).GetRecord(ctx, req.(*GetRecordRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -162,12 +168,12 @@ var RopaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _RopaService_GetRopa_Handler,
 		},
 		{
-			MethodName: "UpsertRopa",
-			Handler:    _RopaService_UpsertRopa_Handler,
+			MethodName: "UpsertRecord",
+			Handler:    _RopaService_UpsertRecord_Handler,
 		},
 		{
-			MethodName: "UpsertRopaEntry",
-			Handler:    _RopaService_UpsertRopaEntry_Handler,
+			MethodName: "GetRecord",
+			Handler:    _RopaService_GetRecord_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
