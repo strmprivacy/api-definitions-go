@@ -308,7 +308,7 @@ type Entry struct {
 	Remark string `protobuf:"bytes,10,opt,name=remark,proto3" json:"remark,omitempty"`
 	// Types that are assignable to Item:
 	//
-	//	*Entry_Todo_
+	//	*Entry_Task_
 	//	*Entry_DataContract_
 	//	*Entry_Document_
 	//	*Entry_Pipeline_
@@ -430,9 +430,9 @@ func (m *Entry) GetItem() isEntry_Item {
 	return nil
 }
 
-func (x *Entry) GetTodo() *Entry_Todo {
-	if x, ok := x.GetItem().(*Entry_Todo_); ok {
-		return x.Todo
+func (x *Entry) GetTask() *Entry_Task {
+	if x, ok := x.GetItem().(*Entry_Task_); ok {
+		return x.Task
 	}
 	return nil
 }
@@ -504,8 +504,8 @@ type isEntry_Item interface {
 	isEntry_Item()
 }
 
-type Entry_Todo_ struct {
-	Todo *Entry_Todo `protobuf:"bytes,11,opt,name=todo,proto3,oneof"`
+type Entry_Task_ struct {
+	Task *Entry_Task `protobuf:"bytes,11,opt,name=task,proto3,oneof"`
 }
 
 type Entry_DataContract_ struct {
@@ -544,7 +544,7 @@ type Entry_Html struct {
 	Html string `protobuf:"bytes,21,opt,name=html,proto3,oneof"`
 }
 
-func (*Entry_Todo_) isEntry_Item() {}
+func (*Entry_Task_) isEntry_Item() {}
 
 func (*Entry_DataContract_) isEntry_Item() {}
 
@@ -647,14 +647,14 @@ func (*ProjectPlanTemplate_EntryOrFormTemplateId_FormTemplateId) isProjectPlanTe
 func (*ProjectPlanTemplate_EntryOrFormTemplateId_Entry) isProjectPlanTemplate_EntryOrFormTemplateId_Part() {
 }
 
-type Entry_Todo struct {
+type Entry_Task struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Entry_Todo) Reset() {
-	*x = Entry_Todo{}
+func (x *Entry_Task) Reset() {
+	*x = Entry_Task{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -662,13 +662,13 @@ func (x *Entry_Todo) Reset() {
 	}
 }
 
-func (x *Entry_Todo) String() string {
+func (x *Entry_Task) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Entry_Todo) ProtoMessage() {}
+func (*Entry_Task) ProtoMessage() {}
 
-func (x *Entry_Todo) ProtoReflect() protoreflect.Message {
+func (x *Entry_Task) ProtoReflect() protoreflect.Message {
 	mi := &file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -680,8 +680,8 @@ func (x *Entry_Todo) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Entry_Todo.ProtoReflect.Descriptor instead.
-func (*Entry_Todo) Descriptor() ([]byte, []int) {
+// Deprecated: Use Entry_Task.ProtoReflect.Descriptor instead.
+func (*Entry_Task) Descriptor() ([]byte, []int) {
 	return file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_rawDescGZIP(), []int{3, 0}
 }
 
@@ -1306,11 +1306,11 @@ var file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_rawDesc = []byt
 	0x5f, 0x74, 0x65, 0x78, 0x74, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x68, 0x65, 0x6c,
 	0x70, 0x54, 0x65, 0x78, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x72, 0x65, 0x6d, 0x61, 0x72, 0x6b, 0x18,
 	0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x72, 0x65, 0x6d, 0x61, 0x72, 0x6b, 0x12, 0x42, 0x0a,
-	0x04, 0x74, 0x6f, 0x64, 0x6f, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x73, 0x74,
+	0x04, 0x74, 0x61, 0x73, 0x6b, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x73, 0x74,
 	0x72, 0x6d, 0x70, 0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e,
 	0x74, 0x69, 0x74, 0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x61, 0x6c, 0x70, 0x68, 0x61, 0x2e, 0x45,
-	0x6e, 0x74, 0x72, 0x79, 0x2e, 0x54, 0x6f, 0x64, 0x6f, 0x48, 0x00, 0x52, 0x04, 0x74, 0x6f, 0x64,
-	0x6f, 0x12, 0x5b, 0x0a, 0x0d, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61,
+	0x6e, 0x74, 0x72, 0x79, 0x2e, 0x54, 0x61, 0x73, 0x6b, 0x48, 0x00, 0x52, 0x04, 0x74, 0x61, 0x73,
+	0x6b, 0x12, 0x5b, 0x0a, 0x0d, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61,
 	0x63, 0x74, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x34, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70,
 	0x72, 0x69, 0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74,
 	0x69, 0x65, 0x73, 0x2e, 0x76, 0x31, 0x61, 0x6c, 0x70, 0x68, 0x61, 0x2e, 0x45, 0x6e, 0x74, 0x72,
@@ -1356,7 +1356,7 @@ var file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_rawDesc = []byt
 	0x2e, 0x52, 0x65, 0x63, 0x6f, 0x72, 0x64, 0x69, 0x6e, 0x67, 0x49, 0x74, 0x65, 0x6d, 0x48, 0x00,
 	0x52, 0x09, 0x72, 0x65, 0x63, 0x6f, 0x72, 0x64, 0x69, 0x6e, 0x67, 0x12, 0x14, 0x0a, 0x04, 0x68,
 	0x74, 0x6d, 0x6c, 0x18, 0x15, 0x20, 0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x04, 0x68, 0x74, 0x6d,
-	0x6c, 0x1a, 0x06, 0x0a, 0x04, 0x54, 0x6f, 0x64, 0x6f, 0x1a, 0x58, 0x0a, 0x0c, 0x44, 0x61, 0x74,
+	0x6c, 0x1a, 0x06, 0x0a, 0x04, 0x54, 0x61, 0x73, 0x6b, 0x1a, 0x58, 0x0a, 0x0c, 0x44, 0x61, 0x74,
 	0x61, 0x43, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x12, 0x48, 0x0a, 0x03, 0x72, 0x65, 0x66,
 	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2c, 0x2e, 0x73, 0x74, 0x72, 0x6d, 0x70, 0x72, 0x69,
 	0x76, 0x61, 0x63, 0x79, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x69, 0x65,
@@ -1458,7 +1458,7 @@ var file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_goTypes = []int
 	(*FormTemplate)(nil),                              // 3: strmprivacy.api.entities.v1alpha.FormTemplate
 	(*Entry)(nil),                                     // 4: strmprivacy.api.entities.v1alpha.Entry
 	(*ProjectPlanTemplate_EntryOrFormTemplateId)(nil), // 5: strmprivacy.api.entities.v1alpha.ProjectPlanTemplate.EntryOrFormTemplateId
-	(*Entry_Todo)(nil),                                // 6: strmprivacy.api.entities.v1alpha.Entry.Todo
+	(*Entry_Task)(nil),                                // 6: strmprivacy.api.entities.v1alpha.Entry.Task
 	(*Entry_DataContract)(nil),                        // 7: strmprivacy.api.entities.v1alpha.Entry.DataContract
 	(*Entry_Document)(nil),                            // 8: strmprivacy.api.entities.v1alpha.Entry.Document
 	(*Entry_Pipeline)(nil),                            // 9: strmprivacy.api.entities.v1alpha.Entry.Pipeline
@@ -1482,7 +1482,7 @@ var file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_depIdxs = []int
 	15, // 5: strmprivacy.api.entities.v1alpha.Entry.completion_time:type_name -> google.protobuf.Timestamp
 	16, // 6: strmprivacy.api.entities.v1alpha.Entry.creator:type_name -> strmprivacy.api.entities.v1.User
 	16, // 7: strmprivacy.api.entities.v1alpha.Entry.assignee:type_name -> strmprivacy.api.entities.v1.User
-	6,  // 8: strmprivacy.api.entities.v1alpha.Entry.todo:type_name -> strmprivacy.api.entities.v1alpha.Entry.Todo
+	6,  // 8: strmprivacy.api.entities.v1alpha.Entry.task:type_name -> strmprivacy.api.entities.v1alpha.Entry.Task
 	7,  // 9: strmprivacy.api.entities.v1alpha.Entry.data_contract:type_name -> strmprivacy.api.entities.v1alpha.Entry.DataContract
 	8,  // 10: strmprivacy.api.entities.v1alpha.Entry.document:type_name -> strmprivacy.api.entities.v1alpha.Entry.Document
 	9,  // 11: strmprivacy.api.entities.v1alpha.Entry.pipeline:type_name -> strmprivacy.api.entities.v1alpha.Entry.Pipeline
@@ -1570,7 +1570,7 @@ func file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_init() {
 			}
 		}
 		file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Entry_Todo); i {
+			switch v := v.(*Entry_Task); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1679,7 +1679,7 @@ func file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_init() {
 		}
 	}
 	file_strmprivacy_api_entities_v1alpha_entities_v1alpha_proto_msgTypes[3].OneofWrappers = []interface{}{
-		(*Entry_Todo_)(nil),
+		(*Entry_Task_)(nil),
 		(*Entry_DataContract_)(nil),
 		(*Entry_Document_)(nil),
 		(*Entry_Pipeline_)(nil),
