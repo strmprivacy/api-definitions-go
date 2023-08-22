@@ -27,13 +27,6 @@ type FormsServiceClient interface {
 	GetFormTemplate(ctx context.Context, in *GetFormTemplateRequest, opts ...grpc.CallOption) (*GetFormTemplateResponse, error)
 	UpsertFormTemplate(ctx context.Context, in *UpsertFormTemplateRequest, opts ...grpc.CallOption) (*UpsertFormTemplateResponse, error)
 	DeleteFormTemplate(ctx context.Context, in *DeleteFormTemplateRequest, opts ...grpc.CallOption) (*DeleteFormTemplateResponse, error)
-	// CRUD on Project Plan Templates
-	ListProjectPlanTemplates(ctx context.Context, in *ListProjectPlanTemplatesRequest, opts ...grpc.CallOption) (*ListProjectPlanTemplatesResponse, error)
-	GetProjectPlanTemplate(ctx context.Context, in *GetProjectPlanTemplateRequest, opts ...grpc.CallOption) (*GetProjectPlanTemplateResponse, error)
-	UpsertProjectPlanTemplate(ctx context.Context, in *UpsertProjectPlanTemplateRequest, opts ...grpc.CallOption) (*UpsertProjectPlanTemplateResponse, error)
-	DeleteProjectPlanTemplate(ctx context.Context, in *DeleteProjectPlanTemplateRequest, opts ...grpc.CallOption) (*DeleteProjectPlanTemplateResponse, error)
-	// build a project plan from a template and store it in the database.
-	BuildProjectPlan(ctx context.Context, in *BuildProjectPlanRequest, opts ...grpc.CallOption) (*BuildProjectPlanResponse, error)
 }
 
 type formsServiceClient struct {
@@ -80,51 +73,6 @@ func (c *formsServiceClient) DeleteFormTemplate(ctx context.Context, in *DeleteF
 	return out, nil
 }
 
-func (c *formsServiceClient) ListProjectPlanTemplates(ctx context.Context, in *ListProjectPlanTemplatesRequest, opts ...grpc.CallOption) (*ListProjectPlanTemplatesResponse, error) {
-	out := new(ListProjectPlanTemplatesResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.forms.v1alpha.FormsService/ListProjectPlanTemplates", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *formsServiceClient) GetProjectPlanTemplate(ctx context.Context, in *GetProjectPlanTemplateRequest, opts ...grpc.CallOption) (*GetProjectPlanTemplateResponse, error) {
-	out := new(GetProjectPlanTemplateResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.forms.v1alpha.FormsService/GetProjectPlanTemplate", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *formsServiceClient) UpsertProjectPlanTemplate(ctx context.Context, in *UpsertProjectPlanTemplateRequest, opts ...grpc.CallOption) (*UpsertProjectPlanTemplateResponse, error) {
-	out := new(UpsertProjectPlanTemplateResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.forms.v1alpha.FormsService/UpsertProjectPlanTemplate", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *formsServiceClient) DeleteProjectPlanTemplate(ctx context.Context, in *DeleteProjectPlanTemplateRequest, opts ...grpc.CallOption) (*DeleteProjectPlanTemplateResponse, error) {
-	out := new(DeleteProjectPlanTemplateResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.forms.v1alpha.FormsService/DeleteProjectPlanTemplate", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *formsServiceClient) BuildProjectPlan(ctx context.Context, in *BuildProjectPlanRequest, opts ...grpc.CallOption) (*BuildProjectPlanResponse, error) {
-	out := new(BuildProjectPlanResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.forms.v1alpha.FormsService/BuildProjectPlan", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // FormsServiceServer is the server API for FormsService service.
 // All implementations should embed UnimplementedFormsServiceServer
 // for forward compatibility
@@ -134,13 +82,6 @@ type FormsServiceServer interface {
 	GetFormTemplate(context.Context, *GetFormTemplateRequest) (*GetFormTemplateResponse, error)
 	UpsertFormTemplate(context.Context, *UpsertFormTemplateRequest) (*UpsertFormTemplateResponse, error)
 	DeleteFormTemplate(context.Context, *DeleteFormTemplateRequest) (*DeleteFormTemplateResponse, error)
-	// CRUD on Project Plan Templates
-	ListProjectPlanTemplates(context.Context, *ListProjectPlanTemplatesRequest) (*ListProjectPlanTemplatesResponse, error)
-	GetProjectPlanTemplate(context.Context, *GetProjectPlanTemplateRequest) (*GetProjectPlanTemplateResponse, error)
-	UpsertProjectPlanTemplate(context.Context, *UpsertProjectPlanTemplateRequest) (*UpsertProjectPlanTemplateResponse, error)
-	DeleteProjectPlanTemplate(context.Context, *DeleteProjectPlanTemplateRequest) (*DeleteProjectPlanTemplateResponse, error)
-	// build a project plan from a template and store it in the database.
-	BuildProjectPlan(context.Context, *BuildProjectPlanRequest) (*BuildProjectPlanResponse, error)
 }
 
 // UnimplementedFormsServiceServer should be embedded to have forward compatible implementations.
@@ -158,21 +99,6 @@ func (UnimplementedFormsServiceServer) UpsertFormTemplate(context.Context, *Upse
 }
 func (UnimplementedFormsServiceServer) DeleteFormTemplate(context.Context, *DeleteFormTemplateRequest) (*DeleteFormTemplateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteFormTemplate not implemented")
-}
-func (UnimplementedFormsServiceServer) ListProjectPlanTemplates(context.Context, *ListProjectPlanTemplatesRequest) (*ListProjectPlanTemplatesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListProjectPlanTemplates not implemented")
-}
-func (UnimplementedFormsServiceServer) GetProjectPlanTemplate(context.Context, *GetProjectPlanTemplateRequest) (*GetProjectPlanTemplateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProjectPlanTemplate not implemented")
-}
-func (UnimplementedFormsServiceServer) UpsertProjectPlanTemplate(context.Context, *UpsertProjectPlanTemplateRequest) (*UpsertProjectPlanTemplateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpsertProjectPlanTemplate not implemented")
-}
-func (UnimplementedFormsServiceServer) DeleteProjectPlanTemplate(context.Context, *DeleteProjectPlanTemplateRequest) (*DeleteProjectPlanTemplateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteProjectPlanTemplate not implemented")
-}
-func (UnimplementedFormsServiceServer) BuildProjectPlan(context.Context, *BuildProjectPlanRequest) (*BuildProjectPlanResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BuildProjectPlan not implemented")
 }
 
 // UnsafeFormsServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -258,96 +184,6 @@ func _FormsService_DeleteFormTemplate_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _FormsService_ListProjectPlanTemplates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListProjectPlanTemplatesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FormsServiceServer).ListProjectPlanTemplates(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.forms.v1alpha.FormsService/ListProjectPlanTemplates",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FormsServiceServer).ListProjectPlanTemplates(ctx, req.(*ListProjectPlanTemplatesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _FormsService_GetProjectPlanTemplate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetProjectPlanTemplateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FormsServiceServer).GetProjectPlanTemplate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.forms.v1alpha.FormsService/GetProjectPlanTemplate",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FormsServiceServer).GetProjectPlanTemplate(ctx, req.(*GetProjectPlanTemplateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _FormsService_UpsertProjectPlanTemplate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpsertProjectPlanTemplateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FormsServiceServer).UpsertProjectPlanTemplate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.forms.v1alpha.FormsService/UpsertProjectPlanTemplate",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FormsServiceServer).UpsertProjectPlanTemplate(ctx, req.(*UpsertProjectPlanTemplateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _FormsService_DeleteProjectPlanTemplate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteProjectPlanTemplateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FormsServiceServer).DeleteProjectPlanTemplate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.forms.v1alpha.FormsService/DeleteProjectPlanTemplate",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FormsServiceServer).DeleteProjectPlanTemplate(ctx, req.(*DeleteProjectPlanTemplateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _FormsService_BuildProjectPlan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BuildProjectPlanRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FormsServiceServer).BuildProjectPlan(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.forms.v1alpha.FormsService/BuildProjectPlan",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FormsServiceServer).BuildProjectPlan(ctx, req.(*BuildProjectPlanRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // FormsService_ServiceDesc is the grpc.ServiceDesc for FormsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -370,26 +206,6 @@ var FormsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteFormTemplate",
 			Handler:    _FormsService_DeleteFormTemplate_Handler,
-		},
-		{
-			MethodName: "ListProjectPlanTemplates",
-			Handler:    _FormsService_ListProjectPlanTemplates_Handler,
-		},
-		{
-			MethodName: "GetProjectPlanTemplate",
-			Handler:    _FormsService_GetProjectPlanTemplate_Handler,
-		},
-		{
-			MethodName: "UpsertProjectPlanTemplate",
-			Handler:    _FormsService_UpsertProjectPlanTemplate_Handler,
-		},
-		{
-			MethodName: "DeleteProjectPlanTemplate",
-			Handler:    _FormsService_DeleteProjectPlanTemplate_Handler,
-		},
-		{
-			MethodName: "BuildProjectPlan",
-			Handler:    _FormsService_BuildProjectPlan_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

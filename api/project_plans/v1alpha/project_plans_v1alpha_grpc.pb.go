@@ -26,6 +26,8 @@ type ProjectPlansServiceClient interface {
 	GetProjectPlan(ctx context.Context, in *GetProjectPlanRequest, opts ...grpc.CallOption) (*GetProjectPlanResponse, error)
 	UpsertProjectPlan(ctx context.Context, in *UpsertProjectPlanRequest, opts ...grpc.CallOption) (*UpsertProjectPlanResponse, error)
 	DeleteProjectPlan(ctx context.Context, in *DeleteProjectPlanRequest, opts ...grpc.CallOption) (*DeleteProjectPlanResponse, error)
+	// builds an empty (not filled-in) project plan from a template and store it in the database.
+	BuildProjectPlan(ctx context.Context, in *BuildProjectPlanRequest, opts ...grpc.CallOption) (*BuildProjectPlanResponse, error)
 }
 
 type projectPlansServiceClient struct {
@@ -72,6 +74,15 @@ func (c *projectPlansServiceClient) DeleteProjectPlan(ctx context.Context, in *D
 	return out, nil
 }
 
+func (c *projectPlansServiceClient) BuildProjectPlan(ctx context.Context, in *BuildProjectPlanRequest, opts ...grpc.CallOption) (*BuildProjectPlanResponse, error) {
+	out := new(BuildProjectPlanResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/BuildProjectPlan", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProjectPlansServiceServer is the server API for ProjectPlansService service.
 // All implementations should embed UnimplementedProjectPlansServiceServer
 // for forward compatibility
@@ -80,6 +91,8 @@ type ProjectPlansServiceServer interface {
 	GetProjectPlan(context.Context, *GetProjectPlanRequest) (*GetProjectPlanResponse, error)
 	UpsertProjectPlan(context.Context, *UpsertProjectPlanRequest) (*UpsertProjectPlanResponse, error)
 	DeleteProjectPlan(context.Context, *DeleteProjectPlanRequest) (*DeleteProjectPlanResponse, error)
+	// builds an empty (not filled-in) project plan from a template and store it in the database.
+	BuildProjectPlan(context.Context, *BuildProjectPlanRequest) (*BuildProjectPlanResponse, error)
 }
 
 // UnimplementedProjectPlansServiceServer should be embedded to have forward compatible implementations.
@@ -97,6 +110,9 @@ func (UnimplementedProjectPlansServiceServer) UpsertProjectPlan(context.Context,
 }
 func (UnimplementedProjectPlansServiceServer) DeleteProjectPlan(context.Context, *DeleteProjectPlanRequest) (*DeleteProjectPlanResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProjectPlan not implemented")
+}
+func (UnimplementedProjectPlansServiceServer) BuildProjectPlan(context.Context, *BuildProjectPlanRequest) (*BuildProjectPlanResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BuildProjectPlan not implemented")
 }
 
 // UnsafeProjectPlansServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -182,6 +198,24 @@ func _ProjectPlansService_DeleteProjectPlan_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProjectPlansService_BuildProjectPlan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BuildProjectPlanRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectPlansServiceServer).BuildProjectPlan(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/BuildProjectPlan",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectPlansServiceServer).BuildProjectPlan(ctx, req.(*BuildProjectPlanRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProjectPlansService_ServiceDesc is the grpc.ServiceDesc for ProjectPlansService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -204,6 +238,10 @@ var ProjectPlansService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteProjectPlan",
 			Handler:    _ProjectPlansService_DeleteProjectPlan_Handler,
+		},
+		{
+			MethodName: "BuildProjectPlan",
+			Handler:    _ProjectPlansService_BuildProjectPlan_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
