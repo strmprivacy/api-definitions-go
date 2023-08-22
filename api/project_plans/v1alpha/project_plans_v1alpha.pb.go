@@ -409,8 +409,10 @@ type BuildProjectPlanRequest struct {
 	ProjectPlanTemplateId string `protobuf:"bytes,1,opt,name=project_plan_template_id,json=projectPlanTemplateId,proto3" json:"project_plan_template_id,omitempty"`
 	ProjectId             string `protobuf:"bytes,2,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	// do not store the generated project plan in the database
+	// this is useful for previews, or generally for developer purposes
 	DontStore bool `protobuf:"varint,3,opt,name=dont_store,json=dontStore,proto3" json:"dont_store,omitempty"`
-	// allow overwriting existing
+	// allow overwriting existing project plans. If not set, an already existing
+	// project plan would trigger an exception.
 	AllowOverwrite bool `protobuf:"varint,4,opt,name=allow_overwrite,json=allowOverwrite,proto3" json:"allow_overwrite,omitempty"`
 }
 

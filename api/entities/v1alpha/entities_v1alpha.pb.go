@@ -79,7 +79,8 @@ func (Entry_MultipleChoiceItem_Style) EnumDescriptor() ([]byte, []int) {
 }
 
 // A project plan contains a series of Entry instances, each of which will typically concern one
-// form question. There is also a `html` entry, that allow you to put anything you want in it.
+// form question. There is also a `html` entry, that allow you to put anything you want in it. This
+// allows the person designing the form to add explanatory sections, or headers, or images, or ...
 //
 // Meta information like name, title and description is that of the associated Project.
 //
@@ -218,7 +219,7 @@ func (x *FormTemplate) GetItems() []*FormTemplate_EntryOrFormTemplateId {
 // one of the various Entry types.
 //
 // An interesting type is the `html` type that just contains html that will directly be shown in the browser.
-// This allows us to add arbitrary non-functional parts.
+// This allows us to add arbitrary non-functional parts. The html will have to be sanitized.
 type Entry struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

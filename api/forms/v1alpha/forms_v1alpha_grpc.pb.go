@@ -23,6 +23,8 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type FormsServiceClient interface {
 	// CRUD on Form Templates
+	// returns all the form templates for the organization of the caller.
+	// currently also includes the hard-coded templates
 	ListFormTemplates(ctx context.Context, in *ListFormTemplatesRequest, opts ...grpc.CallOption) (*ListFormTemplatesResponse, error)
 	GetFormTemplate(ctx context.Context, in *GetFormTemplateRequest, opts ...grpc.CallOption) (*GetFormTemplateResponse, error)
 	UpsertFormTemplate(ctx context.Context, in *UpsertFormTemplateRequest, opts ...grpc.CallOption) (*UpsertFormTemplateResponse, error)
@@ -78,6 +80,8 @@ func (c *formsServiceClient) DeleteFormTemplate(ctx context.Context, in *DeleteF
 // for forward compatibility
 type FormsServiceServer interface {
 	// CRUD on Form Templates
+	// returns all the form templates for the organization of the caller.
+	// currently also includes the hard-coded templates
 	ListFormTemplates(context.Context, *ListFormTemplatesRequest) (*ListFormTemplatesResponse, error)
 	GetFormTemplate(context.Context, *GetFormTemplateRequest) (*GetFormTemplateResponse, error)
 	UpsertFormTemplate(context.Context, *UpsertFormTemplateRequest) (*UpsertFormTemplateResponse, error)
