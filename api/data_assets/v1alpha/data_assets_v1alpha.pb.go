@@ -222,6 +222,7 @@ func (x *GetDataAssetResponse) GetDataAsset() *v1alpha1.DataAsset {
 }
 
 // To create a data asset, leave its id empty. To update a data asset, set its id.
+// Nested entities (parties, data subjects, data categories) are not updated and are allowed to only contain their ids.
 type UpsertDataAssetRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
