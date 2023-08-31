@@ -311,7 +311,13 @@ type Entry struct {
 	// generic remark to be filled in by a user.
 	Remark string `protobuf:"bytes,10,opt,name=remark,proto3" json:"remark,omitempty"`
 	// whether or not the user can delete an item.
-	CanBeDeleted   bool   `protobuf:"varint,11,opt,name=can_be_deleted,json=canBeDeleted,proto3" json:"can_be_deleted,omitempty"`
+	CanBeDeleted bool `protobuf:"varint,11,opt,name=can_be_deleted,json=canBeDeleted,proto3" json:"can_be_deleted,omitempty"`
+	// renders a header of a certain type of item.
+	// this might involve adding a <table> element in html
+	// this creates a sort of section which will be closed when one of the following occurs
+	// * an entry of a different type is the next to be processed
+	// * we encounter another render_header entry.
+	// * we just rendered the last Entry in the list
 	FormTemplateId string `protobuf:"bytes,12,opt,name=form_template_id,json=formTemplateId,proto3" json:"form_template_id,omitempty"`
 	// Types that are assignable to Item:
 	//
