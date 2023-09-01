@@ -25,14 +25,6 @@ type ProjectPlansServiceClient interface {
 	ListProjectPlans(ctx context.Context, in *ListProjectPlansRequest, opts ...grpc.CallOption) (*ListProjectPlansResponse, error)
 	GetProjectPlan(ctx context.Context, in *GetProjectPlanRequest, opts ...grpc.CallOption) (*GetProjectPlanResponse, error)
 	UpsertProjectPlan(ctx context.Context, in *UpsertProjectPlanRequest, opts ...grpc.CallOption) (*UpsertProjectPlanResponse, error)
-	DeleteProjectPlan(ctx context.Context, in *DeleteProjectPlanRequest, opts ...grpc.CallOption) (*DeleteProjectPlanResponse, error)
-	// builds an empty (not filled-in) project plan from a template and store it in the database.
-	BuildProjectPlan(ctx context.Context, in *BuildProjectPlanRequest, opts ...grpc.CallOption) (*BuildProjectPlanResponse, error)
-	// builds an empty (not filled-in) project plan from a template and store it in the database.
-	// (-- api-linter: core::0136::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: We need to do this because the name makes sense. --)
-	BuildProjectPlanFromTemplateIds(ctx context.Context, in *BuildProjectPlanFromTemplateIdsRequest, opts ...grpc.CallOption) (*BuildProjectPlanFromTemplateIdsResponse, error)
 }
 
 type projectPlansServiceClient struct {
@@ -70,33 +62,6 @@ func (c *projectPlansServiceClient) UpsertProjectPlan(ctx context.Context, in *U
 	return out, nil
 }
 
-func (c *projectPlansServiceClient) DeleteProjectPlan(ctx context.Context, in *DeleteProjectPlanRequest, opts ...grpc.CallOption) (*DeleteProjectPlanResponse, error) {
-	out := new(DeleteProjectPlanResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/DeleteProjectPlan", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *projectPlansServiceClient) BuildProjectPlan(ctx context.Context, in *BuildProjectPlanRequest, opts ...grpc.CallOption) (*BuildProjectPlanResponse, error) {
-	out := new(BuildProjectPlanResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/BuildProjectPlan", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *projectPlansServiceClient) BuildProjectPlanFromTemplateIds(ctx context.Context, in *BuildProjectPlanFromTemplateIdsRequest, opts ...grpc.CallOption) (*BuildProjectPlanFromTemplateIdsResponse, error) {
-	out := new(BuildProjectPlanFromTemplateIdsResponse)
-	err := c.cc.Invoke(ctx, "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/BuildProjectPlanFromTemplateIds", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ProjectPlansServiceServer is the server API for ProjectPlansService service.
 // All implementations should embed UnimplementedProjectPlansServiceServer
 // for forward compatibility
@@ -104,14 +69,6 @@ type ProjectPlansServiceServer interface {
 	ListProjectPlans(context.Context, *ListProjectPlansRequest) (*ListProjectPlansResponse, error)
 	GetProjectPlan(context.Context, *GetProjectPlanRequest) (*GetProjectPlanResponse, error)
 	UpsertProjectPlan(context.Context, *UpsertProjectPlanRequest) (*UpsertProjectPlanResponse, error)
-	DeleteProjectPlan(context.Context, *DeleteProjectPlanRequest) (*DeleteProjectPlanResponse, error)
-	// builds an empty (not filled-in) project plan from a template and store it in the database.
-	BuildProjectPlan(context.Context, *BuildProjectPlanRequest) (*BuildProjectPlanResponse, error)
-	// builds an empty (not filled-in) project plan from a template and store it in the database.
-	// (-- api-linter: core::0136::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: We need to do this because the name makes sense. --)
-	BuildProjectPlanFromTemplateIds(context.Context, *BuildProjectPlanFromTemplateIdsRequest) (*BuildProjectPlanFromTemplateIdsResponse, error)
 }
 
 // UnimplementedProjectPlansServiceServer should be embedded to have forward compatible implementations.
@@ -126,15 +83,6 @@ func (UnimplementedProjectPlansServiceServer) GetProjectPlan(context.Context, *G
 }
 func (UnimplementedProjectPlansServiceServer) UpsertProjectPlan(context.Context, *UpsertProjectPlanRequest) (*UpsertProjectPlanResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpsertProjectPlan not implemented")
-}
-func (UnimplementedProjectPlansServiceServer) DeleteProjectPlan(context.Context, *DeleteProjectPlanRequest) (*DeleteProjectPlanResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteProjectPlan not implemented")
-}
-func (UnimplementedProjectPlansServiceServer) BuildProjectPlan(context.Context, *BuildProjectPlanRequest) (*BuildProjectPlanResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BuildProjectPlan not implemented")
-}
-func (UnimplementedProjectPlansServiceServer) BuildProjectPlanFromTemplateIds(context.Context, *BuildProjectPlanFromTemplateIdsRequest) (*BuildProjectPlanFromTemplateIdsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BuildProjectPlanFromTemplateIds not implemented")
 }
 
 // UnsafeProjectPlansServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -202,60 +150,6 @@ func _ProjectPlansService_UpsertProjectPlan_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ProjectPlansService_DeleteProjectPlan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteProjectPlanRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProjectPlansServiceServer).DeleteProjectPlan(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/DeleteProjectPlan",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProjectPlansServiceServer).DeleteProjectPlan(ctx, req.(*DeleteProjectPlanRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ProjectPlansService_BuildProjectPlan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BuildProjectPlanRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProjectPlansServiceServer).BuildProjectPlan(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/BuildProjectPlan",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProjectPlansServiceServer).BuildProjectPlan(ctx, req.(*BuildProjectPlanRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ProjectPlansService_BuildProjectPlanFromTemplateIds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BuildProjectPlanFromTemplateIdsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProjectPlansServiceServer).BuildProjectPlanFromTemplateIds(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/strmprivacy.api.project_plans.v1alpha.ProjectPlansService/BuildProjectPlanFromTemplateIds",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProjectPlansServiceServer).BuildProjectPlanFromTemplateIds(ctx, req.(*BuildProjectPlanFromTemplateIdsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // ProjectPlansService_ServiceDesc is the grpc.ServiceDesc for ProjectPlansService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -274,18 +168,6 @@ var ProjectPlansService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpsertProjectPlan",
 			Handler:    _ProjectPlansService_UpsertProjectPlan_Handler,
-		},
-		{
-			MethodName: "DeleteProjectPlan",
-			Handler:    _ProjectPlansService_DeleteProjectPlan_Handler,
-		},
-		{
-			MethodName: "BuildProjectPlan",
-			Handler:    _ProjectPlansService_BuildProjectPlan_Handler,
-		},
-		{
-			MethodName: "BuildProjectPlanFromTemplateIds",
-			Handler:    _ProjectPlansService_BuildProjectPlanFromTemplateIds_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
