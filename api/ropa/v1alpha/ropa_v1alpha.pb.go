@@ -129,7 +129,8 @@ func (x *GetRopaResponse) GetPageInfo() *v1alpha.PageInfo {
 }
 
 // To create a new ROPA Record, leave its id empty. To create a new version of an existing record, set its id.
-// Nested entities (parties, data subjects, data categories) are not updated and are allowed to only contain their ids.
+// The content of nested entities (parties, data subjects, data categories) are not updated. They may be provided with
+// just their ids.
 type CreateRecordRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

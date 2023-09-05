@@ -24,9 +24,9 @@ const _ = grpc.SupportPackageIsVersion7
 type RopaServiceClient interface {
 	// This will return all (latest versions of) the records.
 	GetRopa(ctx context.Context, in *GetRopaRequest, opts ...grpc.CallOption) (*GetRopaResponse, error)
-	// Create a new record or a new version of an existing record.
+	// Create a new record (leave its id empty) or a new version of an existing record (provide its id and current version).
 	CreateRecord(ctx context.Context, in *CreateRecordRequest, opts ...grpc.CallOption) (*CreateRecordResponse, error)
-	// Get a record by id or data contract ref.
+	// Get a record by its id.
 	GetRecord(ctx context.Context, in *GetRecordRequest, opts ...grpc.CallOption) (*GetRecordResponse, error)
 }
 
@@ -71,9 +71,9 @@ func (c *ropaServiceClient) GetRecord(ctx context.Context, in *GetRecordRequest,
 type RopaServiceServer interface {
 	// This will return all (latest versions of) the records.
 	GetRopa(context.Context, *GetRopaRequest) (*GetRopaResponse, error)
-	// Create a new record or a new version of an existing record.
+	// Create a new record (leave its id empty) or a new version of an existing record (provide its id and current version).
 	CreateRecord(context.Context, *CreateRecordRequest) (*CreateRecordResponse, error)
-	// Get a record by id or data contract ref.
+	// Get a record by its id.
 	GetRecord(context.Context, *GetRecordRequest) (*GetRecordResponse, error)
 }
 

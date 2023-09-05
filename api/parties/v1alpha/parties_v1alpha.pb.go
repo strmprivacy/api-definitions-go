@@ -23,7 +23,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// List all parties for an organization. The organization is derived from the calling user.
 type ListPartiesRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

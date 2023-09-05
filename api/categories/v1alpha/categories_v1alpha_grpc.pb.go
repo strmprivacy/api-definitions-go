@@ -22,9 +22,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CategoriesServiceClient interface {
+	// List all categories, optionally filtered for a given type. The organization is derived from the calling user.
 	ListCategories(ctx context.Context, in *ListCategoriesRequest, opts ...grpc.CallOption) (*ListCategoriesResponse, error)
+	// Get a category by id.
 	GetCategory(ctx context.Context, in *GetCategoryRequest, opts ...grpc.CallOption) (*GetCategoryResponse, error)
-	// Create or update a category.
+	// Create or update a category. To create a category, leave its id empty. To update a category, set its id.
 	UpsertCategory(ctx context.Context, in *UpsertCategoryRequest, opts ...grpc.CallOption) (*UpsertCategoryResponse, error)
 }
 
@@ -67,9 +69,11 @@ func (c *categoriesServiceClient) UpsertCategory(ctx context.Context, in *Upsert
 // All implementations should embed UnimplementedCategoriesServiceServer
 // for forward compatibility
 type CategoriesServiceServer interface {
+	// List all categories, optionally filtered for a given type. The organization is derived from the calling user.
 	ListCategories(context.Context, *ListCategoriesRequest) (*ListCategoriesResponse, error)
+	// Get a category by id.
 	GetCategory(context.Context, *GetCategoryRequest) (*GetCategoryResponse, error)
-	// Create or update a category.
+	// Create or update a category. To create a category, leave its id empty. To update a category, set its id.
 	UpsertCategory(context.Context, *UpsertCategoryRequest) (*UpsertCategoryResponse, error)
 }
 

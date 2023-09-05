@@ -1392,6 +1392,8 @@ func (x *Party) GetContactDetails() []*ContactDetails {
 	return nil
 }
 
+// Categories are pretty arbitrary classifications, but always have a specific type.
+// Their names are unique within a type. Names can be reused across types.
 type Category struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1460,8 +1462,9 @@ type DataAsset struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id           string      `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name         string      `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Id   string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// These are categories of type DATA_ASSET.
 	Categories   []*Category `protobuf:"bytes,3,rep,name=categories,proto3" json:"categories,omitempty"`
 	HostingParty *Party      `protobuf:"bytes,4,opt,name=hosting_party,json=hostingParty,proto3" json:"hosting_party,omitempty"`
 	// Contact person at hosting party, details should be in the party record.
@@ -2629,7 +2632,7 @@ func (x *InfoAsset_BusinessImpactCategory) GetValue() float32 {
 	return 0
 }
 
-// Required for the multi-maps in the ROPA record.
+// Just a wrapper around a list of parties, used in the multi-maps in the ROPA record.
 type Party_List struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2677,7 +2680,7 @@ func (x *Party_List) GetParties() []*Party {
 	return nil
 }
 
-// Required for the multi-maps in the ROPA record.
+// Just a wrapper around a list of categories, used in the multi-maps in the ROPA record.
 type Category_List struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2725,7 +2728,7 @@ func (x *Category_List) GetCategories() []*Category {
 	return nil
 }
 
-// Required for the multi-maps in the ROPA record.
+// Just a wrapper around a list of data assets, used in the multi-maps in the ROPA record.
 type DataAsset_List struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2787,20 +2790,20 @@ type Ropa_Record struct {
 	Version        int32                  `protobuf:"varint,6,opt,name=version,proto3" json:"version,omitempty"`
 	// Related parties, grouped by Party.RelationType, e.g. CONTROLLER, PROCESSOR, RECIPIENT.
 	Parties map[string]*Party_List `protobuf:"bytes,7,rep,name=parties,proto3" json:"parties,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	// Purposes
+	// Purpose levels as defined in the organizations Purpose Map.
 	PurposeLevels []int32 `protobuf:"varint,8,rep,packed,name=purpose_levels,json=purposeLevels,proto3" json:"purpose_levels,omitempty"`
 	// Related categories, grouped by their type, e.g. DATA_SUBJECT, PROCESSING.
 	// Some may be derived from the data contract.
 	Categories map[string]*Category_List `protobuf:"bytes,9,rep,name=categories,proto3" json:"categories,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	// Linked data contract(s), if applicable, can change over time
+	// Linked data contract(s), if applicable, can change over time.
 	DataContractIds []string `protobuf:"bytes,10,rep,name=data_contract_ids,json=dataContractIds,proto3" json:"data_contract_ids,omitempty"`
 	// Data assets, grouped by DataAsset.RelationType, e.g. DATA_SOURCE.
 	DataAssets map[string]*DataAsset_List `protobuf:"bytes,11,rep,name=data_assets,json=dataAssets,proto3" json:"data_assets,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	// Data transfer details (free text for now)
+	// Data transfer details.
 	DataTransferDetails string `protobuf:"bytes,12,opt,name=data_transfer_details,json=dataTransferDetails,proto3" json:"data_transfer_details,omitempty"`
-	// Data retention policies
+	// Data retention policies, references policies in the organization's policy list.
 	DataRetentionPolicyIds []string `protobuf:"bytes,13,rep,name=data_retention_policy_ids,json=dataRetentionPolicyIds,proto3" json:"data_retention_policy_ids,omitempty"`
-	// Additional information, free format
+	// Additional information, free format.
 	AdditionalInfo string `protobuf:"bytes,14,opt,name=additional_info,json=additionalInfo,proto3" json:"additional_info,omitempty"`
 }
 

@@ -22,9 +22,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PartiesServiceClient interface {
+	// List all parties for an organization. The organization is derived from the calling user.
 	ListParties(ctx context.Context, in *ListPartiesRequest, opts ...grpc.CallOption) (*ListPartiesResponse, error)
+	// Get a party by its id
 	GetParty(ctx context.Context, in *GetPartyRequest, opts ...grpc.CallOption) (*GetPartyResponse, error)
-	// Create or update a party.
+	// Create or update a party. To create a party, leave its id empty. To update a party, set its id.
 	UpsertParty(ctx context.Context, in *UpsertPartyRequest, opts ...grpc.CallOption) (*UpsertPartyResponse, error)
 }
 
@@ -67,9 +69,11 @@ func (c *partiesServiceClient) UpsertParty(ctx context.Context, in *UpsertPartyR
 // All implementations should embed UnimplementedPartiesServiceServer
 // for forward compatibility
 type PartiesServiceServer interface {
+	// List all parties for an organization. The organization is derived from the calling user.
 	ListParties(context.Context, *ListPartiesRequest) (*ListPartiesResponse, error)
+	// Get a party by its id
 	GetParty(context.Context, *GetPartyRequest) (*GetPartyResponse, error)
-	// Create or update a party.
+	// Create or update a party. To create a party, leave its id empty. To update a party, set its id.
 	UpsertParty(context.Context, *UpsertPartyRequest) (*UpsertPartyResponse, error)
 }
 

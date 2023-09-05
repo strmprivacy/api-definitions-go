@@ -22,7 +22,9 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DataAssetsServiceClient interface {
+	// List all data assets for an organization. The organization is derived from the calling user.
 	ListDataAssets(ctx context.Context, in *ListDataAssetsRequest, opts ...grpc.CallOption) (*ListDataAssetsResponse, error)
+	// Get a data asset by its id.
 	GetDataAsset(ctx context.Context, in *GetDataAssetRequest, opts ...grpc.CallOption) (*GetDataAssetResponse, error)
 	// Create or update a data asset.
 	UpsertDataAsset(ctx context.Context, in *UpsertDataAssetRequest, opts ...grpc.CallOption) (*UpsertDataAssetResponse, error)
@@ -67,7 +69,9 @@ func (c *dataAssetsServiceClient) UpsertDataAsset(ctx context.Context, in *Upser
 // All implementations should embed UnimplementedDataAssetsServiceServer
 // for forward compatibility
 type DataAssetsServiceServer interface {
+	// List all data assets for an organization. The organization is derived from the calling user.
 	ListDataAssets(context.Context, *ListDataAssetsRequest) (*ListDataAssetsResponse, error)
+	// Get a data asset by its id.
 	GetDataAsset(context.Context, *GetDataAssetRequest) (*GetDataAssetResponse, error)
 	// Create or update a data asset.
 	UpsertDataAsset(context.Context, *UpsertDataAssetRequest) (*UpsertDataAssetResponse, error)

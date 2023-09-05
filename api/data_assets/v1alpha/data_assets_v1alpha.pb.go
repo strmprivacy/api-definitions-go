@@ -23,7 +23,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// List all data assets for an organization. The organization is derived from the calling user.
 type ListDataAssetsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -222,7 +221,7 @@ func (x *GetDataAssetResponse) GetDataAsset() *v1alpha1.DataAsset {
 }
 
 // To create a data asset, leave its id empty. To update a data asset, set its id.
-// Nested entities (parties, data subjects, data categories) are not updated and are allowed to only contain their ids.
+// The content of nested entities (parties, categories) are not updated. They may be provided with just their ids.
 type UpsertDataAssetRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
