@@ -779,11 +779,12 @@ type Entry_Html struct {
 }
 
 type Entry_SectionOpen_ struct {
-	// special kind of item that closes the current element that is being rendered.
+	// special kind of item that opens a new element that is being rendered.
 	SectionOpen *Entry_SectionOpen `protobuf:"bytes,20,opt,name=section_open,json=sectionOpen,proto3,oneof"`
 }
 
 type Entry_SectionClose_ struct {
+	// special kind of item that closes the current element that is being rendered.
 	SectionClose *Entry_SectionClose `protobuf:"bytes,21,opt,name=section_close,json=sectionClose,proto3,oneof"`
 }
 
