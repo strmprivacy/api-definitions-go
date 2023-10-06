@@ -701,6 +701,7 @@ type DataPolicy_Source struct {
 	// would have to parse the string-based spec.
 	Spec string `protobuf:"bytes,3,opt,name=spec,proto3" json:"spec,omitempty"`
 	// attributes are leading.
+	// Todo: rename to fields? Attribute is an overloaded term in this context.
 	Attributes []*DataPolicy_Attribute `protobuf:"bytes,4,rep,name=attributes,proto3" json:"attributes,omitempty"`
 }
 
