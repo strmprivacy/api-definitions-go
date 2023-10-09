@@ -24,6 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 type DataPolicyServiceClient interface {
 	ListDataPolicies(ctx context.Context, in *ListDataPoliciesRequest, opts ...grpc.CallOption) (*ListDataPoliciesResponse, error)
 	UpsertDataPolicy(ctx context.Context, in *UpsertDataPolicyRequest, opts ...grpc.CallOption) (*UpsertDataPolicyResponse, error)
+	// returns latest policy for an id
+	GetDataPolicy(ctx context.Context, in *GetDataPolicyRequest, opts ...grpc.CallOption) (*GetDataPolicyResponse, error)
 }
 
 type dataPolicyServiceClient struct {
@@ -52,12 +54,23 @@ func (c *dataPolicyServiceClient) UpsertDataPolicy(ctx context.Context, in *Upse
 	return out, nil
 }
 
+func (c *dataPolicyServiceClient) GetDataPolicy(ctx context.Context, in *GetDataPolicyRequest, opts ...grpc.CallOption) (*GetDataPolicyResponse, error) {
+	out := new(GetDataPolicyResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/GetDataPolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DataPolicyServiceServer is the server API for DataPolicyService service.
 // All implementations should embed UnimplementedDataPolicyServiceServer
 // for forward compatibility
 type DataPolicyServiceServer interface {
 	ListDataPolicies(context.Context, *ListDataPoliciesRequest) (*ListDataPoliciesResponse, error)
 	UpsertDataPolicy(context.Context, *UpsertDataPolicyRequest) (*UpsertDataPolicyResponse, error)
+	// returns latest policy for an id
+	GetDataPolicy(context.Context, *GetDataPolicyRequest) (*GetDataPolicyResponse, error)
 }
 
 // UnimplementedDataPolicyServiceServer should be embedded to have forward compatible implementations.
@@ -69,6 +82,9 @@ func (UnimplementedDataPolicyServiceServer) ListDataPolicies(context.Context, *L
 }
 func (UnimplementedDataPolicyServiceServer) UpsertDataPolicy(context.Context, *UpsertDataPolicyRequest) (*UpsertDataPolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpsertDataPolicy not implemented")
+}
+func (UnimplementedDataPolicyServiceServer) GetDataPolicy(context.Context, *GetDataPolicyRequest) (*GetDataPolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDataPolicy not implemented")
 }
 
 // UnsafeDataPolicyServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -118,6 +134,24 @@ func _DataPolicyService_UpsertDataPolicy_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DataPolicyService_GetDataPolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDataPolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataPolicyServiceServer).GetDataPolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/GetDataPolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataPolicyServiceServer).GetDataPolicy(ctx, req.(*GetDataPolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DataPolicyService_ServiceDesc is the grpc.ServiceDesc for DataPolicyService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -132,6 +166,10 @@ var DataPolicyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpsertDataPolicy",
 			Handler:    _DataPolicyService_UpsertDataPolicy_Handler,
+		},
+		{
+			MethodName: "GetDataPolicy",
+			Handler:    _DataPolicyService_GetDataPolicy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
