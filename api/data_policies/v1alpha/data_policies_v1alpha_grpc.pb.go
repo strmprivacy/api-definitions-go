@@ -26,6 +26,14 @@ type DataPolicyServiceClient interface {
 	UpsertDataPolicy(ctx context.Context, in *UpsertDataPolicyRequest, opts ...grpc.CallOption) (*UpsertDataPolicyResponse, error)
 	// returns latest policy for an id
 	GetDataPolicy(ctx context.Context, in *GetDataPolicyRequest, opts ...grpc.CallOption) (*GetDataPolicyResponse, error)
+	// return configured processing platforms in DPS
+	ListProcessingPlatforms(ctx context.Context, in *ListProcessingPlatformsRequest, opts ...grpc.CallOption) (*ListProcessingPlatformsResponse, error)
+	// return table names as known by the platform
+	ListProcessingPlatformTables(ctx context.Context, in *ListProcessingPlatformTablesRequest, opts ...grpc.CallOption) (*ListProcessingPlatformTablesResponse, error)
+	// return groups as known by the platform
+	ListProcessingPlatformGroups(ctx context.Context, in *ListProcessingPlatformGroupsRequest, opts ...grpc.CallOption) (*ListProcessingPlatformGroupsResponse, error)
+	// return a data-policy without rules sets as built from the table description on the platform
+	GetProcessingPlatformBarePolicy(ctx context.Context, in *GetProcessingPlatformBarePolicyRequest, opts ...grpc.CallOption) (*GetProcessingPlatformBarePolicyResponse, error)
 }
 
 type dataPolicyServiceClient struct {
@@ -63,6 +71,42 @@ func (c *dataPolicyServiceClient) GetDataPolicy(ctx context.Context, in *GetData
 	return out, nil
 }
 
+func (c *dataPolicyServiceClient) ListProcessingPlatforms(ctx context.Context, in *ListProcessingPlatformsRequest, opts ...grpc.CallOption) (*ListProcessingPlatformsResponse, error) {
+	out := new(ListProcessingPlatformsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/ListProcessingPlatforms", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dataPolicyServiceClient) ListProcessingPlatformTables(ctx context.Context, in *ListProcessingPlatformTablesRequest, opts ...grpc.CallOption) (*ListProcessingPlatformTablesResponse, error) {
+	out := new(ListProcessingPlatformTablesResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/ListProcessingPlatformTables", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dataPolicyServiceClient) ListProcessingPlatformGroups(ctx context.Context, in *ListProcessingPlatformGroupsRequest, opts ...grpc.CallOption) (*ListProcessingPlatformGroupsResponse, error) {
+	out := new(ListProcessingPlatformGroupsResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/ListProcessingPlatformGroups", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dataPolicyServiceClient) GetProcessingPlatformBarePolicy(ctx context.Context, in *GetProcessingPlatformBarePolicyRequest, opts ...grpc.CallOption) (*GetProcessingPlatformBarePolicyResponse, error) {
+	out := new(GetProcessingPlatformBarePolicyResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/GetProcessingPlatformBarePolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DataPolicyServiceServer is the server API for DataPolicyService service.
 // All implementations should embed UnimplementedDataPolicyServiceServer
 // for forward compatibility
@@ -71,6 +115,14 @@ type DataPolicyServiceServer interface {
 	UpsertDataPolicy(context.Context, *UpsertDataPolicyRequest) (*UpsertDataPolicyResponse, error)
 	// returns latest policy for an id
 	GetDataPolicy(context.Context, *GetDataPolicyRequest) (*GetDataPolicyResponse, error)
+	// return configured processing platforms in DPS
+	ListProcessingPlatforms(context.Context, *ListProcessingPlatformsRequest) (*ListProcessingPlatformsResponse, error)
+	// return table names as known by the platform
+	ListProcessingPlatformTables(context.Context, *ListProcessingPlatformTablesRequest) (*ListProcessingPlatformTablesResponse, error)
+	// return groups as known by the platform
+	ListProcessingPlatformGroups(context.Context, *ListProcessingPlatformGroupsRequest) (*ListProcessingPlatformGroupsResponse, error)
+	// return a data-policy without rules sets as built from the table description on the platform
+	GetProcessingPlatformBarePolicy(context.Context, *GetProcessingPlatformBarePolicyRequest) (*GetProcessingPlatformBarePolicyResponse, error)
 }
 
 // UnimplementedDataPolicyServiceServer should be embedded to have forward compatible implementations.
@@ -85,6 +137,18 @@ func (UnimplementedDataPolicyServiceServer) UpsertDataPolicy(context.Context, *U
 }
 func (UnimplementedDataPolicyServiceServer) GetDataPolicy(context.Context, *GetDataPolicyRequest) (*GetDataPolicyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataPolicy not implemented")
+}
+func (UnimplementedDataPolicyServiceServer) ListProcessingPlatforms(context.Context, *ListProcessingPlatformsRequest) (*ListProcessingPlatformsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProcessingPlatforms not implemented")
+}
+func (UnimplementedDataPolicyServiceServer) ListProcessingPlatformTables(context.Context, *ListProcessingPlatformTablesRequest) (*ListProcessingPlatformTablesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProcessingPlatformTables not implemented")
+}
+func (UnimplementedDataPolicyServiceServer) ListProcessingPlatformGroups(context.Context, *ListProcessingPlatformGroupsRequest) (*ListProcessingPlatformGroupsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProcessingPlatformGroups not implemented")
+}
+func (UnimplementedDataPolicyServiceServer) GetProcessingPlatformBarePolicy(context.Context, *GetProcessingPlatformBarePolicyRequest) (*GetProcessingPlatformBarePolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProcessingPlatformBarePolicy not implemented")
 }
 
 // UnsafeDataPolicyServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -152,6 +216,78 @@ func _DataPolicyService_GetDataPolicy_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DataPolicyService_ListProcessingPlatforms_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProcessingPlatformsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataPolicyServiceServer).ListProcessingPlatforms(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/ListProcessingPlatforms",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataPolicyServiceServer).ListProcessingPlatforms(ctx, req.(*ListProcessingPlatformsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DataPolicyService_ListProcessingPlatformTables_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProcessingPlatformTablesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataPolicyServiceServer).ListProcessingPlatformTables(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/ListProcessingPlatformTables",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataPolicyServiceServer).ListProcessingPlatformTables(ctx, req.(*ListProcessingPlatformTablesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DataPolicyService_ListProcessingPlatformGroups_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListProcessingPlatformGroupsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataPolicyServiceServer).ListProcessingPlatformGroups(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/ListProcessingPlatformGroups",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataPolicyServiceServer).ListProcessingPlatformGroups(ctx, req.(*ListProcessingPlatformGroupsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DataPolicyService_GetProcessingPlatformBarePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProcessingPlatformBarePolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataPolicyServiceServer).GetProcessingPlatformBarePolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/GetProcessingPlatformBarePolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataPolicyServiceServer).GetProcessingPlatformBarePolicy(ctx, req.(*GetProcessingPlatformBarePolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DataPolicyService_ServiceDesc is the grpc.ServiceDesc for DataPolicyService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -170,6 +306,22 @@ var DataPolicyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDataPolicy",
 			Handler:    _DataPolicyService_GetDataPolicy_Handler,
+		},
+		{
+			MethodName: "ListProcessingPlatforms",
+			Handler:    _DataPolicyService_ListProcessingPlatforms_Handler,
+		},
+		{
+			MethodName: "ListProcessingPlatformTables",
+			Handler:    _DataPolicyService_ListProcessingPlatformTables_Handler,
+		},
+		{
+			MethodName: "ListProcessingPlatformGroups",
+			Handler:    _DataPolicyService_ListProcessingPlatformGroups_Handler,
+		},
+		{
+			MethodName: "GetProcessingPlatformBarePolicy",
+			Handler:    _DataPolicyService_GetProcessingPlatformBarePolicy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
