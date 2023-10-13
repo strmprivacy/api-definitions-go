@@ -38,6 +38,8 @@ type DataPolicyServiceClient interface {
 	ListDatabases(ctx context.Context, in *ListDatabasesRequest, opts ...grpc.CallOption) (*ListDatabasesResponse, error)
 	ListSchemas(ctx context.Context, in *ListSchemasRequest, opts ...grpc.CallOption) (*ListSchemasResponse, error)
 	ListTables(ctx context.Context, in *ListTablesRequest, opts ...grpc.CallOption) (*ListTablesResponse, error)
+	// return a data-policy without rules sets as built from the table description on the platform
+	GetCatalogBarePolicy(ctx context.Context, in *GetCatalogBarePolicyRequest, opts ...grpc.CallOption) (*GetCatalogBarePolicyResponse, error)
 }
 
 type dataPolicyServiceClient struct {
@@ -147,6 +149,15 @@ func (c *dataPolicyServiceClient) ListTables(ctx context.Context, in *ListTables
 	return out, nil
 }
 
+func (c *dataPolicyServiceClient) GetCatalogBarePolicy(ctx context.Context, in *GetCatalogBarePolicyRequest, opts ...grpc.CallOption) (*GetCatalogBarePolicyResponse, error) {
+	out := new(GetCatalogBarePolicyResponse)
+	err := c.cc.Invoke(ctx, "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/GetCatalogBarePolicy", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DataPolicyServiceServer is the server API for DataPolicyService service.
 // All implementations should embed UnimplementedDataPolicyServiceServer
 // for forward compatibility
@@ -167,6 +178,8 @@ type DataPolicyServiceServer interface {
 	ListDatabases(context.Context, *ListDatabasesRequest) (*ListDatabasesResponse, error)
 	ListSchemas(context.Context, *ListSchemasRequest) (*ListSchemasResponse, error)
 	ListTables(context.Context, *ListTablesRequest) (*ListTablesResponse, error)
+	// return a data-policy without rules sets as built from the table description on the platform
+	GetCatalogBarePolicy(context.Context, *GetCatalogBarePolicyRequest) (*GetCatalogBarePolicyResponse, error)
 }
 
 // UnimplementedDataPolicyServiceServer should be embedded to have forward compatible implementations.
@@ -205,6 +218,9 @@ func (UnimplementedDataPolicyServiceServer) ListSchemas(context.Context, *ListSc
 }
 func (UnimplementedDataPolicyServiceServer) ListTables(context.Context, *ListTablesRequest) (*ListTablesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListTables not implemented")
+}
+func (UnimplementedDataPolicyServiceServer) GetCatalogBarePolicy(context.Context, *GetCatalogBarePolicyRequest) (*GetCatalogBarePolicyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCatalogBarePolicy not implemented")
 }
 
 // UnsafeDataPolicyServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -416,6 +432,24 @@ func _DataPolicyService_ListTables_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DataPolicyService_GetCatalogBarePolicy_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCatalogBarePolicyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DataPolicyServiceServer).GetCatalogBarePolicy(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/strmprivacy.api.data_policies.v1alpha.DataPolicyService/GetCatalogBarePolicy",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DataPolicyServiceServer).GetCatalogBarePolicy(ctx, req.(*GetCatalogBarePolicyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DataPolicyService_ServiceDesc is the grpc.ServiceDesc for DataPolicyService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -466,6 +500,10 @@ var DataPolicyService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListTables",
 			Handler:    _DataPolicyService_ListTables_Handler,
+		},
+		{
+			MethodName: "GetCatalogBarePolicy",
+			Handler:    _DataPolicyService_GetCatalogBarePolicy_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
